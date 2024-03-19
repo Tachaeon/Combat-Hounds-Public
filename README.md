@@ -59,7 +59,7 @@ Click on your Computer Name at the top of the main menu produces a toast notific
             <tr>
                 <td>Start “Elevated Applications”. Will run in an elevated context.<br>Any applications that run from Wet-Floor will be elevated.</td>
                 <td>
-                    <figure class="image"><img src="https://raw.githubusercontent.com/Tachaeon/Combat-Hounds-Public/main/Images/Wet-Floor.png"></figure>
+                    <figure class="image"><img src="https://raw.githubusercontent.com/Tachaeon/Combat-Hounds-Public/main/Images/Wet-Floor2.png"></figure>
                 </td>
             </tr>
         </tbody>
