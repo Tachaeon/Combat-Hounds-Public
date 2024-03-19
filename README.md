@@ -8,6 +8,8 @@ A system tray, menu application written in powershell.
 ## How to use
 PowerShell.exe -ExecutionPolicy Bypass -File .\Combat-Hounds.ps1
 
+Click on your Computer Name at the top of the main menu produces a toast notification and sets the computername in the clipboard for pasting.
+
 ## Images
 <figure class="table">
     <table>
