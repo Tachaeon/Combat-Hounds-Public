@@ -6,9 +6,8 @@
 A system tray, menu application written in powershell.
 
 ## How to use
-PowerShell.exe -ExecutionPolicy Bypass -File .\Combat-Hounds.ps1
-
-Click on your Computer Name at the top of the main menu produces a toast notification and sets the Computer Name in the clipboard for pasting.
+- PowerShell.exe -ExecutionPolicy Bypass -File .\Combat-Hounds.ps1
+- Click on your Computer Name at the top of the main menu produces a toast notification and sets the Computer Name in the clipboard for pasting.
 <p align="center">
   <img src="https://raw.githubusercontent.com/Tachaeon/Combat-Hounds-Public/main/Images/Computer_Name.png" />
 </p>
