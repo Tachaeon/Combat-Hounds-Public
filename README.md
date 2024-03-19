@@ -55,7 +55,7 @@ PowerShell.exe -ExecutionPolicy Bypass -File .\Combat-Hounds.ps1
                 </td>
             </tr>
             <tr>
-                <td>Start “Elevated Applications”. Will run in an elevated context<br>and any applications that run from Wet-Floor will be elevated.</td>
+                <td>Start “Elevated Applications”. Will run in an elevated context.<br>Any applications that run from Wet-Floor will be elevated.</td>
                 <td>
                     <figure class="image"><img src="https://raw.githubusercontent.com/Tachaeon/Combat-Hounds-Public/main/Images/Wet-Floor.png"></figure>
                 </td>
