@@ -264,23 +264,23 @@ $Menu1_Pass_Gen.add_Click({
         $lblpassphrase = New-Object System.Windows.Forms.Label
         $lblpassphrase.Text = "Passphrase:"
         $lblpassphrase.AutoSize = $true
-        $lblpassphrase.Location = New-Object System.Drawing.Point(10, 18)
+        $lblpassphrase.Location = New-Object System.Drawing.Point(6, 18)
 
         # Create textbox for passphrase
         $txtpassphrase = New-Object System.Windows.Forms.TextBox
         $txtpassphrase.Width = 90
-        $txtpassphrase.Location = New-Object System.Drawing.Point(85, 15)
+        $txtpassphrase.Location = New-Object System.Drawing.Point(81, 15)
 
         # Create label for password length
         $lblPasswordLength = New-Object System.Windows.Forms.Label
         $lblPasswordLength.Text = "Length:"
         $lblPasswordLength.AutoSize = $true
-        $lblPasswordLength.Location = New-Object System.Drawing.Point(180, 18)
+        $lblPasswordLength.Location = New-Object System.Drawing.Point(174, 18)
 
         # Create textbox for password length
         $txtPasswordLength = New-Object System.Windows.Forms.TextBox
         $txtPasswordLength.Width = 45
-        $txtPasswordLength.Location = New-Object System.Drawing.Point(230, 15)
+        $txtPasswordLength.Location = New-Object System.Drawing.Point(226, 15)
         $txtPasswordLength.Add_KeyDown({
                 if ($_.KeyCode -eq 'Enter') {
                     $btnGenerate.PerformClick()
@@ -290,12 +290,12 @@ $Menu1_Pass_Gen.add_Click({
         # Create the checkbox
         $checkBox = New-Object System.Windows.Forms.CheckBox
         $checkBox.Text = "1-Click"
-        $checkBox.Location = New-Object System.Drawing.Point(290, 14)
+        $checkBox.Location = New-Object System.Drawing.Point(284, 14)
 
         # Create a label to display the slider Days value
         $lblDays = New-Object System.Windows.Forms.Label
         $lblDays.Text = "Days: 7"
-        $lblDays.Location = New-Object System.Drawing.Point(30, 55)
+        $lblDays.Location = New-Object System.Drawing.Point(24, 55)
         $lblDays.Width = 80
 
         # Create the Day slider
@@ -303,7 +303,7 @@ $Menu1_Pass_Gen.add_Click({
         $sliderDays.Minimum = 0
         $sliderDays.Maximum = 10
         $sliderDays.Value = 7
-        $sliderDays.Location = New-Object System.Drawing.Point(100, 45)
+        $sliderDays.Location = New-Object System.Drawing.Point(94, 45)
         $sliderDays.Width = 255
 
         # Add an event handler for the Day ValueChanged event
@@ -314,7 +314,7 @@ $Menu1_Pass_Gen.add_Click({
         # Create a label to display the slider Views value
         $lblViews = New-Object System.Windows.Forms.Label
         $lblViews.Text = "Views: 5"
-        $lblViews.Location = New-Object System.Drawing.Point(30, 95)
+        $lblViews.Location = New-Object System.Drawing.Point(24, 95)
         $lblViews.Width = 80
 
         # Create the View slider
@@ -322,7 +322,7 @@ $Menu1_Pass_Gen.add_Click({
         $sliderViews.Minimum = 0
         $sliderViews.Maximum = 10
         $sliderViews.Value = 5
-        $sliderViews.Location = New-Object System.Drawing.Point(100, 85)
+        $sliderViews.Location = New-Object System.Drawing.Point(94, 85)
         $sliderViews.Width = 255
 
         # Add an event handler for the View ValueChanged event
@@ -335,7 +335,7 @@ $Menu1_Pass_Gen.add_Click({
         $btnGenerate.Text = "Generate Password"
         $btnGenerate.Width = 150
         $btnGenerate.Height = 36
-        $btnGenerate.Location = New-Object System.Drawing.Point(105, 135)
+        $btnGenerate.Location = New-Object System.Drawing.Point(99, 135)
         $btnGenerate.Add_Click({
                 if ($checkBox.Checked) {
                     $1click = "/r"
@@ -391,7 +391,7 @@ $Menu1_Pass_Gen.add_Click({
         $outputTextBox.Multiline = $true
         $outputTextBox.Width = 340
         $outputTextBox.Height = 49
-        $outputTextBox.Location = New-Object System.Drawing.Point(10, 179)
+        $outputTextBox.Location = New-Object System.Drawing.Point(6, 179)
         $outputTextBox.ReadOnly = $true
         $outputTextBox.TabStop = $false
         $outputTextBox.BackColor = [System.Drawing.Color]::White
@@ -400,14 +400,14 @@ $Menu1_Pass_Gen.add_Click({
         $PWPushnotif = New-Object System.Windows.Forms.Label
         $PWPushnotif.Text = "PWPush URL:"
         $PWPushnotif.AutoSize = $true
-        $PWPushnotif.Location = New-Object System.Drawing.Point(10, 237)
+        $PWPushnotif.Location = New-Object System.Drawing.Point(6, 237)
 
         # Create textbox for pwpushurl
         $pwpushTextBox = New-Object System.Windows.Forms.TextBox
         $pwpushTextBox.Multiline = $true
         $pwpushTextBox.Width = 340
         $pwpushTextBox.Height = 20
-        $pwpushTextBox.Location = New-Object System.Drawing.Point(10, 255)
+        $pwpushTextBox.Location = New-Object System.Drawing.Point(6, 255)
         $pwpushTextBox.ReadOnly = $true
         $pwpushTextBox.TabStop = $false
         $pwpushTextBox.BackColor = [System.Drawing.Color]::White
@@ -417,7 +417,7 @@ $Menu1_Pass_Gen.add_Click({
         $passClip.Text = "Password to Clipboard"
         $passClip.Width = 110
         $passClip.Height = 36
-        $passClip.Location = New-Object System.Drawing.Point(50, 289)
+        $passClip.Location = New-Object System.Drawing.Point(44, 289)
         $passClip.Add_Click({
                 Set-Clipboard $outputTextBox.Text
             })
@@ -427,7 +427,7 @@ $Menu1_Pass_Gen.add_Click({
         $pwpushClip.Text = "PWPush URL to Clipboard"
         $pwpushClip.Width = 110
         $pwpushClip.Height = 36
-        $pwpushClip.Location = New-Object System.Drawing.Point(205, 289)
+        $pwpushClip.Location = New-Object System.Drawing.Point(199, 289)
         $pwpushClip.Add_Click({
                 Set-Clipboard $pwpushTextBox.Text
             })
@@ -1152,7 +1152,7 @@ $Menu4_Speed_Test.add_Click({
         $container2.Text = "Speed Test:"
         $container2.Width = 380
         $container2.Height = 125
-        $container2.Location = New-Object System.Drawing.Point(10, 10)
+        $container2.Location = New-Object System.Drawing.Point(6, 10)
 
         # Controls inside container 1
         $label23 = New-Object System.Windows.Forms.Label
@@ -1303,7 +1303,7 @@ $Menu4_Speed_Test.add_Click({
         $container3.Text = "Speed Test URL:"
         $container3.Width = 380
         $container3.Height = 55
-        $container3.Location = New-Object System.Drawing.Point(10, 145)
+        $container3.Location = New-Object System.Drawing.Point(6, 145)
 
         # Controls inside container 3
         $textbox3 = New-Object System.Windows.Forms.TextBox
@@ -1332,7 +1332,7 @@ $Menu4_Speed_Test.add_Click({
         $container4.Text = "Progress:"
         $container4.Width = 380
         $container4.Height = 38
-        $container4.Location = New-Object System.Drawing.Point(10, 207)
+        $container4.Location = New-Object System.Drawing.Point(6, 207)
 
         $progressBar = New-Object Windows.Forms.ProgressBar
         $progressBar.Name = "ProgressBar"
@@ -1350,7 +1350,7 @@ $Menu4_Speed_Test.add_Click({
         $buttonOK.Text = "Run Test"
         $buttonOK.Width = 150
         $buttonOK.Height = 36
-        $buttonOK.Location = New-Object System.Drawing.Point(32, 258)
+        $buttonOK.Location = New-Object System.Drawing.Point(28, 252)
         $buttonOK.Add_Click({
                 $buttonOK.Enabled = $false
                 $form.Cursor = [System.Windows.Forms.Cursors]::WaitCursor
@@ -1361,7 +1361,7 @@ $Menu4_Speed_Test.add_Click({
         # Create button for open URL in browser
         $URLClip = New-Object System.Windows.Forms.Button
         $URLClip.Text = "Open URL in Browser"
-        $URLClip.Location = New-Object System.Drawing.Point(217, 258)
+        $URLClip.Location = New-Object System.Drawing.Point(211, 252)
         $URLClip.Width = 150
         $URLClip.Height = 36
         $URLClip.Enabled = $false
