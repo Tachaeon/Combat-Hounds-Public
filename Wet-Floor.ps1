@@ -46,33 +46,6 @@ $Active_Directory.add_Click({
         }
     })
 
-#Active Directory Intune Edition
-$ADIE = $contextmenu.Items.Add("Active Directory Intune Edition")
-$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAER0lEQVRIS91UXWwUVRg9d+d/d/aHdsuWbQWFtpQfSTTypIlINGokNib6ZGJMfMBEw6v6Vl+MEoyBBBMeBI0aBAIPYID4oBASo6TFYmgBS7u73YXdme7ObHd3dnb+7nhLYgIPhRolMd7JzZ3J3HvOd865+Qge8CAPGB//DYKjR1/jsiknY2jG01a5qMBzNISuKVBqd1pUCsHHvcBOi5y8whHUTTTCFVdF6YEdH8yZ91QQhvuk0vXm+kqpsYOX0i+3veDxwJnmQ1ezArfWJtR0aWAL8DtSy5RUXeeqphP/sR2Ie0c/G7u4aP+SBNrs51vmdf2dhdr8812ZLdn+ge2CEkuzIwYonUNIrwHhVXQas9ALK1BpbA4rerkpK3QqDJ3znufnInZw5C4CM3coVbftYddxdzUt7yU5mkj0rYqB+DNo12fht2ugXhPUqcFzW/BoEh3xBWitFHs3sWljPzIr03B8HxOXJkM/6HnxNsG1S59ki3PFbb3Z3lcFUX1Kivb0dPX0IaZGgcBioDpcOw/HmMTCrTFYCx7C2JNoYgPqtoPubh7rBh5CTJFRMwzkZm+iWm34ltv1Ovnh1K63T548t7NmWOv61/THB4eGsHbtIDKZfiiKyjx00F6YYcAXsXDzIhLdj6L7kREU52sI/BY2bFyDbDYD1+lgNjeLM2ensfWJRTLiffXNz6+Qs8fepRNX/iDFUgVlrQ7CCYgnUuhiM8EUxBWCqOQiKlNkenuRXf8sKloOK5IShjc8DIHnoWka5oolmHUKNSZDVeMwai3n+InzI6ScP+SGxBcsqwmtUoVpNOB6lAVJIQo8OI5jpBx4QYIksSkKWJXtQW8mjUargcqtm6x6D0bDh645GBjoQ6Omm+3KxJcT1298RLTCQVdJxIQIYXEQiW0msDse2m1G5DQR4UJWkQJFkhmZAEUWEYQUhXwOzWYTyUQMP10oQpJlbBxeg+qNC5PN8tX3vOqVc2/sgUX04kFPUeM8CAuUJECIgAjhELLH913YloG2XQb1O0yByJQFrFIdXCQCUVIwV2ogEpEgcjCbhfMnKtNX39/56a3qXy2IFKf2X44m06t5JZPkxRhBGLL7vfibUbCV0hA0bDGCKiNcDHIGMrOKBgTzNZfZanm9an3cnBvf19J/+/6t3exy3THI5dOj/aIaXcdLyW2CHH1OTa/cKsdTIsf8D4IAgRvAD1ymymDTQaGQYzlwGL9ch1GZt/ukqQP10szeNz+uFJjJt0u7i+DOj+nT+yRbaA/xEX4knl39TDTZNUAEOcV0qBFSYzE5yDPv8/kFj3O0G7Xfv/sw94t9fPQc/KW68pKtYmzsgKCYrc2cGh0UFHW7EvOHOYl7rJSfco8fOXPY16/t333MuX6/dr+sdj12ajQqiDFVXZ1M1Qu/0sPfflHe8zWs+4Hfs9kt5/By9ixLwXKA/nYG/wR0yVv0b4H+vwj+BByiDCpt1NN/AAAAAElFTkSuQmCC'
-$IconBytes = [Convert]::FromBase64String($IconBase64)
-$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-$ADIE_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-$ADIE.Image = $ADIE_Picture
-
-$ADIE.add_Click({
-        $Filename = "C:\windows\system32\dsa.msc"
-        If (Test-Path -Path $FileName) {
-            $ADIexe = "C:\ProgramData\Combat-Hounds\Active_Directory_Intune.exe"
-            Start-Process -FilePath $ADIexe -Verb Runas
-        }
-        else {
-            $Continue = [System.Windows.MessageBox]::Show("Do you want to install Active Directory Users and Computers?", "Active Directory Users and Computers", 'YesNo', 'Warning')
-            if ($Continue -eq 'Yes') {
-                Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer" -Value 0
-                Restart-Service wuauserv
-                Add-WindowsCapability -Online -Name Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0
-                Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer" -Value 1
-                Restart-Service wuauserv
-            }
-            Start-Process -FilePath $ADIexe -Verb Runas
-        }
-    })
-
 #Command Prompt
 $CMD = $contextmenu.Items.Add("Command Prompt")
 $CMD_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\cmd.exe")
