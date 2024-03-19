@@ -10,35 +10,31 @@ $Version = "3.0"
 [void] [System.Reflection.Assembly]::LoadWithPartialName("PresentationFramework") 
 [void] [System.Reflection.Assembly]::LoadWithPartialName("WindowsFormsIntegration") 
 
-#Stop Duplicates of Combat-Hounds from executing.
-$processPID = (Get-Process -Name Combat-Hounds -ErrorAction SilentlyContinue).Id
-$existingProcess = (Get-Process -Id $processPID -ErrorAction SilentlyContinue).id 
-if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
-    # Create object for the systray 
-    $Systray_Tool_Icon = New-Object System.Windows.Forms.NotifyIcon
+# Create object for the systray 
+$Systray_Tool_Icon = New-Object System.Windows.Forms.NotifyIcon
 
-    # Text displayed when you pass the mouse over the systray icon
-    $Systray_Tool_Icon.Text = "Combat-Hounds"
+# Text displayed when you pass the mouse over the systray icon
+$Systray_Tool_Icon.Text = "Combat-Hounds"
 
-    #Systray icon
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Systray_Tool_Icon.Icon = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Systray_Tool_Icon.Visible = $true
+#Systray icon
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Systray_Tool_Icon.Icon = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Systray_Tool_Icon.Visible = $true
 
-    # Create object for the systray 
-    $contextmenu = New-Object System.Windows.Forms.ContextMenuStrip
+# Create object for the systray 
+$contextmenu = New-Object System.Windows.Forms.ContextMenuStrip
     
-    #Computer Name
-    $Menu_ComputerName = $contextmenu.Items.Add("$env:computername")
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABfUlEQVRIS2NkoANgpIMdDNSwpAfoUAc0x5oC+f+B+AwQm1BsSUhawX9WNjasAfL23WuGXcvmU8UnIBfjBSCfEFSEz4TWKfMZODg4sfvkwweGtpIMsE/+985ZQcgxOA3h5mBnePf6FcO/f38x1HDyCyEsAcm2FoURb9HP9wzVU3czVPXMABtCCMCD69/tZYTUIuQ/32dgMqoGWyIrLsHAwcmFVe+7D+8YilMiIMEFUkGJJZmxAVgtYWVlY/j9+xflltAluG7dusFATD6hKLhGLSGclJGSMHJw/fj6lWH9/KkMkTllYDOQyy6yixVQPkG2ZPmULoYvNTUMPC0tYItQLKGkWEG3BBYM6JaAxJdCJaOR2AzyalpRIPGHt66BKKxFArCojyImCeOMg8LmPnBQ9tcWgSisdQ96fQIKMmxxgm4JoThCsYxsS7DF0bfv3xm+//wJKnVvAF2lCXMZJTUjqG7GBp4BBf3QJLqAfCc86Z7yOp5wpsIRmcRoJEUNAKDb9Afh99TOAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu_ComputerName_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu_ComputerName.Image = $Menu_ComputerName_Picture
+#Computer Name
+$Menu_ComputerName = $contextmenu.Items.Add("$env:computername")
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABfUlEQVRIS2NkoANgpIMdDNSwpAfoUAc0x5oC+f+B+AwQm1BsSUhawX9WNjasAfL23WuGXcvmU8UnIBfjBSCfEFSEz4TWKfMZODg4sfvkwweGtpIMsE/+985ZQcgxOA3h5mBnePf6FcO/f38x1HDyCyEsAcm2FoURb9HP9wzVU3czVPXMABtCCMCD69/tZYTUIuQ/32dgMqoGWyIrLsHAwcmFVe+7D+8YilMiIMEFUkGJJZmxAVgtYWVlY/j9+xflltAluG7dusFATD6hKLhGLSGclJGSMHJw/fj6lWH9/KkMkTllYDOQyy6yixVQPkG2ZPmULoYvNTUMPC0tYItQLKGkWEG3BBYM6JaAxJdCJaOR2AzyalpRIPGHt66BKKxFArCojyImCeOMg8LmPnBQ9tcWgSisdQ96fQIKMmxxgm4JoThCsYxsS7DF0bfv3xm+//wJKnVvAF2lCXMZJTUjqG7GBp4BBf3QJLqAfCc86Z7yOp5wpsIRmcRoJEUNAKDb9Afh99TOAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu_ComputerName_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu_ComputerName.Image = $Menu_ComputerName_Picture
 
-    $Menu_Computername.add_Click({
+$Menu_Computername.add_Click({
         Set-Clipboard $env:computername
         #Toast
         $subTitle = "$env:computername"
@@ -47,83 +43,82 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Toast
     })
 
-    #Separator
-    $Separator1 = New-Object System.Windows.Forms.ToolStripSeparator
-    $contextmenu.Items.Add($Separator1)
+#Separator
+$Separator1 = New-Object System.Windows.Forms.ToolStripSeparator
+$contextmenu.Items.Add($Separator1)
 
-    #Application Menu
-    $Application_Menu = $contextmenu.Items.Add("Applications")
-    $IconBase64 = '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'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Application_Menu_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Application_Menu.Image = $Application_Menu_Picture
+#Application Menu
+$Application_Menu = $contextmenu.Items.Add("Applications")
+$IconBase64 = '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'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Application_Menu_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Application_Menu.Image = $Application_Menu_Picture
 
-    #Bookmarks Menu
-    $Bookmarks_Menu = $contextmenu.Items.Add("Bookmarks")
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEF0lEQVRIS4VWWUhVQRieOV7TIsuMFsESt9IumhvVQ7iVRGa0QMvNniKMnnoKohXb6K2I0oQCMTOLCIwie4gCF9KWq6Kp5bVegrKyRU2re2f6/3/OnHtuV2sunjPnzJzv/75/Gzn7z/hYkO2SnNdKiRslM+CCU/jjkjPX/IfP6v4FwSdbHCzIFoDE4QdIUgq46b34DEucgy39Pvrxiwmxgl6+ycsLn8qHxwiMWMOAXQippgBrLmhV2vDotOHwpPv9P+2kAwy8z8vYDsyuExCxBpIARjKItU0FsVcqyF/wDaoJYdw1v9Ftuc0ygMzDxLcxgoKN+o5fc7jYwS1hfxnVoscjRi0lloF3OenSACBkYfMMOcNQQMQQPyBZ8EYrtFyiYwMbFjR3EjZdsuo2i/qLA1wDYQBJt6klNC6Rzau+FZAPsnubFKMeM9KSGwaQA4u4yTCBQpa7DXqReX2T2N/wga/sH1GxNSWgf2NMJsvLvlm+wz2tx2bSXtGWQSlFUjHjzODh3LGig/PMuk0l0itrIMFl/QUPLPuJLmzpZCPjkuWf+R7AXj88OjCDTQ/nzPdkKWWWP2MUiDDEXp5+dYMqIYQGiXcqBojplPgkFn3tNss69tUCt6eonj8vi2Syc6MUP/p1QpEhZRB+adXrBaBbxuvLPZSisa3dPOOoAlcfqKHn+gN87z4eybwtySoDbCmGuDy1qpgyUOUlTclVcW0vWfqRL37X2BHJkpnIMG0/MYv5WhYT6xAr2GZhOqvWCW5GX1OsLx9g8WAgzW5gwiiol51gwNucYHOlnoKbnFeKzBhgGFQNINmuXfdY6uGhINf87TJ87joZxbxNcSY/VZJm7XOecnmtP28w2VANyNwyPJeX7atizkND/+DOWPepKCbdhdI30kcdxaBOCL6HO9YFd14qcvkMURuEAht6djfwYUjTZccnNtJ2NIpFQJp6G2MoulBVUlBNwBxIgp2dFLrFlWvQORAj1buUVhXE3j0P6DH54Ge6a7l9p2fTs2iKpgaBaHoVDWHAHTmDqpIXVRSq9NHFgtZVoyHARVFx7O7WygCRxTdL2euht6w7pZ3YInNSQC1WsXTkflIGcCSWr4YDyj9U5NUzdEHJhb9WNJcepxtZkNP1l+QaMOLIG/I3O1zMqiwN/frb80tvtNcM1SUAwRlpAUUYXvY0pSNAFfUhUOIYmxPOi9TBYyfN4s8Xuhj3+QOODRXdpmhad8yyV0ueU9bYOqM6qLl0OfJHgg8cy1Xn14b55Ng4xQR9qXIaDwowo+J0I6GXZU7DzqsaHPZ5AS50zBidwrPZb7usAAX2hdhzuRiBwCZpbuhPa1MzrEzsk3AJyR+HfziCx6QG9NbYszkloKPG7PjMk9ZqpTIA73Cs+kVn+GTjD1HmBQro0ZHdAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Bookmarks_Menu_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Bookmarks_Menu.Image = $Bookmarks_Menu_Picture
+#Bookmarks Menu
+$Bookmarks_Menu = $contextmenu.Items.Add("Bookmarks")
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEF0lEQVRIS4VWWUhVQRieOV7TIsuMFsESt9IumhvVQ7iVRGa0QMvNniKMnnoKohXb6K2I0oQCMTOLCIwie4gCF9KWq6Kp5bVegrKyRU2re2f6/3/OnHtuV2sunjPnzJzv/75/Gzn7z/hYkO2SnNdKiRslM+CCU/jjkjPX/IfP6v4FwSdbHCzIFoDE4QdIUgq46b34DEucgy39Pvrxiwmxgl6+ycsLn8qHxwiMWMOAXQippgBrLmhV2vDotOHwpPv9P+2kAwy8z8vYDsyuExCxBpIARjKItU0FsVcqyF/wDaoJYdw1v9Ftuc0ygMzDxLcxgoKN+o5fc7jYwS1hfxnVoscjRi0lloF3OenSACBkYfMMOcNQQMQQPyBZ8EYrtFyiYwMbFjR3EjZdsuo2i/qLA1wDYQBJt6klNC6Rzau+FZAPsnubFKMeM9KSGwaQA4u4yTCBQpa7DXqReX2T2N/wga/sH1GxNSWgf2NMJsvLvlm+wz2tx2bSXtGWQSlFUjHjzODh3LGig/PMuk0l0itrIMFl/QUPLPuJLmzpZCPjkuWf+R7AXj88OjCDTQ/nzPdkKWWWP2MUiDDEXp5+dYMqIYQGiXcqBojplPgkFn3tNss69tUCt6eonj8vi2Syc6MUP/p1QpEhZRB+adXrBaBbxuvLPZSisa3dPOOoAlcfqKHn+gN87z4eybwtySoDbCmGuDy1qpgyUOUlTclVcW0vWfqRL37X2BHJkpnIMG0/MYv5WhYT6xAr2GZhOqvWCW5GX1OsLx9g8WAgzW5gwiiol51gwNucYHOlnoKbnFeKzBhgGFQNINmuXfdY6uGhINf87TJ87joZxbxNcSY/VZJm7XOecnmtP28w2VANyNwyPJeX7atizkND/+DOWPepKCbdhdI30kcdxaBOCL6HO9YFd14qcvkMURuEAht6djfwYUjTZccnNtJ2NIpFQJp6G2MoulBVUlBNwBxIgp2dFLrFlWvQORAj1buUVhXE3j0P6DH54Ge6a7l9p2fTs2iKpgaBaHoVDWHAHTmDqpIXVRSq9NHFgtZVoyHARVFx7O7WygCRxTdL2euht6w7pZ3YInNSQC1WsXTkflIGcCSWr4YDyj9U5NUzdEHJhb9WNJcepxtZkNP1l+QaMOLIG/I3O1zMqiwN/frb80tvtNcM1SUAwRlpAUUYXvY0pSNAFfUhUOIYmxPOi9TBYyfN4s8Xuhj3+QOODRXdpmhad8yyV0ueU9bYOqM6qLl0OfJHgg8cy1Xn14b55Ng4xQR9qXIaDwowo+J0I6GXZU7DzqsaHPZ5AS50zBidwrPZb7usAAX2hdhzuRiBwCZpbuhPa1MzrEzsk3AJyR+HfziCx6QG9NbYszkloKPG7PjMk9ZqpTIA73Cs+kVn+GTjD1HmBQro0ZHdAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+[System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Bookmarks_Menu_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Bookmarks_Menu.Image = $Bookmarks_Menu_Picture
 
-    #Customize Windows Menu
-    $Customize_Menu = $contextmenu.Items.Add("Customize Windows")
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAh0lEQVRIS2P84afzn4FIwPj/n05dNjcDIxPDFSK1MDCOWkAoqEaDiFAIjaYigiFEhyD66aulTdgdEBVsf37dyctlYOBiElQhVg8jw4LnRFvAICZx5z+DFwMD0xsSLFj4iujCjuH/X53/En5AxzMSX9gxjFpAILYZR4OIUH4YDSJCIcRA8yACAEAenUVOCa2cAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Customize_Menu_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Customize_Menu.Image = $Customize_Menu_Picture
+#Customize Windows Menu
+$Customize_Menu = $contextmenu.Items.Add("Customize Windows")
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAh0lEQVRIS2P84afzn4FIwPj/n05dNjcDIxPDFSK1MDCOWkAoqEaDiFAIjaYigiFEhyD66aulTdgdEBVsf37dyctlYOBiElQhVg8jw4LnRFvAICZx5z+DFwMD0xsSLFj4iujCjuH/X53/En5AxzMSX9gxjFpAILYZR4OIUH4YDSJCIcRA8yACAEAenUVOCa2cAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Customize_Menu_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Customize_Menu.Image = $Customize_Menu_Picture
 
-    #Install Menu
-    $Install_Menu = $contextmenu.Items.Add("Installs")
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACAElEQVRIS2NkIA38hypnJFYbMQpvAQ1TA+JDRQdf2IIM7rOXOASk7IH4BhBr4LOMkAX/gYaCDGQA0cgAJgaigQCnOXgtABoKCxKwJcgA2UKgHHkWAA2E+wBk+P/Thxn+TqpiYFl8GGzX0af/GKylmcj2AdjwxcnODK9uX2FgZGRk+NtRxPD/6mmwBf///2coPvQSbBG+YIJ57f/69etRguCwkCVcM8gwkAXIPoCJdZx+x/Dq2y8G23fHUfQHBgaCfYZiAVQQrBAWxiDX4bMAWR3MBpBjsVrgKFiI4grXWT4Mtuk1DL124lh9AAqiwzOaGXanb4XrY+LSZNj7NI04CwQcHoAj0sNQluHzq6coQZS99RZDpIEKgw0wkj8cUCDPgibGE2CNwSpi4NSCHAerb/1gOP78A1i+7r8FeRaAdIEsCbxtxGCb8gzFgqPzpBjWKp9DMRyknqQgQo4QUHAh+wA5WJDVkWUByPA/seBiCA5AeQGbJWRZADIV2RJchlMURCDNPHNlwT74kvwYxTcUBxHMgMt3foGZuipsZFogVMbAqdKFUzMxEt/vlDHsf9eFPaOlpqYSYwZBNbNnz8awAKQJXvYTNIE4BeByjlCNhmwUvMSFFWTE2EO0BcbGxv9ramrAZjY3NzOcO3eOKL3EKMKoK2AuJ8YnRFlAICjwmgEAIU4pKNvGNgwAAAAASUVORK5CYII='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Install_Menu_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Install_Menu.Image = $Install_Menu_Picture
+#Install Menu
+$Install_Menu = $contextmenu.Items.Add("Installs")
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACAElEQVRIS2NkIA38hypnJFYbMQpvAQ1TA+JDRQdf2IIM7rOXOASk7IH4BhBr4LOMkAX/gYaCDGQA0cgAJgaigQCnOXgtABoKCxKwJcgA2UKgHHkWAA2E+wBk+P/Thxn+TqpiYFl8GGzX0af/GKylmcj2AdjwxcnODK9uX2FgZGRk+NtRxPD/6mmwBf///2coPvQSbBG+YIJ57f/69etRguCwkCVcM8gwkAXIPoCJdZx+x/Dq2y8G23fHUfQHBgaCfYZiAVQQrBAWxiDX4bMAWR3MBpBjsVrgKFiI4grXWT4Mtuk1DL124lh9AAqiwzOaGXanb4XrY+LSZNj7NI04CwQcHoAj0sNQluHzq6coQZS99RZDpIEKgw0wkj8cUCDPgibGE2CNwSpi4NSCHAerb/1gOP78A1i+7r8FeRaAdIEsCbxtxGCb8gzFgqPzpBjWKp9DMRyknqQgQo4QUHAh+wA5WJDVkWUByPA/seBiCA5AeQGbJWRZADIV2RJchlMURCDNPHNlwT74kvwYxTcUBxHMgMt3foGZuipsZFogVMbAqdKFUzMxEt/vlDHsf9eFPaOlpqYSYwZBNbNnz8awAKQJXvYTNIE4BeByjlCNhmwUvMSFFWTE2EO0BcbGxv9ramrAZjY3NzOcO3eOKL3EKMKoK2AuJ8YnRFlAICjwmgEAIU4pKNvGNgwAAAAASUVORK5CYII='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Install_Menu_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Install_Menu.Image = $Install_Menu_Picture
 
-    #Scripts Menu
-    $Scripts_Menu = $contextmenu.Items.Add("Scripts")
-    $Scripts_Menu_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
-    $Scripts_Menu.Image = $Scripts_Menu_Picture
+#Scripts Menu
+$Scripts_Menu = $contextmenu.Items.Add("Scripts")
+$Scripts_Menu_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
+$Scripts_Menu.Image = $Scripts_Menu_Picture
 
-    #Separator
-    $Separator4 = New-Object System.Windows.Forms.ToolStripSeparator
-    $contextmenu.Items.Add($Separator4)
+#Separator
+$Separator4 = New-Object System.Windows.Forms.ToolStripSeparator
+$contextmenu.Items.Add($Separator4)
     
-    #Exit
-    $Menu_Exit = $contextmenu.Items.Add("Exit")
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAApklEQVRIS2NkQAPGxsb/0cVI4Z89e5YRWT0Kh1LDYQYjW4LVAnRXEOsDmANHLcAZYlQPIpCB6PGFLkZRJMNc/PHjR447d+78xOY1qlgANfg30Dds6JYQZQEp+YOojIasiBTDycpo5FgAsgjmSIJBNCgtILmoIMUXJEcyvoIOzWLykykuS+iS0WhaVOCqDUmO5NEKBx4CpKR3fMGGMw5Amii1BD1VAQBT08IZ4lLZJwAAAABJRU5ErkJggg=='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu_Exit_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu_Exit.Image = $Menu_Exit_Picture
+#Exit
+$Menu_Exit = $contextmenu.Items.Add("Exit")
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAApklEQVRIS2NkQAPGxsb/0cVI4Z89e5YRWT0Kh1LDYQYjW4LVAnRXEOsDmANHLcAZYlQPIpCB6PGFLkZRJMNc/PHjR447d+78xOY1qlgANfg30Dds6JYQZQEp+YOojIasiBTDycpo5FgAsgjmSIJBNCgtILmoIMUXJEcyvoIOzWLykykuS+iS0WhaVOCqDUmO5NEKBx4CpKR3fMGGMw5Amii1BD1VAQBT08IZ4lLZJwAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu_Exit_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu_Exit.Image = $Menu_Exit_Picture
 
-    $Menu_Exit.add_Click({
+$Menu_Exit.add_Click({
         $Systray_Tool_Icon.Visible = $false
         $window.Close()
         # $window_Config.Close() 
         Stop-Process $pid -ErrorAction 'SilentlyContinue'
     })
 
-    #Elevated Applications
-    $Menu1_Elevated_Apps = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu1_Elevated_Apps.Text = "Elevated Applications"
-    $IconBase64 = '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'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu1_Elevated_Apps_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu1_Elevated_Apps.Image = $Menu1_Elevated_Apps_Picture
-    $Application_Menu.DropDownItems.Add($Menu1_Elevated_Apps)
+#Elevated Applications
+$Menu1_Elevated_Apps = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_Elevated_Apps.Text = "Elevated Applications"
+$IconBase64 = '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'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu1_Elevated_Apps_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu1_Elevated_Apps.Image = $Menu1_Elevated_Apps_Picture
+$Application_Menu.DropDownItems.Add($Menu1_Elevated_Apps)
 
-    $Menu1_Elevated_Apps.add_Click({
+$Menu1_Elevated_Apps.add_Click({
         $WFexe = "$PWD\Wet-Floor.ps1"
         $startParams = @{
             FilePath     = 'powershell'
-            ArgumentList = '-nologo', '-ExecutionPolicy Bypass','-noprofile', "-file $WFexe"
-            Wait         = $true
+            ArgumentList = '-nologo', '-ExecutionPolicy Bypass', '-noprofile', "-file $WFexe"
             PassThru     = $true
         }
         Start-Process @startParams -Verb Runas
@@ -145,21 +140,21 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         }
     })
     
-    #Separator
-    $Separator2 = New-Object System.Windows.Forms.ToolStripSeparator
-    $Application_Menu.DropDownItems.Add($Separator2)
+#Separator
+$Separator2 = New-Object System.Windows.Forms.ToolStripSeparator
+$Application_Menu.DropDownItems.Add($Separator2)
 
-    #Click Paste
-    $Menu1_Click_Paste = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu1_Click_Paste.Text = "Click Paste"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAC00lEQVRIS7WWOYyOQRjHbVxxFo5CtygkJIhQIBoKsptdRwiCUDkqGiQiEkIidASJIwq3wpVdjaMh7jgLFLKrRrGuYMn6/b7MfBlv5vv2U+wkv8z7zjwz/3fmmXmet65X5dKHrpEwCebDdBgDA+A7tME9uAov4QP8zk1Xl2m0bTQsguVBpHeVj/lD3zM4D5egHbpS+5zITAx2gXX/KpMXu37ScBd2hBWW+4sik+m5BcOSGb7wfA3OQmvS3sjzCmiGwUn7J55ng1tYKlHEekaYLAp85N393g9vg326DY6RcbAliA0Pdgopfh+6oogOPRa+QLt3sBvOQGfylUWR2NWXh1WwHfSn5SashTZFPEWbwqT6wBVszgg4cGIiWN6O0BaF9vHuivTRNjigyChogSnB+AT1hsIKkrmrPvaj9yisDlZPqJsUmRdEPKY6eRpEH9Q6eWo3npdHMAi8N42KHIH1wUofrKwys3chlmUV7JzzAiwJ/YdseA7eaovH8noVkUqOLw7xZHkyLU8V+QxDMhMrHJ3rCpYGu6/UMbT4xXFFHooXmXk6FPGIesKKJScSj7z2jqtFpNNBHTC0B0VKK+kJnxi1r6Q+OcyL98JifPJ0/RNFk1XWerouMmZxGFc6XXPBwOc90anekzeZ7au1aQKG3pOB4D1piDfeKDs1zHKSeh2kMatWAW/8cTCOWR5Dc4xdG3nZA8YuI6hR9VRGqLvYtYYxe8FI/gOMXQfTKGzMmRO+wNRqFD4Nv5JlVLqMrsB45aT1wf4GtVG4Pc0n5nC3Lc0JBk6j6mtQIJdPjFVbwWiR5qIm3h86ppgZ3Y7biZAf9Q0MNa4qhgrbF4AnsQF0ciymCjPjq9iQy/FmyJ0wC/4nx+uDO2COf5CIltNvsa2ehoXg34p5Pxd24hiPqX8r5+AyvIdu/1biYCceAW6hUVWfjQW3xv8uU7Q53C10a9ym7H/XX2JcoXmg/8/OAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu1_Click_Paste_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu1_Click_Paste.Image = $Menu1_Click_Paste_Picture
-    $Application_Menu.DropDownItems.Add($Menu1_Click_Paste)
+#Click Paste
+$Menu1_Click_Paste = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_Click_Paste.Text = "Click Paste"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAC00lEQVRIS7WWOYyOQRjHbVxxFo5CtygkJIhQIBoKsptdRwiCUDkqGiQiEkIidASJIwq3wpVdjaMh7jgLFLKrRrGuYMn6/b7MfBlv5vv2U+wkv8z7zjwz/3fmmXmet65X5dKHrpEwCebDdBgDA+A7tME9uAov4QP8zk1Xl2m0bTQsguVBpHeVj/lD3zM4D5egHbpS+5zITAx2gXX/KpMXu37ScBd2hBWW+4sik+m5BcOSGb7wfA3OQmvS3sjzCmiGwUn7J55ng1tYKlHEekaYLAp85N393g9vg326DY6RcbAliA0Pdgopfh+6oogOPRa+QLt3sBvOQGfylUWR2NWXh1WwHfSn5SashTZFPEWbwqT6wBVszgg4cGIiWN6O0BaF9vHuivTRNjigyChogSnB+AT1hsIKkrmrPvaj9yisDlZPqJsUmRdEPKY6eRpEH9Q6eWo3npdHMAi8N42KHIH1wUofrKwys3chlmUV7JzzAiwJ/YdseA7eaovH8noVkUqOLw7xZHkyLU8V+QxDMhMrHJ3rCpYGu6/UMbT4xXFFHooXmXk6FPGIesKKJScSj7z2jqtFpNNBHTC0B0VKK+kJnxi1r6Q+OcyL98JifPJ0/RNFk1XWerouMmZxGFc6XXPBwOc90anekzeZ7au1aQKG3pOB4D1piDfeKDs1zHKSeh2kMatWAW/8cTCOWR5Dc4xdG3nZA8YuI6hR9VRGqLvYtYYxe8FI/gOMXQfTKGzMmRO+wNRqFD4Nv5JlVLqMrsB45aT1wf4GtVG4Pc0n5nC3Lc0JBk6j6mtQIJdPjFVbwWiR5qIm3h86ppgZ3Y7biZAf9Q0MNa4qhgrbF4AnsQF0ciymCjPjq9iQy/FmyJ0wC/4nx+uDO2COf5CIltNvsa2ehoXg34p5Pxd24hiPqX8r5+AyvIdu/1biYCceAW6hUVWfjQW3xv8uU7Q53C10a9ym7H/XX2JcoXmg/8/OAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu1_Click_Paste_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu1_Click_Paste.Image = $Menu1_Click_Paste_Picture
+$Application_Menu.DropDownItems.Add($Menu1_Click_Paste)
 
-    $Menu1_Click_Paste.add_Click({
+$Menu1_Click_Paste.add_Click({
         $Filename = "C:\ProgramData\ClickPaste\ClickPaste.exe"
         If (Test-Path -Path $FileName) {
             Start-Process $FileName
@@ -173,36 +168,36 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         }  
     })
 
-    #Command Prompt
-    $Menu1_CMD = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu1_CMD.Text = "Command Prompt"
-    $Menu1_CMD_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\cmd.exe")
-    $Menu1_CMD.Image = $Menu1_CMD_Picture
-    $Application_Menu.DropDownItems.Add($Menu1_CMD)
+#Command Prompt
+$Menu1_CMD = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_CMD.Text = "Command Prompt"
+$Menu1_CMD_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\cmd.exe")
+$Menu1_CMD.Image = $Menu1_CMD_Picture
+$Application_Menu.DropDownItems.Add($Menu1_CMD)
 
-    $Menu1_CMD.add_Click({ 
+$Menu1_CMD.add_Click({ 
         Start-Process cmd.exe
     })
 
-    #Computer Management
-    $Menu1_Comp_Mgmt = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu1_Comp_Mgmt.Text = "Computer Management"
-    $Menu1_Comp_Mgmt_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\compmgmt.msc")
-    $Menu1_Comp_Mgmt.Image = $Menu1_Comp_Mgmt_Picture
-    $Application_Menu.DropDownItems.Add($Menu1_Comp_Mgmt)
+#Computer Management
+$Menu1_Comp_Mgmt = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_Comp_Mgmt.Text = "Computer Management"
+$Menu1_Comp_Mgmt_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\compmgmt.msc")
+$Menu1_Comp_Mgmt.Image = $Menu1_Comp_Mgmt_Picture
+$Application_Menu.DropDownItems.Add($Menu1_Comp_Mgmt)
 
-    $Menu1_Comp_Mgmt.add_Click({ 
+$Menu1_Comp_Mgmt.add_Click({ 
         Start-Process compmgmt.msc
     })
 
-    #GPUpdate
-    $Menu1_gpupdate = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu1_gpupdate.Text = "Group Policy Update"
-    $Menu1_gpupdate_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\cmd.exe")
-    $Menu1_gpupdate.Image = $Menu1_gpupdate_Picture
-    $Application_Menu.DropDownItems.Add($Menu1_gpupdate)
+#GPUpdate
+$Menu1_gpupdate = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_gpupdate.Text = "Group Policy Update"
+$Menu1_gpupdate_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\cmd.exe")
+$Menu1_gpupdate.Image = $Menu1_gpupdate_Picture
+$Application_Menu.DropDownItems.Add($Menu1_gpupdate)
 
-    $Menu1_gpupdate.add_Click({
+$Menu1_gpupdate.add_Click({
         gpupdate /force
         If ($LastExitCode -eq "0") {
             [System.Windows.Forms.MessageBox]::Show("Computer Policy update has completed successfully.`nUser Policy update has completed successfully.", 'Update Group Policy', 'OK', 'Information')
@@ -212,42 +207,42 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         }
     })
 
-    #MMC
-    $Menu1_MMC = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu1_MMC.Text = "MMC"
-    $Menu1_MMC_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\windows\system32\mmc.exe")
-    $Menu1_MMC.Image = $Menu1_MMC_Picture
-    $Application_Menu.DropDownItems.Add($Menu1_MMC)
+#MMC
+$Menu1_MMC = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_MMC.Text = "MMC"
+$Menu1_MMC_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\windows\system32\mmc.exe")
+$Menu1_MMC.Image = $Menu1_MMC_Picture
+$Application_Menu.DropDownItems.Add($Menu1_MMC)
 
-    $Menu1_MMC.add_Click({
+$Menu1_MMC.add_Click({
         Start-Process C:\windows\system32\mmc.exe
     })
 
-    #Network Connections
-    $Menu1_Net_Con = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu1_Net_Con.Text = "Network Connections"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAFdUlEQVRIS62Ve0xTZxjGn3PpOVBoSwtU2lIKipeN4W0Gr8xtbsbhxKhhQZwaN5ORzRglyjZ0GZvDLIuYuAte5wTDjMw5haDuD9icCjKH4qLgBbQWbHTKrNT13p69pyCTxcxs80tOenrO+Z7f+z3v+34fAxrFxcUsXSH5/nEPRhaU3IeklhO1MCfFQBDVEDQT4bSdfCN+ZOG2/wvsA1RLAIOGI9/AlGxBbFwsOE4JhhWILkERPRa8alT42387HgDQVEbE2WM10BtNiFRGIUJUAqEQONUoWtX4xwFQ4OjBPbAMSYZaQ3YpIsCxEnj10xBiJjwOAIe6fZVkkxlxZJMgiOA5EGAcRO3kfkBtTU0pw3FFWVlZ3kdZNtAisKj7lgBmE+LidTh/cyJ4PogUkwKmwVPD3+7etWvewgJuH0QjEJEAsElY/uplzJ/hg9FkQDAQJGvFS/D5ZhtTUi4MAEihIOr374Uh0YA4fSzWfurH9v3pgDAIEONpKQYsy7Xi5Uw/hqfGIBhioIxUwOMT6Z0ODM+HVyyP1gsXcf1yQ1svwHVAkkI+SAEf6qurYTQbqZK0SBhPSVZaSFxPEPkahI46HVWYXBAUPEtz6dYfAOKjnGhsvgpD8sjwew1jRePJU6owINizR5KCHgJ48ePhOhhkQKwWr6xOx7FmP6Cg6IW4MOTg1gQkJ5I+ibB0yWIsqSilLpy1GcDREmghSNZ0YGhqKhMGBLq3S1LAgx6HC2dONcOUZECAH4YNuywor7rda4+gI5Ae2TMSsGIx9QiJyACWfuVVGCM68P1JA/1XEJTF5CcvIi0trRfgu7ExDLBdAzqtLUi0DILt3kv48msvbHY/Tpz2kMcaAmgRHaPD5o8sYSGW1FmiBIgwbsglbN6rIXF6TqtYlNWJ9PT0XoCn80MCeHGtMxL2zhaYzTpY3fPw8aZb8AZYHG+6GxaneqVfDUoKh/ZFqiCrOLi9DOa/2IllxV6ySH7G4/38bmRkZPQCWurWLxxm6a6wXtdi2+cVi3IWzMzv4adNKnivCx53AFZ7ABIbTQAVma7CkgWpJCSGxTgy/LaDQe6zx1BQEkn+R5B1PEpW3pBycnLk9PQOV3uBdLVLix1lldl+SX3uiefeurJ2Ha3AF4CbIBIJg4siSDQyJ5nBC5EkLoQtuf6bD+8sPovdB0ag/uhFBHwMKjcjlJeXxw1o/3M/rJO2bjmQ+tne5o5NpaWS3+/HlKmTMGHyaUq0g8RjKKsiNaIeCoG2EU4gqwSseF2EVnkFju7uckvK4MVihEhBub+YNWvWskfuL2VlZVoi3eR5XuHxUCnT7po64iksWh2FP+5cC+fi59pEXLZ2t86dnZ32962jH1BVVSWQZ0GGYeSDR668hw3avxFZUrPFMdxNDUf+R6tU5DsPV4g9nPX8MzNp/oC5/QC73T5HqVIpvP5g7J17rlFHrK0Zq0YfGhOICmBpV9oHbElzyc5Vfh/T7gDX8jtCF7rRUPRdpcflMU8Zm55L4DBcrnq6bHJ7yRH2A7Jfy6/JzctTG+O0NtftUNvctjUlPrMGSr0WSw0vQBQEbEcTHRlOOF1OKN/9BY7KM2bSuNUnej9yeSPpd2FADvrOZuooJBqWZ/5613kPLp4C0dGeFKOCEKsGq6EgaXqlYTW8TmWjWn0z1HS8cee6NYUVctSUI3LpL5v+KclyJLEKhSIpt7zo8Pn21rh2awecXhemZ06H38FiY9bCfI5hu6iTFWpdvKHH7R/WZuuqz5uWWXM/gY+sogcyTXsnqBmQuHLH+rfLCzeUlVbs+WSIyRiizrJrI8WmhhM/2fUjRp+aM3GM9b8AHlpWfZbQgQD9V9W1RUuyZ77Zl4Pw938CtiH44nsXMCoAAAAASUVORK5CYII='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu1_Net_Con_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu1_Net_Con.Image = $Menu1_Net_Con_Picture
-    $Application_Menu.DropDownItems.Add($Menu1_Net_Con)
+#Network Connections
+$Menu1_Net_Con = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_Net_Con.Text = "Network Connections"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAFdUlEQVRIS62Ve0xTZxjGn3PpOVBoSwtU2lIKipeN4W0Gr8xtbsbhxKhhQZwaN5ORzRglyjZ0GZvDLIuYuAte5wTDjMw5haDuD9icCjKH4qLgBbQWbHTKrNT13p69pyCTxcxs80tOenrO+Z7f+z3v+34fAxrFxcUsXSH5/nEPRhaU3IeklhO1MCfFQBDVEDQT4bSdfCN+ZOG2/wvsA1RLAIOGI9/AlGxBbFwsOE4JhhWILkERPRa8alT42387HgDQVEbE2WM10BtNiFRGIUJUAqEQONUoWtX4xwFQ4OjBPbAMSYZaQ3YpIsCxEnj10xBiJjwOAIe6fZVkkxlxZJMgiOA5EGAcRO3kfkBtTU0pw3FFWVlZ3kdZNtAisKj7lgBmE+LidTh/cyJ4PogUkwKmwVPD3+7etWvewgJuH0QjEJEAsElY/uplzJ/hg9FkQDAQJGvFS/D5ZhtTUi4MAEihIOr374Uh0YA4fSzWfurH9v3pgDAIEONpKQYsy7Xi5Uw/hqfGIBhioIxUwOMT6Z0ODM+HVyyP1gsXcf1yQ1svwHVAkkI+SAEf6qurYTQbqZK0SBhPSVZaSFxPEPkahI46HVWYXBAUPEtz6dYfAOKjnGhsvgpD8sjwew1jRePJU6owINizR5KCHgJ48ePhOhhkQKwWr6xOx7FmP6Cg6IW4MOTg1gQkJ5I+ibB0yWIsqSilLpy1GcDREmghSNZ0YGhqKhMGBLq3S1LAgx6HC2dONcOUZECAH4YNuywor7rda4+gI5Ae2TMSsGIx9QiJyACWfuVVGCM68P1JA/1XEJTF5CcvIi0trRfgu7ExDLBdAzqtLUi0DILt3kv48msvbHY/Tpz2kMcaAmgRHaPD5o8sYSGW1FmiBIgwbsglbN6rIXF6TqtYlNWJ9PT0XoCn80MCeHGtMxL2zhaYzTpY3fPw8aZb8AZYHG+6GxaneqVfDUoKh/ZFqiCrOLi9DOa/2IllxV6ySH7G4/38bmRkZPQCWurWLxxm6a6wXtdi2+cVi3IWzMzv4adNKnivCx53AFZ7ABIbTQAVma7CkgWpJCSGxTgy/LaDQe6zx1BQEkn+R5B1PEpW3pBycnLk9PQOV3uBdLVLix1lldl+SX3uiefeurJ2Ha3AF4CbIBIJg4siSDQyJ5nBC5EkLoQtuf6bD+8sPovdB0ag/uhFBHwMKjcjlJeXxw1o/3M/rJO2bjmQ+tne5o5NpaWS3+/HlKmTMGHyaUq0g8RjKKsiNaIeCoG2EU4gqwSseF2EVnkFju7uckvK4MVihEhBub+YNWvWskfuL2VlZVoi3eR5XuHxUCnT7po64iksWh2FP+5cC+fi59pEXLZ2t86dnZ32962jH1BVVSWQZ0GGYeSDR668hw3avxFZUrPFMdxNDUf+R6tU5DsPV4g9nPX8MzNp/oC5/QC73T5HqVIpvP5g7J17rlFHrK0Zq0YfGhOICmBpV9oHbElzyc5Vfh/T7gDX8jtCF7rRUPRdpcflMU8Zm55L4DBcrnq6bHJ7yRH2A7Jfy6/JzctTG+O0NtftUNvctjUlPrMGSr0WSw0vQBQEbEcTHRlOOF1OKN/9BY7KM2bSuNUnej9yeSPpd2FADvrOZuooJBqWZ/5613kPLp4C0dGeFKOCEKsGq6EgaXqlYTW8TmWjWn0z1HS8cee6NYUVctSUI3LpL5v+KclyJLEKhSIpt7zo8Pn21rh2awecXhemZ06H38FiY9bCfI5hu6iTFWpdvKHH7R/WZuuqz5uWWXM/gY+sogcyTXsnqBmQuHLH+rfLCzeUlVbs+WSIyRiizrJrI8WmhhM/2fUjRp+aM3GM9b8AHlpWfZbQgQD9V9W1RUuyZ77Zl4Pw938CtiH44nsXMCoAAAAASUVORK5CYII='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu1_Net_Con_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu1_Net_Con.Image = $Menu1_Net_Con_Picture
+$Application_Menu.DropDownItems.Add($Menu1_Net_Con)
 
-    $Menu1_Net_Con.add_Click({ 
+$Menu1_Net_Con.add_Click({ 
         Start-Process "C:\Windows\System32\ncpa.cpl"
     })
 
-    #Password Generator
-    $Menu1_Pass_Gen = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu1_Pass_Gen.Text = "Password Generator"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACAUlEQVRIS7WVzy8DQRTHv9PaluBA/EjYruIuJUIiruLgKpE4+Q+c/Q0S/wJ3ZxdncUGIC1GRtrYVIU5+7TbtmlmddnZ3urOrMZc2+2be573ve2+GOHThnxdRQbLGLAqly47CUEIIyWIiM+CC0mQKlvMQGxgKsSwb6XQKLBvLqtL/mguIm5kHwqJ2nIInUi4X+xVXHJAHwh2yDLLGXDNyHr0I6ggiE7z4+EzrMto0XWxvoH9vB6gAqQjNGaiJX5aT0yMsL6152He1K3nxKVTL34IYWUpPN/cE5OKWj/dv9PZ1B5yJMtnjpG2npcqt8WsLkZ2W1cHOTQIvrWZ5rSUwlKzjTxAOEKPnjsRvpWoShlaLD5EBeKYM5DyVUZ3X3U9KiKHnkEj86sxq8vJ2A5sQaGYJZDwDWQ3EbJhUn3USnolYB+YcY7RJhAKq7pP7kS53S6hc3Ik9SAE9AFlZh3ZwqPLt2ou5aVQrxRiQRhb4opm8BV8CNkv1uoOS2ZoXnkXkTNhGrr9fLn71mGYFuk71bCxRquTuPpKbW/Jh9NSkMWh+CGuOs/NjLC6sem7jdvVgPqVXvXiAbfKD9LEZmJXrQBYyqdpCmCFMYxESto9HEfpoqRyo7JEg/oy4HGyqxeWfC3/PK994diBPW5oMex1zRypAaE380ajqJNsfWa6ww1FtP5PFRcVcoJ9rAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu1_Pass_Gen_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu1_Pass_Gen.Image = $Menu1_Pass_Gen_Picture
-    $Application_Menu.DropDownItems.Add($Menu1_Pass_Gen)
+#Password Generator
+$Menu1_Pass_Gen = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_Pass_Gen.Text = "Password Generator"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACAUlEQVRIS7WVzy8DQRTHv9PaluBA/EjYruIuJUIiruLgKpE4+Q+c/Q0S/wJ3ZxdncUGIC1GRtrYVIU5+7TbtmlmddnZ3urOrMZc2+2be573ve2+GOHThnxdRQbLGLAqly47CUEIIyWIiM+CC0mQKlvMQGxgKsSwb6XQKLBvLqtL/mguIm5kHwqJ2nIInUi4X+xVXHJAHwh2yDLLGXDNyHr0I6ggiE7z4+EzrMto0XWxvoH9vB6gAqQjNGaiJX5aT0yMsL6152He1K3nxKVTL34IYWUpPN/cE5OKWj/dv9PZ1B5yJMtnjpG2npcqt8WsLkZ2W1cHOTQIvrWZ5rSUwlKzjTxAOEKPnjsRvpWoShlaLD5EBeKYM5DyVUZ3X3U9KiKHnkEj86sxq8vJ2A5sQaGYJZDwDWQ3EbJhUn3USnolYB+YcY7RJhAKq7pP7kS53S6hc3Ik9SAE9AFlZh3ZwqPLt2ou5aVQrxRiQRhb4opm8BV8CNkv1uoOS2ZoXnkXkTNhGrr9fLn71mGYFuk71bCxRquTuPpKbW/Jh9NSkMWh+CGuOs/NjLC6sem7jdvVgPqVXvXiAbfKD9LEZmJXrQBYyqdpCmCFMYxESto9HEfpoqRyo7JEg/oy4HGyqxeWfC3/PK994diBPW5oMex1zRypAaE380ajqJNsfWa6ww1FtP5PFRcVcoJ9rAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu1_Pass_Gen_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu1_Pass_Gen.Image = $Menu1_Pass_Gen_Picture
+$Application_Menu.DropDownItems.Add($Menu1_Pass_Gen)
 
-    $Menu1_Pass_Gen.add_Click({
+$Menu1_Pass_Gen.add_Click({
         #Custom Icon
         $IconBase64 = "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=="
         $IconBytes = [Convert]::FromBase64String($IconBase64)
@@ -287,10 +282,10 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         $txtPasswordLength.Width = 45
         $txtPasswordLength.Location = New-Object System.Drawing.Point(230, 15)
         $txtPasswordLength.Add_KeyDown({
-            if ($_.KeyCode -eq 'Enter') {
-                $btnGenerate.PerformClick()
-            }
-        })
+                if ($_.KeyCode -eq 'Enter') {
+                    $btnGenerate.PerformClick()
+                }
+            })
 
         # Create the checkbox
         $checkBox = New-Object System.Windows.Forms.CheckBox
@@ -313,8 +308,8 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
 
         # Add an event handler for the Day ValueChanged event
         $sliderDays.add_ValueChanged({
-            $lblDays.Text = "Days: " + $sliderDays.Value
-        })
+                $lblDays.Text = "Days: " + $sliderDays.Value
+            })
 
         # Create a label to display the slider Views value
         $lblViews = New-Object System.Windows.Forms.Label
@@ -332,8 +327,8 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
 
         # Add an event handler for the View ValueChanged event
         $sliderViews.add_ValueChanged({
-            $lblViews.Text = "Views: " + $sliderViews.Value
-        })
+                $lblViews.Text = "Views: " + $sliderViews.Value
+            })
 
         # Create button for generating password
         $btnGenerate = New-Object System.Windows.Forms.Button
@@ -342,54 +337,54 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         $btnGenerate.Height = 36
         $btnGenerate.Location = New-Object System.Drawing.Point(105, 135)
         $btnGenerate.Add_Click({
-            if ($checkBox.Checked) {
-                $1click = "/r"
-            }
-            $PasswordLength = $txtPasswordLength.Text
-            $Days = $sliderDays.Value
-            $Views = $sliderViews.Value
-            Write-Host $Days
-            Write-Host $Views
-            if ([int]::TryParse($PasswordLength, [ref]$null)) {
-                $Password = New-RandomPassword $PasswordLength
-                $outputTextBox.AppendText("$Password")
-                if ($txtpassphrase.Text) {
-                    $Passphrase = $txtpassphrase.Text
-                    $PWPUSH = Publish-Password -Password $Password -Days $Days -Views $Views -Passphrase $Passphrase
-                }
-                else {
-                    $PWPUSH = Publish-Password -Password $Password -Days $Days -Views $Views
-                }
                 if ($checkBox.Checked) {
-                    $Result = $PWPUSH + $1click
-                    $pwpushTextBox.AppendText("$Result")
+                    $1click = "/r"
+                }
+                $PasswordLength = $txtPasswordLength.Text
+                $Days = $sliderDays.Value
+                $Views = $sliderViews.Value
+                Write-Host $Days
+                Write-Host $Views
+                if ([int]::TryParse($PasswordLength, [ref]$null)) {
+                    $Password = New-RandomPassword $PasswordLength
+                    $outputTextBox.AppendText("$Password")
+                    if ($txtpassphrase.Text) {
+                        $Passphrase = $txtpassphrase.Text
+                        $PWPUSH = Publish-Password -Password $Password -Days $Days -Views $Views -Passphrase $Passphrase
+                    }
+                    else {
+                        $PWPUSH = Publish-Password -Password $Password -Days $Days -Views $Views
+                    }
+                    if ($checkBox.Checked) {
+                        $Result = $PWPUSH + $1click
+                        $pwpushTextBox.AppendText("$Result")
+                    }
+                    else {
+                        $pwpushTextBox.AppendText("$PWPUSH")
+                    }
+                    $btnGenerate.Text = "Password reset in: 30"
+                    $btnGenerate.Enabled = $false
+                    $timer.Start()
                 }
                 else {
-                    $pwpushTextBox.AppendText("$PWPUSH")
+                    $outputTextBox.AppendText("Please enter a valid number for password length.`r")
                 }
-                $btnGenerate.Text = "Password reset in: 30"
-                $btnGenerate.Enabled = $false
-                $timer.Start()
-            }
-            else {
-                $outputTextBox.AppendText("Please enter a valid number for password length.`r")
-            }
-        })
+            })
 
         $timer = New-Object System.Windows.Forms.Timer
         $timer.Interval = 1000
         $timer.Add_Tick({
-            $countdown = [int]$btnGenerate.Text.Split(' ')[-1] - 1
-            $btnGenerate.Text = "Password reset in: $countdown"
-            if ($countdown -eq 0) {
-            $outputTextBox.Clear()
-                $pwpushTextBox.Clear()
-                $txtpassphrase.Clear()
-                $btnGenerate.Text = "Generate Password"
-                $btnGenerate.Enabled = $true
-                $timer.Stop()
-            }
-        })
+                $countdown = [int]$btnGenerate.Text.Split(' ')[-1] - 1
+                $btnGenerate.Text = "Password reset in: $countdown"
+                if ($countdown -eq 0) {
+                    $outputTextBox.Clear()
+                    $pwpushTextBox.Clear()
+                    $txtpassphrase.Clear()
+                    $btnGenerate.Text = "Generate Password"
+                    $btnGenerate.Enabled = $true
+                    $timer.Stop()
+                }
+            })
 
         # Create textbox for output
         $outputTextBox = New-Object System.Windows.Forms.TextBox
@@ -424,8 +419,8 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         $passClip.Height = 36
         $passClip.Location = New-Object System.Drawing.Point(50, 289)
         $passClip.Add_Click({
-            Set-Clipboard $outputTextBox.Text
-        })
+                Set-Clipboard $outputTextBox.Text
+            })
 
         # Create button for copying pwpush urlto clipboard
         $pwpushClip = New-Object System.Windows.Forms.Button
@@ -434,8 +429,8 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         $pwpushClip.Height = 36
         $pwpushClip.Location = New-Object System.Drawing.Point(205, 289)
         $pwpushClip.Add_Click({
-            Set-Clipboard $pwpushTextBox.Text
-        })
+                Set-Clipboard $pwpushTextBox.Text
+            })
 
         # Function to generate a random password
         function New-RandomPassword {
@@ -562,17 +557,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         $form.ShowDialog()
     })
 
-    #PuTTy
-    $Menu1_PuTTy = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu1_PuTTy.Text = "PuTTY"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACW0lEQVRIS62UzWoTURTH//fmo2hWgqvaWlBCH6CKm0BKu1XBhY8gxRdwoTaJEwTTFxCsgitfoOlmIDPT1BhQ7NJFFS0qiBtX0eKkc6/nTEicTCaZtJ2zCCE59/zO51/gmFYoFHTrdWviq1wuh87vjug7Db5My7JtW8f5kg8MwzgZREBo13WRzqQjObbTxI5jQWt9OsiseIh5VKAiMDWrCcdxkoe8072qroojJA4BBH7iOT6pGrLyC5bQTRbyAxv4qy5ic/MPXq59pfYoCCGTgwhxBh11Hhl1DnOpa1gQTwfT2bBasJ3G6WaSlil96M1D6izS8iMUVRA0Hnp/8FWjStUJ9qHPKSyfz+sP+5qmAMzIz/Rw8qlYtuXD2IxHhv9uovm3oS+TT3TgrGDoEf0vh+JUKpXxEA4a9Hb1JcpEEGIYoml1Z+Q+OOsoG1sJXWooXe55L0NJ23OoFpESXZxNHeBBad0f8DjjNlFifqeG2sWQBVEeefcNVfgV0aAz8iCuw/7/fUAkZE6WcIFko+coKQsPb7xFykkhK76jVL7vDzMYJI46UkkQ8gsvsHLnHq4sZVG+ewuvGrdpa3aTg7AmcYt4e1iX2J5Yu6SyJONJVfJf+NzB8BOErGNWjg6fK6mZb7HTNE9eCd9H8FInrSb7LS8XceP6TdS361MctL/HQjesBlZXVuMWhQTQRrFYBF/03vs9bNW34iEMUNoLn8xEWF8IjwlRA0ELR+eAvE19C7bUNM1n7XZ7La58kuHxs2DZYLkOGv8mpcRjkvKu8mJbNbj4sCjGZRaWjTj/f65KYyxtPszLAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu1_PuTTy_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu1_PuTTy.Image = $Menu1_PuTTy_Picture
-    $Application_Menu.DropDownItems.Add($Menu1_PuTTy)
+#PuTTy
+$Menu1_PuTTy = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_PuTTy.Text = "PuTTY"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACW0lEQVRIS62UzWoTURTH//fmo2hWgqvaWlBCH6CKm0BKu1XBhY8gxRdwoTaJEwTTFxCsgitfoOlmIDPT1BhQ7NJFFS0qiBtX0eKkc6/nTEicTCaZtJ2zCCE59/zO51/gmFYoFHTrdWviq1wuh87vjug7Db5My7JtW8f5kg8MwzgZREBo13WRzqQjObbTxI5jQWt9OsiseIh5VKAiMDWrCcdxkoe8072qroojJA4BBH7iOT6pGrLyC5bQTRbyAxv4qy5ic/MPXq59pfYoCCGTgwhxBh11Hhl1DnOpa1gQTwfT2bBasJ3G6WaSlil96M1D6izS8iMUVRA0Hnp/8FWjStUJ9qHPKSyfz+sP+5qmAMzIz/Rw8qlYtuXD2IxHhv9uovm3oS+TT3TgrGDoEf0vh+JUKpXxEA4a9Hb1JcpEEGIYoml1Z+Q+OOsoG1sJXWooXe55L0NJ23OoFpESXZxNHeBBad0f8DjjNlFifqeG2sWQBVEeefcNVfgV0aAz8iCuw/7/fUAkZE6WcIFko+coKQsPb7xFykkhK76jVL7vDzMYJI46UkkQ8gsvsHLnHq4sZVG+ewuvGrdpa3aTg7AmcYt4e1iX2J5Yu6SyJONJVfJf+NzB8BOErGNWjg6fK6mZb7HTNE9eCd9H8FInrSb7LS8XceP6TdS361MctL/HQjesBlZXVuMWhQTQRrFYBF/03vs9bNW34iEMUNoLn8xEWF8IjwlRA0ELR+eAvE19C7bUNM1n7XZ7La58kuHxs2DZYLkOGv8mpcRjkvKu8mJbNbj4sCjGZRaWjTj/f65KYyxtPszLAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu1_PuTTy_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu1_PuTTy.Image = $Menu1_PuTTy_Picture
+$Application_Menu.DropDownItems.Add($Menu1_PuTTy)
 
-    $Menu1_PuTTy.add_Click({
+$Menu1_PuTTy.add_Click({
         $Filename = "C:\Program Files\PuTTY\putty.exe"
         If (Test-Path -Path $FileName) {
             Start-Process $FileName
@@ -594,54 +589,54 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         } 
     })
 
-    #Powershell
-    $Menu1_Powershell = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu1_Powershell.Text = "Powershell"
-    $Menu1_Powershell_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
-    $Menu1_Powershell.Image = $Menu1_Powershell_Picture
-    $Application_Menu.DropDownItems.Add($Menu1_Powershell)
+#Powershell
+$Menu1_Powershell = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_Powershell.Text = "Powershell"
+$Menu1_Powershell_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
+$Menu1_Powershell.Image = $Menu1_Powershell_Picture
+$Application_Menu.DropDownItems.Add($Menu1_Powershell)
 
-    $Menu1_Powershell.add_Click({ 
+$Menu1_Powershell.add_Click({ 
         Start-Process powershell.exe
     })
 
-    #Powershell ISE
-    $Menu1_Powershell_ISE = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu1_Powershell_ISE.Text = "Powershell ISE"
-    $Menu1_Powershell_ISE_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe")
-    $Menu1_Powershell_ISE.Image = $Menu1_Powershell_ISE_Picture
-    $Application_Menu.DropDownItems.Add($Menu1_Powershell_ISE)
+#Powershell ISE
+$Menu1_Powershell_ISE = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_Powershell_ISE.Text = "Powershell ISE"
+$Menu1_Powershell_ISE_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe")
+$Menu1_Powershell_ISE.Image = $Menu1_Powershell_ISE_Picture
+$Application_Menu.DropDownItems.Add($Menu1_Powershell_ISE)
 
-    $Menu1_Powershell_ISE.add_Click({
+$Menu1_Powershell_ISE.add_Click({
         Start-Process "C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe"
     })
 
-    #Regedit
-    $Menu1_Regedit = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu1_Regedit.Text = "Registry"
-    $Menu1_Regedit_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\regedt32.exe")
-    $Menu1_Regedit.Image = $Menu1_Regedit_Picture
-    $Application_Menu.DropDownItems.Add($Menu1_Regedit)
+#Regedit
+$Menu1_Regedit = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_Regedit.Text = "Registry"
+$Menu1_Regedit_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\regedt32.exe")
+$Menu1_Regedit.Image = $Menu1_Regedit_Picture
+$Application_Menu.DropDownItems.Add($Menu1_Regedit)
 
-    $Menu1_Regedit.add_Click({ 
+$Menu1_Regedit.add_Click({ 
         Start-Process regedit
     })
 
-    #Windows Sandbox
-    $Menu1_Sandbox = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu1_Sandbox.Text = "Windows Sandbox"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADG0lEQVRIS9VUzYtOURh/nvPO+CgbZEc21hbY+IjJKJFENmShFKWmZiWxtPFfKImahrKYhWEWlIWUUkYj2dlIWDDe+957zzmP3++ce9+Y780Ut9733nvueX5fz3Ovyiofusr48u8QbDh3P4a61FhV4qtawuORFYlbdtP682PmxEyDl+hL9WUloQ7GJRG1MDnilop5UYJ1Fx5FtVo1RNPoVS1ahANfegt1DcyYa82ZWdT4dHRBrHmLgxcnzEWP+iAaanHQKrFSF0lQaahK8TWeG8BVYSSdcJv+ZC5Rn6Bz6QmUAhRAGmucoT6ReEtOQBqZPX+eDjJ4QocMHIojryE6mxpN0aleeQ5/Xp0FQSWAvbiIbaHCmU5KqMd93cPlL/CBoAaKG0B1Bw8ALE4iCJNaZcfIwp/Dw8tTUBixBSshK3UGIgAlJ3UhVhWy6dRpgTkKT8eXO7dFOmsbIoBKh6x4jtZxH1xgBFSHPwIdAT67NYFnuAA48xbfVVcVtvH4MRRECRicEGICZyoQKs6pfL13F0Rr4AOOQIKGKZTI1htXDaGoHv7A+LIqFr64+QBxdHXzkYNCJcSM+EMrUJcJ6ILgrtOQ4f772BjwB2Xb9WvikWxA4snH0PuEz1lhj3LPcLydnAGggiAJEraBFWm35uvkgulrlC27dgqHixOMOUjCCKWHSICbPBF9RcZikr56+AYnZsucc+9YwNiQsWwf2k1go2q85EpwknCbc+AemkFUfxIQBFh9M7zA0svx19DKUWBplB3De5LiBNwqB1GNaDAnyeMAB40OMO4obgQyqmwmE9EJU8ACAYtCBF+LDBwAWGLQSNCQMc4UD/YPkiAnLnLgXW42pKObzXqjvh2AEtaLnljRBShE8X1LwBRIYHSS6rm/ezZ3c96ngkTtsOSXMg8Az1VPdLabSBIoJ8WzHfwA8POHfT/OtGOShS/6sds/3ThqRpjOeiSYBUHZqKVqkPD4djKFOe9YlKDduY9ETYOoHA6sB4LUSJB/PvG34rkMyxK0BXunLaLB+hMEjOrT0aWB27oVEyxkfyVr/z/BbznHFVQo2fguAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu1_Sandbox_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu1_Sandbox.Image = $Menu1_Sandbox_Picture
-    $Application_Menu.DropDownItems.Add($Menu1_Sandbox)
+#Windows Sandbox
+$Menu1_Sandbox = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_Sandbox.Text = "Windows Sandbox"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADG0lEQVRIS9VUzYtOURh/nvPO+CgbZEc21hbY+IjJKJFENmShFKWmZiWxtPFfKImahrKYhWEWlIWUUkYj2dlIWDDe+957zzmP3++ce9+Y780Ut9733nvueX5fz3Ovyiofusr48u8QbDh3P4a61FhV4qtawuORFYlbdtP682PmxEyDl+hL9WUloQ7GJRG1MDnilop5UYJ1Fx5FtVo1RNPoVS1ahANfegt1DcyYa82ZWdT4dHRBrHmLgxcnzEWP+iAaanHQKrFSF0lQaahK8TWeG8BVYSSdcJv+ZC5Rn6Bz6QmUAhRAGmucoT6ReEtOQBqZPX+eDjJ4QocMHIojryE6mxpN0aleeQ5/Xp0FQSWAvbiIbaHCmU5KqMd93cPlL/CBoAaKG0B1Bw8ALE4iCJNaZcfIwp/Dw8tTUBixBSshK3UGIgAlJ3UhVhWy6dRpgTkKT8eXO7dFOmsbIoBKh6x4jtZxH1xgBFSHPwIdAT67NYFnuAA48xbfVVcVtvH4MRRECRicEGICZyoQKs6pfL13F0Rr4AOOQIKGKZTI1htXDaGoHv7A+LIqFr64+QBxdHXzkYNCJcSM+EMrUJcJ6ILgrtOQ4f772BjwB2Xb9WvikWxA4snH0PuEz1lhj3LPcLydnAGggiAJEraBFWm35uvkgulrlC27dgqHixOMOUjCCKWHSICbPBF9RcZikr56+AYnZsucc+9YwNiQsWwf2k1go2q85EpwknCbc+AemkFUfxIQBFh9M7zA0svx19DKUWBplB3De5LiBNwqB1GNaDAnyeMAB40OMO4obgQyqmwmE9EJU8ACAYtCBF+LDBwAWGLQSNCQMc4UD/YPkiAnLnLgXW42pKObzXqjvh2AEtaLnljRBShE8X1LwBRIYHSS6rm/ezZ3c96ngkTtsOSXMg8Az1VPdLabSBIoJ8WzHfwA8POHfT/OtGOShS/6sds/3ThqRpjOeiSYBUHZqKVqkPD4djKFOe9YlKDduY9ETYOoHA6sB4LUSJB/PvG34rkMyxK0BXunLaLB+hMEjOrT0aWB27oVEyxkfyVr/z/BbznHFVQo2fguAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu1_Sandbox_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu1_Sandbox.Image = $Menu1_Sandbox_Picture
+$Application_Menu.DropDownItems.Add($Menu1_Sandbox)
 
-    $Menu1_Sandbox.add_Click({
+$Menu1_Sandbox.add_Click({
         $Filename = "C:\Windows\System32\WindowsSandbox.exe"
         If (Test-Path -Path $FileName) {
             Start-Process $FileName
-           }
+        }
         else {
             $Continue = [System.Windows.MessageBox]::Show("Do you want to install Windows Sandbox?", "Windows Sandbox", 'YesNo', 'Warning')
             if ($Continue -eq 'Yes') {
@@ -655,17 +650,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         }
     })
 
-    #7-Zip Install
-    $Menu2_7_Zip = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu2_7_Zip.Text = "7-Zip"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAzklEQVRIS8WVUQ6EIAxEy8mAkwEng5uxVB1CiK6yaVcSPhSc1xktGlIeRlmf/gaISk4iHFQlgOmAGCOFEEQ4KSVivTZeAAz0Szd3br86wKJzjnjOg8VFAFcipqUqAhgrZyc5ZyqlkPe+Axg2DoAfRYQHZ3G+PwrxNYN5/gSodW+Rsdo5Iqxh75KDOwBHxtVzhPgoxAB4J4gRsS4Bjo5EZ24aiAjRYI+1dnOxBDjrthmAPY9essRh9M5ZJFH5iUZvRfUfjpKB1qBqyoewOuADIvfhGTXOkGgAAAAASUVORK5CYII='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu2_7_Zip_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu2_7_Zip.Image = $Menu2_7_Zip_Picture
-    $Install_Menu.DropDownItems.Add($Menu2_7_Zip)
+#7-Zip Install
+$Menu2_7_Zip = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_7_Zip.Text = "7-Zip"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAzklEQVRIS8WVUQ6EIAxEy8mAkwEng5uxVB1CiK6yaVcSPhSc1xktGlIeRlmf/gaISk4iHFQlgOmAGCOFEEQ4KSVivTZeAAz0Szd3br86wKJzjnjOg8VFAFcipqUqAhgrZyc5ZyqlkPe+Axg2DoAfRYQHZ3G+PwrxNYN5/gSodW+Rsdo5Iqxh75KDOwBHxtVzhPgoxAB4J4gRsS4Bjo5EZ24aiAjRYI+1dnOxBDjrthmAPY9essRh9M5ZJFH5iUZvRfUfjpKB1qBqyoewOuADIvfhGTXOkGgAAAAASUVORK5CYII='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_7_Zip_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_7_Zip.Image = $Menu2_7_Zip_Picture
+$Install_Menu.DropDownItems.Add($Menu2_7_Zip)
 
-    $Menu2_7_Zip.add_Click({
+$Menu2_7_Zip.add_Click({
         WingetCheck
         $startParams = @{
             FilePath     = 'powershell.exe'
@@ -675,17 +670,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Start-Process @startParams
     })
 
-    #Active Directory Install
-    $Menu2_Act_Dir = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu2_Act_Dir.Text = "Active Directory"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAER0lEQVRIS91UXWwUVRg9d+d/d/aHdsuWbQWFtpQfSTTypIlINGokNib6ZGJMfMBEw6v6Vl+MEoyBBBMeBI0aBAIPYID4oBASo6TFYmgBS7u73YXdme7ObHd3dnb+7nhLYgIPhRolMd7JzZ3J3HvOd865+Qge8CAPGB//DYKjR1/jsiknY2jG01a5qMBzNISuKVBqd1pUCsHHvcBOi5y8whHUTTTCFVdF6YEdH8yZ91QQhvuk0vXm+kqpsYOX0i+3veDxwJnmQ1ezArfWJtR0aWAL8DtSy5RUXeeqphP/sR2Ie0c/G7u4aP+SBNrs51vmdf2dhdr8812ZLdn+ge2CEkuzIwYonUNIrwHhVXQas9ALK1BpbA4rerkpK3QqDJ3znufnInZw5C4CM3coVbftYddxdzUt7yU5mkj0rYqB+DNo12fht2ugXhPUqcFzW/BoEh3xBWitFHs3sWljPzIr03B8HxOXJkM/6HnxNsG1S59ki3PFbb3Z3lcFUX1Kivb0dPX0IaZGgcBioDpcOw/HmMTCrTFYCx7C2JNoYgPqtoPubh7rBh5CTJFRMwzkZm+iWm34ltv1Ovnh1K63T548t7NmWOv61/THB4eGsHbtIDKZfiiKyjx00F6YYcAXsXDzIhLdj6L7kREU52sI/BY2bFyDbDYD1+lgNjeLM2ensfWJRTLiffXNz6+Qs8fepRNX/iDFUgVlrQ7CCYgnUuhiM8EUxBWCqOQiKlNkenuRXf8sKloOK5IShjc8DIHnoWka5oolmHUKNSZDVeMwai3n+InzI6ScP+SGxBcsqwmtUoVpNOB6lAVJIQo8OI5jpBx4QYIksSkKWJXtQW8mjUargcqtm6x6D0bDh645GBjoQ6Omm+3KxJcT1298RLTCQVdJxIQIYXEQiW0msDse2m1G5DQR4UJWkQJFkhmZAEUWEYQUhXwOzWYTyUQMP10oQpJlbBxeg+qNC5PN8tX3vOqVc2/sgUX04kFPUeM8CAuUJECIgAjhELLH913YloG2XQb1O0yByJQFrFIdXCQCUVIwV2ogEpEgcjCbhfMnKtNX39/56a3qXy2IFKf2X44m06t5JZPkxRhBGLL7vfibUbCV0hA0bDGCKiNcDHIGMrOKBgTzNZfZanm9an3cnBvf19J/+/6t3exy3THI5dOj/aIaXcdLyW2CHH1OTa/cKsdTIsf8D4IAgRvAD1ymymDTQaGQYzlwGL9ch1GZt/ukqQP10szeNz+uFJjJt0u7i+DOj+nT+yRbaA/xEX4knl39TDTZNUAEOcV0qBFSYzE5yDPv8/kFj3O0G7Xfv/sw94t9fPQc/KW68pKtYmzsgKCYrc2cGh0UFHW7EvOHOYl7rJSfco8fOXPY16/t333MuX6/dr+sdj12ajQqiDFVXZ1M1Qu/0sPfflHe8zWs+4Hfs9kt5/By9ixLwXKA/nYG/wR0yVv0b4H+vwj+BByiDCpt1NN/AAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu2_Act_Dir_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu2_Act_Dir.Image = $Menu2_Act_Dir_Picture
-    $Install_Menu.DropDownItems.Add($Menu2_Act_Dir)
+#Active Directory Install
+$Menu2_Act_Dir = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_Act_Dir.Text = "Active Directory"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAER0lEQVRIS91UXWwUVRg9d+d/d/aHdsuWbQWFtpQfSTTypIlINGokNib6ZGJMfMBEw6v6Vl+MEoyBBBMeBI0aBAIPYID4oBASo6TFYmgBS7u73YXdme7ObHd3dnb+7nhLYgIPhRolMd7JzZ3J3HvOd865+Qge8CAPGB//DYKjR1/jsiknY2jG01a5qMBzNISuKVBqd1pUCsHHvcBOi5y8whHUTTTCFVdF6YEdH8yZ91QQhvuk0vXm+kqpsYOX0i+3veDxwJnmQ1ezArfWJtR0aWAL8DtSy5RUXeeqphP/sR2Ie0c/G7u4aP+SBNrs51vmdf2dhdr8812ZLdn+ge2CEkuzIwYonUNIrwHhVXQas9ALK1BpbA4rerkpK3QqDJ3znufnInZw5C4CM3coVbftYddxdzUt7yU5mkj0rYqB+DNo12fht2ugXhPUqcFzW/BoEh3xBWitFHs3sWljPzIr03B8HxOXJkM/6HnxNsG1S59ki3PFbb3Z3lcFUX1Kivb0dPX0IaZGgcBioDpcOw/HmMTCrTFYCx7C2JNoYgPqtoPubh7rBh5CTJFRMwzkZm+iWm34ltv1Ovnh1K63T548t7NmWOv61/THB4eGsHbtIDKZfiiKyjx00F6YYcAXsXDzIhLdj6L7kREU52sI/BY2bFyDbDYD1+lgNjeLM2ensfWJRTLiffXNz6+Qs8fepRNX/iDFUgVlrQ7CCYgnUuhiM8EUxBWCqOQiKlNkenuRXf8sKloOK5IShjc8DIHnoWka5oolmHUKNSZDVeMwai3n+InzI6ScP+SGxBcsqwmtUoVpNOB6lAVJIQo8OI5jpBx4QYIksSkKWJXtQW8mjUargcqtm6x6D0bDh645GBjoQ6Omm+3KxJcT1298RLTCQVdJxIQIYXEQiW0msDse2m1G5DQR4UJWkQJFkhmZAEUWEYQUhXwOzWYTyUQMP10oQpJlbBxeg+qNC5PN8tX3vOqVc2/sgUX04kFPUeM8CAuUJECIgAjhELLH913YloG2XQb1O0yByJQFrFIdXCQCUVIwV2ogEpEgcjCbhfMnKtNX39/56a3qXy2IFKf2X44m06t5JZPkxRhBGLL7vfibUbCV0hA0bDGCKiNcDHIGMrOKBgTzNZfZanm9an3cnBvf19J/+/6t3exy3THI5dOj/aIaXcdLyW2CHH1OTa/cKsdTIsf8D4IAgRvAD1ymymDTQaGQYzlwGL9ch1GZt/ukqQP10szeNz+uFJjJt0u7i+DOj+nT+yRbaA/xEX4knl39TDTZNUAEOcV0qBFSYzE5yDPv8/kFj3O0G7Xfv/sw94t9fPQc/KW68pKtYmzsgKCYrc2cGh0UFHW7EvOHOYl7rJSfco8fOXPY16/t333MuX6/dr+sdj12ajQqiDFVXZ1M1Qu/0sPfflHe8zWs+4Hfs9kt5/By9ixLwXKA/nYG/wR0yVv0b4H+vwj+BByiDCpt1NN/AAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_Act_Dir_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_Act_Dir.Image = $Menu2_Act_Dir_Picture
+$Install_Menu.DropDownItems.Add($Menu2_Act_Dir)
 
-    $Menu2_Act_Dir.add_Click({ 
+$Menu2_Act_Dir.add_Click({ 
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer" -Value 0
         Restart-Service wuauserv
         Add-WindowsCapability -Online -Name Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0
@@ -693,17 +688,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Restart-Service wuauserv
     })
 
-    #Brave Install
-    $Menu2_Google_Chrome = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu2_Google_Chrome.Text = "Brave"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACFElEQVRIS5WWvS8EQRjGn7kIhSg0xFelEVHoTkWESkNwGoVGhcpHQqJQKBRo8AeohUKikCiUFCof10gkvgqN+Aribsc7e7drdu6dNTvJ5HZ3Zt7fPM/7zu4JxDTZVbOFr9QEPA+QecAr9jzd+9fqVwJ5r19c5/dtoYRtQHbWn+AH6UKgfyBqPCdXxY03x8WLQGR3s4T0Az7T7qqpF3frAFGKPPlNvQI0XdwhjO1fyAxuIdEU7oIm4alR2ZAM8qkWRtqleESbkMMUnms72uPtNWBspnTW8jSwuP73vIF3v6DEBOmAuMrgxgwQKRGlEB1wuAGcHwOzu3bU+AAwNQ+0d7CKfEhEBacgU7SAKhZ7moX6jh8Yx7Xx/yHB/gYJZkK44MH8CGQEk1Rym6FWWz6SQHSVKQy5JV5ZVtsCbGZLfTfVOCU+CKMrUhBbTnQIU8J8del1ZFrXS7A3mqD6lZFs2xkJSjjRWUkT6JQ/v2CsUrHDI+p0IOOUqGiJIWpRYNfnOzBaBbzSs1QlcP8BvNC1Qz4iSljL4vLD7FyfrhIe3Edf9S4vS/MFE5PwZBDdOh1iAfgW2ZTEWqbOicrJEVVWKxmgcmJpOqAkJz5kCWW4oA+v2QJIcE5skDqUi7Poevs33syPA8RUwOaEUx+enxiILbgzxLcwgwPk0OfnRLcrhRVxjwV7dgojVrtYVT30f6AIEVn3tb9bgCfeuItiYwAAAABJRU5ErkJggg=='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu2_Google_Chrome_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu2_Google_Chrome.Image = $Menu2_Google_Chrome_Picture
-    $Install_Menu.DropDownItems.Add($Menu2_Google_Chrome)
+#Brave Install
+$Menu2_Google_Chrome = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_Google_Chrome.Text = "Brave"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACFElEQVRIS5WWvS8EQRjGn7kIhSg0xFelEVHoTkWESkNwGoVGhcpHQqJQKBRo8AeohUKikCiUFCof10gkvgqN+Aribsc7e7drdu6dNTvJ5HZ3Zt7fPM/7zu4JxDTZVbOFr9QEPA+QecAr9jzd+9fqVwJ5r19c5/dtoYRtQHbWn+AH6UKgfyBqPCdXxY03x8WLQGR3s4T0Az7T7qqpF3frAFGKPPlNvQI0XdwhjO1fyAxuIdEU7oIm4alR2ZAM8qkWRtqleESbkMMUnms72uPtNWBspnTW8jSwuP73vIF3v6DEBOmAuMrgxgwQKRGlEB1wuAGcHwOzu3bU+AAwNQ+0d7CKfEhEBacgU7SAKhZ7moX6jh8Yx7Xx/yHB/gYJZkK44MH8CGQEk1Rym6FWWz6SQHSVKQy5JV5ZVtsCbGZLfTfVOCU+CKMrUhBbTnQIU8J8del1ZFrXS7A3mqD6lZFs2xkJSjjRWUkT6JQ/v2CsUrHDI+p0IOOUqGiJIWpRYNfnOzBaBbzSs1QlcP8BvNC1Qz4iSljL4vLD7FyfrhIe3Edf9S4vS/MFE5PwZBDdOh1iAfgW2ZTEWqbOicrJEVVWKxmgcmJpOqAkJz5kCWW4oA+v2QJIcE5skDqUi7Poevs33syPA8RUwOaEUx+enxiILbgzxLcwgwPk0OfnRLcrhRVxjwV7dgojVrtYVT30f6AIEVn3tb9bgCfeuItiYwAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_Google_Chrome_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_Google_Chrome.Image = $Menu2_Google_Chrome_Picture
+$Install_Menu.DropDownItems.Add($Menu2_Google_Chrome)
 
-    $Menu2_Google_Chrome.add_Click({
+$Menu2_Google_Chrome.add_Click({
         WingetCheck
         $startParams = @{
             FilePath     = 'powershell.exe'
@@ -713,17 +708,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Start-Process @startParams
     })
 
-    #Click Paste Install
-    $Menu2_Click_Paste = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu2_Click_Paste.Text = "Click Paste"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAC00lEQVRIS7WWOYyOQRjHbVxxFo5CtygkJIhQIBoKsptdRwiCUDkqGiQiEkIidASJIwq3wpVdjaMh7jgLFLKrRrGuYMn6/b7MfBlv5vv2U+wkv8z7zjwz/3fmmXmet65X5dKHrpEwCebDdBgDA+A7tME9uAov4QP8zk1Xl2m0bTQsguVBpHeVj/lD3zM4D5egHbpS+5zITAx2gXX/KpMXu37ScBd2hBWW+4sik+m5BcOSGb7wfA3OQmvS3sjzCmiGwUn7J55ng1tYKlHEekaYLAp85N393g9vg326DY6RcbAliA0Pdgopfh+6oogOPRa+QLt3sBvOQGfylUWR2NWXh1WwHfSn5SashTZFPEWbwqT6wBVszgg4cGIiWN6O0BaF9vHuivTRNjigyChogSnB+AT1hsIKkrmrPvaj9yisDlZPqJsUmRdEPKY6eRpEH9Q6eWo3npdHMAi8N42KHIH1wUofrKwys3chlmUV7JzzAiwJ/YdseA7eaovH8noVkUqOLw7xZHkyLU8V+QxDMhMrHJ3rCpYGu6/UMbT4xXFFHooXmXk6FPGIesKKJScSj7z2jqtFpNNBHTC0B0VKK+kJnxi1r6Q+OcyL98JifPJ0/RNFk1XWerouMmZxGFc6XXPBwOc90anekzeZ7au1aQKG3pOB4D1piDfeKDs1zHKSeh2kMatWAW/8cTCOWR5Dc4xdG3nZA8YuI6hR9VRGqLvYtYYxe8FI/gOMXQfTKGzMmRO+wNRqFD4Nv5JlVLqMrsB45aT1wf4GtVG4Pc0n5nC3Lc0JBk6j6mtQIJdPjFVbwWiR5qIm3h86ppgZ3Y7biZAf9Q0MNa4qhgrbF4AnsQF0ciymCjPjq9iQy/FmyJ0wC/4nx+uDO2COf5CIltNvsa2ehoXg34p5Pxd24hiPqX8r5+AyvIdu/1biYCceAW6hUVWfjQW3xv8uU7Q53C10a9ym7H/XX2JcoXmg/8/OAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu2_Click_Paste_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu2_Click_Paste.Image = $Menu2_Click_Paste_Picture
-    $Install_Menu.DropDownItems.Add($Menu2_Click_Paste)
+#Click Paste Install
+$Menu2_Click_Paste = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_Click_Paste.Text = "Click Paste"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAC00lEQVRIS7WWOYyOQRjHbVxxFo5CtygkJIhQIBoKsptdRwiCUDkqGiQiEkIidASJIwq3wpVdjaMh7jgLFLKrRrGuYMn6/b7MfBlv5vv2U+wkv8z7zjwz/3fmmXmet65X5dKHrpEwCebDdBgDA+A7tME9uAov4QP8zk1Xl2m0bTQsguVBpHeVj/lD3zM4D5egHbpS+5zITAx2gXX/KpMXu37ScBd2hBWW+4sik+m5BcOSGb7wfA3OQmvS3sjzCmiGwUn7J55ng1tYKlHEekaYLAp85N393g9vg326DY6RcbAliA0Pdgopfh+6oogOPRa+QLt3sBvOQGfylUWR2NWXh1WwHfSn5SashTZFPEWbwqT6wBVszgg4cGIiWN6O0BaF9vHuivTRNjigyChogSnB+AT1hsIKkrmrPvaj9yisDlZPqJsUmRdEPKY6eRpEH9Q6eWo3npdHMAi8N42KHIH1wUofrKwys3chlmUV7JzzAiwJ/YdseA7eaovH8noVkUqOLw7xZHkyLU8V+QxDMhMrHJ3rCpYGu6/UMbT4xXFFHooXmXk6FPGIesKKJScSj7z2jqtFpNNBHTC0B0VKK+kJnxi1r6Q+OcyL98JifPJ0/RNFk1XWerouMmZxGFc6XXPBwOc90anekzeZ7au1aQKG3pOB4D1piDfeKDs1zHKSeh2kMatWAW/8cTCOWR5Dc4xdG3nZA8YuI6hR9VRGqLvYtYYxe8FI/gOMXQfTKGzMmRO+wNRqFD4Nv5JlVLqMrsB45aT1wf4GtVG4Pc0n5nC3Lc0JBk6j6mtQIJdPjFVbwWiR5qIm3h86ppgZ3Y7biZAf9Q0MNa4qhgrbF4AnsQF0ciymCjPjq9iQy/FmyJ0wC/4nx+uDO2COf5CIltNvsa2ehoXg34p5Pxd24hiPqX8r5+AyvIdu/1biYCceAW6hUVWfjQW3xv8uU7Q53C10a9ym7H/XX2JcoXmg/8/OAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_Click_Paste_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_Click_Paste.Image = $Menu2_Click_Paste_Picture
+$Install_Menu.DropDownItems.Add($Menu2_Click_Paste)
 
-    $Menu2_Click_Paste.add_Click({
+$Menu2_Click_Paste.add_Click({
         $Filename = "C:\ProgramData\ClickPaste\ClickPaste.exe"
         If (Test-Path -Path $FileName) {
             $Process = Get-Process -Name "ClickPaste"
@@ -742,17 +737,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         }      
     })
 
-    #Firefox Install
-    $Menu2_Firefox = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu2_Firefox.Text = "Firefox"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEpElEQVRIS7WVW2wUVRjH/3PZmZ2d7YVdLGDb0Iam2ASQAOI96VMT8QEkQZvAA1FRG9poQCPGS9YYAlHkAcQQhKSltKUhwUdNjMoL8RLRIJgaQKEppLS03RZ22dvsHP9nZrtQWkjEuJsvMztzzv/33c63Cv7nj3K/+uL6ywKugFJ+6J4a9wUQYy8KBFTAIWDWId5A3M3Rfw+IxVTR8ncehu7L5vNQHui4q86ML8TxJ68oa09WzuSVuPA8vae4FQAUbnddQhjJg50zak17KD5fJkRpYEzd8FNUHFm1uWKH3XHtj2OJSZg4vUbAJCAcBFRulwoEIO9Cmd89TW/KAxFbKmBzcakGXI4KzFKVFV3zjVOnDuQkoLGxUf9+u5Xz0hOk2WYBIiORIJyDadQr1e1F3eLN+bZHS+vC2QmECJAmIbYBJxX69Os9+7aaqgGdKZE6OeHgZjaFtUc/BB8CGtdqBOYV5DU1zqq0mgsOd0unigDx2gqBELdb0iSEr8JskLCBdC6Cbw98AYNp0BwXQrhIOWkkbk6g+ehOQiguATpBDvfYTFdtl6d9C7BxZQGQB5ZZQBmLeH6CILmB9yzqsX1fwnDy0Ng5+UwKq3vf9Ys87BQAEiLrQ0DdbYDly18J/FJ/JosgxStpiwwKyjxTWJrsGGlBA52t+6E7DkQqCXdiDBt6PvKPwRC9l90lARGgdlXAunSpPe1FMLZs9eZZ80c+8wBBeiTtCQpGDAgjgO17O6AZIQRhwMgJ6Jk0tGQCYnwUmw5+4DfYAAsuxeu594aBG0LbWfpY5zse4KLauqOm6fdtsAoAk4vMPH6tXIrO716CKC+HFrRhsNChjAY7yVokrgPxEby+530GQJm/SuB115IsMGohDvXjSFPX2x4gUvdM6WhVesLznMJeJIaLlrNbkLXDcMvKoYZsmKoJK+sDrPE0lPgYtm1nJzmM9lIZ8EiK+5mqwTB6+9yFzbHec36R163TxMC444l7JkG0p3JY37MFwrLg2iEYWhAhAkJJ9gMBejyJ2Fu72J6smc4UVbLY8nwMlkI5sjCAEzGn2EVDeFVUrLzoA+i9b3lcazLxxuFN/ljQAwjkVdh01CJk1xqKC3o/j0UO0nOKi4QFxbGhbPVPdRHwm97yyZKGy2+qJnNIYeiFKAK86gLrhzYXR1M5l+yr3QuUcHuE4hbFQxKgQVyZjWRQ/aZkR3fTFID8cZVRzHl4kD3NyaAXIBIQoIgEarxKU6Xxt5xFQZrNs8K2zgzMhsGDqbZ3qozYG+FTZlHJQ89Fz/0ZHZm7eJRCzKdKkBQsivvR+ACa3C3NUpDon4NgiYHKEWfu8Nmeoclwp02/Z6tfWHRwoORMGjdRs5jJVhmJKmHSY2mTgEn3BOKn51HcxHtlicd39/X+WMzlnRFMvojUra3qu1Ax4CDDbxpV9VkEZOsqBBTMySm4djYqjx50Wk3D1ZrxvuP9t4tPS9GUlxzNP5xs2L0gp7S5yHGKyjnqf1Tvq9MMDGpub9vT0Q0n2JJ3it8bMLmaf5F2+88Vpq5Fv+qvbpWPm6sG9w+LzFBy48phxGK3yDMQptVgJi/+y7N/AK8msCgh9PN5AAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu2_Firefox_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu2_Firefox.Image = $Menu2_Firefox_Picture
-    $Install_Menu.DropDownItems.Add($Menu2_Firefox)
+#Firefox Install
+$Menu2_Firefox = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_Firefox.Text = "Firefox"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEpElEQVRIS7WVW2wUVRjH/3PZmZ2d7YVdLGDb0Iam2ASQAOI96VMT8QEkQZvAA1FRG9poQCPGS9YYAlHkAcQQhKSltKUhwUdNjMoL8RLRIJgaQKEppLS03RZ22dvsHP9nZrtQWkjEuJsvMztzzv/33c63Cv7nj3K/+uL6ywKugFJ+6J4a9wUQYy8KBFTAIWDWId5A3M3Rfw+IxVTR8ncehu7L5vNQHui4q86ML8TxJ68oa09WzuSVuPA8vae4FQAUbnddQhjJg50zak17KD5fJkRpYEzd8FNUHFm1uWKH3XHtj2OJSZg4vUbAJCAcBFRulwoEIO9Cmd89TW/KAxFbKmBzcakGXI4KzFKVFV3zjVOnDuQkoLGxUf9+u5Xz0hOk2WYBIiORIJyDadQr1e1F3eLN+bZHS+vC2QmECJAmIbYBJxX69Os9+7aaqgGdKZE6OeHgZjaFtUc/BB8CGtdqBOYV5DU1zqq0mgsOd0unigDx2gqBELdb0iSEr8JskLCBdC6Cbw98AYNp0BwXQrhIOWkkbk6g+ehOQiguATpBDvfYTFdtl6d9C7BxZQGQB5ZZQBmLeH6CILmB9yzqsX1fwnDy0Ng5+UwKq3vf9Ys87BQAEiLrQ0DdbYDly18J/FJ/JosgxStpiwwKyjxTWJrsGGlBA52t+6E7DkQqCXdiDBt6PvKPwRC9l90lARGgdlXAunSpPe1FMLZs9eZZ80c+8wBBeiTtCQpGDAgjgO17O6AZIQRhwMgJ6Jk0tGQCYnwUmw5+4DfYAAsuxeu594aBG0LbWfpY5zse4KLauqOm6fdtsAoAk4vMPH6tXIrO716CKC+HFrRhsNChjAY7yVokrgPxEby+530GQJm/SuB115IsMGohDvXjSFPX2x4gUvdM6WhVesLznMJeJIaLlrNbkLXDcMvKoYZsmKoJK+sDrPE0lPgYtm1nJzmM9lIZ8EiK+5mqwTB6+9yFzbHec36R163TxMC444l7JkG0p3JY37MFwrLg2iEYWhAhAkJJ9gMBejyJ2Fu72J6smc4UVbLY8nwMlkI5sjCAEzGn2EVDeFVUrLzoA+i9b3lcazLxxuFN/ljQAwjkVdh01CJk1xqKC3o/j0UO0nOKi4QFxbGhbPVPdRHwm97yyZKGy2+qJnNIYeiFKAK86gLrhzYXR1M5l+yr3QuUcHuE4hbFQxKgQVyZjWRQ/aZkR3fTFID8cZVRzHl4kD3NyaAXIBIQoIgEarxKU6Xxt5xFQZrNs8K2zgzMhsGDqbZ3qozYG+FTZlHJQ89Fz/0ZHZm7eJRCzKdKkBQsivvR+ACa3C3NUpDon4NgiYHKEWfu8Nmeoclwp02/Z6tfWHRwoORMGjdRs5jJVhmJKmHSY2mTgEn3BOKn51HcxHtlicd39/X+WMzlnRFMvojUra3qu1Ax4CDDbxpV9VkEZOsqBBTMySm4djYqjx50Wk3D1ZrxvuP9t4tPS9GUlxzNP5xs2L0gp7S5yHGKyjnqf1Tvq9MMDGpub9vT0Q0n2JJ3it8bMLmaf5F2+88Vpq5Fv+qvbpWPm6sG9w+LzFBy48phxGK3yDMQptVgJi/+y7N/AK8msCgh9PN5AAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_Firefox_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_Firefox.Image = $Menu2_Firefox_Picture
+$Install_Menu.DropDownItems.Add($Menu2_Firefox)
 
-    $Menu2_Firefox.add_Click({
+$Menu2_Firefox.add_Click({
         WingetCheck
         $startParams = @{
             FilePath     = 'powershell.exe'
@@ -762,17 +757,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Start-Process @startParams
     })
 
-    #Google Chrome Install
-    $Menu2_Google_Chrome = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu2_Google_Chrome.Text = "Google Chrome"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAEhUlEQVRIS72VW2hcVRSG/3OfSTKTtJ02xYS2aVRqES1CBQuK0kSkUqG3mE7UJ4tioWhFHxRRFB+ktI8qEvFCHjTEuy8tIbFWEwoJ9QaCbQ2VBloNaVKbmTPntv3XSU4zmUxaQXAxizOcvff61nUfDf+DaP+SIftSVIdqUENqiepS1fVsXA+Snn7m0YJuW9Co0E3ai4AgROQFUJ4HVfLQ8HZvDReKS8GWguiTj20PNdumcROaSYChQ9c1KPE7iqACQnyfIAJLPkDgir5jEiW9WCjVINbEjjYPYtwyoRv03tShEQKN2wlRinZCgvwAERUSlUBLAVYdPWETQeq8VEKMi21bAjEeA2gchgFFgKYnkJgCFfEpAIEFPtPHMjGNAmz8fkTyKnWLZQHkvefuU9uGrwAWoxbDBGgmtxCgaQKZLbOSnEnKQsJCAc0CVTCfqdXDo1dtl0OyXce7pl999kfUWg4955IhSqD8F0KyO4ZQQzrLnyKwUgip57vLCyLJD3YpcVYkAZUfrB/4Dh5tfTB6CY/fmSNfoTiyhtEqBhqwdlH8NJ0in0LWYdwSxW4lvln5b7o8qavIKwd/oPNaHJFIpv9bvN5/AQ7rJGViGeAyPS8/0AzjbJpRL44ESiNExU2QQJYRMplAxPBLT4+yNCZyA0N4/stxpC0dlmlIeaQc8ElyWewju9bBOZdelK65SJZz4VICWcN0nUvSJScOPjUEx7TxW3c/+n6eQpqNYMqs8ISUIxAI9YWtTdhQFFsLRUUGzI3hWr79I4G05ge6zmgySmVy4MkTeHH/Z6ih+5ZASIhHRSAy+FGIK+ysY213VIFYhPg3cuFsAmnZ25//Xdq1PGX2pIu1xmsYHJthk3ENBPEUm5ai2FwR9m3OoXN5S0UYGqIwDevWwnoujCWQxoeP5i8YNg3NdVhy6vCGI2h/91emjt2isyZESZlDRuGxhQefuA0Nfy5Ml4pMBF4WqU2Tq7n1YgJJd3y9t2CkCKmIRmCHbj6Me94aYcPIQIoXMichTh64C8smViyOIqiB5zagdvN4fHEmEG13X2dk1NFbRiOXeeV980brITzy0SkMnZ9Ce2sO3Xs2Yd/x/fji9r55CNtWRTb8Uj1KM1k03H0m9qjcVtOezzvP62mCLLlKZu/DalIqRAiKET7Z+PFigJeBX8wgu2WsmYvjsqHcjP5QT0foMBo9RSUo7ray2ySxWCqENKTwaQwR7/U4gsCrg+/WwZ2pxar2X65e+5W+Zrb3dFx2ahjNXH30uRrFMcuMcEh8RtHb0stWFuMWy+Mg8GsRuCm4hVo03v9Tlrv/TpyqlpDctvd3/5WqYScxIvmcaNK+kl3OScgLrKf5Kxo3Yw0JCH3WwXUISKPpwVMruXOiPM1LZB31W9/ZOZUixLFnr3udH0eNRfIDhQ9vGI5TFAZGDPBKFryiiXW7RhtofLqyjktBZJ/ktOXeN3ectm0OoYD4pnvl6Xjio1AghHo6WjtGbpKhk/Gp1ijXgiT7BSbfhhw1Q02GXnIuaRHPqxq/Vk2qtu1/efkPmizDKdT29VcAAAAASUVORK5CYII='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu2_Google_Chrome_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu2_Google_Chrome.Image = $Menu2_Google_Chrome_Picture
-    $Install_Menu.DropDownItems.Add($Menu2_Google_Chrome)
+#Google Chrome Install
+$Menu2_Google_Chrome = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_Google_Chrome.Text = "Google Chrome"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAEhUlEQVRIS72VW2hcVRSG/3OfSTKTtJ02xYS2aVRqES1CBQuK0kSkUqG3mE7UJ4tioWhFHxRRFB+ktI8qEvFCHjTEuy8tIbFWEwoJ9QaCbQ2VBloNaVKbmTPntv3XSU4zmUxaQXAxizOcvff61nUfDf+DaP+SIftSVIdqUENqiepS1fVsXA+Snn7m0YJuW9Co0E3ai4AgROQFUJ4HVfLQ8HZvDReKS8GWguiTj20PNdumcROaSYChQ9c1KPE7iqACQnyfIAJLPkDgir5jEiW9WCjVINbEjjYPYtwyoRv03tShEQKN2wlRinZCgvwAERUSlUBLAVYdPWETQeq8VEKMi21bAjEeA2gchgFFgKYnkJgCFfEpAIEFPtPHMjGNAmz8fkTyKnWLZQHkvefuU9uGrwAWoxbDBGgmtxCgaQKZLbOSnEnKQsJCAc0CVTCfqdXDo1dtl0OyXce7pl999kfUWg4955IhSqD8F0KyO4ZQQzrLnyKwUgip57vLCyLJD3YpcVYkAZUfrB/4Dh5tfTB6CY/fmSNfoTiyhtEqBhqwdlH8NJ0in0LWYdwSxW4lvln5b7o8qavIKwd/oPNaHJFIpv9bvN5/AQ7rJGViGeAyPS8/0AzjbJpRL44ESiNExU2QQJYRMplAxPBLT4+yNCZyA0N4/stxpC0dlmlIeaQc8ElyWewju9bBOZdelK65SJZz4VICWcN0nUvSJScOPjUEx7TxW3c/+n6eQpqNYMqs8ISUIxAI9YWtTdhQFFsLRUUGzI3hWr79I4G05ge6zmgySmVy4MkTeHH/Z6ih+5ZASIhHRSAy+FGIK+ysY213VIFYhPg3cuFsAmnZ25//Xdq1PGX2pIu1xmsYHJthk3ENBPEUm5ai2FwR9m3OoXN5S0UYGqIwDevWwnoujCWQxoeP5i8YNg3NdVhy6vCGI2h/91emjt2isyZESZlDRuGxhQefuA0Nfy5Ml4pMBF4WqU2Tq7n1YgJJd3y9t2CkCKmIRmCHbj6Me94aYcPIQIoXMichTh64C8smViyOIqiB5zagdvN4fHEmEG13X2dk1NFbRiOXeeV980brITzy0SkMnZ9Ce2sO3Xs2Yd/x/fji9r55CNtWRTb8Uj1KM1k03H0m9qjcVtOezzvP62mCLLlKZu/DalIqRAiKET7Z+PFigJeBX8wgu2WsmYvjsqHcjP5QT0foMBo9RSUo7ray2ySxWCqENKTwaQwR7/U4gsCrg+/WwZ2pxar2X65e+5W+Zrb3dFx2ahjNXH30uRrFMcuMcEh8RtHb0stWFuMWy+Mg8GsRuCm4hVo03v9Tlrv/TpyqlpDctvd3/5WqYScxIvmcaNK+kl3OScgLrKf5Kxo3Yw0JCH3WwXUISKPpwVMruXOiPM1LZB31W9/ZOZUixLFnr3udH0eNRfIDhQ9vGI5TFAZGDPBKFryiiXW7RhtofLqyjktBZJ/ktOXeN3ectm0OoYD4pnvl6Xjio1AghHo6WjtGbpKhk/Gp1ijXgiT7BSbfhhw1Q02GXnIuaRHPqxq/Vk2qtu1/efkPmizDKdT29VcAAAAASUVORK5CYII='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_Google_Chrome_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_Google_Chrome.Image = $Menu2_Google_Chrome_Picture
+$Install_Menu.DropDownItems.Add($Menu2_Google_Chrome)
 
-    $Menu2_Google_Chrome.add_Click({
+$Menu2_Google_Chrome.add_Click({
         WingetCheck
         $startParams = @{
             FilePath     = 'powershell.exe'
@@ -782,17 +777,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Start-Process @startParams
     })
 
-    #Group Policy Install
-    $Menu2_Group_Policy = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu2_Group_Policy.Text = "Group Policy"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAE4UlEQVRIS42VS2wbVRSG/3k448RJWs+MYxIndlxKiASqwGlRChVdIiFgwxJYsEBIiFUFEmLVJQi1XSEQIDZsqkitlLosQNCqFGhCaagIbZpHH0lM6vd7bM+bM2M7OH0lY13d8cyd851z/nvOZdBxTU1NcYcmn3qeMZIfsowxYYMRAaa1ojkzDEuDge38LKv1zt6cNYNDo7GheLnyl1458En7a3fBtWu/i6LP+7kkd7/OcaynE96+t9u2XFjnCgaWzSCZzMJW51EpJ5IW5zm0Zcn8zE/BUHT01G5x9wsPMr7ds2K5gZX5s6gVZ5FIVyo8evZvAdz49ccheU/0rBgQn93O2H3vKZxbdxKY+fmbq9XsbxfXs74rtURwagtgjgDhx6NxURZjhmEilSrCsmxYptWcKT82zc6vfUliH0Sp19Vlcfk2Ls/88dFbb7/3afv9AwGS7I9ZJKCq6nBybrcS3547ve/q4uEMR5DF5VsE+PPRgJE94bgcEAlgtwDkb8vhnQGu7ATgpxQZlKIypcaCaVJ6aHZADphi2gxCFHshUYqaETgpmtsOMEIR7Ip1GtmR4C7gDgGubgcYJkB/TG3oWFrKwDBNGIYTRTuS/1PmgCMRvzucelxcXm0B3n+4yCPRQRdAydiR45uLnAhW1gjwN0WwLcAXc3bQ0lLB9d5oee9E4XSHTrEjkX5Ewv1NDVzAtUcBpodGoqNxWe7eooEDqVHKTBKYYxnwHINcrgCWZV2YIHggyyKWbq7j8uzCdhEMxGVJaBZaugGFIkmkS0gW6mB5LwTORiG5hkuzc4gMh+HhDShKAa+9/CJ6+noxd3n50YBwVI5LkifmVK3aMHHm/G3sP3AQBu3MuqYhsbaGhYUFhCIjCPj74eEs3FhcwV+zM5icnECh2Jg2+b5jJoN1NbWauL+So1JcErlWJVs4fW4V+yYmyRALgaeU0BeapqNYqSCXL6BSUZBMJZG/exe80AOW4y3D0KtURyny6bv7AaN+ArCUIgupjIYzF1bgEwdQyGZQq9UwNj5OKlvo7fW554HzrFSqIJ3KwKSonf+FfN4tSmlXX/oeAIk8GoxLfmyKfPKHf7F33wFU00l8P30Gh195FblMFvlcDpVSGY1qGbzXB4YEZ+kwyqRSpBWPgWAAHsYubwKOHj3KHn5u79D4WHA6IKkxx0vnOnlOwciTE7h+dQ5KPounDx6CSl5yPLVnyn0ll0S3GARPRjfWN6DUFDwxPgaPR0Apm24Clpd/Ccii+KahaSHo+Te6vfpj7QZ36nwB8vCYG7ppmdBVlZqgCk3XyPsaWLWKOivA09WFEqXGaduhcBi6oaOazzUBq7cvvDsY3H2cdPQyTsXYjpTN69vT8zD5fvdkdgG0k3Rdd4XW6L5cKILz8K4e1XIFg6FBGiFnrV3KpBTX0D+Xjr3j9xWO02Hivbc/5Cos0iUeqSLPZCseKA0PYzEeRjfBkA2YVC+6ocGkB/V6zTU+NDwErdFQVm+uNE+0Lz77YEDyb3xMm1CiADqO9SaOAmIsm4NmdzFVtYdTdB9fVfv6VYMN6IYdoBbit2xLaNQb/DClRx4I3M1nMl+t31n72gU4AovU2AVB2LKrHtbtumo1JmeW+EKBF+qW4VMN7NUN9RnTNF8aCg1LPb3CkfSKcvHEiSP1/wDbXdYF8bisrQAAAABJRU5ErkJggg=='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu2_Group_Policy_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu2_Group_Policy.Image = $Menu2_Group_Policy_Picture
-    $Install_Menu.DropDownItems.Add($Menu2_Group_Policy)
+#Group Policy Install
+$Menu2_Group_Policy = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_Group_Policy.Text = "Group Policy"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAE4UlEQVRIS42VS2wbVRSG/3k448RJWs+MYxIndlxKiASqwGlRChVdIiFgwxJYsEBIiFUFEmLVJQi1XSEQIDZsqkitlLosQNCqFGhCaagIbZpHH0lM6vd7bM+bM2M7OH0lY13d8cyd851z/nvOZdBxTU1NcYcmn3qeMZIfsowxYYMRAaa1ojkzDEuDge38LKv1zt6cNYNDo7GheLnyl1458En7a3fBtWu/i6LP+7kkd7/OcaynE96+t9u2XFjnCgaWzSCZzMJW51EpJ5IW5zm0Zcn8zE/BUHT01G5x9wsPMr7ds2K5gZX5s6gVZ5FIVyo8evZvAdz49ccheU/0rBgQn93O2H3vKZxbdxKY+fmbq9XsbxfXs74rtURwagtgjgDhx6NxURZjhmEilSrCsmxYptWcKT82zc6vfUliH0Sp19Vlcfk2Ls/88dFbb7/3afv9AwGS7I9ZJKCq6nBybrcS3547ve/q4uEMR5DF5VsE+PPRgJE94bgcEAlgtwDkb8vhnQGu7ATgpxQZlKIypcaCaVJ6aHZADphi2gxCFHshUYqaETgpmtsOMEIR7Ip1GtmR4C7gDgGubgcYJkB/TG3oWFrKwDBNGIYTRTuS/1PmgCMRvzucelxcXm0B3n+4yCPRQRdAydiR45uLnAhW1gjwN0WwLcAXc3bQ0lLB9d5oee9E4XSHTrEjkX5Ewv1NDVzAtUcBpodGoqNxWe7eooEDqVHKTBKYYxnwHINcrgCWZV2YIHggyyKWbq7j8uzCdhEMxGVJaBZaugGFIkmkS0gW6mB5LwTORiG5hkuzc4gMh+HhDShKAa+9/CJ6+noxd3n50YBwVI5LkifmVK3aMHHm/G3sP3AQBu3MuqYhsbaGhYUFhCIjCPj74eEs3FhcwV+zM5icnECh2Jg2+b5jJoN1NbWauL+So1JcErlWJVs4fW4V+yYmyRALgaeU0BeapqNYqSCXL6BSUZBMJZG/exe80AOW4y3D0KtURyny6bv7AaN+ArCUIgupjIYzF1bgEwdQyGZQq9UwNj5OKlvo7fW554HzrFSqIJ3KwKSonf+FfN4tSmlXX/oeAIk8GoxLfmyKfPKHf7F33wFU00l8P30Gh195FblMFvlcDpVSGY1qGbzXB4YEZ+kwyqRSpBWPgWAAHsYubwKOHj3KHn5u79D4WHA6IKkxx0vnOnlOwciTE7h+dQ5KPounDx6CSl5yPLVnyn0ll0S3GARPRjfWN6DUFDwxPgaPR0Apm24Clpd/Ccii+KahaSHo+Te6vfpj7QZ36nwB8vCYG7ppmdBVlZqgCk3XyPsaWLWKOivA09WFEqXGaduhcBi6oaOazzUBq7cvvDsY3H2cdPQyTsXYjpTN69vT8zD5fvdkdgG0k3Rdd4XW6L5cKILz8K4e1XIFg6FBGiFnrV3KpBTX0D+Xjr3j9xWO02Hivbc/5Cos0iUeqSLPZCseKA0PYzEeRjfBkA2YVC+6ocGkB/V6zTU+NDwErdFQVm+uNE+0Lz77YEDyb3xMm1CiADqO9SaOAmIsm4NmdzFVtYdTdB9fVfv6VYMN6IYdoBbit2xLaNQb/DClRx4I3M1nMl+t31n72gU4AovU2AVB2LKrHtbtumo1JmeW+EKBF+qW4VMN7NUN9RnTNF8aCg1LPb3CkfSKcvHEiSP1/wDbXdYF8bisrQAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_Group_Policy_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_Group_Policy.Image = $Menu2_Group_Policy_Picture
+$Install_Menu.DropDownItems.Add($Menu2_Group_Policy)
 
-    $Menu2_Group_Policy.add_Click({ 
+$Menu2_Group_Policy.add_Click({ 
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer" -Value 0
         Restart-Service wuauserv
         Add-WindowsCapability -Online -Name Rsat.GroupPolicy.Management.Tools~~~~0.0.1.0
@@ -800,17 +795,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Restart-Service wuauserv
     })
 
-    #PuTTy Install
-    $Menu2_PuTTy = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu2_PuTTy.Text = "PuTTY"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACW0lEQVRIS62UzWoTURTH//fmo2hWgqvaWlBCH6CKm0BKu1XBhY8gxRdwoTaJEwTTFxCsgitfoOlmIDPT1BhQ7NJFFS0qiBtX0eKkc6/nTEicTCaZtJ2zCCE59/zO51/gmFYoFHTrdWviq1wuh87vjug7Db5My7JtW8f5kg8MwzgZREBo13WRzqQjObbTxI5jQWt9OsiseIh5VKAiMDWrCcdxkoe8072qroojJA4BBH7iOT6pGrLyC5bQTRbyAxv4qy5ic/MPXq59pfYoCCGTgwhxBh11Hhl1DnOpa1gQTwfT2bBasJ3G6WaSlil96M1D6izS8iMUVRA0Hnp/8FWjStUJ9qHPKSyfz+sP+5qmAMzIz/Rw8qlYtuXD2IxHhv9uovm3oS+TT3TgrGDoEf0vh+JUKpXxEA4a9Hb1JcpEEGIYoml1Z+Q+OOsoG1sJXWooXe55L0NJ23OoFpESXZxNHeBBad0f8DjjNlFifqeG2sWQBVEeefcNVfgV0aAz8iCuw/7/fUAkZE6WcIFko+coKQsPb7xFykkhK76jVL7vDzMYJI46UkkQ8gsvsHLnHq4sZVG+ewuvGrdpa3aTg7AmcYt4e1iX2J5Yu6SyJONJVfJf+NzB8BOErGNWjg6fK6mZb7HTNE9eCd9H8FInrSb7LS8XceP6TdS361MctL/HQjesBlZXVuMWhQTQRrFYBF/03vs9bNW34iEMUNoLn8xEWF8IjwlRA0ELR+eAvE19C7bUNM1n7XZ7La58kuHxs2DZYLkOGv8mpcRjkvKu8mJbNbj4sCjGZRaWjTj/f65KYyxtPszLAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu2_PuTTy_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu2_PuTTy.Image = $Menu2_PuTTy_Picture
-    $Install_Menu.DropDownItems.Add($Menu2_PuTTy)
+#PuTTy Install
+$Menu2_PuTTy = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_PuTTy.Text = "PuTTY"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACW0lEQVRIS62UzWoTURTH//fmo2hWgqvaWlBCH6CKm0BKu1XBhY8gxRdwoTaJEwTTFxCsgitfoOlmIDPT1BhQ7NJFFS0qiBtX0eKkc6/nTEicTCaZtJ2zCCE59/zO51/gmFYoFHTrdWviq1wuh87vjug7Db5My7JtW8f5kg8MwzgZREBo13WRzqQjObbTxI5jQWt9OsiseIh5VKAiMDWrCcdxkoe8072qroojJA4BBH7iOT6pGrLyC5bQTRbyAxv4qy5ic/MPXq59pfYoCCGTgwhxBh11Hhl1DnOpa1gQTwfT2bBasJ3G6WaSlil96M1D6izS8iMUVRA0Hnp/8FWjStUJ9qHPKSyfz+sP+5qmAMzIz/Rw8qlYtuXD2IxHhv9uovm3oS+TT3TgrGDoEf0vh+JUKpXxEA4a9Hb1JcpEEGIYoml1Z+Q+OOsoG1sJXWooXe55L0NJ23OoFpESXZxNHeBBad0f8DjjNlFifqeG2sWQBVEeefcNVfgV0aAz8iCuw/7/fUAkZE6WcIFko+coKQsPb7xFykkhK76jVL7vDzMYJI46UkkQ8gsvsHLnHq4sZVG+ewuvGrdpa3aTg7AmcYt4e1iX2J5Yu6SyJONJVfJf+NzB8BOErGNWjg6fK6mZb7HTNE9eCd9H8FInrSb7LS8XceP6TdS361MctL/HQjesBlZXVuMWhQTQRrFYBF/03vs9bNW34iEMUNoLn8xEWF8IjwlRA0ELR+eAvE19C7bUNM1n7XZ7La58kuHxs2DZYLkOGv8mpcRjkvKu8mJbNbj4sCjGZRaWjTj/f65KYyxtPszLAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_PuTTy_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_PuTTy.Image = $Menu2_PuTTy_Picture
+$Install_Menu.DropDownItems.Add($Menu2_PuTTy)
 
-    $Menu2_PuTTy.add_Click({
+$Menu2_PuTTy.add_Click({
         WingetCheck
         $startParams = @{
             FilePath     = 'powershell.exe'
@@ -821,14 +816,14 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Start-Process "C:\Program Files\PuTTY\putty.exe"
     })
 
-    #Powershell Install
-    $Menu2_Powershell = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu2_Powershell.Text = "Powershell"
-    $Menu2_Powershell_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
-    $Menu2_Powershell.Image = $Menu2_Powershell_Picture
-    $Install_Menu.DropDownItems.Add($Menu2_Powershell)
+#Powershell Install
+$Menu2_Powershell = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_Powershell.Text = "Powershell"
+$Menu2_Powershell_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
+$Menu2_Powershell.Image = $Menu2_Powershell_Picture
+$Install_Menu.DropDownItems.Add($Menu2_Powershell)
 
-    $Menu2_Powershell.add_Click({
+$Menu2_Powershell.add_Click({
         WingetCheck
         $startParams = @{
             FilePath     = 'powershell.exe'
@@ -838,17 +833,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Start-Process @startParams
     })
 
-    #RSAT Tools Install
-    $Menu2_RSAT_Tools = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu2_RSAT_Tools.Text = "RSAT Tools"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAh0lEQVRIS2P84afzn4FIwPj/n05dNjcDIxPDFSK1MDCOWkAoqEaDiFAIjaYigiFEhyD66aulTdgdEBVsf37dyctlYOBiElQhVg8jw4LnRFvAICZx5z+DFwMD0xsSLFj4iujCjuH/X53/En5AxzMSX9gxjFpAILYZR4OIUH4YDSJCIcRA8yACAEAenUVOCa2cAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu2_RSAT_Tools_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu2_RSAT_Tools.Image = $Menu2_RSAT_Tools_Picture
-    $Install_Menu.DropDownItems.Add($Menu2_RSAT_Tools)
+#RSAT Tools Install
+$Menu2_RSAT_Tools = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_RSAT_Tools.Text = "RSAT Tools"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAh0lEQVRIS2P84afzn4FIwPj/n05dNjcDIxPDFSK1MDCOWkAoqEaDiFAIjaYigiFEhyD66aulTdgdEBVsf37dyctlYOBiElQhVg8jw4LnRFvAICZx5z+DFwMD0xsSLFj4iujCjuH/X53/En5AxzMSX9gxjFpAILYZR4OIUH4YDSJCIcRA8yACAEAenUVOCa2cAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_RSAT_Tools_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_RSAT_Tools.Image = $Menu2_RSAT_Tools_Picture
+$Install_Menu.DropDownItems.Add($Menu2_RSAT_Tools)
 
-    $Menu2_RSAT_Tools.add_Click({ 
+$Menu2_RSAT_Tools.add_Click({ 
         Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer" -Value 0
         Restart-Service wuauserv
         Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online
@@ -856,17 +851,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Restart-Service wuauserv
     })
 
-    #VLC Install
-    $Menu2_VLC = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu2_VLC.Text = "VLC"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEAElEQVRIS61VXWyTVRh+Ttu168qqW9kYbEOZGLO6bCzKdDOamG5E5xCVxURjJBiFJXqhxmiiMfECRWW7kjuNURLNQrgQiAIhxgunExiwLjoYk26xg5Yh/V3HSr99r89pFTMRWsGvOV+Tc97nfd6f5z2fwn94BtarwxkD6sHdsrpQmCrUsP8BdfTh+6TZfhOwc48a2/Cj1BeCLZjg6HOQuhLAsQT42Q+07EJB2IKMdKTjL0MWG4CdBGcngNs//R8Jnt20aflja9dNJmdSeLJ7PX45eQqff7aj4aO+raP5ylRQBm+9s0VWNTWK19uAaDyGmtrlOLB/v9q88Zm8+LwGOsJvDn4nlZUVUlNTg+HhEVRWVWJyYlI90fVQXnxeA03w/aEhqV62VA4fGcKa9naEz08jFk2otrub8uLzGuxog3lPM9RiRn+kugctq5th2dOD0GgQP4wBz/907WbnJdj3COSOFUBZOWBJAtZSplQETAcB/2ng8W9vkGDgKUhtBbDIBbFfovNiEjmBRBhqlHL1fX0DBNtbHHtb69NdFZxep0ECBzNw5TKYjUONB4CBgCPwxkj6tqvJ9ZolevGV18yeWK8qc3OC5yCORYyeJMKVTkIFJoHja7+UzRuetlwXwXsfbjMbG5tUKjULuDxyf7IfiUQMmfbtyCTDKhgMIpMxpPvRzusjeH9bn/g61sBeZIPVZod/+Dh8Ph9CoTCKHA7MJBOYmppC97quq1biioPI65DoNNDv7UXdijpcmruI6tpa/Ho6AI/Hg4aGBhTTeSQS4SxEEZiYxNipk+gcehdVZYB358KmX0nwKswzZ4ETXK43D+gIlcvlgjFvSgezGRwcRL23HiKizvwWRCwWkUxfN9xs/EpehN5dWFCuBQTRtyHpOOT8BSAUByqoefedjWq64xO4St0y4vfj3tZWxBNxGBlDle17AfFjQzIVoQhIsIz2N3sgt34M619NX0AQ30KCC5BDI0Ap5VhO1ZS4oJzUPlKUqZ0y5dIyFQWVngPOnYOESBBJAXfVAUtugSrf+neZFhDMfAAxKUf+cOIYh4sRFZdAFVOWmsBGx3rBBswDKsPBYxskyglf1ZIjtrkZ0Ev/QpDotYzbHeZKM0Ots4rzBAnLlIpS89yzMWm9b6ETxbAUSSgsODiEJj9E1srcPrhn2mxh50ZjqS7T5QyML9g3fRXQ2EKjzO88ZAksdGShc6Wz0AAixORK0xEzNbQ9Sa1VfxLQXnEwLZ0535cJZDcLQyAfgXZGIBJ0witBW2m/unUaIHSssfpPOdkO3lVZ7WQPuU9Ci+8fBAc7IaXFEKuVABpny5ALIZs5X4Tm/GjHXEoz0DZHx3d234SavQjV9lUO/ge+vG0orsMCrwAAAABJRU5ErkJggg=='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu2_VLC_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu2_VLC.Image = $Menu2_VLC_Picture
-    $Install_Menu.DropDownItems.Add($Menu2_VLC)
+#VLC Install
+$Menu2_VLC = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_VLC.Text = "VLC"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEAElEQVRIS61VXWyTVRh+Ttu168qqW9kYbEOZGLO6bCzKdDOamG5E5xCVxURjJBiFJXqhxmiiMfECRWW7kjuNURLNQrgQiAIhxgunExiwLjoYk26xg5Yh/V3HSr99r89pFTMRWsGvOV+Tc97nfd6f5z2fwn94BtarwxkD6sHdsrpQmCrUsP8BdfTh+6TZfhOwc48a2/Cj1BeCLZjg6HOQuhLAsQT42Q+07EJB2IKMdKTjL0MWG4CdBGcngNs//R8Jnt20aflja9dNJmdSeLJ7PX45eQqff7aj4aO+raP5ylRQBm+9s0VWNTWK19uAaDyGmtrlOLB/v9q88Zm8+LwGOsJvDn4nlZUVUlNTg+HhEVRWVWJyYlI90fVQXnxeA03w/aEhqV62VA4fGcKa9naEz08jFk2otrub8uLzGuxog3lPM9RiRn+kugctq5th2dOD0GgQP4wBz/907WbnJdj3COSOFUBZOWBJAtZSplQETAcB/2ng8W9vkGDgKUhtBbDIBbFfovNiEjmBRBhqlHL1fX0DBNtbHHtb69NdFZxep0ECBzNw5TKYjUONB4CBgCPwxkj6tqvJ9ZolevGV18yeWK8qc3OC5yCORYyeJMKVTkIFJoHja7+UzRuetlwXwXsfbjMbG5tUKjULuDxyf7IfiUQMmfbtyCTDKhgMIpMxpPvRzusjeH9bn/g61sBeZIPVZod/+Dh8Ph9CoTCKHA7MJBOYmppC97quq1biioPI65DoNNDv7UXdijpcmruI6tpa/Ho6AI/Hg4aGBhTTeSQS4SxEEZiYxNipk+gcehdVZYB358KmX0nwKswzZ4ETXK43D+gIlcvlgjFvSgezGRwcRL23HiKizvwWRCwWkUxfN9xs/EpehN5dWFCuBQTRtyHpOOT8BSAUByqoefedjWq64xO4St0y4vfj3tZWxBNxGBlDle17AfFjQzIVoQhIsIz2N3sgt34M619NX0AQ30KCC5BDI0Ap5VhO1ZS4oJzUPlKUqZ0y5dIyFQWVngPOnYOESBBJAXfVAUtugSrf+neZFhDMfAAxKUf+cOIYh4sRFZdAFVOWmsBGx3rBBswDKsPBYxskyglf1ZIjtrkZ0Ev/QpDotYzbHeZKM0Ots4rzBAnLlIpS89yzMWm9b6ETxbAUSSgsODiEJj9E1srcPrhn2mxh50ZjqS7T5QyML9g3fRXQ2EKjzO88ZAksdGShc6Wz0AAixORK0xEzNbQ9Sa1VfxLQXnEwLZ0535cJZDcLQyAfgXZGIBJ0witBW2m/unUaIHSssfpPOdkO3lVZ7WQPuU9Ci+8fBAc7IaXFEKuVABpny5ALIZs5X4Tm/GjHXEoz0DZHx3d234SavQjV9lUO/ge+vG0orsMCrwAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_VLC_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_VLC.Image = $Menu2_VLC_Picture
+$Install_Menu.DropDownItems.Add($Menu2_VLC)
 
-    $Menu2_VLC.add_Click({
+$Menu2_VLC.add_Click({
         $startParams = @{
             FilePath     = 'powershell.exe'
             ArgumentList = '-NoExit', '-Command', 'winget.exe', 'Install', '--id=VideoLAN.VLC', '-h', '-e', '--accept-package-agreements', '--accept-source-agreements'
@@ -875,17 +870,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Start-Process @startParams
     })
 
-    #Visual Studio Code Install
-    $Menu2_VS_Code = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu2_VS_Code.Text = "Visual Studio Code"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACTklEQVRIS2NkoBTU7S9m+Pm7R93WiuGmDw8junEYAiTZV7fvPsO/fwoM3/8wqDlYw7Xe8uWFm0u+BTV7/oNNBJE/gBbYIyyA2XTLj5eRPAuqd0MMh1nwE2iBnQ1Wz5NuQeUuhOEwI3/8ZlC1t6OCBRVYDP8PtA/oA/wWTLgKddX/awwFOtpYnVK+E9Pl4CCCWWCPwwf9MMOR5Au1UYOubAd2w2FaujwYVdZ+xqqGkaHvCnbNRToQS0q2/WfAlRb+/jJi6PM/D1KmsuYTDgtAsj04LPn0iYHh/WsGBlZmBgYmJtQg6PFC8aXKanwWgLR2X8YdDPfvMDCwAS1hBmIQ6PXGSH3KqwhZANLYdfk3kGTBGlt3bjIwcLOlM/T7zcImr7ySGAuy1v9iEJdmZeDgQGQikFtBfgPRf3+nMVQZz8ZqwQpCFhRs+g9Ocr//AcOcnYFBQhqrR8CClfoYQaS0HJ8F+RtRs/4foCU/fgKThiZuS6pQLVFa9hFHKsrbAJSAOQgaFiCfTA6ACLZewB35fxmMGOoMwMlUaSkuC3JBFqABmOEw4WY8loB01xkwKi5BsgDJRIgrc9ZDhBgZrwBdros1XJrO4ygqgKp//mNQ1FRBJAYMC3CHNKpMIxZLwPXBXwZFLVWIBWCHQmmkwCfWCgaGhnOoPoFaoKCphtUM0usDkDF1SJaALAAW19S1AGRJ7VmIT8AW/GVQ0IL6AMl/D5IEyKwyYYFRc+4eMHMqgiyQRwqih8kCVKj0YZZUnSlm+PW3R15DneFhCsJgmDQAWb/NTyvD9EMAAAAASUVORK5CYII='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu2_VS_Code_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu2_VS_Code.Image = $Menu2_VS_Code_Picture
-    $Install_Menu.DropDownItems.Add($Menu2_VS_Code)
+#Visual Studio Code Install
+$Menu2_VS_Code = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_VS_Code.Text = "Visual Studio Code"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACTklEQVRIS2NkoBTU7S9m+Pm7R93WiuGmDw8junEYAiTZV7fvPsO/fwoM3/8wqDlYw7Xe8uWFm0u+BTV7/oNNBJE/gBbYIyyA2XTLj5eRPAuqd0MMh1nwE2iBnQ1Wz5NuQeUuhOEwI3/8ZlC1t6OCBRVYDP8PtA/oA/wWTLgKddX/awwFOtpYnVK+E9Pl4CCCWWCPwwf9MMOR5Au1UYOubAd2w2FaujwYVdZ+xqqGkaHvCnbNRToQS0q2/WfAlRb+/jJi6PM/D1KmsuYTDgtAsj04LPn0iYHh/WsGBlZmBgYmJtQg6PFC8aXKanwWgLR2X8YdDPfvMDCwAS1hBmIQ6PXGSH3KqwhZANLYdfk3kGTBGlt3bjIwcLOlM/T7zcImr7ySGAuy1v9iEJdmZeDgQGQikFtBfgPRf3+nMVQZz8ZqwQpCFhRs+g9Ocr//AcOcnYFBQhqrR8CClfoYQaS0HJ8F+RtRs/4foCU/fgKThiZuS6pQLVFa9hFHKsrbAJSAOQgaFiCfTA6ACLZewB35fxmMGOoMwMlUaSkuC3JBFqABmOEw4WY8loB01xkwKi5BsgDJRIgrc9ZDhBgZrwBdros1XJrO4ygqgKp//mNQ1FRBJAYMC3CHNKpMIxZLwPXBXwZFLVWIBWCHQmmkwCfWCgaGhnOoPoFaoKCphtUM0usDkDF1SJaALAAW19S1AGRJ7VmIT8AW/GVQ0IL6AMl/D5IEyKwyYYFRc+4eMHMqgiyQRwqih8kCVKj0YZZUnSlm+PW3R15DneFhCsJgmDQAWb/NTyvD9EMAAAAASUVORK5CYII='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_VS_Code_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_VS_Code.Image = $Menu2_VS_Code_Picture
+$Install_Menu.DropDownItems.Add($Menu2_VS_Code)
 
-    $Menu2_SubMenu1.add_Click({
+$Menu2_SubMenu1.add_Click({
         WingetCheck
         $startParams = @{
             FilePath     = 'powershell.exe'
@@ -895,17 +890,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Start-Process @startParams
     })
 
-    #Windows Sandbox Install
-    $Menu2_Sandbox = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu2_Sandbox.Text = "Windows Sandbox"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADG0lEQVRIS9VUzYtOURh/nvPO+CgbZEc21hbY+IjJKJFENmShFKWmZiWxtPFfKImahrKYhWEWlIWUUkYj2dlIWDDe+957zzmP3++ce9+Y780Ut9733nvueX5fz3Ovyiofusr48u8QbDh3P4a61FhV4qtawuORFYlbdtP682PmxEyDl+hL9WUloQ7GJRG1MDnilop5UYJ1Fx5FtVo1RNPoVS1ahANfegt1DcyYa82ZWdT4dHRBrHmLgxcnzEWP+iAaanHQKrFSF0lQaahK8TWeG8BVYSSdcJv+ZC5Rn6Bz6QmUAhRAGmucoT6ReEtOQBqZPX+eDjJ4QocMHIojryE6mxpN0aleeQ5/Xp0FQSWAvbiIbaHCmU5KqMd93cPlL/CBoAaKG0B1Bw8ALE4iCJNaZcfIwp/Dw8tTUBixBSshK3UGIgAlJ3UhVhWy6dRpgTkKT8eXO7dFOmsbIoBKh6x4jtZxH1xgBFSHPwIdAT67NYFnuAA48xbfVVcVtvH4MRRECRicEGICZyoQKs6pfL13F0Rr4AOOQIKGKZTI1htXDaGoHv7A+LIqFr64+QBxdHXzkYNCJcSM+EMrUJcJ6ILgrtOQ4f772BjwB2Xb9WvikWxA4snH0PuEz1lhj3LPcLydnAGggiAJEraBFWm35uvkgulrlC27dgqHixOMOUjCCKWHSICbPBF9RcZikr56+AYnZsucc+9YwNiQsWwf2k1go2q85EpwknCbc+AemkFUfxIQBFh9M7zA0svx19DKUWBplB3De5LiBNwqB1GNaDAnyeMAB40OMO4obgQyqmwmE9EJU8ACAYtCBF+LDBwAWGLQSNCQMc4UD/YPkiAnLnLgXW42pKObzXqjvh2AEtaLnljRBShE8X1LwBRIYHSS6rm/ezZ3c96ngkTtsOSXMg8Az1VPdLabSBIoJ8WzHfwA8POHfT/OtGOShS/6sds/3ThqRpjOeiSYBUHZqKVqkPD4djKFOe9YlKDduY9ETYOoHA6sB4LUSJB/PvG34rkMyxK0BXunLaLB+hMEjOrT0aWB27oVEyxkfyVr/z/BbznHFVQo2fguAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu2_Sandbox_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu2_Sandbox.Image = $Menu2_Sandbox_Picture
-    $Install_Menu.DropDownItems.Add($Menu2_Sandbox)
+#Windows Sandbox Install
+$Menu2_Sandbox = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_Sandbox.Text = "Windows Sandbox"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADG0lEQVRIS9VUzYtOURh/nvPO+CgbZEc21hbY+IjJKJFENmShFKWmZiWxtPFfKImahrKYhWEWlIWUUkYj2dlIWDDe+957zzmP3++ce9+Y780Ut9733nvueX5fz3Ovyiofusr48u8QbDh3P4a61FhV4qtawuORFYlbdtP682PmxEyDl+hL9WUloQ7GJRG1MDnilop5UYJ1Fx5FtVo1RNPoVS1ahANfegt1DcyYa82ZWdT4dHRBrHmLgxcnzEWP+iAaanHQKrFSF0lQaahK8TWeG8BVYSSdcJv+ZC5Rn6Bz6QmUAhRAGmucoT6ReEtOQBqZPX+eDjJ4QocMHIojryE6mxpN0aleeQ5/Xp0FQSWAvbiIbaHCmU5KqMd93cPlL/CBoAaKG0B1Bw8ALE4iCJNaZcfIwp/Dw8tTUBixBSshK3UGIgAlJ3UhVhWy6dRpgTkKT8eXO7dFOmsbIoBKh6x4jtZxH1xgBFSHPwIdAT67NYFnuAA48xbfVVcVtvH4MRRECRicEGICZyoQKs6pfL13F0Rr4AOOQIKGKZTI1htXDaGoHv7A+LIqFr64+QBxdHXzkYNCJcSM+EMrUJcJ6ILgrtOQ4f772BjwB2Xb9WvikWxA4snH0PuEz1lhj3LPcLydnAGggiAJEraBFWm35uvkgulrlC27dgqHixOMOUjCCKWHSICbPBF9RcZikr56+AYnZsucc+9YwNiQsWwf2k1go2q85EpwknCbc+AemkFUfxIQBFh9M7zA0svx19DKUWBplB3De5LiBNwqB1GNaDAnyeMAB40OMO4obgQyqmwmE9EJU8ACAYtCBF+LDBwAWGLQSNCQMc4UD/YPkiAnLnLgXW42pKObzXqjvh2AEtaLnljRBShE8X1LwBRIYHSS6rm/ezZ3c96ngkTtsOSXMg8Az1VPdLabSBIoJ8WzHfwA8POHfT/OtGOShS/6sds/3ThqRpjOeiSYBUHZqKVqkPD4djKFOe9YlKDduY9ETYOoHA6sB4LUSJB/PvG34rkMyxK0BXunLaLB+hMEjOrT0aWB27oVEyxkfyVr/z/BbznHFVQo2fguAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_Sandbox_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_Sandbox.Image = $Menu2_Sandbox_Picture
+$Install_Menu.DropDownItems.Add($Menu2_Sandbox)
 
-    $Menu2_Sandbox.add_Click({ 
+$Menu2_Sandbox.add_Click({ 
         $startParams = @{
             FilePath     = 'powershell.exe'
             ArgumentList = '-NoExit', '-Command', 'Enable-WindowsOptionalFeature', '-FeatureName "Containers-DisposableClientVM"', '-All', '-Online'
@@ -914,17 +909,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Start-Process @startParams -Verb Runas
     })
 
-    #WinDirStat Install
-    $Menu2_WinDirStat = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu2_WinDirStat.Text = "WinDirStat"
-    $IconBase64 = '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'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu2_WinDirStat_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu2_WinDirStat.Image = $Menu2_WinDirStat_Picture
-    $Install_Menu.DropDownItems.Add($Menu2_WinDirStat)
+#WinDirStat Install
+$Menu2_WinDirStat = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_WinDirStat.Text = "WinDirStat"
+$IconBase64 = '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'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_WinDirStat_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_WinDirStat.Image = $Menu2_WinDirStat_Picture
+$Install_Menu.DropDownItems.Add($Menu2_WinDirStat)
 
-    $Menu2_WinDirStat.add_Click({ 
+$Menu2_WinDirStat.add_Click({ 
         $startParams = @{
             FilePath     = 'powershell.exe'
             ArgumentList = '-NoExit', '-Command', 'winget.exe', 'Install', '--id=WinDirStat.WinDirStat', '-h', '-e', '--accept-package-agreements', '--accept-source-agreements'
@@ -933,17 +928,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Start-Process @startParams
     })
 
-    #All of the Below
-    $Menu3_All_Below = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu3_All_Below.Text = "All of the Below"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACLUlEQVRIS2NkIAz+oylhJKwFoQKfYlagsl8gpYcu3ILrsDNQg7GJsghZEbpLUQxGdzWSRchSGJbCBf4fCvjPaLeBFN/D1b7a6Msg5r8ZxCdswdevX4myBFnd573xDMqR24m3gJubG8USbJbiseAZULMURkTBggik0a+pmEHZ1pThzJL1DCYxgQz9jhEM6JaCDHj16hXYHJAP7PIO/Hz6+jt7z+xlDCWpUXDfYMQBzIK9nTPAmtO2zAVbgA7QfcDNxXRZwn+rLkhd29T5DFXZiWCzcVoA8gEMEGMBNA4YTj56zmAuJ4nfBzIyMgzv378Hm8/Kysrw4cMHvD4QExNj+NPQxsDSUIUR9Fh9QEwyQg6i6eHRDPX7d8MsCQXqX4M3kmU0VBhCp7eA1fz5+YthskccTh+AXP+qvIZBiJML5gOUvIA3Dmb5JMMj2cvLi+HgwYNwi0ApCF/Q4PUBKJmCUlEY0BcCspIYyRQUPCAMsgDsS0T4E5eTQWneMiUcrPnqln0Mz+8+wAgikBqQwbffvmHQnNzH8Gar73kR781G6ArJiuTJkyczlPz4Bw7zHHNLhsICAeoWFbBcDQuau8s9SbMAVlRgy2iwoIGleVBkk1zYwSIZZAF6UcHePREcNCDXv8tKAbuBLAsktdUYuIT4wQbAigr0oEEu7KhSXIMsqOmextBSmgUvScnyAa6ioqZrCkN/Yzk4D5Bd4RBTDqGrIarKBGrCqPTJsAwjJwMACUV1KINxfhoAAAAASUVORK5CYII='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu3_All_Below_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu3_All_Below.Image = $Menu3_All_Below_Picture
-    $Customize_Menu.DropDownItems.Add($Menu3_All_Below)
+#All of the Below
+$Menu3_All_Below = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu3_All_Below.Text = "All of the Below"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACLUlEQVRIS2NkIAz+oylhJKwFoQKfYlagsl8gpYcu3ILrsDNQg7GJsghZEbpLUQxGdzWSRchSGJbCBf4fCvjPaLeBFN/D1b7a6Msg5r8ZxCdswdevX4myBFnd573xDMqR24m3gJubG8USbJbiseAZULMURkTBggik0a+pmEHZ1pThzJL1DCYxgQz9jhEM6JaCDHj16hXYHJAP7PIO/Hz6+jt7z+xlDCWpUXDfYMQBzIK9nTPAmtO2zAVbgA7QfcDNxXRZwn+rLkhd29T5DFXZiWCzcVoA8gEMEGMBNA4YTj56zmAuJ4nfBzIyMgzv378Hm8/Kysrw4cMHvD4QExNj+NPQxsDSUIUR9Fh9QEwyQg6i6eHRDPX7d8MsCQXqX4M3kmU0VBhCp7eA1fz5+YthskccTh+AXP+qvIZBiJML5gOUvIA3Dmb5JMMj2cvLi+HgwYNwi0ApCF/Q4PUBKJmCUlEY0BcCspIYyRQUPCAMsgDsS0T4E5eTQWneMiUcrPnqln0Mz+8+wAgikBqQwbffvmHQnNzH8Gar73kR781G6ArJiuTJkyczlPz4Bw7zHHNLhsICAeoWFbBcDQuau8s9SbMAVlRgy2iwoIGleVBkk1zYwSIZZAF6UcHePREcNCDXv8tKAbuBLAsktdUYuIT4wQbAigr0oEEu7KhSXIMsqOmextBSmgUvScnyAa6ioqZrCkN/Yzk4D5Bd4RBTDqGrIarKBGrCqPTJsAwjJwMACUV1KINxfhoAAAAASUVORK5CYII='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu3_All_Below_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu3_All_Below.Image = $Menu3_All_Below_Picture
+$Customize_Menu.DropDownItems.Add($Menu3_All_Below)
 
-    $Menu3_All_Below.add_Click({
+$Menu3_All_Below.add_Click({
         Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'AppsUseLightTheme' -Value 0 -Type Dword -Force
         Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'SystemUsesLightTheme' -Value 0 -Type Dword -Force
         Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideFileExt' -Value 0 -Force
@@ -963,86 +958,86 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Stop-Process -Id $explorer.id -Force
     })
 
-    #Separator
-    $Separator3 = New-Object System.Windows.Forms.ToolStripSeparator
-    $Customize_Menu.DropDownItems.Add($Separator3)
+#Separator
+$Separator3 = New-Object System.Windows.Forms.ToolStripSeparator
+$Customize_Menu.DropDownItems.Add($Separator3)
         
-    #Dark Mode
-    $Menu3_Dark_Mode = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu3_Dark_Mode.Text = "Dark Mode"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAx0lEQVRIS2NkoDFgpLH5DIPKAg+gb7cDMUmOIkbxf6Rg/AJk85ISrPgsQDYYZiYxDkKxH5cGqhgOsmlALMDmenyOwRsl2HxAUwtcgM7ZjcNJJEcwNm/jcj3VUhEhCwjFxWOgAhnkxIPubXeg5A4iMhK+uEsC6p+Pz8vE+AKfG1AsJyUVEeExsBKCFoAUkesLDAeTkpOJ8QHRFpDjC6yOJSbzEAouvGYQYwEsaMKBjBVQTiyQXkJWmBGjiRQ1pPiAFHPhamluAQCIgBcZ9HL6dgAAAABJRU5ErkJggg=='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu3_Dark_Mode_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu3_Dark_Mode.Image = $Menu3_Dark_Mode_Picture
-    $Customize_Menu.DropDownItems.Add($Menu3_Dark_Mode)
+#Dark Mode
+$Menu3_Dark_Mode = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu3_Dark_Mode.Text = "Dark Mode"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAx0lEQVRIS2NkoDFgpLH5DIPKAg+gb7cDMUmOIkbxf6Rg/AJk85ISrPgsQDYYZiYxDkKxH5cGqhgOsmlALMDmenyOwRsl2HxAUwtcgM7ZjcNJJEcwNm/jcj3VUhEhCwjFxWOgAhnkxIPubXeg5A4iMhK+uEsC6p+Pz8vE+AKfG1AsJyUVEeExsBKCFoAUkesLDAeTkpOJ8QHRFpDjC6yOJSbzEAouvGYQYwEsaMKBjBVQTiyQXkJWmBGjiRQ1pPiAFHPhamluAQCIgBcZ9HL6dgAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu3_Dark_Mode_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu3_Dark_Mode.Image = $Menu3_Dark_Mode_Picture
+$Customize_Menu.DropDownItems.Add($Menu3_Dark_Mode)
 
-    $Menu3_Dark_Mode.add_Click({ 
+$Menu3_Dark_Mode.add_Click({ 
         Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'AppsUseLightTheme' -Value 0 -Type Dword -Force
         Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'SystemUsesLightTheme' -Value 0 -Type Dword -Force
         $explorer = Get-Process -Name explorer
         Stop-Process -Id $explorer.id -Force
     })
 
-    #Recycle Bin
-    $Menu3_Recycle_Bin = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu3_Recycle_Bin.Text = "Hide Recycle Bin"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADKklEQVRIS7WWaUhUURTH/2/REltGcWkhyRolCBJMrcgs+tS3iEIFLXOhLMWKJIqIKIggUElNcynUMkL80oe+thEGhiFSFKk5buM2mc1o6rzldt/VeTPqjGOJ73G597135/z+595z7hkOK3xxK2wf/wRofPP1uyiKET6iANrTpvfK/h1BojuxXgHljU3DkqwG8zwPnhdmGx0LzvHm0HVwhe6NDNTtLgooePKKcJxm2GGQh+AK0caCE8xxHDaF+DPvEnaGMNteAdok9+qdhgWHd9Qr7QoKWIUjMWHeAYNWmdS/eAdN2QLIPPXO7zwiw4MRZzQsDaASAlUlaHjZ5HWptmwMRMB6fyh0/pIAwxNypiyTag3gANEhAzqfCTVI380KoQHBlmlJANPPaaL9wM9XgGUcMPip1BCgKATarYF04xTwvkNEbNj00gC9o3ZilxVoANsfO779GMGB6DAGqHrLIz1e1j2Z74FDvcco6h+zM+V22rS+f8iKQYsVCbu3MkBOLY/7qf8JGLBKJKsasI1JqMgmDPLpcw+LpEOx2xggu5pDaboyx4MbDT64eXyaCVrUg2MPFFKYKOnqNUDrl26aMRwO7zEyQGYZQcVZQo0R+npmH/IeCyhMkxYHDPyWSEYlQckpRQcMWWzoMY+grtmIugsCA5wuVlCdw6HdTBAeOgM4X8GhOGtmzzx6cLREIUXJDvUUIqloaetk6ms+ROBZvsgAqQUyai7ySCtS8SiPRhUFnCkFys7N7JlbgJmqT3+oojTNqb7bPIqBQQuidxmRW86j4ZovAyTdtaP+ioiUezJqL/MMkEFhlRTmEeAIy/wqCbdOcjD1/UKfeYCpj4mKxIZAv9lNBU7cnsLz675IukNBV8UFiebWgy7LFAvNvkErJibtMPX20ZOQQ27iPq6tx0YMa6h6lsGeM1lbUl/Ch0YZ1w47aoN+mn5sHyXjNKEmJiV0dplYWOYlx7PvzR1jxNUDT0fFtF2Zs/4LEq3w6Wst7pjySykHdbgG0CaHGFa79WB8UtaLmevyeK0H80tgS5e1VVHUqAWlkYMSt93wfyVzuX8KvNbk5QL+AtJNGDeevFuvAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu3_Recycle_Bin_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu3_Recycle_Bin.Image = $Menu3_Recycle_Bin_Picture
-    $Customize_Menu.DropDownItems.Add($Menu3_Recycle_Bin)
+#Recycle Bin
+$Menu3_Recycle_Bin = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu3_Recycle_Bin.Text = "Hide Recycle Bin"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADKklEQVRIS7WWaUhUURTH/2/REltGcWkhyRolCBJMrcgs+tS3iEIFLXOhLMWKJIqIKIggUElNcynUMkL80oe+thEGhiFSFKk5buM2mc1o6rzldt/VeTPqjGOJ73G597135/z+595z7hkOK3xxK2wf/wRofPP1uyiKET6iANrTpvfK/h1BojuxXgHljU3DkqwG8zwPnhdmGx0LzvHm0HVwhe6NDNTtLgooePKKcJxm2GGQh+AK0caCE8xxHDaF+DPvEnaGMNteAdok9+qdhgWHd9Qr7QoKWIUjMWHeAYNWmdS/eAdN2QLIPPXO7zwiw4MRZzQsDaASAlUlaHjZ5HWptmwMRMB6fyh0/pIAwxNypiyTag3gANEhAzqfCTVI380KoQHBlmlJANPPaaL9wM9XgGUcMPip1BCgKATarYF04xTwvkNEbNj00gC9o3ZilxVoANsfO779GMGB6DAGqHrLIz1e1j2Z74FDvcco6h+zM+V22rS+f8iKQYsVCbu3MkBOLY/7qf8JGLBKJKsasI1JqMgmDPLpcw+LpEOx2xggu5pDaboyx4MbDT64eXyaCVrUg2MPFFKYKOnqNUDrl26aMRwO7zEyQGYZQcVZQo0R+npmH/IeCyhMkxYHDPyWSEYlQckpRQcMWWzoMY+grtmIugsCA5wuVlCdw6HdTBAeOgM4X8GhOGtmzzx6cLREIUXJDvUUIqloaetk6ms+ROBZvsgAqQUyai7ySCtS8SiPRhUFnCkFys7N7JlbgJmqT3+oojTNqb7bPIqBQQuidxmRW86j4ZovAyTdtaP+ioiUezJqL/MMkEFhlRTmEeAIy/wqCbdOcjD1/UKfeYCpj4mKxIZAv9lNBU7cnsLz675IukNBV8UFiebWgy7LFAvNvkErJibtMPX20ZOQQ27iPq6tx0YMa6h6lsGeM1lbUl/Ch0YZ1w47aoN+mn5sHyXjNKEmJiV0dplYWOYlx7PvzR1jxNUDT0fFtF2Zs/4LEq3w6Wst7pjySykHdbgG0CaHGFa79WB8UtaLmevyeK0H80tgS5e1VVHUqAWlkYMSt93wfyVzuX8KvNbk5QL+AtJNGDeevFuvAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu3_Recycle_Bin_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu3_Recycle_Bin.Image = $Menu3_Recycle_Bin_Picture
+$Customize_Menu.DropDownItems.Add($Menu3_Recycle_Bin)
 
-    $Menu3_Recycle_Bin.add_Click({
+$Menu3_Recycle_Bin.add_Click({
         New-Item -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Name '{645FF040-5081-101B-9F08-00AA002F954E}' -Value 1 -Force
         $explorer = Get-Process -Name explorer
         Stop-Process -Id $explorer.id -Force
     })
 
-    #Old Context Menu
-    $Menu3_Old_Context = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu3_Old_Context.Text = "Old Context Menu"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABaElEQVRIS2NkQAW+QO4mNDFyuYwgjWACCfx/0WNBroEMr7/9BOvVrTsPNxvZgv8g0QG3YNrB5wxZ9pJYfUnIByBNBINIvPg4AyMjI1afErLgI9ACPlxBJFFyAsPV6GoJWYAzDkCGP3r0CG7B8+fPweyEhASGR/duMtxtNQPzCVmANYjQDYfZArMkOzubYUsEC/kWfPZfzMDOzo41UmGWmJubg+OEkA8wggiX69F9QZYFS0++YihefQ9s1o1rVxg0tHQIZsDLTYZ4MxpKHPwH+keyFDPl4LOFJAsIOheLApLjgFRLSLYAW+Ya1EGEkdFAPrBV5WdYna7JAGLDigZcbJKDaPe19ww1Gx8ynKw0AFsAK85B7OfAjAUq65EtI2QBRmEHssBVSxBsMMggQW4WhuuNJhiWwSwmZAHWsoiUlETIAoyiYs6RF3jNT7GRYHj07ifDLqBPQcDfCOLbAasyaR5EIAuo3mwBAOJO/xnJgk8pAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu3_Old_Context_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu3_Old_Context.Image = $Menu3_Old_Context_Picture
-    $Customize_Menu.DropDownItems.Add($Menu3_Old_Context)
+#Old Context Menu
+$Menu3_Old_Context = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu3_Old_Context.Text = "Old Context Menu"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABaElEQVRIS2NkQAW+QO4mNDFyuYwgjWACCfx/0WNBroEMr7/9BOvVrTsPNxvZgv8g0QG3YNrB5wxZ9pJYfUnIByBNBINIvPg4AyMjI1afErLgI9ACPlxBJFFyAsPV6GoJWYAzDkCGP3r0CG7B8+fPweyEhASGR/duMtxtNQPzCVmANYjQDYfZArMkOzubYUsEC/kWfPZfzMDOzo41UmGWmJubg+OEkA8wggiX69F9QZYFS0++YihefQ9s1o1rVxg0tHQIZsDLTYZ4MxpKHPwH+keyFDPl4LOFJAsIOheLApLjgFRLSLYAW+Ya1EGEkdFAPrBV5WdYna7JAGLDigZcbJKDaPe19ww1Gx8ynKw0AFsAK85B7OfAjAUq65EtI2QBRmEHssBVSxBsMMggQW4WhuuNJhiWwSwmZAHWsoiUlETIAoyiYs6RF3jNT7GRYHj07ifDLqBPQcDfCOLbAasyaR5EIAuo3mwBAOJO/xnJgk8pAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu3_Old_Context_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu3_Old_Context.Image = $Menu3_Old_Context_Picture
+$Customize_Menu.DropDownItems.Add($Menu3_Old_Context)
 
-    $Menu3_Old_Context.add_Click({
+$Menu3_Old_Context.add_Click({
         New-Item -Path 'HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32' -Value "" -Force
         $explorer = Get-Process -Name explorer
         Stop-Process -Id $explorer.id -Force
     })
 
-    #Remove Search Bar
-    $Menu3_Search_Bar = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu3_Search_Bar.Text = "Remove Search Bar"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABpUlEQVRIS2NkoDFgxGb+/1wVdsbJd36SavcHC4b/AicYUMzEagE+g/2La/4jy2/sbcFrBtEWoBuMxRF/gZaxoIsTZQGy4UJ8fAzd2elwc5Lbu1HMhPno3btPPkJCfFsIWoBs+NzKUpyhh2wRcrCBLXj9+j8vI+OnTyIi/CgWEms4zFaYJRgWwCwRFWX8jOxEmAUwlwtXaDK87biO4gtksT9//zKkd/WB5WGW4AyigOLazf8Z/vuAFCMHDbKBIDYIIFuK7gucFqC7HtnZMIPRDQfxqWoBenCRZUFlXBSDirQ03APIwYItTnD64IMlw3mB4wyGhCIZPVjQLSE6iEAG4YsHbBkCZjgjI8OVDT0tuiA1eDNaaOgq5l9yl/6gpyR8hiMnUbwW/E+RAhdqAfxJKOZhy824cjFRFmCzBJsP0F0OU4M1iD5aMFzj05GC5CIoYJzzjBFXicrIzGK+oavhFDaLMSwAVRowhfw6UmAmyHBcriYkDteIbDBME3rtRMgwvD5At4AahsMjGWj4VCAni1iXw1IYMUGHNYio5Xq8yZSc8MamBwCavr0ZdtOolgAAAABJRU5ErkJggg=='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu3_Search_Bar_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu3_Search_Bar.Image = $Menu3_Search_Bar_Picture
-    $Customize_Menu.DropDownItems.Add($Menu3_Search_Bar)
+#Remove Search Bar
+$Menu3_Search_Bar = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu3_Search_Bar.Text = "Remove Search Bar"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABpUlEQVRIS2NkoDFgxGb+/1wVdsbJd36SavcHC4b/AicYUMzEagE+g/2La/4jy2/sbcFrBtEWoBuMxRF/gZaxoIsTZQGy4UJ8fAzd2elwc5Lbu1HMhPno3btPPkJCfFsIWoBs+NzKUpyhh2wRcrCBLXj9+j8vI+OnTyIi/CgWEms4zFaYJRgWwCwRFWX8jOxEmAUwlwtXaDK87biO4gtksT9//zKkd/WB5WGW4AyigOLazf8Z/vuAFCMHDbKBIDYIIFuK7gucFqC7HtnZMIPRDQfxqWoBenCRZUFlXBSDirQ03APIwYItTnD64IMlw3mB4wyGhCIZPVjQLSE6iEAG4YsHbBkCZjgjI8OVDT0tuiA1eDNaaOgq5l9yl/6gpyR8hiMnUbwW/E+RAhdqAfxJKOZhy824cjFRFmCzBJsP0F0OU4M1iD5aMFzj05GC5CIoYJzzjBFXicrIzGK+oavhFDaLMSwAVRowhfw6UmAmyHBcriYkDteIbDBME3rtRMgwvD5At4AahsMjGWj4VCAni1iXw1IYMUGHNYio5Xq8yZSc8MamBwCavr0ZdtOolgAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu3_Search_Bar_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu3_Search_Bar.Image = $Menu3_Search_Bar_Picture
+$Customize_Menu.DropDownItems.Add($Menu3_Search_Bar)
 
-    $Menu3_Search_Bar.add_Click({ 
+$Menu3_Search_Bar.add_Click({ 
         Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search' -Name 'SearchboxTaskbarMode' -Value 0 -Force
         $explorer = Get-Process -Name explorer
         Stop-Process -Id $explorer.id -Force
     })
 
-    #Remove Shortcut Arrows
-    $Menu3_Remove_Short = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu3_Remove_Short.Text = "Remove Shortcut Arrows"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACB0lEQVRIS92WWy8DQRTHT7vKg8S1RVtFqyji8iDiY3lzC57Eg0R8AR9IRCjSC0rvrg3i2u7uHDNbXZ3VdrtIH8zjzP+c3/mfOdupCWqwTDVggAq5vH3ESkBRlEAQBEBEIITo1sZ0vU6rkp+DdFmbdIOrFUSTd+B22XhI8uoenZ0t1ebQ1UXit+Dt7eAhadou+186SWXA3a1pV/rmAe225rIVOrcTJc/EHAExKytn97MeVRO+uAafp4t3Ek9n0GVvqxoiSzQ5BZjNJpDE/CD8GlKK3rp1rm7n3mR4WRio7CSWymCPo7wTLaQAkCUE+dNJMSR4fgUj/Xa+XbHUHYW0604NExQAYpbA85wXLKshsDQI8Lr45SREIcNayGn0GunI6UIYAAmrHuGJAtiqWwkCkelHujaixgcilzDqdfBOIvEb9LhsFSFNG2fKOUv4PP9VtXkpkN8vgvhDSZgcdvEQag+H3J1lIcxBof/FvWcBfwJp2YzQbyE/plqAIchhOIljg85vThrXT9W9UoBy1nePojA97ubbdXySwtEBBxfzUwBLsnccg6mxPh7iDyVwfKhbhTAAu2ATlb0uDepOnVZQ0slBMIETPh7CLvp92TiAAXf8FzAz6eGdaCGGS9cE/HPIfiCOhP5cEPo2C4JZeZezOUlpQr1FgJyYfzOMrG93YiTYqLYmf4k+AL8GESnkVeQdAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu3_Remove_Short_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu3_Remove_Short.Image = $Menu3_Remove_Short_Picture
-    $Customize_Menu.DropDownItems.Add($Menu3_Remove_Short)
+#Remove Shortcut Arrows
+$Menu3_Remove_Short = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu3_Remove_Short.Text = "Remove Shortcut Arrows"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACB0lEQVRIS92WWy8DQRTHT7vKg8S1RVtFqyji8iDiY3lzC57Eg0R8AR9IRCjSC0rvrg3i2u7uHDNbXZ3VdrtIH8zjzP+c3/mfOdupCWqwTDVggAq5vH3ESkBRlEAQBEBEIITo1sZ0vU6rkp+DdFmbdIOrFUSTd+B22XhI8uoenZ0t1ebQ1UXit+Dt7eAhadou+186SWXA3a1pV/rmAe225rIVOrcTJc/EHAExKytn97MeVRO+uAafp4t3Ek9n0GVvqxoiSzQ5BZjNJpDE/CD8GlKK3rp1rm7n3mR4WRio7CSWymCPo7wTLaQAkCUE+dNJMSR4fgUj/Xa+XbHUHYW0604NExQAYpbA85wXLKshsDQI8Lr45SREIcNayGn0GunI6UIYAAmrHuGJAtiqWwkCkelHujaixgcilzDqdfBOIvEb9LhsFSFNG2fKOUv4PP9VtXkpkN8vgvhDSZgcdvEQag+H3J1lIcxBof/FvWcBfwJp2YzQbyE/plqAIchhOIljg85vThrXT9W9UoBy1nePojA97ubbdXySwtEBBxfzUwBLsnccg6mxPh7iDyVwfKhbhTAAu2ATlb0uDepOnVZQ0slBMIETPh7CLvp92TiAAXf8FzAz6eGdaCGGS9cE/HPIfiCOhP5cEPo2C4JZeZezOUlpQr1FgJyYfzOMrG93YiTYqLYmf4k+AL8GESnkVeQdAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu3_Remove_Short_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu3_Remove_Short.Image = $Menu3_Remove_Short_Picture
+$Customize_Menu.DropDownItems.Add($Menu3_Remove_Short)
 
-    $Menu3_Remove_Short.add_Click({
+$Menu3_Remove_Short.add_Click({
         $Path = "HKLM:\\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons"
         If (!(Test-Path($Path))) {
             New-Item $Path -Force | New-ItemProperty -Name '29' -Value '%windir%\System32\shell32.dll,-50' -Type String -Force | Out-Null
@@ -1054,65 +1049,65 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Stop-Process -Id $explorer.id -Force
     })
 
-    #Remove Teams Icon
-    $Menu3_Remove_Teams_ICO = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu3_Remove_Teams_ICO.Text = "Remove Teams Icon"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAB7UlEQVRIS2NkoDFgpLH5DCPAAk/X8C8MDP+5QUFZnMDHcOP+b4atB7+DQ3b77lUEQwCvAk/XsP/bZoiBDfPKeAWPLkagrq3TxRh+/f7PEJD7Gq9FOC2AGQ4yWD+uioGZA+wJODg3qxrMBjkApAaXb7BagGy4UVor3oQGsgifJRgWeLqF/dw2XYwN5CpChsNshvkGmy8wLYCGe9XpbIYLc+vBZsAsurZqAoOqTzIDKxcvWBxmML6gwmoBSINhShODg/YisEEHryeCDSvsV4GE+wFnhpsbZ4L5/YV3wA5oMZqINS4wLLiwNe1/5YQPYE1KzNMYti15waAR2YRiweJZggxvrp9GsSBfsZ8hvvINRmRjWLByauL/BRu+gl0KcuHvX/8YppTfg/NBLoYBmA/ICiJYcIA0wwyFicH4AiKsDB/e/AbbN6fiG0NKBxdhHyAnUWRL0NMqyJKtDnpwYe8DlxiAJdvn7btW8SGrxZoP/t7O+e+T9QoeqeiGL+p8xLBIQwNdmAFkCXpSJZjRsPkC5nqwq6EA5Jszbz8zmPV1ophJVFEBi3CYYejBAxMn2gcwDaD4gKUQEA0qSTUUWRmePXgAjlDkOADJk2wBukVogf4TyGfPVZNhmHzrCViKqKICI+YoFCBYYVBo/jCokwFRz/MZ5GHtRwAAAABJRU5ErkJggg=='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu3_Remove_Teams_ICO_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu3_Remove_Teams_ICO.Image = $Menu3_Remove_Teams_ICO_Picture
-    $Customize_Menu.DropDownItems.Add($Menu3_Remove_Teams_ICO)
+#Remove Teams Icon
+$Menu3_Remove_Teams_ICO = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu3_Remove_Teams_ICO.Text = "Remove Teams Icon"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAB7UlEQVRIS2NkoDFgpLH5DCPAAk/X8C8MDP+5QUFZnMDHcOP+b4atB7+DQ3b77lUEQwCvAk/XsP/bZoiBDfPKeAWPLkagrq3TxRh+/f7PEJD7Gq9FOC2AGQ4yWD+uioGZA+wJODg3qxrMBjkApAaXb7BagGy4UVor3oQGsgifJRgWeLqF/dw2XYwN5CpChsNshvkGmy8wLYCGe9XpbIYLc+vBZsAsurZqAoOqTzIDKxcvWBxmML6gwmoBSINhShODg/YisEEHryeCDSvsV4GE+wFnhpsbZ4L5/YV3wA5oMZqINS4wLLiwNe1/5YQPYE1KzNMYti15waAR2YRiweJZggxvrp9GsSBfsZ8hvvINRmRjWLByauL/BRu+gl0KcuHvX/8YppTfg/NBLoYBmA/ICiJYcIA0wwyFicH4AiKsDB/e/AbbN6fiG0NKBxdhHyAnUWRL0NMqyJKtDnpwYe8DlxiAJdvn7btW8SGrxZoP/t7O+e+T9QoeqeiGL+p8xLBIQwNdmAFkCXpSJZjRsPkC5nqwq6EA5Jszbz8zmPV1ophJVFEBi3CYYejBAxMn2gcwDaD4gKUQEA0qSTUUWRmePXgAjlDkOADJk2wBukVogf4TyGfPVZNhmHzrCViKqKICI+YoFCBYYVBo/jCokwFRz/MZ5GHtRwAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu3_Remove_Teams_ICO_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu3_Remove_Teams_ICO.Image = $Menu3_Remove_Teams_ICO_Picture
+$Customize_Menu.DropDownItems.Add($Menu3_Remove_Teams_ICO)
 
-    $Menu3_Remove_Teams_ICO.add_Click({
+$Menu3_Remove_Teams_ICO.add_Click({
         Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarMn' -Value 0 -Force
         $explorer = Get-Process -Name explorer
         Stop-Process -Id $explorer.id -Force
     })
 
-    #Show Hidden Extensions
-    $Menu3_Hidden_Ext = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu3_Hidden_Ext.Text = "Show Hidden Extensions"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABcElEQVRIS61WMW4CMRC8i+jhJ6nTR+EX1EmVDiGlgHSIMk16fhGUB6TNT6goEBLZOXlOe+u18VmxtDrO3t3ZnbF9tE08rs7cmKlWOw9ewsJGnrDcQBGI5ZO+UWwKYH38XjSzx70HwhgPpBwgU74uyoKUAUj16xSAdGW71iDvlt4kRTc0sIlSmnRC2YE2uw5Wi/tmu//1sKJKg+BlHViKHFpSDdpdle9AZbHCaoAfeXkIE2UikyIHQFfo/S4DSFBkhdQAn1LMS9hBAOmHPjSYxHsvsvGzFdOfblinyLxuWh53OhFgUEVY3MlzqUCtoB6Ae588SxK0XDNeJehDF+FdWDWJEaM1In3XWwCg6k1sKnYSO4vdiU1MQu/AdqAaIDokQXCAaH4RiDmc9lRishABcIGBtoNLcBjVAfkjb7Ua6LjBNrUJv2TiqRLlIHFzHeveprnvAYIzlx8ohfWjFgAn1vsolV3XtooRdBV18K9/W/4ALgh3E8kW9TUAAAAASUVORK5CYII='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu3_Hidden_Ext_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu3_Hidden_Ext.Image = $Menu3_Hidden_Ext_Picture
-    $Customize_Menu.DropDownItems.Add($Menu3_Hidden_Ext)
+#Show Hidden Extensions
+$Menu3_Hidden_Ext = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu3_Hidden_Ext.Text = "Show Hidden Extensions"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABcElEQVRIS61WMW4CMRC8i+jhJ6nTR+EX1EmVDiGlgHSIMk16fhGUB6TNT6goEBLZOXlOe+u18VmxtDrO3t3ZnbF9tE08rs7cmKlWOw9ewsJGnrDcQBGI5ZO+UWwKYH38XjSzx70HwhgPpBwgU74uyoKUAUj16xSAdGW71iDvlt4kRTc0sIlSmnRC2YE2uw5Wi/tmu//1sKJKg+BlHViKHFpSDdpdle9AZbHCaoAfeXkIE2UikyIHQFfo/S4DSFBkhdQAn1LMS9hBAOmHPjSYxHsvsvGzFdOfblinyLxuWh53OhFgUEVY3MlzqUCtoB6Ae588SxK0XDNeJehDF+FdWDWJEaM1In3XWwCg6k1sKnYSO4vdiU1MQu/AdqAaIDokQXCAaH4RiDmc9lRishABcIGBtoNLcBjVAfkjb7Ua6LjBNrUJv2TiqRLlIHFzHeveprnvAYIzlx8ohfWjFgAn1vsolV3XtooRdBV18K9/W/4ALgh3E8kW9TUAAAAASUVORK5CYII='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu3_Hidden_Ext_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu3_Hidden_Ext.Image = $Menu3_Hidden_Ext_Picture
+$Customize_Menu.DropDownItems.Add($Menu3_Hidden_Ext)
 
-    $Menu3_Hidden_Ext.add_Click({
+$Menu3_Hidden_Ext.add_Click({
         Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Hidden' -Value 1 -Force
         $explorer = Get-Process -Name explorer
         Stop-Process -Id $explorer.id -Force
     })
 
-    #Show Hidden Files
-    $Menu3_Hidden_Files = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu3_Hidden_Files.Text = "Show Hidden Files"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABqklEQVRIS2NkIBYEZv1n+Pqc4brlT5w6fnz/yvDz+3cGi8mnGGGK4AycukAGwwDVLUA2HGQJmgVcUloM355dg9tPmg8CcxIZGP7NQ/EZdS1AChocQUShDwhbgB5vsCACicMiGnckQ8P/f20owpxH9xlunF9DMBXBFIAswWsByHDG5tVwA//HmxBlAXHJFOgDmOsPP3rDYCsnwsBApA9ItgDkC7Bl1LZgf5wDg4O8KMlxgOkDaDHAsGs9Ik7QMxnQGvQ4ID6ZBmV9/9LBwgFyKo/aJNyWUJLR/r2s/c8Ue4UBxRfBaRoM/1iuU68scgv8/2+xDsO3jx8xfQJ0PQjgKk1BwfXu7mncpen//w0s/1/9/Q0yBGbB//wJ4gyMv18w3H/AcMPgPt6CnaAFwCD6AjSBmynjLYpB/5VUGBju3CVoAUgT4dIUS8oBaQRbAgJIFqGnIIosgFtCSwtAlvy+dZHhTgg/2DNU98Gff4wM/++cB1ogQLA0xV0WweLg/18GBkZmRCkKNBwE/uCwAOYb4iMZlOa5JSGGAg2HWUV1C5ANB1nG+P0Zyc0WAEJhnyglBESTAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu3_Hidden_Files_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu3_Hidden_Files.Image = $Menu3_Hidden_Files_Picture
-    $Customize_Menu.DropDownItems.Add($Menu3_Hidden_Files)
+#Show Hidden Files
+$Menu3_Hidden_Files = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu3_Hidden_Files.Text = "Show Hidden Files"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABqklEQVRIS2NkIBYEZv1n+Pqc4brlT5w6fnz/yvDz+3cGi8mnGGGK4AycukAGwwDVLUA2HGQJmgVcUloM355dg9tPmg8CcxIZGP7NQ/EZdS1AChocQUShDwhbgB5vsCACicMiGnckQ8P/f20owpxH9xlunF9DMBXBFIAswWsByHDG5tVwA//HmxBlAXHJFOgDmOsPP3rDYCsnwsBApA9ItgDkC7Bl1LZgf5wDg4O8KMlxgOkDaDHAsGs9Ik7QMxnQGvQ4ID6ZBmV9/9LBwgFyKo/aJNyWUJLR/r2s/c8Ue4UBxRfBaRoM/1iuU68scgv8/2+xDsO3jx8xfQJ0PQjgKk1BwfXu7mncpen//w0s/1/9/Q0yBGbB//wJ4gyMv18w3H/AcMPgPt6CnaAFwCD6AjSBmynjLYpB/5VUGBju3CVoAUgT4dIUS8oBaQRbAgJIFqGnIIosgFtCSwtAlvy+dZHhTgg/2DNU98Gff4wM/++cB1ogQLA0xV0WweLg/18GBkZmRCkKNBwE/uCwAOYb4iMZlOa5JSGGAg2HWUV1C5ANB1nG+P0Zyc0WAEJhnyglBESTAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu3_Hidden_Files_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu3_Hidden_Files.Image = $Menu3_Hidden_Files_Picture
+$Customize_Menu.DropDownItems.Add($Menu3_Hidden_Files)
 
-    $Menu3_Hidden_Files.add_Click({
+$Menu3_Hidden_Files.add_Click({
         Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideFileExt' -Value 0 -Force
         $explorer = Get-Process -Name explorer
         Stop-Process -Id $explorer.id -Force
     })
 
-    #Serial Number Script
-    $Menu4_Serial = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu4_Serial.Text = "Serial Number"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABA0lEQVRIS+2W0QnCQAyGLfqgM4iraNfQLuIK3UOco7qKOIOCaP1TkiPk7lppOQX1oCS0Tb5Lmkuajd6wMjAKXLuErIIgdUJA41ogJFOt2kKOIC2Zdoacs36FnLJ+hxyzfoGcsX6CXLBeQeasexBKnUTVV5/Ax037sZH0dUybFts/xKVCpyWm/2i6YodTV2Done9Jl1cQH+ld9sRLzmkzD24Voc5d4tmWT722aaLqaivaQEZCbDzQfepZ9OFpuR7YBpHcikEIooHiVEfdGckrEF3CAuks4QOsVqb4aXbQDLFLT1Q79Cq8nLOB900CvgbfcpDBntocUJhrXPuElE3KHwi37ydiqY24MXbfkgAAAABJRU5ErkJggg=='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu4_Serial_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu4_Serial.Image = $Menu4_Serial_Picture
-    $Scripts_Menu.DropDownItems.Add($Menu4_Serial)
+#Serial Number Script
+$Menu4_Serial = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu4_Serial.Text = "Serial Number"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABA0lEQVRIS+2W0QnCQAyGLfqgM4iraNfQLuIK3UOco7qKOIOCaP1TkiPk7lppOQX1oCS0Tb5Lmkuajd6wMjAKXLuErIIgdUJA41ogJFOt2kKOIC2Zdoacs36FnLJ+hxyzfoGcsX6CXLBeQeasexBKnUTVV5/Ax037sZH0dUybFts/xKVCpyWm/2i6YodTV2Done9Jl1cQH+ld9sRLzmkzD24Voc5d4tmWT722aaLqaivaQEZCbDzQfepZ9OFpuR7YBpHcikEIooHiVEfdGckrEF3CAuks4QOsVqb4aXbQDLFLT1Q79Cq8nLOB900CvgbfcpDBntocUJhrXPuElE3KHwi37ydiqY24MXbfkgAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu4_Serial_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu4_Serial.Image = $Menu4_Serial_Picture
+$Scripts_Menu.DropDownItems.Add($Menu4_Serial)
 
-    $Menu4_Serial.add_Click({
+$Menu4_Serial.add_Click({
         $Serial = Get-CimInstance win32_SystemEnclosure | ForEach-Object { $_.serialnumber }
         Set-Clipboard $Serial
         #Toast
@@ -1122,17 +1117,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Toast
     })
 
-    #Speed Test Script
-    $Menu4_Speed_Test = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu4_Speed_Test.Text = "Speed Test"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABC0lEQVRIS92UOw7CMAyGW0CCCYkNcQUGxBk4TW/EhdjZmZhYYQOJ129UV47rBCWBCoFk0aTx//mVlkUHv7IDRvEzkDGyPYmMKbCHWE/wfAxVJJTJDY49w1lD+MgdD30L5oNQpFfYIALC51uaFoRLISO+ADYygGfsDet9ed7R1RBZa/KNGQyvrxTJAXCSpgZDtji1UBOUeoUkiHSXDFlhsYftYAfYLJVQ+0/xP4fReG8YIpudoe+4NprWzMc0WwdEwi1NvZECkD0wBykH8m4am/exEB01rSvY2mikA4lptK80QY3cTELi3nLFfkp8EKdf+p58A1JakFxQa+r0XKfck1DJXnqfFPUOwf9Anm20NxRL3bTtAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu4_Speed_Test_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu4_Speed_Test.Image = $Menu4_Speed_Test_Picture
-    $Scripts_Menu.DropDownItems.Add($Menu4_Speed_Test)
+#Speed Test Script
+$Menu4_Speed_Test = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu4_Speed_Test.Text = "Speed Test"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABC0lEQVRIS92UOw7CMAyGW0CCCYkNcQUGxBk4TW/EhdjZmZhYYQOJ129UV47rBCWBCoFk0aTx//mVlkUHv7IDRvEzkDGyPYmMKbCHWE/wfAxVJJTJDY49w1lD+MgdD30L5oNQpFfYIALC51uaFoRLISO+ADYygGfsDet9ed7R1RBZa/KNGQyvrxTJAXCSpgZDtji1UBOUeoUkiHSXDFlhsYftYAfYLJVQ+0/xP4fReG8YIpudoe+4NprWzMc0WwdEwi1NvZECkD0wBykH8m4am/exEB01rSvY2mikA4lptK80QY3cTELi3nLFfkp8EKdf+p58A1JakFxQa+r0XKfck1DJXnqfFPUOwf9Anm20NxRL3bTtAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu4_Speed_Test_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu4_Speed_Test.Image = $Menu4_Speed_Test_Picture
+$Scripts_Menu.DropDownItems.Add($Menu4_Speed_Test)
 
-    $Menu4_Speed_Test.add_Click({
+$Menu4_Speed_Test.add_Click({
         $ProgressPreference = 'SilentlyContinue'
 
         #Custom Icon
@@ -1508,17 +1503,17 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         $form.ShowDialog()
     })
 
-    #Ping Google Script
-    $Menu4_Ping_Google = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu4_Ping_Google.Text = "Ping Google"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEF0lEQVRIS4VWWUhVQRieOV7TIsuMFsESt9IumhvVQ7iVRGa0QMvNniKMnnoKohXb6K2I0oQCMTOLCIwie4gCF9KWq6Kp5bVegrKyRU2re2f6/3/OnHtuV2sunjPnzJzv/75/Gzn7z/hYkO2SnNdKiRslM+CCU/jjkjPX/IfP6v4FwSdbHCzIFoDE4QdIUgq46b34DEucgy39Pvrxiwmxgl6+ycsLn8qHxwiMWMOAXQippgBrLmhV2vDotOHwpPv9P+2kAwy8z8vYDsyuExCxBpIARjKItU0FsVcqyF/wDaoJYdw1v9Ftuc0ygMzDxLcxgoKN+o5fc7jYwS1hfxnVoscjRi0lloF3OenSACBkYfMMOcNQQMQQPyBZ8EYrtFyiYwMbFjR3EjZdsuo2i/qLA1wDYQBJt6klNC6Rzau+FZAPsnubFKMeM9KSGwaQA4u4yTCBQpa7DXqReX2T2N/wga/sH1GxNSWgf2NMJsvLvlm+wz2tx2bSXtGWQSlFUjHjzODh3LGig/PMuk0l0itrIMFl/QUPLPuJLmzpZCPjkuWf+R7AXj88OjCDTQ/nzPdkKWWWP2MUiDDEXp5+dYMqIYQGiXcqBojplPgkFn3tNss69tUCt6eonj8vi2Syc6MUP/p1QpEhZRB+adXrBaBbxuvLPZSisa3dPOOoAlcfqKHn+gN87z4eybwtySoDbCmGuDy1qpgyUOUlTclVcW0vWfqRL37X2BHJkpnIMG0/MYv5WhYT6xAr2GZhOqvWCW5GX1OsLx9g8WAgzW5gwiiol51gwNucYHOlnoKbnFeKzBhgGFQNINmuXfdY6uGhINf87TJ87joZxbxNcSY/VZJm7XOecnmtP28w2VANyNwyPJeX7atizkND/+DOWPepKCbdhdI30kcdxaBOCL6HO9YFd14qcvkMURuEAht6djfwYUjTZccnNtJ2NIpFQJp6G2MoulBVUlBNwBxIgp2dFLrFlWvQORAj1buUVhXE3j0P6DH54Ge6a7l9p2fTs2iKpgaBaHoVDWHAHTmDqpIXVRSq9NHFgtZVoyHARVFx7O7WygCRxTdL2euht6w7pZ3YInNSQC1WsXTkflIGcCSWr4YDyj9U5NUzdEHJhb9WNJcepxtZkNP1l+QaMOLIG/I3O1zMqiwN/frb80tvtNcM1SUAwRlpAUUYXvY0pSNAFfUhUOIYmxPOi9TBYyfN4s8Xuhj3+QOODRXdpmhad8yyV0ueU9bYOqM6qLl0OfJHgg8cy1Xn14b55Ng4xQR9qXIaDwowo+J0I6GXZU7DzqsaHPZ5AS50zBidwrPZb7usAAX2hdhzuRiBwCZpbuhPa1MzrEzsk3AJyR+HfziCx6QG9NbYszkloKPG7PjMk9ZqpTIA73Cs+kVn+GTjD1HmBQro0ZHdAAAAAElFTkSuQmCC'
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu4_Ping_Google_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu4_Ping_Google.Image = $Menu4_Ping_Google_Picture
-    $Scripts_Menu.DropDownItems.Add($Menu4_Ping_Google)
+#Ping Google Script
+$Menu4_Ping_Google = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu4_Ping_Google.Text = "Ping Google"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEF0lEQVRIS4VWWUhVQRieOV7TIsuMFsESt9IumhvVQ7iVRGa0QMvNniKMnnoKohXb6K2I0oQCMTOLCIwie4gCF9KWq6Kp5bVegrKyRU2re2f6/3/OnHtuV2sunjPnzJzv/75/Gzn7z/hYkO2SnNdKiRslM+CCU/jjkjPX/IfP6v4FwSdbHCzIFoDE4QdIUgq46b34DEucgy39Pvrxiwmxgl6+ycsLn8qHxwiMWMOAXQippgBrLmhV2vDotOHwpPv9P+2kAwy8z8vYDsyuExCxBpIARjKItU0FsVcqyF/wDaoJYdw1v9Ftuc0ygMzDxLcxgoKN+o5fc7jYwS1hfxnVoscjRi0lloF3OenSACBkYfMMOcNQQMQQPyBZ8EYrtFyiYwMbFjR3EjZdsuo2i/qLA1wDYQBJt6klNC6Rzau+FZAPsnubFKMeM9KSGwaQA4u4yTCBQpa7DXqReX2T2N/wga/sH1GxNSWgf2NMJsvLvlm+wz2tx2bSXtGWQSlFUjHjzODh3LGig/PMuk0l0itrIMFl/QUPLPuJLmzpZCPjkuWf+R7AXj88OjCDTQ/nzPdkKWWWP2MUiDDEXp5+dYMqIYQGiXcqBojplPgkFn3tNss69tUCt6eonj8vi2Syc6MUP/p1QpEhZRB+adXrBaBbxuvLPZSisa3dPOOoAlcfqKHn+gN87z4eybwtySoDbCmGuDy1qpgyUOUlTclVcW0vWfqRL37X2BHJkpnIMG0/MYv5WhYT6xAr2GZhOqvWCW5GX1OsLx9g8WAgzW5gwiiol51gwNucYHOlnoKbnFeKzBhgGFQNINmuXfdY6uGhINf87TJ87joZxbxNcSY/VZJm7XOecnmtP28w2VANyNwyPJeX7atizkND/+DOWPepKCbdhdI30kcdxaBOCL6HO9YFd14qcvkMURuEAht6djfwYUjTZccnNtJ2NIpFQJp6G2MoulBVUlBNwBxIgp2dFLrFlWvQORAj1buUVhXE3j0P6DH54Ge6a7l9p2fTs2iKpgaBaHoVDWHAHTmDqpIXVRSq9NHFgtZVoyHARVFx7O7WygCRxTdL2euht6w7pZ3YInNSQC1WsXTkflIGcCSWr4YDyj9U5NUzdEHJhb9WNJcepxtZkNP1l+QaMOLIG/I3O1zMqiwN/frb80tvtNcM1SUAwRlpAUUYXvY0pSNAFfUhUOIYmxPOi9TBYyfN4s8Xuhj3+QOODRXdpmhad8yyV0ueU9bYOqM6qLl0OfJHgg8cy1Xn14b55Ng4xQR9qXIaDwowo+J0I6GXZU7DzqsaHPZ5AS50zBidwrPZb7usAAX2hdhzuRiBwCZpbuhPa1MzrEzsk3AJyR+HfziCx6QG9NbYszkloKPG7PjMk9ZqpTIA73Cs+kVn+GTjD1HmBQro0ZHdAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu4_Ping_Google_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu4_Ping_Google.Image = $Menu4_Ping_Google_Picture
+$Scripts_Menu.DropDownItems.Add($Menu4_Ping_Google)
 
-    $Menu4_Ping_Google.add_Click({
+$Menu4_Ping_Google.add_Click({
         $startParams = @{
             FilePath     = 'powershell.exe'
             ArgumentList = '-NoExit', '-Command', 'ping', 'www.google.com', '-t'
@@ -1528,51 +1523,51 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         Start-Process @startParams
     })
 
-    #Google Bookmark
-    $Menu5_Google_Book = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu5_Google_Book.Text = "Google"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACFElEQVRIS5WWvS8EQRjGn7kIhSg0xFelEVHoTkWESkNwGoVGhcpHQqJQKBRo8AeohUKikCiUFCof10gkvgqN+Aribsc7e7drdu6dNTvJ5HZ3Zt7fPM/7zu4JxDTZVbOFr9QEPA+QecAr9jzd+9fqVwJ5r19c5/dtoYRtQHbWn+AH6UKgfyBqPCdXxY03x8WLQGR3s4T0Az7T7qqpF3frAFGKPPlNvQI0XdwhjO1fyAxuIdEU7oIm4alR2ZAM8qkWRtqleESbkMMUnms72uPtNWBspnTW8jSwuP73vIF3v6DEBOmAuMrgxgwQKRGlEB1wuAGcHwOzu3bU+AAwNQ+0d7CKfEhEBacgU7SAKhZ7moX6jh8Yx7Xx/yHB/gYJZkK44MH8CGQEk1Rym6FWWz6SQHSVKQy5JV5ZVtsCbGZLfTfVOCU+CKMrUhBbTnQIU8J8del1ZFrXS7A3mqD6lZFs2xkJSjjRWUkT6JQ/v2CsUrHDI+p0IOOUqGiJIWpRYNfnOzBaBbzSs1QlcP8BvNC1Qz4iSljL4vLD7FyfrhIe3Edf9S4vS/MFE5PwZBDdOh1iAfgW2ZTEWqbOicrJEVVWKxmgcmJpOqAkJz5kCWW4oA+v2QJIcE5skDqUi7Poevs33syPA8RUwOaEUx+enxiILbgzxLcwgwPk0OfnRLcrhRVxjwV7dgojVrtYVT30f6AIEVn3tb9bgCfeuItiYwAAAABJRU5ErkJggg=='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu5_Google_Book_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu5_Google_Book.Image = $Menu5_Google_Book_Picture
-    $Bookmarks_Menu.DropDownItems.Add($Menu5_Google_Book)
+#Google Bookmark
+$Menu5_Google_Book = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu5_Google_Book.Text = "Google"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACFElEQVRIS5WWvS8EQRjGn7kIhSg0xFelEVHoTkWESkNwGoVGhcpHQqJQKBRo8AeohUKikCiUFCof10gkvgqN+Aribsc7e7drdu6dNTvJ5HZ3Zt7fPM/7zu4JxDTZVbOFr9QEPA+QecAr9jzd+9fqVwJ5r19c5/dtoYRtQHbWn+AH6UKgfyBqPCdXxY03x8WLQGR3s4T0Az7T7qqpF3frAFGKPPlNvQI0XdwhjO1fyAxuIdEU7oIm4alR2ZAM8qkWRtqleESbkMMUnms72uPtNWBspnTW8jSwuP73vIF3v6DEBOmAuMrgxgwQKRGlEB1wuAGcHwOzu3bU+AAwNQ+0d7CKfEhEBacgU7SAKhZ7moX6jh8Yx7Xx/yHB/gYJZkK44MH8CGQEk1Rym6FWWz6SQHSVKQy5JV5ZVtsCbGZLfTfVOCU+CKMrUhBbTnQIU8J8del1ZFrXS7A3mqD6lZFs2xkJSjjRWUkT6JQ/v2CsUrHDI+p0IOOUqGiJIWpRYNfnOzBaBbzSs1QlcP8BvNC1Qz4iSljL4vLD7FyfrhIe3Edf9S4vS/MFE5PwZBDdOh1iAfgW2ZTEWqbOicrJEVVWKxmgcmJpOqAkJz5kCWW4oA+v2QJIcE5skDqUi7Poevs33syPA8RUwOaEUx+enxiILbgzxLcwgwPk0OfnRLcrhRVxjwV7dgojVrtYVT30f6AIEVn3tb9bgCfeuItiYwAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu5_Google_Book_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu5_Google_Book.Image = $Menu5_Google_Book_Picture
+$Bookmarks_Menu.DropDownItems.Add($Menu5_Google_Book)
 
-    $Menu5_Google_Book.add_Click({
+$Menu5_Google_Book.add_Click({
         Start-Process https://www.google.com
     })
 
-    #Yahoo Bookmark
-    $Menu5_Yahoo_Book = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu5_Yahoo_Book.Text = "Yahoo"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAASCAYAAACuLnWgAAAA9ElEQVQ4T62UsRHCMAxF5cJHwxBU1CzDCmniVeicgoINGIAtOEoKCmaggyLEuRMnFMlWMC5lS09f37YDZbUQe2mrg+C0HC0+SdCKCwXuA3DF41L+F2QG4FObK8tCfgEgiYJ4nbQ3KqkBpHwzJPat6mdwXdFrBIlKeJDCeHGpETwzC5JatoB4AwnSwN57eD25V07zQwJhzDI+6pUK4YqwOyvADCmNjt6GNC7J9HQmq6QGQq918Z2gD4ftCc7Hm3qVuRIzZLH0sHs0Y+GcF+wxrofj1wmk9tWXfua/fpDUeFEJDtv6jw3dXSKEDTXJDCnBcqPRIG83gogP+MSPYwAAAABJRU5ErkJggg=='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu5_Yahoo_Book_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu5_Yahoo_Book.Image = $Menu5_Yahoo_Book_Picture
-    $Bookmarks_Menu.DropDownItems.Add($Menu5_Yahoo_Book)
+#Yahoo Bookmark
+$Menu5_Yahoo_Book = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu5_Yahoo_Book.Text = "Yahoo"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAASCAYAAACuLnWgAAAA9ElEQVQ4T62UsRHCMAxF5cJHwxBU1CzDCmniVeicgoINGIAtOEoKCmaggyLEuRMnFMlWMC5lS09f37YDZbUQe2mrg+C0HC0+SdCKCwXuA3DF41L+F2QG4FObK8tCfgEgiYJ4nbQ3KqkBpHwzJPat6mdwXdFrBIlKeJDCeHGpETwzC5JatoB4AwnSwN57eD25V07zQwJhzDI+6pUK4YqwOyvADCmNjt6GNC7J9HQmq6QGQq918Z2gD4ftCc7Hm3qVuRIzZLH0sHs0Y+GcF+wxrofj1wmk9tWXfua/fpDUeFEJDtv6jw3dXSKEDTXJDCnBcqPRIG83gogP+MSPYwAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu5_Yahoo_Book_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu5_Yahoo_Book.Image = $Menu5_Yahoo_Book_Picture
+$Bookmarks_Menu.DropDownItems.Add($Menu5_Yahoo_Book)
 
-    $Menu5_Yahoo_Book.add_Click({
+$Menu5_Yahoo_Book.add_Click({
         Start-Process https://www.yahoo.com
     })
 
-    #HackerNews Bookmark
-    $Menu5_Hacker_Book = New-Object System.Windows.Forms.ToolStripMenuItem
-    $Menu5_Hacker_Book.Text = "Hacker News"
-    $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAC7UlEQVRIS72W6W7TQBDHZ52kdlJBRUEcFSB4CR6g5Gi/8pVPFffZ5qDwCKXpBeU+v/EGbdO08BI8AIhDUBAgUI+NE8fMeL32OlnzpagbRRvvMb//zM6Ow2AHGtsBBuggxn8At1UbKoS1y8cjk50wWuziV/Y6MQxnXfwY0+9ILC2PeGK2S8e4i8MMrdBC2uA1hoOuqsfb27FdxTMwZt5buKDRBXGKR7lUIiaFqm6PwvFOr+RzYvZDDGTsCJd6okq7Qeq88DraEnMf9ZDW6GH0xA9kEH31DIQEhjF1Kab+Gt0ZJe98ioFcH+BSoVTnm/VlhmcRVS/9COeTdz/rIc1rh3wIAB9dADY9DGYyzOitsSVIzw0D9farcej79taDt1wDWsUFsHBOttT8lxjI1YMKZBHaU0OQSQkIaeRjNYQMAS/WgLLQnB0CA51othk45SWw8DmA3Puqh9hXDnARb2HQrRYg7UFEjjWKy54hjv3WRA7St1bwuQAtglRqYM0U/JUMeu6v6SGNy/vRE5EppBZY9+W3ZvLAS3VITefBKS0Ca+JVmD8F7fIymDgnT8V88D0GcmmfFy66H7xUA+d2ToSL7iKO2ZU6mFM5aFRWIIl9AtU0yivQmsxDarwOPTjGMOsIZD6MgfCLe/1wocFyHSFZSOPByxS1K6toKIuwVUhWs+I8HAzlzdfeGpqTnliPfug94Rf6vXCRLzaqdSYIIo6SRps33kBPdRBs7I3JQUj6d2Vt4AT0n56AVPVkcPDW458xkPN78Mb7WpTyJMtL2MsLq97ysAjRL+vJLz1k61wfeiKCIwulasbFtGNULP/RZFlKP/2th2ye3R3ck8BOUJU1Jd5XopYV+Tvz7E8M5MwuD+KFzDfebToshWoxDV8NwtPM83U9ZGOkV3iik6aESKSpEBIpv54wsTnzYkMLSayPZFqdjCC15PuLTGjCpO6jpb0vNykvHTmuHqOJD/TdbqM3ovdW1EG2a1y7f0f+Ev0F9iw9KTS2BA4AAAAASUVORK5CYII='
-    $IconBytes = [Convert]::FromBase64String($IconBase64)
-    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-    $Menu5_Hacker_Book_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-    $Menu5_Hacker_Book.Image = $Menu5_Hacker_Book_Picture
-    $Bookmarks_Menu.DropDownItems.Add($Menu5_Hacker_Book)
+#HackerNews Bookmark
+$Menu5_Hacker_Book = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu5_Hacker_Book.Text = "Hacker News"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAC7UlEQVRIS72W6W7TQBDHZ52kdlJBRUEcFSB4CR6g5Gi/8pVPFffZ5qDwCKXpBeU+v/EGbdO08BI8AIhDUBAgUI+NE8fMeL32OlnzpagbRRvvMb//zM6Ow2AHGtsBBuggxn8At1UbKoS1y8cjk50wWuziV/Y6MQxnXfwY0+9ILC2PeGK2S8e4i8MMrdBC2uA1hoOuqsfb27FdxTMwZt5buKDRBXGKR7lUIiaFqm6PwvFOr+RzYvZDDGTsCJd6okq7Qeq88DraEnMf9ZDW6GH0xA9kEH31DIQEhjF1Kab+Gt0ZJe98ioFcH+BSoVTnm/VlhmcRVS/9COeTdz/rIc1rh3wIAB9dADY9DGYyzOitsSVIzw0D9farcej79taDt1wDWsUFsHBOttT8lxjI1YMKZBHaU0OQSQkIaeRjNYQMAS/WgLLQnB0CA51othk45SWw8DmA3Puqh9hXDnARb2HQrRYg7UFEjjWKy54hjv3WRA7St1bwuQAtglRqYM0U/JUMeu6v6SGNy/vRE5EppBZY9+W3ZvLAS3VITefBKS0Ca+JVmD8F7fIymDgnT8V88D0GcmmfFy66H7xUA+d2ToSL7iKO2ZU6mFM5aFRWIIl9AtU0yivQmsxDarwOPTjGMOsIZD6MgfCLe/1wocFyHSFZSOPByxS1K6toKIuwVUhWs+I8HAzlzdfeGpqTnliPfug94Rf6vXCRLzaqdSYIIo6SRps33kBPdRBs7I3JQUj6d2Vt4AT0n56AVPVkcPDW458xkPN78Mb7WpTyJMtL2MsLq97ysAjRL+vJLz1k61wfeiKCIwulasbFtGNULP/RZFlKP/2th2ye3R3ck8BOUJU1Jd5XopYV+Tvz7E8M5MwuD+KFzDfebToshWoxDV8NwtPM83U9ZGOkV3iik6aESKSpEBIpv54wsTnzYkMLSayPZFqdjCC15PuLTGjCpO6jpb0vNykvHTmuHqOJD/TdbqM3ovdW1EG2a1y7f0f+Ev0F9iw9KTS2BA4AAAAASUVORK5CYII='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu5_Hacker_Book_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu5_Hacker_Book.Image = $Menu5_Hacker_Book_Picture
+$Bookmarks_Menu.DropDownItems.Add($Menu5_Hacker_Book)
 
-    $Menu5_Hacker_Book.add_Click({
+$Menu5_Hacker_Book.add_Click({
         Start-Process https://news.ycombinator.com/
     })
 
-    $Systray_Tool_Icon.ContextMenuStrip = $contextmenu
+$Systray_Tool_Icon.ContextMenuStrip = $contextmenu
 
-    $Systray_Tool_Icon.Add_Click({
+$Systray_Tool_Icon.Add_Click({
         if ([System.Windows.Forms.Control]::ModifierKeys -eq [System.Windows.Forms.Keys]::Shift -and $_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
             #Toast
             $subTitle = "Combat-Hounds Information"
@@ -1582,49 +1577,49 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
         }
     })
 
-    function Toast {
-        ####Turn on Windows Notifications####
-        #Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications" -Name ToastEnabled -Value 1 -Force
-        #Get-Service -Name WpnUserService* | Restart-Service -Force
+function Toast {
+    ####Turn on Windows Notifications####
+    #Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications" -Name ToastEnabled -Value 1 -Force
+    #Get-Service -Name WpnUserService* | Restart-Service -Force
     
-        $winTitle = "Technology Notification"
-        $depAttention = "My Computer, Inc."
+    $winTitle = "Technology Notification"
+    $depAttention = "My Computer, Inc."
     
-        # TitleOnly ImageOnly ImageAndTitle
-        $hdrFormat = "ImageOnly"
-        $audSource = "ms-winsoundevent:Notification.Default"
+    # TitleOnly ImageOnly ImageAndTitle
+    $hdrFormat = "ImageOnly"
+    $audSource = "ms-winsoundevent:Notification.Default"
     
-        # Register AppID
-        $regPath = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings'
-        $app = 'C:\ProgramData\Combat-Hounds\Combat-Hounds.exe'
-        $appID = "{55466FFD-CCFD-412E-8C93-1E2803E643FD}\\Combat-Hounds\\Combat-Hounds.exe"
+    # Register AppID
+    $regPath = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings'
+    $app = 'C:\ProgramData\Combat-Hounds\Combat-Hounds.exe'
+    $appID = "{55466FFD-CCFD-412E-8C93-1E2803E643FD}\\Combat-Hounds\\Combat-Hounds.exe"
     
-        # Load Namespaces
-        $null = [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime]
-        $null = [Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, ContentType = WindowsRuntime]
+    # Load Namespaces
+    $null = [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime]
+    $null = [Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, ContentType = WindowsRuntime]
     
-        $WebClient = New-Object System.Net.WebClient
+    $WebClient = New-Object System.Net.WebClient
     
-        # Generate Image from Base64
-        If ($bas64Image) {
-            $tmpImage = "$env:TEMP\tmpImage.png"
-            [byte[]]$Bytes = [convert]::FromBase64String($bas64Image)
-            [System.IO.File]::WriteAllBytes($tmpImage, $Bytes)
-        }
-    
+    # Generate Image from Base64
+    If ($bas64Image) {
         $tmpImage = "$env:TEMP\tmpImage.png"
+        [byte[]]$Bytes = [convert]::FromBase64String($bas64Image)
+        [System.IO.File]::WriteAllBytes($tmpImage, $Bytes)
+    }
     
-        #Download File
-        $WebClient.DownloadFile($URL, $tmpImage)
+    $tmpImage = "$env:TEMP\tmpImage.png"
     
-        # Validate App exists in registry. If so, use ActionCenter.
-        if (!(Test-Path -Path "$regPath\$appID")) {
-            $null = New-Item -Path "$regPath\$appID" -Force
-            $null = New-ItemProperty -Path "$regPath\$appID" -Name 'ShowInActionCenter' -Value 1 -PropertyType 'DWORD'
-        }
+    #Download File
+    $WebClient.DownloadFile($URL, $tmpImage)
     
-        # Toast XML
-        [xml]$xmlTemplate = @"
+    # Validate App exists in registry. If so, use ActionCenter.
+    if (!(Test-Path -Path "$regPath\$appID")) {
+        $null = New-Item -Path "$regPath\$appID" -Force
+        $null = New-ItemProperty -Path "$regPath\$appID" -Name 'ShowInActionCenter' -Value 1 -PropertyType 'DWORD'
+    }
+    
+    # Toast XML
+    [xml]$xmlTemplate = @"
             <toast scenario="reminder">
                 <visual>
                 <binding template="ToastGeneric" activationType="protocol">
@@ -1654,119 +1649,98 @@ if (!($existingProcess -lt $processPID -or $existingProcess -gt $processPID )) {
                 <audio src="$audSource"/>
             </toast>
 "@
-        # TitleOnly
-        If ($hdrFormat -eq "TitleOnly") {
-            $xmlTemplate.toast.visual.binding.group[0].subgroup.InnerXml = "<text hint-style=""Title"" hint-wrap=""true"" >$winTitle</text>"
-        }
-    
-        # ImageOnly
-        If ($hdrFormat -eq "ImageOnly") {
-            $xmlTemplate.toast.visual.binding.group[0].subgroup.InnerXml = "<image src=""$tmpImage""/>"
-        }
-    
-        # ImageAndTitle (image must be smaller)
-        If ($hdrFormat -eq "ImageAndTitle") {
-            $xmlTemplate.toast.visual.binding.group[0].subgroup.InnerXml = "<image src=""$tmpImage""/><text hint-style=""Title"" hint-wrap=""true"" >$winTitle</text>"
-        }
-    
-        # Load
-        $xmlToast = New-Object -TypeName Windows.Data.Xml.Dom.XmlDocument
-        $xmlToast.LoadXml($xmlTemplate.OuterXml)
-    
-        # Display
-        [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier($app).Show($xmlToast)
-    
-        # Clear session
-        $winTitle = ""
-        $depAttention = ""
-        $subTitle = ""
-        $bodText = ""
-        $hdrFormat = ""
-        $audSource = ""
-        $regPath = ""
-        $app = ""
-        $appID = ""
-        $hdrFormat = ""
-        $app = ""
-        $xmlToast = ""
-        $xmlTemplate = ""
-        $bas64Image = ""
-    }
-
-    function ClickPaste {
-        #Download and Install
-        $ProgressPreference = 'SilentlyContinue'
-        $URL = "https://github.com/Collective-Software/ClickPaste/releases/download/v1.1/ClickPaste_v1.1.0.zip"
-        $Path = "C:\Windows\Temp\ClickPaste_v1.1.0.zip"
-        Invoke-WebRequest -Uri $URL -OutFile $Path
-        New-Item -Path "C:\ProgramData" -Name "ClickPaste" -ItemType "directory"
-        Expand-Archive $Path -DestinationPath "C:\ProgramData\ClickPaste"
-        Start-Process $FileName
-        Remove-Item -Path "C:\Windows\Temp\ClickPaste_v1.1.0.zip" -Recurse
-        #Attempt to pin Clickpaste to systray
-        $ClickPath = "HKCU:\Control Panel\NotifyIconSettings"
-        If (Test-Path -Path $ClickPath) {
-            $subkeys = Get-ChildItem -Path $ClickPath | Where-Object { $_.PSPath -ne 'Microsoft.PowerShell.Core\Registry::HKEY_CURRENT_USER\Control Panel\NotifyIconSettings' }
-            foreach ($subkey in $subkeys) {
-                $subkeyPath = $subkey.PSPath
-                if (Test-Path $subkeyPath) {
-                    $key = Get-Item -LiteralPath $subkeyPath
-                    if ($key.GetValue("ExecutablePath")) {
-                        $executablePath = $key.GetValue("ExecutablePath")
-                        if ($executablePath -like "*ClickPaste.exe") {
-                            Set-ItemProperty -Path $subkeyPath -Name "IsPromoted" -Value 1 -Type DWord
-                        }
-                    }
-                }
-            }
-        }
+    # TitleOnly
+    If ($hdrFormat -eq "TitleOnly") {
+        $xmlTemplate.toast.visual.binding.group[0].subgroup.InnerXml = "<text hint-style=""Title"" hint-wrap=""true"" >$winTitle</text>"
     }
     
-    function WingetCheck {
-        $Filename = "C:\Install"
-        If (!(Test-Path -Path $FileName)) {
-            New-Item -Path "C:\" -Name "Install" -ItemType "directory"
-        }
-        $FileName = "$env:LOCALAPPDATA\Microsoft\WindowsApps\Winget.exe"
-        If (!(Test-Path -Path $FileName)) {
-            $ProgressPreference = 'SilentlyContinue'
-            $URL = "https://github.com/microsoft/winget-cli/releases/download/v1.4.10173/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-            $Path = "C:\Install\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-            Invoke-WebRequest -Uri $URL -OutFile $Path
-            Add-AppxPackage "C:\Install\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"   
-        }
+    # ImageOnly
+    If ($hdrFormat -eq "ImageOnly") {
+        $xmlTemplate.toast.visual.binding.group[0].subgroup.InnerXml = "<image src=""$tmpImage""/>"
     }
-
-    $WFexe = "C:\ProgramData\Combat-Hounds\Combat-Hounds.exe"
-        Start-Process -FilePath $WFexe -Verb Runas
-        #Pin Wetfloor to systray
-        $Path = "HKCU:\Control Panel\NotifyIconSettings"
-        If (Test-Path -Path $Path) {
-            $subkeys = Get-ChildItem -Path $Path | Where-Object { $_.PSPath -ne 'Microsoft.PowerShell.Core\Registry::HKEY_CURRENT_USER\Control Panel\NotifyIconSettings' }
-            foreach ($subkey in $subkeys) {
-                $subkeyPath = $subkey.PSPath
-                if (Test-Path $subkeyPath) {
-                    $key = Get-Item -LiteralPath $subkeyPath
-                    if ($key.GetValue("ExecutablePath")) {
-                        $executablePath = $key.GetValue("ExecutablePath")
-                        if ($executablePath -like "*Combat-Hounds.exe") {
-                            Set-ItemProperty -Path $subkeyPath -Name "IsPromoted" -Value 1 -Type DWord
-                        }
-                    }
-                }
-            }
-        }
-
-    # Make PowerShell Disappear
-    $windowcode = '[DllImport("user32.dll")] public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);'
-    $asyncwindow = Add-Type -MemberDefinition $windowcode -Name Win32ShowWindowAsync -Namespace Win32Functions -PassThru
-    $null = $asyncwindow::ShowWindowAsync((Get-Process -PID $pid).MainWindowHandle, 0)
- 
-    # Force garbage collection just to start slightly lower RAM usage.
-    [void][System.GC]::Collect()
- 
-    # Create an application context for it to all run within.
-    # This helps with responsiveness, especially when clicking Exit.
-    $appContext = New-Object System.Windows.Forms.ApplicationContext
-    [void][System.Windows.Forms.Application]::Run($appContext)
+    
+    # ImageAndTitle (image must be smaller)
+    If ($hdrFormat -eq "ImageAndTitle") {
+        $xmlTemplate.toast.visual.binding.group[0].subgroup.InnerXml = "<image src=""$tmpImage""/><text hint-style=""Title"" hint-wrap=""true"" >$winTitle</text>"
+    }
+    
+    # Load
+    $xmlToast = New-Object -TypeName Windows.Data.Xml.Dom.XmlDocument
+    $xmlToast.LoadXml($xmlTemplate.OuterXml)
+    
+    # Display
+    [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier($app).Show($xmlToast)
+    
+    # Clear session
+    $winTitle = ""
+    $depAttention = ""
+    $subTitle = ""
+    $bodText = ""
+    $hdrFormat = ""
+    $audSource = ""
+    $regPath = ""
+    $app = ""
+    $appID = ""
+    $hdrFormat = ""
+    $app = ""
+    $xmlToast = ""
+    $xmlTemplate = ""
+    $bas64Image = ""
 }
+
+function ClickPaste {
+    #Download and Install
+    $ProgressPreference = 'SilentlyContinue'
+    $URL = "https://github.com/Collective-Software/ClickPaste/releases/download/v1.1/ClickPaste_v1.1.0.zip"
+    $Path = "C:\Windows\Temp\ClickPaste_v1.1.0.zip"
+    Invoke-WebRequest -Uri $URL -OutFile $Path
+    New-Item -Path "C:\ProgramData" -Name "ClickPaste" -ItemType "directory"
+    Expand-Archive $Path -DestinationPath "C:\ProgramData\ClickPaste"
+    Start-Process $FileName
+    Remove-Item -Path "C:\Windows\Temp\ClickPaste_v1.1.0.zip" -Recurse
+    #Attempt to pin Clickpaste to systray
+    $ClickPath = "HKCU:\Control Panel\NotifyIconSettings"
+    If (Test-Path -Path $ClickPath) {
+        $subkeys = Get-ChildItem -Path $ClickPath | Where-Object { $_.PSPath -ne 'Microsoft.PowerShell.Core\Registry::HKEY_CURRENT_USER\Control Panel\NotifyIconSettings' }
+        foreach ($subkey in $subkeys) {
+            $subkeyPath = $subkey.PSPath
+            if (Test-Path $subkeyPath) {
+                $key = Get-Item -LiteralPath $subkeyPath
+                if ($key.GetValue("ExecutablePath")) {
+                    $executablePath = $key.GetValue("ExecutablePath")
+                    if ($executablePath -like "*ClickPaste.exe") {
+                        Set-ItemProperty -Path $subkeyPath -Name "IsPromoted" -Value 1 -Type DWord
+                    }
+                }
+            }
+        }
+    }
+}
+    
+function WingetCheck {
+    $Filename = "C:\Install"
+    If (!(Test-Path -Path $FileName)) {
+        New-Item -Path "C:\" -Name "Install" -ItemType "directory"
+    }
+    $FileName = "$env:LOCALAPPDATA\Microsoft\WindowsApps\Winget.exe"
+    If (!(Test-Path -Path $FileName)) {
+        $ProgressPreference = 'SilentlyContinue'
+        $URL = "https://github.com/microsoft/winget-cli/releases/download/v1.4.10173/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+        $Path = "C:\Install\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+        Invoke-WebRequest -Uri $URL -OutFile $Path
+        Add-AppxPackage "C:\Install\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"   
+    }
+}
+
+# Make PowerShell Disappear
+$windowcode = '[DllImport("user32.dll")] public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);'
+$asyncwindow = Add-Type -MemberDefinition $windowcode -Name Win32ShowWindowAsync -Namespace Win32Functions -PassThru
+$null = $asyncwindow::ShowWindowAsync((Get-Process -PID $pid).MainWindowHandle, 0)
+ 
+# Force garbage collection just to start slightly lower RAM usage.
+[void][System.GC]::Collect()
+ 
+# Create an application context for it to all run within.
+# This helps with responsiveness, especially when clicking Exit.
+$appContext = New-Object System.Windows.Forms.ApplicationContext
+[void][System.Windows.Forms.Application]::Run($appContext)
