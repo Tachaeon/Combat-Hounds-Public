@@ -1,15 +1,201 @@
-$Version = "3.0"
-
-#2.5 - Added remove shortcut arrows (not compiled)
-
-#https://onlineimagetools.com/convert-image-to-base64
-#https://hotpot.ai/icon-resizer - use file name Square44x44Logo.targetsize-24
+$Version = "4.2.1"
 
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing") 
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") 
 [void] [System.Reflection.Assembly]::LoadWithPartialName("PresentationFramework") 
 [void] [System.Reflection.Assembly]::LoadWithPartialName("WindowsFormsIntegration") 
 
+#Array to hold config.cfg
+$NewConfig = @"
+[     APPLICATIONS     ]
+[Click Paste]
+ClickPaste_App_Checkbox_Cust = True
+[CMD]
+Command_Checkbox_Cust = True
+[Computer Management]
+Comp_Mgmt_Checkbox_Cust = True
+[GPUPDATE]
+GPUPDATE_Checkbox_Cust = True
+[MMC]
+MMC_Checkbox_Cust = True
+[Network Connections]
+Net_Conn_Checkbox_Cust = True
+[Password Generator]
+Password_Gen_Checkbox_Cust = True
+[Powershell]
+Powershell_App_Checkbox_Cust = True
+[Powershell ISE]
+Powershell_ISE_Checkbox_Cust = True
+[PuTTy]
+PuTTy_App_Checkbox_Cust = True
+[Registry]
+Registry_Checkbox_Cust = True
+[Windows Sandbox]
+Sandbox_Checkbox_Cust = True
+[Custom App #1]
+Custom_App_1_Cust = 
+[Custom App #2]
+Custom_App_2_Cust = 
+[Custom App #3]
+Custom_App_3_Cust = 
+[Custom App #4]
+Custom_App_4_Cust = 
+[Custom App #5]
+Custom_App_5_Cust = 
+[Custom App #6]
+Custom_App_6_Cust = 
+[     WET-FLOOR     ]
+[Active Directory]
+Active_Directory_WF_Checkbox_Cust = True
+[Active Directory Intune Edition]
+ADIE_Checkbox_Cust = True
+[Command Prompt]
+Command_WF_Checkbox_Cust = True
+[Computer Management]
+Comp_Mgmt_WF_Checkbox_Cust = True
+[Exchange and AAD]
+Exc_AAD_Conn_WF_Checkbox_Cust = True
+[Group Policy]
+Group_Policy_WF_Checkbox_Cust = True
+[GPUpdate]
+gpupdate_WF_Checkbox_Cust = True
+[Hyper-V Manager]
+HyperV_Mgr_WF_Checkbox_Cust = True
+[MMC]
+MMC_WF_Checkbox_Cust = True
+[Powershell]
+Powershell_WF_Checkbox_Cust = True
+[Powershell ISE]
+Powershell_ISE_WF_Checkbox_Cust = True
+[Registry]
+Registry_WF_Checkbox_Cust = True
+[System Properties]
+Sys_Prop_WF_Checkbox_Cust = True
+[Task Manager]
+Task_Mgr_WF_Checkbox_Cust = True
+[Task Scheduler]
+Task_Sched_WF_Checkbox_Cust = True
+[Custom Wet Floor App #1]
+Custom_WF_1_Cust = 
+[Custom Wet Floor App #2]
+Custom_WF_2_Cust = 
+[Custom Wet Floor App #3]
+Custom_WF_3_Cust = 
+[Custom Wet Floor App #4]
+Custom_WF_4_Cust = 
+[Custom Wet Floor App #5]
+Custom_WF_5_Cust = 
+[Custom Wet Floor App #6]
+Custom_WF_6_Cust = 
+[     BOOKMARKS     ]
+[T1 BWITLinks]
+T1_BWITLINKS_Checkbox_Cust = True
+[T2 BWITLinks]
+T2_BWITLINKS_Checkbox_Cust = True
+[T3 BWITLinks]
+T3_BWITLINKS_Checkbox_Cust = True
+[Custom Bookmark #1]
+Custom_Bookmark_1_Cust = 
+[Custom Bookmark #2]
+Custom_Bookmark_2_Cust = 
+[Custom Bookmark #3]
+Custom_Bookmark_3_Cust = 
+[Custom Bookmark #4]
+Custom_Bookmark_4_Cust = 
+[Custom Bookmark #5]
+Custom_Bookmark_5_Cust = 
+[Custom Bookmark #6]
+Custom_Bookmark_6_Cust = 
+[     INSTALLS     ]
+[7Zip]
+7Zip_Checkbox_Cust = True
+[CMD]
+Act_Dir_Checkbox_Cust = True
+[Brave]
+Brave_Checkbox_Cust = True
+[Click Paste]
+ClickPaste_Inst_Checkbox_Cust = True
+[Firefox]
+Firefox_Checkbox_Cust = True
+[Chrome]
+Chrome_Checkbox_Cust = True
+[Group Policy]
+Grp_Pol_Checkbox_Cust = True
+[PuTTy]
+PuTTy_Inst_Checkbox_Cust = True
+[Powershell]
+Powershell_Inst_Checkbox_Cust = True
+[RSAT Tools]
+RSAT_Tools_Checkbox_Cust = True
+[VLC]
+VLC_Checkbox_Cust = True
+[Visual Studio Code]
+VSC_Checkbox_Cust = True
+[Windows Sandbox]
+Win_Sand_Checkbox_Cust = True
+[WinDirStat]
+WinDirStat_Checkbox_Cust = True
+[Custom Installs #1]
+Custom_Install_1_Cust = 
+[Custom Installs #2]
+Custom_Install_2_Cust = 
+[Custom Installs #3]
+Custom_Install_3_Cust = 
+[Custom Installs #4]
+Custom_Install_4_Cust = 
+[Custom Installs #5]
+Custom_Install_5_Cust = 
+[Custom Installs #6]
+Custom_Install_6_Cust = 
+[     SCRIPTS    ]
+[Serial Number]
+SerialNum_Checkbox_Cust = True
+[Speed Test]
+SpeedTest_Checkbox_Cust = True
+[Ping Google]
+PingGoogle_Checkbox_Cust = True
+[Custom Scripts #1]
+Custom_Scripts_1_Cust = 
+[Custom Scripts #2]
+Custom_Scripts_2_Cust = 
+[Custom Scripts #3]
+Custom_Scripts_3_Cust = 
+[Custom Scripts #4]
+Custom_Scripts_4_Cust = 
+[Custom Scripts #5]
+Custom_Scripts_5_Cust = 
+[Custom Scripts #6]
+Custom_Scripts_6_Cust =
+"@
+
+#Creates the new Config.cfg if it doesn't exist and ignores it if it does.
+$configFilePath = "$env:TEMP\Config.cfg"
+$Testforconfig = Test-Path $configFilePath
+if ($Testforconfig -match $false) {
+    $NewConfig | Out-File -FilePath $configFilePath
+}
+
+# Read lines from a file and store them in an array
+$linesArray = Get-Content -Path $configFilePath
+
+# Loop through each line in the array
+foreach ($line in $linesArray) {
+    # Check if the line starts with '[' and skip it
+    if ($line -match '^\[') {
+        continue
+    }
+
+    # Split the line by the '=' character to separate variable and value
+    $splitLine = $line -split '='
+
+    # Extract variable and value
+    $variable = $splitLine[0].Trim()
+    $value = $splitLine[1].Trim()
+
+    # Create the variable in the global scope
+    Set-Variable -Name $variable -Value $value -Scope Script
+}
+       
 # Create object for the systray 
 $Systray_Tool_Icon = New-Object System.Windows.Forms.NotifyIcon
 
@@ -57,10 +243,9 @@ $Application_Menu.Image = $Application_Menu_Picture
 
 #Bookmarks Menu
 $Bookmarks_Menu = $contextmenu.Items.Add("Bookmarks")
-$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEF0lEQVRIS4VWWUhVQRieOV7TIsuMFsESt9IumhvVQ7iVRGa0QMvNniKMnnoKohXb6K2I0oQCMTOLCIwie4gCF9KWq6Kp5bVegrKyRU2re2f6/3/OnHtuV2sunjPnzJzv/75/Gzn7z/hYkO2SnNdKiRslM+CCU/jjkjPX/IfP6v4FwSdbHCzIFoDE4QdIUgq46b34DEucgy39Pvrxiwmxgl6+ycsLn8qHxwiMWMOAXQippgBrLmhV2vDotOHwpPv9P+2kAwy8z8vYDsyuExCxBpIARjKItU0FsVcqyF/wDaoJYdw1v9Ftuc0ygMzDxLcxgoKN+o5fc7jYwS1hfxnVoscjRi0lloF3OenSACBkYfMMOcNQQMQQPyBZ8EYrtFyiYwMbFjR3EjZdsuo2i/qLA1wDYQBJt6klNC6Rzau+FZAPsnubFKMeM9KSGwaQA4u4yTCBQpa7DXqReX2T2N/wga/sH1GxNSWgf2NMJsvLvlm+wz2tx2bSXtGWQSlFUjHjzODh3LGig/PMuk0l0itrIMFl/QUPLPuJLmzpZCPjkuWf+R7AXj88OjCDTQ/nzPdkKWWWP2MUiDDEXp5+dYMqIYQGiXcqBojplPgkFn3tNss69tUCt6eonj8vi2Syc6MUP/p1QpEhZRB+adXrBaBbxuvLPZSisa3dPOOoAlcfqKHn+gN87z4eybwtySoDbCmGuDy1qpgyUOUlTclVcW0vWfqRL37X2BHJkpnIMG0/MYv5WhYT6xAr2GZhOqvWCW5GX1OsLx9g8WAgzW5gwiiol51gwNucYHOlnoKbnFeKzBhgGFQNINmuXfdY6uGhINf87TJ87joZxbxNcSY/VZJm7XOecnmtP28w2VANyNwyPJeX7atizkND/+DOWPepKCbdhdI30kcdxaBOCL6HO9YFd14qcvkMURuEAht6djfwYUjTZccnNtJ2NIpFQJp6G2MoulBVUlBNwBxIgp2dFLrFlWvQORAj1buUVhXE3j0P6DH54Ge6a7l9p2fTs2iKpgaBaHoVDWHAHTmDqpIXVRSq9NHFgtZVoyHARVFx7O7WygCRxTdL2euht6w7pZ3YInNSQC1WsXTkflIGcCSWr4YDyj9U5NUzdEHJhb9WNJcepxtZkNP1l+QaMOLIG/I3O1zMqiwN/frb80tvtNcM1SUAwRlpAUUYXvY0pSNAFfUhUOIYmxPOi9TBYyfN4s8Xuhj3+QOODRXdpmhad8yyV0ueU9bYOqM6qLl0OfJHgg8cy1Xn14b55Ng4xQR9qXIaDwowo+J0I6GXZU7DzqsaHPZ5AS50zBidwrPZb7usAAX2hdhzuRiBwCZpbuhPa1MzrEzsk3AJyR+HfziCx6QG9NbYszkloKPG7PjMk9ZqpTIA73Cs+kVn+GTjD1HmBQro0ZHdAAAAAElFTkSuQmCC'
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABdUlEQVRIS63WP0vDQBQA8PfucPCDuLjUpYsOgiCUigpCEWpUCppBBBHEQQQRxEEEEcShCkUbC1IQFK2CIDjoYKcuTn4PB0nOuJjmXi5PyWW73Lv3u8v9ySFoj/qAO1BQ1N//o3yLfTDeHY8EeQ+JjA/2QywvRToWkByHtC0geQ55tYAMcsizBWSYQYLH7IgY5ZCWBaTIIdcWkEkOaaYjOBWu8atc6k4SJQ5pmBEstX+Tq2beCIkyh5ylINMvEXI5ZEbmOeQkjmD5iT1kVGMkFiMWOeRYQ5wHHvEKcWSJQw7p58K5GyOkzidInVjhkP2EOenpBXTqJJnyZgG+PimyxiG7CSNZuDCP5HSGIhscsp2AuLVoVVUrgFpZV8QWh2xa2PE7DOKvZ0fkHoesWkAOOGTZjMijqLH/x7if+SL/eN9NRDqyCgP6BAcuvIW3DnKIhbHpFwm/EkdkjXZEx7g2ZCSBA/dh7wrS45MTzAGFCC1Rh7Huum8fCH0aHmXcswAAAABJRU5ErkJggg=='
 $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-[System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Bookmarks_Menu_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Bookmarks_Menu.Image = $Bookmarks_Menu_Picture
 
@@ -89,6 +274,3313 @@ $Scripts_Menu.Image = $Scripts_Menu_Picture
 $Separator4 = New-Object System.Windows.Forms.ToolStripSeparator
 $contextmenu.Items.Add($Separator4)
     
+#Settings
+$Menu_Settings = $contextmenu.Items.Add("Settings")
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAw0lEQVRIS91VOwqAMAy1g5uDx/AS3t47eAwHV0FTsaVq2rwEFFRwKe+TpL7oKvxZGahD6BCIhDiDoC9qiIBD6XsmoeK0w1IX3MhuGqnYTIwGuUgQsxCu9lhtxaB+hO36wQQZidYgjlJrYuncoSY9lTUwrXR0NgotRhOPs2ZB5F3DaF0dRd4/TcTZZi5Y5L36daFhfDQn1rTvW8VSmcbwtLs8caK31SgIWHYLp6nXdsjh49l/f7+5MYuBK90POq7clob4G42dKhr7liSPAAAAAElFTkSuQmCC'
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu_Settings_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu_Settings.Image = $Menu_Settings_Picture
+
+###############################################################################################################################################################
+#                                                                 Start Configurator                                                                          #
+###############################################################################################################################################################
+
+$Menu_Settings.add_Click({ 
+        $configFilePath = "$env:TEMP\Config.cfg"
+
+        if (!($configFilePath)) {
+            New-Item -ItemType File -Path $configFilePath
+        }
+
+        # Read lines from a file and store them in an array
+        $linesArray = Get-Content -Path $configFilePath
+            
+        # Loop through each line in the array
+        foreach ($line in $linesArray) {
+            # Check if the line starts with '[' and skip it
+            if ($line -match '^\[') {
+                continue
+            }
+        
+            # Split the line by the '=' character to separate variable and value
+            $splitLine = $line -split '='
+                
+            # Extract variable and value
+            $variable = $splitLine[0].Trim()
+            $value = $splitLine[1].Trim()
+            
+            # Create the variable in the global scope
+            Set-Variable -Name $variable -Value $value -Scope Script
+        }
+        
+        #Custom Icon
+        $IconBase64 = "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=="
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $ims = New-Object IO.MemoryStream($IconBytes, 0, $IconBytes.Length)
+        $ims.Write($IconBytes, 0, $IconBytes.Length)
+        
+        #Create a form
+        $form = New-Object System.Windows.Forms.Form
+        $form.Text = "Combat-Hounds Customizer"
+        $form.Size = New-Object System.Drawing.Size(600, 410)
+        $form.StartPosition = "CenterScreen"
+        $form.FormBorderStyle = "FixedDialog"
+        $form.Icon = [System.Drawing.Icon]::FromHandle((New-Object System.Drawing.Bitmap -Argument $ims).GetHIcon())
+        $form.TopMost = $true
+        
+        #Create tab control
+        $tabControl = New-Object System.Windows.Forms.TabControl
+        $tabControl.Size = New-Object System.Drawing.Size(575, 320)
+        $tabControl.Location = New-Object System.Drawing.Point(5)
+        $form.Controls.Add($tabControl)
+        
+        #############################################################################################################################
+        
+        #Create Applicaions Tab
+        $ApplicationsTab = New-Object System.Windows.Forms.TabPage
+        $ApplicationsTab.Text = "Applications"
+        $tabControl.Controls.Add($ApplicationsTab)
+        
+        # Add Groupbox to Applications Tab
+        $ApplicationsBox = New-Object System.Windows.Forms.GroupBox
+        $ApplicationsBox.Text = "Show/Hide"
+        $ApplicationsBox.Size = New-Object System.Drawing.Size(117, 285)
+        $ApplicationsBox.Location = New-Object System.Drawing.Point(5, 5)
+        $ApplicationsTab.Controls.Add($ApplicationsBox)
+        
+        # Create Separator
+        $separator = New-Object System.Windows.Forms.Label
+        $separator.BorderStyle = "FixedSingle"
+        $separator.Size = New-Object System.Drawing.Size(100, 1)
+        $separator.Location = New-Object System.Drawing.Point(8, 37)
+        $ApplicationsBox.Controls.Add($separator)
+        $separator.BringToFront()
+        
+        #Add Click Paste Image to Applications Box
+        $ClickPaste_App_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAC00lEQVRIS7WWOYyOQRjHbVxxFo5CtygkJIhQIBoKsptdRwiCUDkqGiQiEkIidASJIwq3wpVdjaMh7jgLFLKrRrGuYMn6/b7MfBlv5vv2U+wkv8z7zjwz/3fmmXmet65X5dKHrpEwCebDdBgDA+A7tME9uAov4QP8zk1Xl2m0bTQsguVBpHeVj/lD3zM4D5egHbpS+5zITAx2gXX/KpMXu37ScBd2hBWW+4sik+m5BcOSGb7wfA3OQmvS3sjzCmiGwUn7J55ng1tYKlHEekaYLAp85N393g9vg326DY6RcbAliA0Pdgopfh+6oogOPRa+QLt3sBvOQGfylUWR2NWXh1WwHfSn5SashTZFPEWbwqT6wBVszgg4cGIiWN6O0BaF9vHuivTRNjigyChogSnB+AT1hsIKkrmrPvaj9yisDlZPqJsUmRdEPKY6eRpEH9Q6eWo3npdHMAi8N42KHIH1wUofrKwys3chlmUV7JzzAiwJ/YdseA7eaovH8noVkUqOLw7xZHkyLU8V+QxDMhMrHJ3rCpYGu6/UMbT4xXFFHooXmXk6FPGIesKKJScSj7z2jqtFpNNBHTC0B0VKK+kJnxi1r6Q+OcyL98JifPJ0/RNFk1XWerouMmZxGFc6XXPBwOc90anekzeZ7au1aQKG3pOB4D1piDfeKDs1zHKSeh2kMatWAW/8cTCOWR5Dc4xdG3nZA8YuI6hR9VRGqLvYtYYxe8FI/gOMXQfTKGzMmRO+wNRqFD4Nv5JlVLqMrsB45aT1wf4GtVG4Pc0n5nC3Lc0JBk6j6mtQIJdPjFVbwWiR5qIm3h86ppgZ3Y7biZAf9Q0MNa4qhgrbF4AnsQF0ciymCjPjq9iQy/FmyJ0wC/4nx+uDO2COf5CIltNvsa2ehoXg34p5Pxd24hiPqX8r5+AyvIdu/1biYCceAW6hUVWfjQW3xv8uU7Q53C10a9ym7H/XX2JcoXmg/8/OAAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $ClickPaste_App_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $ClickPaste_App_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $ClickPaste_App_Image.Image = $ResizedImage
+        $ClickPaste_App_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $ClickPaste_App_Image.Location = New-Object System.Drawing.Point(5, 45)
+        $ApplicationsBox.Controls.Add($ClickPaste_App_Image)
+        $ClickPaste_App_Image.BringToFront()
+        
+        #Add Click Paste Label to Applications Box
+        $ClickPaste_App = New-Object System.Windows.Forms.Label
+        $ClickPaste_App.Text = "Click Paste:"
+        $ClickPaste_App.AutoSize = $true
+        $ClickPaste_App.Location = New-Object System.Drawing.Point(20, 45)
+        $ApplicationsBox.Controls.Add($ClickPaste_App)
+        $ClickPaste_App.BringToFront()
+        
+        #Add Click Paste Checkbox to Applications Box
+        $ClickPaste_App_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $ClickPaste_App_Checkbox.Text = ""
+        $ClickPaste_App_Checkbox.AutoSize = $true
+        $ClickPaste_App_Checkbox.Location = New-Object System.Drawing.Point(100, 45)
+        #Checkbox Status
+        if ($ClickPaste_App_Checkbox_Cust -match 'False') {
+            $ClickPaste_App_Checkbox.Checked = $False
+        }
+        else {
+            $ClickPaste_App_Checkbox.Checked = $True
+        }
+        $ApplicationsBox.Controls.Add($ClickPaste_App_Checkbox)
+        $ClickPaste_App_Checkbox.BringToFront()
+        
+        #Add Command Image to Applications Box
+        $Command_Image = New-Object System.Windows.Forms.Label
+        $Command_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\cmd.exe")
+        $ResizedImage = $Command_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Command_Image.Image = $ResizedImage
+        $Command_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Command_Image.Location = New-Object System.Drawing.Point(5, 60)
+        $ApplicationsBox.Controls.Add($Command_Image)
+        $Command_Image.BringToFront()
+        
+        #Add Command Label to Applications Box
+        $Command = New-Object System.Windows.Forms.Label
+        $Command.Text = "Command:"
+        $Command.AutoSize = $true
+        $Command.Location = New-Object System.Drawing.Point(20, 60)
+        $ApplicationsBox.Controls.Add($Command)
+        $Command.BringToFront()
+        
+        #Add Command Checkbox to Applications Box
+        $Command_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Command_Checkbox.Text = ""
+        $Command_Checkbox.AutoSize = $true
+        $Command_Checkbox.Location = New-Object System.Drawing.Point(100, 60)
+        #Checkbox Status
+        if ($Command_Checkbox_Cust -match 'False') {
+            $Command_Checkbox.Checked = $False
+        }
+        else {
+            $Command_Checkbox.Checked = $True
+        }
+        $ApplicationsBox.Controls.Add($Command_Checkbox)
+        $Command_Checkbox.BringToFront()
+        
+        #Add Comp_Mgmt Image to Applications Box
+        $Comp_Mgmt_Image = New-Object System.Windows.Forms.Label
+        $Comp_Mgmt_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\compmgmt.msc")
+        $ResizedImage = $Comp_Mgmt_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Comp_Mgmt_Image.Image = $ResizedImage
+        $Comp_Mgmt_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Comp_Mgmt_Image.Location = New-Object System.Drawing.Point(5, 75)
+        $ApplicationsBox.Controls.Add($Comp_Mgmt_Image)
+        $Comp_Mgmt_Image.BringToFront()
+        
+        #Add Comp_Mgmt Label to Applications Box
+        $Comp_Mgmt = New-Object System.Windows.Forms.Label
+        $Comp_Mgmt.Text = "Comp Mgmt:"
+        $Comp_Mgmt.AutoSize = $true
+        $Comp_Mgmt.Location = New-Object System.Drawing.Point(20, 75)
+        $ApplicationsBox.Controls.Add($Comp_Mgmt)
+        $Comp_Mgmt.BringToFront()
+        
+        #Add Comp_Mgmt Checkbox to Applications Box
+        $Comp_Mgmt_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Comp_Mgmt_Checkbox.Text = ""
+        $Comp_Mgmt_Checkbox.AutoSize = $true
+        $Comp_Mgmt_Checkbox.Location = New-Object System.Drawing.Point(100, 75)
+        #Checkbox Status
+        if ($Comp_Mgmt_Checkbox_Cust -match 'False') {
+            $Comp_Mgmt_Checkbox.Checked = $False
+        }
+        else {
+            $Comp_Mgmt_Checkbox.Checked = $True
+        }
+        $ApplicationsBox.Controls.Add($Comp_Mgmt_Checkbox)
+        $Comp_Mgmt_Checkbox.BringToFront()
+        
+        #Add Gpupdate Image to Applications Box
+        $GPUPDATE_Image = New-Object System.Windows.Forms.Label
+        $GPUPDATE_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\cmd.exe")
+        $ResizedImage = $GPUPDATE_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $GPUPDATE_Image.Image = $ResizedImage
+        $GPUPDATE_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $GPUPDATE_Image.Location = New-Object System.Drawing.Point(5, 90)
+        $ApplicationsBox.Controls.Add($GPUPDATE_Image)
+        $GPUPDATE_Image.BringToFront()
+        
+        #Add Gpupdate Label to Applications Box
+        $GPUPDATE = New-Object System.Windows.Forms.Label
+        $GPUPDATE.Text = "Gpupdate:"
+        $GPUPDATE.AutoSize = $true
+        $GPUPDATE.Location = New-Object System.Drawing.Point(20, 90)
+        $ApplicationsBox.Controls.Add($GPUPDATE)
+        $GPUPDATE.BringToFront()
+        
+        #Add Gpupdate Checkbox to Applications Box
+        $GPUPDATE_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $GPUPDATE_Checkbox.Text = ""
+        $GPUPDATE_Checkbox.AutoSize = $true
+        $GPUPDATE_Checkbox.Location = New-Object System.Drawing.Point(100, 90)
+        #Checkbox Status
+        if ($GPUPDATE_Checkbox_Cust -match 'False') {
+            $GPUPDATE_Checkbox.Checked = $False
+        }
+        else {
+            $GPUPDATE_Checkbox.Checked = $True
+        }
+        $ApplicationsBox.Controls.Add($GPUPDATE_Checkbox)
+        $GPUPDATE_Checkbox.BringToFront()
+        
+        #Add MMC Image to Applications Box
+        $MMC_Image = New-Object System.Windows.Forms.Label
+        $MMC_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\windows\system32\mmc.exe")
+        $ResizedImage = $MMC_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $MMC_Image.Image = $ResizedImage
+        $MMC_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $MMC_Image.Location = New-Object System.Drawing.Point(5, 105)
+        $ApplicationsBox.Controls.Add($MMC_Image)
+        $MMC_Image.BringToFront()
+        
+        #Add MMC Label to Applications Box
+        $MMC = New-Object System.Windows.Forms.Label
+        $MMC.Text = "MMC:"
+        $MMC.AutoSize = $true
+        $MMC.Location = New-Object System.Drawing.Point(20, 105)
+        $ApplicationsBox.Controls.Add($MMC)
+        $MMC.BringToFront()
+        
+        #Add MMC Checkbox to Applications Box
+        $MMC_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $MMC_Checkbox.Text = ""
+        $MMC_Checkbox.AutoSize = $true
+        $MMC_Checkbox.Location = New-Object System.Drawing.Point(100, 105)
+        #Checkbox Status
+        if ($MMC_Checkbox_Cust -match 'False') {
+            $MMC_Checkbox.Checked = $False
+        }
+        else {
+            $MMC_Checkbox.Checked = $True
+        }
+        $ApplicationsBox.Controls.Add($MMC_Checkbox)
+        $MMC_Checkbox.BringToFront()
+        
+        #Add Net_Conn Image to Applications Box
+        $Net_Conn_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAFdUlEQVRIS62Ve0xTZxjGn3PpOVBoSwtU2lIKipeN4W0Gr8xtbsbhxKhhQZwaN5ORzRglyjZ0GZvDLIuYuAte5wTDjMw5haDuD9icCjKH4qLgBbQWbHTKrNT13p69pyCTxcxs80tOenrO+Z7f+z3v+34fAxrFxcUsXSH5/nEPRhaU3IeklhO1MCfFQBDVEDQT4bSdfCN+ZOG2/wvsA1RLAIOGI9/AlGxBbFwsOE4JhhWILkERPRa8alT42387HgDQVEbE2WM10BtNiFRGIUJUAqEQONUoWtX4xwFQ4OjBPbAMSYZaQ3YpIsCxEnj10xBiJjwOAIe6fZVkkxlxZJMgiOA5EGAcRO3kfkBtTU0pw3FFWVlZ3kdZNtAisKj7lgBmE+LidTh/cyJ4PogUkwKmwVPD3+7etWvewgJuH0QjEJEAsElY/uplzJ/hg9FkQDAQJGvFS/D5ZhtTUi4MAEihIOr374Uh0YA4fSzWfurH9v3pgDAIEONpKQYsy7Xi5Uw/hqfGIBhioIxUwOMT6Z0ODM+HVyyP1gsXcf1yQ1svwHVAkkI+SAEf6qurYTQbqZK0SBhPSVZaSFxPEPkahI46HVWYXBAUPEtz6dYfAOKjnGhsvgpD8sjwew1jRePJU6owINizR5KCHgJ48ePhOhhkQKwWr6xOx7FmP6Cg6IW4MOTg1gQkJ5I+ibB0yWIsqSilLpy1GcDREmghSNZ0YGhqKhMGBLq3S1LAgx6HC2dONcOUZECAH4YNuywor7rda4+gI5Ae2TMSsGIx9QiJyACWfuVVGCM68P1JA/1XEJTF5CcvIi0trRfgu7ExDLBdAzqtLUi0DILt3kv48msvbHY/Tpz2kMcaAmgRHaPD5o8sYSGW1FmiBIgwbsglbN6rIXF6TqtYlNWJ9PT0XoCn80MCeHGtMxL2zhaYzTpY3fPw8aZb8AZYHG+6GxaneqVfDUoKh/ZFqiCrOLi9DOa/2IllxV6ySH7G4/38bmRkZPQCWurWLxxm6a6wXtdi2+cVi3IWzMzv4adNKnivCx53AFZ7ABIbTQAVma7CkgWpJCSGxTgy/LaDQe6zx1BQEkn+R5B1PEpW3pBycnLk9PQOV3uBdLVLix1lldl+SX3uiefeurJ2Ha3AF4CbIBIJg4siSDQyJ5nBC5EkLoQtuf6bD+8sPovdB0ag/uhFBHwMKjcjlJeXxw1o/3M/rJO2bjmQ+tne5o5NpaWS3+/HlKmTMGHyaUq0g8RjKKsiNaIeCoG2EU4gqwSseF2EVnkFju7uckvK4MVihEhBub+YNWvWskfuL2VlZVoi3eR5XuHxUCnT7po64iksWh2FP+5cC+fi59pEXLZ2t86dnZ32962jH1BVVSWQZ0GGYeSDR668hw3avxFZUrPFMdxNDUf+R6tU5DsPV4g9nPX8MzNp/oC5/QC73T5HqVIpvP5g7J17rlFHrK0Zq0YfGhOICmBpV9oHbElzyc5Vfh/T7gDX8jtCF7rRUPRdpcflMU8Zm55L4DBcrnq6bHJ7yRH2A7Jfy6/JzctTG+O0NtftUNvctjUlPrMGSr0WSw0vQBQEbEcTHRlOOF1OKN/9BY7KM2bSuNUnej9yeSPpd2FADvrOZuooJBqWZ/5613kPLp4C0dGeFKOCEKsGq6EgaXqlYTW8TmWjWn0z1HS8cee6NYUVctSUI3LpL5v+KclyJLEKhSIpt7zo8Pn21rh2awecXhemZ06H38FiY9bCfI5hu6iTFWpdvKHH7R/WZuuqz5uWWXM/gY+sogcyTXsnqBmQuHLH+rfLCzeUlVbs+WSIyRiizrJrI8WmhhM/2fUjRp+aM3GM9b8AHlpWfZbQgQD9V9W1RUuyZ77Zl4Pw938CtiH44nsXMCoAAAAASUVORK5CYII='
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Net_Conn_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Net_Conn_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Net_Conn_Image.Image = $ResizedImage
+        $Net_Conn_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Net_Conn_Image.Location = New-Object System.Drawing.Point(5, 120)
+        $ApplicationsBox.Controls.Add($Net_Conn_Image)
+        $Net_Conn_Image.BringToFront()
+        
+        #Add Net_Conn Label to Applications Box
+        $Net_Conn = New-Object System.Windows.Forms.Label
+        $Net_Conn.Text = "Net Conn:"
+        $Net_Conn.AutoSize = $true
+        $Net_Conn.Location = New-Object System.Drawing.Point(20, 120)
+        $ApplicationsBox.Controls.Add($Net_Conn)
+        $Net_Conn.BringToFront()
+        
+        #Add Net_Conn Checkbox to Applications Box
+        $Net_Conn_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Net_Conn_Checkbox.Text = ""
+        $Net_Conn_Checkbox.AutoSize = $true
+        $Net_Conn_Checkbox.Location = New-Object System.Drawing.Point(100, 120)
+        #Checkbox Status
+        if ($Net_Conn_Checkbox_Cust -match 'False') {
+            $Net_Conn_Checkbox.Checked = $False
+        }
+        else {
+            $Net_Conn_Checkbox.Checked = $True
+        }
+        $ApplicationsBox.Controls.Add($Net_Conn_Checkbox)
+        $Net_Conn_Checkbox.BringToFront()
+        
+        #Add Password Generator Image to Applications Box
+        $Password_Gen_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACAUlEQVRIS7WVzy8DQRTHv9PaluBA/EjYruIuJUIiruLgKpE4+Q+c/Q0S/wJ3ZxdncUGIC1GRtrYVIU5+7TbtmlmddnZ3urOrMZc2+2be573ve2+GOHThnxdRQbLGLAqly47CUEIIyWIiM+CC0mQKlvMQGxgKsSwb6XQKLBvLqtL/mguIm5kHwqJ2nIInUi4X+xVXHJAHwh2yDLLGXDNyHr0I6ggiE7z4+EzrMto0XWxvoH9vB6gAqQjNGaiJX5aT0yMsL6152He1K3nxKVTL34IYWUpPN/cE5OKWj/dv9PZ1B5yJMtnjpG2npcqt8WsLkZ2W1cHOTQIvrWZ5rSUwlKzjTxAOEKPnjsRvpWoShlaLD5EBeKYM5DyVUZ3X3U9KiKHnkEj86sxq8vJ2A5sQaGYJZDwDWQ3EbJhUn3USnolYB+YcY7RJhAKq7pP7kS53S6hc3Ik9SAE9AFlZh3ZwqPLt2ou5aVQrxRiQRhb4opm8BV8CNkv1uoOS2ZoXnkXkTNhGrr9fLn71mGYFuk71bCxRquTuPpKbW/Jh9NSkMWh+CGuOs/NjLC6sem7jdvVgPqVXvXiAbfKD9LEZmJXrQBYyqdpCmCFMYxESto9HEfpoqRyo7JEg/oy4HGyqxeWfC3/PK994diBPW5oMex1zRypAaE380ajqJNsfWa6ww1FtP5PFRcVcoJ9rAAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Password_Gen_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Password_Gen_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Password_Gen_Image.Image = $ResizedImage
+        $Password_Gen_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Password_Gen_Image.Location = New-Object System.Drawing.Point(5, 135)
+        $ApplicationsBox.Controls.Add($Password_Gen_Image)
+        $Password_Gen_Image.BringToFront()
+        
+        #Add Password Generator Label to Applications Box
+        $Password_Gen = New-Object System.Windows.Forms.Label
+        $Password_Gen.Text = "Password:"
+        $Password_Gen.AutoSize = $true
+        $Password_Gen.Location = New-Object System.Drawing.Point(20, 135)
+        $ApplicationsBox.Controls.Add($Password_Gen)
+        $Password_Gen.BringToFront()
+        
+        #Add Password Generator Checkbox to Applications Box
+        $Password_Gen_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Password_Gen_Checkbox.Text = ""
+        $Password_Gen_Checkbox.AutoSize = $true
+        $Password_Gen_Checkbox.Location = New-Object System.Drawing.Point(100, 135)
+        #Checkbox Status
+        if ($Password_Gen_Checkbox_Cust -match 'False') {
+            $Password_Gen_Checkbox.Checked = $False
+        }
+        else {
+            $Password_Gen_Checkbox.Checked = $True
+        }
+        $ApplicationsBox.Controls.Add($Password_Gen_Checkbox)
+        $Password_Gen_Checkbox.BringToFront()
+        
+        #Add Powershell Image to Applications Box
+        $Powershell_App_Image = New-Object System.Windows.Forms.Label
+        $Powershell_App_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
+        $ResizedImage = $Powershell_App_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Powershell_App_Image.Image = $ResizedImage
+        $Powershell_App_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Powershell_App_Image.Location = New-Object System.Drawing.Point(5, 150)
+        $ApplicationsBox.Controls.Add($Powershell_App_Image)
+        $Powershell_App_Image.BringToFront()
+        
+        #Add Powershell Label to Applications Box
+        $Powershell_App = New-Object System.Windows.Forms.Label
+        $Powershell_App.Text = "Powershell:"
+        $Powershell_App.AutoSize = $true
+        $Powershell_App.Location = New-Object System.Drawing.Point(20, 150)
+        $ApplicationsBox.Controls.Add($Powershell_App)
+        $Powershell_App.BringToFront()
+        
+        #Add Powershell Checkbox to Applications Box
+        $Powershell_App_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Powershell_App_Checkbox.Text = ""
+        $Powershell_App_Checkbox.AutoSize = $true
+        $Powershell_App_Checkbox.Location = New-Object System.Drawing.Point(100, 150)
+        #Checkbox Status
+        if ($Powershell_App_Checkbox_Cust -match 'False') {
+            $Powershell_App_Checkbox.Checked = $False
+        }
+        else {
+            $Powershell_App_Checkbox.Checked = $True
+        }
+        $ApplicationsBox.Controls.Add($Powershell_App_Checkbox)
+        $Powershell_App_Checkbox.BringToFront()
+        
+        #Add Powershell ISE Image to Applications Box
+        $Powershell_ISE_Image = New-Object System.Windows.Forms.Label
+        $Powershell_ISE_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe")
+        $ResizedImage = $Powershell_ISE_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Powershell_ISE_Image.Image = $ResizedImage
+        $Powershell_ISE_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Powershell_ISE_Image.Location = New-Object System.Drawing.Point(5, 165)
+        $ApplicationsBox.Controls.Add($Powershell_ISE_Image)
+        $Powershell_ISE_Image.BringToFront()
+        
+        #Add Powershell ISE Label to Applications Box
+        $Powershell_ISE = New-Object System.Windows.Forms.Label
+        $Powershell_ISE.Text = "Pwsh ISE:"
+        $Powershell_ISE.AutoSize = $true
+        $Powershell_ISE.Location = New-Object System.Drawing.Point(20, 165)
+        $ApplicationsBox.Controls.Add($Powershell_ISE)
+        $Powershell_ISE.BringToFront()
+        
+        #Add Password Generator Checkbox to Applications Box
+        $Powershell_ISE_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Powershell_ISE_Checkbox.Text = ""
+        $Powershell_ISE_Checkbox.AutoSize = $true
+        $Powershell_ISE_Checkbox.Location = New-Object System.Drawing.Point(100, 165)
+        #Checkbox Status
+        if ($Powershell_ISE_Checkbox_Cust -match 'False') {
+            $Powershell_ISE_Checkbox.Checked = $False
+        }
+        else {
+            $Powershell_ISE_Checkbox.Checked = $True
+        }
+        $ApplicationsBox.Controls.Add($Powershell_ISE_Checkbox)
+        $Powershell_ISE_Checkbox.BringToFront()
+        
+        #Add PuTTy Image to Applications Box
+        $PuTTy_App_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACW0lEQVRIS62UzWoTURTH//fmo2hWgqvaWlBCH6CKm0BKu1XBhY8gxRdwoTaJEwTTFxCsgitfoOlmIDPT1BhQ7NJFFS0qiBtX0eKkc6/nTEicTCaZtJ2zCCE59/zO51/gmFYoFHTrdWviq1wuh87vjug7Db5My7JtW8f5kg8MwzgZREBo13WRzqQjObbTxI5jQWt9OsiseIh5VKAiMDWrCcdxkoe8072qroojJA4BBH7iOT6pGrLyC5bQTRbyAxv4qy5ic/MPXq59pfYoCCGTgwhxBh11Hhl1DnOpa1gQTwfT2bBasJ3G6WaSlil96M1D6izS8iMUVRA0Hnp/8FWjStUJ9qHPKSyfz+sP+5qmAMzIz/Rw8qlYtuXD2IxHhv9uovm3oS+TT3TgrGDoEf0vh+JUKpXxEA4a9Hb1JcpEEGIYoml1Z+Q+OOsoG1sJXWooXe55L0NJ23OoFpESXZxNHeBBad0f8DjjNlFifqeG2sWQBVEeefcNVfgV0aAz8iCuw/7/fUAkZE6WcIFko+coKQsPb7xFykkhK76jVL7vDzMYJI46UkkQ8gsvsHLnHq4sZVG+ewuvGrdpa3aTg7AmcYt4e1iX2J5Yu6SyJONJVfJf+NzB8BOErGNWjg6fK6mZb7HTNE9eCd9H8FInrSb7LS8XceP6TdS361MctL/HQjesBlZXVuMWhQTQRrFYBF/03vs9bNW34iEMUNoLn8xEWF8IjwlRA0ELR+eAvE19C7bUNM1n7XZ7La58kuHxs2DZYLkOGv8mpcRjkvKu8mJbNbj4sCjGZRaWjTj/f65KYyxtPszLAAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $PuTTy_App_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $PuTTy_App_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $PuTTy_App_Image.Image = $ResizedImage
+        $PuTTy_App_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $PuTTy_App_Image.Location = New-Object System.Drawing.Point(5, 180)
+        $ApplicationsBox.Controls.Add($PuTTy_App_Image)
+        $PuTTy_App_Image.BringToFront()
+        
+        #Add PuTTy_App Label to Applications Box
+        $PuTTy_App = New-Object System.Windows.Forms.Label
+        $PuTTy_App.Text = "PuTTy:"
+        $PuTTy_App.AutoSize = $true
+        $PuTTy_App.Location = New-Object System.Drawing.Point(20, 180)
+        $ApplicationsBox.Controls.Add($PuTTy_App)
+        $PuTTy_App.BringToFront()
+        
+        #Add PuTTy_App Checkbox to Applications Box
+        $PuTTy_App_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $PuTTy_App_Checkbox.Text = ""
+        $PuTTy_App_Checkbox.AutoSize = $true
+        $PuTTy_App_Checkbox.Location = New-Object System.Drawing.Point(100, 180)
+        #Checkbox Status
+        if ($PuTTy_App_Checkbox_Cust -match 'False') {
+            $PuTTy_App_Checkbox.Checked = $False
+        }
+        else {
+            $PuTTy_App_Checkbox.Checked = $True
+        }
+        $ApplicationsBox.Controls.Add($PuTTy_App_Checkbox)
+        $PuTTy_App_Checkbox.BringToFront()
+        
+        #Add Registry Image to Applications Box
+        $Registry_Image = New-Object System.Windows.Forms.Label
+        $Registry_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\regedt32.exe")
+        $ResizedImage = $Registry_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Registry_Image.Image = $ResizedImage
+        $Registry_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Registry_Image.Location = New-Object System.Drawing.Point(5, 195)
+        $ApplicationsBox.Controls.Add($Registry_Image)
+        $Registry_Image.BringToFront()
+        
+        #Add Registry Label to Applications Box
+        $Registry = New-Object System.Windows.Forms.Label
+        $Registry.Text = "Registry:"
+        $Registry.AutoSize = $true
+        $Registry.Location = New-Object System.Drawing.Point(20, 195)
+        $ApplicationsBox.Controls.Add($Registry)
+        $Registry.BringToFront()
+        
+        #Add Registry Checkbox to Applications Box
+        $Registry_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Registry_Checkbox.Text = ""
+        $Registry_Checkbox.AutoSize = $true
+        $Registry_Checkbox.Location = New-Object System.Drawing.Point(100, 195)
+        #Checkbox Status
+        if ($Registry_Checkbox_Cust -match 'False') {
+            $Registry_Checkbox.Checked = $False
+        }
+        else {
+            $Registry_Checkbox.Checked = $True
+        }
+        $ApplicationsBox.Controls.Add($Registry_Checkbox)
+        $Registry_Checkbox.BringToFront()
+        
+        #Add Sandbox Image to Applications Box
+        $Sandbox_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADG0lEQVRIS9VUzYtOURh/nvPO+CgbZEc21hbY+IjJKJFENmShFKWmZiWxtPFfKImahrKYhWEWlIWUUkYj2dlIWDDe+957zzmP3++ce9+Y780Ut9733nvueX5fz3Ovyiofusr48u8QbDh3P4a61FhV4qtawuORFYlbdtP682PmxEyDl+hL9WUloQ7GJRG1MDnilop5UYJ1Fx5FtVo1RNPoVS1ahANfegt1DcyYa82ZWdT4dHRBrHmLgxcnzEWP+iAaanHQKrFSF0lQaahK8TWeG8BVYSSdcJv+ZC5Rn6Bz6QmUAhRAGmucoT6ReEtOQBqZPX+eDjJ4QocMHIojryE6mxpN0aleeQ5/Xp0FQSWAvbiIbaHCmU5KqMd93cPlL/CBoAaKG0B1Bw8ALE4iCJNaZcfIwp/Dw8tTUBixBSshK3UGIgAlJ3UhVhWy6dRpgTkKT8eXO7dFOmsbIoBKh6x4jtZxH1xgBFSHPwIdAT67NYFnuAA48xbfVVcVtvH4MRRECRicEGICZyoQKs6pfL13F0Rr4AOOQIKGKZTI1htXDaGoHv7A+LIqFr64+QBxdHXzkYNCJcSM+EMrUJcJ6ILgrtOQ4f772BjwB2Xb9WvikWxA4snH0PuEz1lhj3LPcLydnAGggiAJEraBFWm35uvkgulrlC27dgqHixOMOUjCCKWHSICbPBF9RcZikr56+AYnZsucc+9YwNiQsWwf2k1go2q85EpwknCbc+AemkFUfxIQBFh9M7zA0svx19DKUWBplB3De5LiBNwqB1GNaDAnyeMAB40OMO4obgQyqmwmE9EJU8ACAYtCBF+LDBwAWGLQSNCQMc4UD/YPkiAnLnLgXW42pKObzXqjvh2AEtaLnljRBShE8X1LwBRIYHSS6rm/ezZ3c96ngkTtsOSXMg8Az1VPdLabSBIoJ8WzHfwA8POHfT/OtGOShS/6sds/3ThqRpjOeiSYBUHZqKVqkPD4djKFOe9YlKDduY9ETYOoHA6sB4LUSJB/PvG34rkMyxK0BXunLaLB+hMEjOrT0aWB27oVEyxkfyVr/z/BbznHFVQo2fguAAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Sandbox_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Sandbox_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Sandbox_Image.Image = $ResizedImage
+        $Sandbox_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Sandbox_Image.Location = New-Object System.Drawing.Point(5, 210)
+        $ApplicationsBox.Controls.Add($Sandbox_Image)
+        $Sandbox_Image.BringToFront()
+        
+        #Add Sandbox Label to Applications Box
+        $Sandbox = New-Object System.Windows.Forms.Label
+        $Sandbox.Text = "Sandbox:"
+        $Sandbox.AutoSize = $true
+        $Sandbox.Location = New-Object System.Drawing.Point(20, 210)
+        $ApplicationsBox.Controls.Add($Sandbox)
+        $Sandbox.BringToFront()
+        
+        #Add Sandbox Checkbox to Applications Box
+        $Sandbox_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Sandbox_Checkbox.Text = ""
+        $Sandbox_Checkbox.AutoSize = $true
+        $Sandbox_Checkbox.Location = New-Object System.Drawing.Point(100, 210)
+        #Checkbox Status
+        if ($Sandbox_Checkbox_Cust -match 'False') {
+            $Sandbox_Checkbox.Checked = $False
+        }
+        else {
+            $Sandbox_Checkbox.Checked = $True
+        }
+        $ApplicationsBox.Controls.Add($Sandbox_Checkbox)
+        $Sandbox_Checkbox.BringToFront()
+        
+        #Add Select All Label to Applications Box
+        $Select_All = New-Object System.Windows.Forms.Label
+        $Select_All.Text = "Select All:"
+        $Select_All.AutoSize = $true
+        $Select_All.Location = New-Object System.Drawing.Point(20, 20)
+        $ApplicationsBox.Controls.Add($Select_All)
+        $Select_All.BringToFront()
+        
+        #Add Select All Checkbox to Applications Box
+        $Select_All_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Select_All_Checkbox.Text = ""
+        $Select_All_Checkbox.AutoSize = $true
+        $Select_All_Checkbox.Location = New-Object System.Drawing.Point(80, 20)
+        if ($ClickPaste_App_Checkbox_Cust -match "$True" -and $Command_Checkbox_Cust -match "$True" -and $Comp_Mgmt_Checkbox_Cust -match "$True" -and $GPUPDATE_Checkbox_Cust -match "$True" -and $MMC_Checkbox_Cust -match "$True" -and $Net_Conn_Checkbox_Cust -match "$True" -and $Password_Gen_Checkbox_Cust -match "$True" -and $Powershell_App_Checkbox_Cust -match "$True" -and $Powershell_ISE_Checkbox_Cust -match "$True" -and $PuTTy_App_Checkbox_Cust -match "$True" -and $Registry_Checkbox_Cust -match "$True" -and $Sandbox_Checkbox_Cust -match "$True") {
+            $Select_All_Checkbox.Checked = $True
+        }
+        else {
+            $Select_All_Checkbox.Checked = $False
+        }
+        $Select_All_Checkbox.Add_CheckedChanged({
+                foreach ($checkbox in $checkboxes) {
+                    $checkbox.Checked = $this.Checked
+                }
+            })
+        $ApplicationsBox.Controls.Add($Select_All_Checkbox)
+        $Select_All_Checkbox.BringToFront()
+        
+        # Array of all checkboxes
+        $checkboxes = @($ClickPaste_App_Checkbox, $Command_Checkbox, $Comp_Mgmt_Checkbox, $GPUPDATE_Checkbox, $MMC_Checkbox, $Net_Conn_Checkbox, $Password_Gen_Checkbox, $Powershell_App_Checkbox, $Powershell_ISE_Checkbox, $PuTTy_App_Checkbox, $Registry_Checkbox, $Sandbox_Checkbox)
+        
+        # Add Groupbox to Applications Tab
+        $Applications_Custom_Box = New-Object System.Windows.Forms.GroupBox
+        $Applications_Custom_Box.Text = "Custom Applications"
+        $Applications_Custom_Box.Location = New-Object System.Drawing.Point(128, 5)
+        $Applications_Custom_Box.Size = New-Object System.Drawing.Size(435, 285)
+        $ApplicationsTab.Controls.Add($Applications_Custom_Box)
+        
+        # Create a label
+        $Custom_App_1_Label = New-Object System.Windows.Forms.Label
+        $Custom_App_1_Label.Location = New-Object System.Drawing.Point(9, 20)
+        $Custom_App_1_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_App_1_Label.Text = "Custom Application #1:"
+        $Applications_Custom_Box.Controls.Add($Custom_App_1_Label)
+        
+        # Create a text box
+        $Custom_App_1_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_App_1_Textbox.Location = New-Object System.Drawing.Point(10, 36)
+        $Custom_App_1_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_App_1_Cust) {
+            $Custom_App_1_Textbox.Text = $Custom_App_1_Cust
+        }
+        $Applications_Custom_Box.Controls.Add($Custom_App_1_Textbox)
+        
+        # Create a button to select file
+        $Custom_App_1_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_App_1_SelectFile.Location = New-Object System.Drawing.Point(355, 35)
+        $Custom_App_1_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_App_1_SelectFile.Text = "Browse"
+        $Custom_App_1_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_App_1_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Applications_Custom_Box.Controls.Add($Custom_App_1_SelectFile)
+        
+        # Create a label
+        $Custom_App_2_Label = New-Object System.Windows.Forms.Label
+        $Custom_App_2_Label.Location = New-Object System.Drawing.Point(9, 64)
+        $Custom_App_2_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_App_2_Label.Text = "Custom Application #2:"
+        $Applications_Custom_Box.Controls.Add($Custom_App_2_Label)
+        
+        # Create a text box
+        $Custom_App_2_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_App_2_Textbox.Location = New-Object System.Drawing.Point(10, 80)
+        $Custom_App_2_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_App_2_Cust) {
+            $Custom_App_2_Textbox.Text = $Custom_App_2_Cust
+        }
+        $Applications_Custom_Box.Controls.Add($Custom_App_2_Textbox)
+        
+        # Create a button to select file
+        $Custom_App_2_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_App_2_SelectFile.Location = New-Object System.Drawing.Point(355, 79)
+        $Custom_App_2_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_App_2_SelectFile.Text = "Browse"
+        $Custom_App_2_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_App_2_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Applications_Custom_Box.Controls.Add($Custom_App_2_SelectFile)
+        
+        # Create a label
+        $Custom_App_3_Label = New-Object System.Windows.Forms.Label
+        $Custom_App_3_Label.Location = New-Object System.Drawing.Point(9, 108)
+        $Custom_App_3_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_App_3_Label.Text = "Custom Application #3:"
+        $Applications_Custom_Box.Controls.Add($Custom_App_3_Label)
+        
+        # Create a text box
+        $Custom_App_3_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_App_3_Textbox.Location = New-Object System.Drawing.Point(10, 124)
+        $Custom_App_3_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_App_3_Cust) {
+            $Custom_App_3_Textbox.Text = $Custom_App_3_Cust
+        }
+        $Applications_Custom_Box.Controls.Add($Custom_App_3_Textbox)
+        
+        # Create a button to select file
+        $Custom_App_3_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_App_3_SelectFile.Location = New-Object System.Drawing.Point(355, 123)
+        $Custom_App_3_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_App_3_SelectFile.Text = "Browse"
+        $Custom_App_3_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_App_3_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Applications_Custom_Box.Controls.Add($Custom_App_3_SelectFile)
+        
+        # Create a label
+        $Custom_App_4_Label = New-Object System.Windows.Forms.Label
+        $Custom_App_4_Label.Location = New-Object System.Drawing.Point(9, 152)
+        $Custom_App_4_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_App_4_Label.Text = "Custom Application #4:"
+        $Applications_Custom_Box.Controls.Add($Custom_App_4_Label)
+        
+        # Create a text box
+        $Custom_App_4_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_App_4_Textbox.Location = New-Object System.Drawing.Point(10, 168)
+        $Custom_App_4_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_App_4_Cust) {
+            $Custom_App_4_Textbox.Text = $Custom_App_4_Cust
+        }
+        $Applications_Custom_Box.Controls.Add($Custom_App_4_Textbox)
+        
+        # Create a button to select file
+        $Custom_App_4_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_App_4_SelectFile.Location = New-Object System.Drawing.Point(355, 167)
+        $Custom_App_4_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_App_4_SelectFile.Text = "Browse"
+        $Custom_App_4_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_App_4_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Applications_Custom_Box.Controls.Add($Custom_App_4_SelectFile)
+        
+        # Create a label
+        $Custom_App_5_Label = New-Object System.Windows.Forms.Label
+        $Custom_App_5_Label.Location = New-Object System.Drawing.Point(9, 196)
+        $Custom_App_5_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_App_5_Label.Text = "Custom Application #5:"
+        $Applications_Custom_Box.Controls.Add($Custom_App_5_Label)
+        
+        # Create a text box
+        $Custom_App_5_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_App_5_Textbox.Location = New-Object System.Drawing.Point(10, 212)
+        $Custom_App_5_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_App_5_Cust) {
+            $Custom_App_5_Textbox.Text = $Custom_App_5_Cust
+        }
+        $Applications_Custom_Box.Controls.Add($Custom_App_5_Textbox)
+        
+        # Create a button to select file
+        $Custom_App_5_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_App_5_SelectFile.Location = New-Object System.Drawing.Point(355, 211)
+        $Custom_App_5_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_App_5_SelectFile.Text = "Browse"
+        $Custom_App_5_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_App_5_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Applications_Custom_Box.Controls.Add($Custom_App_5_SelectFile)
+        
+        # Create a label
+        $Custom_App_6_Label = New-Object System.Windows.Forms.Label
+        $Custom_App_6_Label.Location = New-Object System.Drawing.Point(9, 240)
+        $Custom_App_6_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_App_6_Label.Text = "Custom Application #6:"
+        $Applications_Custom_Box.Controls.Add($Custom_App_6_Label)
+        
+        # Create a text box
+        $Custom_App_6_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_App_6_Textbox.Location = New-Object System.Drawing.Point(10, 256)
+        $Custom_App_6_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_App_6_Cust) {
+            $Custom_App_6_Textbox.Text = $Custom_App_6_Cust
+        }
+        $Applications_Custom_Box.Controls.Add($Custom_App_6_Textbox)
+        
+        # Create a button to select file
+        $Custom_App_6_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_App_6_SelectFile.Location = New-Object System.Drawing.Point(355, 255)
+        $Custom_App_6_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_App_6_SelectFile.Text = "Browse"
+        $Custom_App_6_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_App_6_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Applications_Custom_Box.Controls.Add($Custom_App_6_SelectFile)
+        
+        #############################################################################################################################
+        
+        $Wet_FloorTab = New-Object System.Windows.Forms.TabPage
+        $Wet_FloorTab.Text = "Wet Floor"
+        $tabControl.Controls.Add($Wet_FloorTab)
+        
+        # Add Groupbox to Wet-Floor Tab
+        $Wet_FloorBox = New-Object System.Windows.Forms.GroupBox
+        $Wet_FloorBox.Text = "Show/Hide"
+        $Wet_FloorBox.Size = New-Object System.Drawing.Size(117, 285)
+        $Wet_FloorBox.Location = New-Object System.Drawing.Point(5, 5)
+        $Wet_FloorTab.Controls.Add($Wet_FloorBox)
+        
+        # Create Separator
+        $separator = New-Object System.Windows.Forms.Label
+        $separator.BorderStyle = "FixedSingle"
+        $separator.Size = New-Object System.Drawing.Size(100, 1)
+        $separator.Location = New-Object System.Drawing.Point(8, 37)
+        $Wet_FloorBox.Controls.Add($separator)
+        $separator.BringToFront()
+        
+        #Add Active_Directory_WF Image to Wet-Floor Box
+        $Active_Directory_WF_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAER0lEQVRIS91UXWwUVRg9d+d/d/aHdsuWbQWFtpQfSTTypIlINGokNib6ZGJMfMBEw6v6Vl+MEoyBBBMeBI0aBAIPYID4oBASo6TFYmgBS7u73YXdme7ObHd3dnb+7nhLYgIPhRolMd7JzZ3J3HvOd865+Qge8CAPGB//DYKjR1/jsiknY2jG01a5qMBzNISuKVBqd1pUCsHHvcBOi5y8whHUTTTCFVdF6YEdH8yZ91QQhvuk0vXm+kqpsYOX0i+3veDxwJnmQ1ezArfWJtR0aWAL8DtSy5RUXeeqphP/sR2Ie0c/G7u4aP+SBNrs51vmdf2dhdr8812ZLdn+ge2CEkuzIwYonUNIrwHhVXQas9ALK1BpbA4rerkpK3QqDJ3znufnInZw5C4CM3coVbftYddxdzUt7yU5mkj0rYqB+DNo12fht2ugXhPUqcFzW/BoEh3xBWitFHs3sWljPzIr03B8HxOXJkM/6HnxNsG1S59ki3PFbb3Z3lcFUX1Kivb0dPX0IaZGgcBioDpcOw/HmMTCrTFYCx7C2JNoYgPqtoPubh7rBh5CTJFRMwzkZm+iWm34ltv1Ovnh1K63T548t7NmWOv61/THB4eGsHbtIDKZfiiKyjx00F6YYcAXsXDzIhLdj6L7kREU52sI/BY2bFyDbDYD1+lgNjeLM2ensfWJRTLiffXNz6+Qs8fepRNX/iDFUgVlrQ7CCYgnUuhiM8EUxBWCqOQiKlNkenuRXf8sKloOK5IShjc8DIHnoWka5oolmHUKNSZDVeMwai3n+InzI6ScP+SGxBcsqwmtUoVpNOB6lAVJIQo8OI5jpBx4QYIksSkKWJXtQW8mjUargcqtm6x6D0bDh645GBjoQ6Omm+3KxJcT1298RLTCQVdJxIQIYXEQiW0msDse2m1G5DQR4UJWkQJFkhmZAEUWEYQUhXwOzWYTyUQMP10oQpJlbBxeg+qNC5PN8tX3vOqVc2/sgUX04kFPUeM8CAuUJECIgAjhELLH913YloG2XQb1O0yByJQFrFIdXCQCUVIwV2ogEpEgcjCbhfMnKtNX39/56a3qXy2IFKf2X44m06t5JZPkxRhBGLL7vfibUbCV0hA0bDGCKiNcDHIGMrOKBgTzNZfZanm9an3cnBvf19J/+/6t3exy3THI5dOj/aIaXcdLyW2CHH1OTa/cKsdTIsf8D4IAgRvAD1ymymDTQaGQYzlwGL9ch1GZt/ukqQP10szeNz+uFJjJt0u7i+DOj+nT+yRbaA/xEX4knl39TDTZNUAEOcV0qBFSYzE5yDPv8/kFj3O0G7Xfv/sw94t9fPQc/KW68pKtYmzsgKCYrc2cGh0UFHW7EvOHOYl7rJSfco8fOXPY16/t333MuX6/dr+sdj12ajQqiDFVXZ1M1Qu/0sPfflHe8zWs+4Hfs9kt5/By9ixLwXKA/nYG/wR0yVv0b4H+vwj+BByiDCpt1NN/AAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Active_Directory_WF_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Active_Directory_WF_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Active_Directory_WF_Image.Image = $ResizedImage
+        $Active_Directory_WF_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Active_Directory_WF_Image.Location = New-Object System.Drawing.Point(5, 45)
+        $Wet_FloorBox.Controls.Add($Active_Directory_WF_Image)
+        $Active_Directory_WF_Image.BringToFront()
+        
+        #Add Active_Directory_WF Label to Wet-Floor Box
+        $Active_Directory_WF = New-Object System.Windows.Forms.Label
+        $Active_Directory_WF.Text = "Active Dir:"
+        $Active_Directory_WF.AutoSize = $true
+        $Active_Directory_WF.Location = New-Object System.Drawing.Point(20, 45)
+        $Wet_FloorBox.Controls.Add($Active_Directory_WF)
+        $Active_Directory_WF.BringToFront()
+        
+        #Add Active_Directory_WF Checkbox to Wet-Floor Box
+        $Active_Directory_WF_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Active_Directory_WF_Checkbox.Text = ""
+        $Active_Directory_WF_Checkbox.AutoSize = $true
+        $Active_Directory_WF_Checkbox.Location = New-Object System.Drawing.Point(100, 45)
+        #Checkbox Status
+        if ($Active_Directory_WF_Checkbox_Cust -match 'False') {
+            $Active_Directory_WF_Checkbox.Checked = $False
+        }
+        else {
+            $Active_Directory_WF_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($Active_Directory_WF_Checkbox)
+        $Active_Directory_WF_Checkbox.BringToFront()
+        
+        #Add ADIE Image to Wet-Floor Box
+        $ADIE_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAER0lEQVRIS91UXWwUVRg9d+d/d/aHdsuWbQWFtpQfSTTypIlINGokNib6ZGJMfMBEw6v6Vl+MEoyBBBMeBI0aBAIPYID4oBASo6TFYmgBS7u73YXdme7ObHd3dnb+7nhLYgIPhRolMd7JzZ3J3HvOd865+Qge8CAPGB//DYKjR1/jsiknY2jG01a5qMBzNISuKVBqd1pUCsHHvcBOi5y8whHUTTTCFVdF6YEdH8yZ91QQhvuk0vXm+kqpsYOX0i+3veDxwJnmQ1ezArfWJtR0aWAL8DtSy5RUXeeqphP/sR2Ie0c/G7u4aP+SBNrs51vmdf2dhdr8812ZLdn+ge2CEkuzIwYonUNIrwHhVXQas9ALK1BpbA4rerkpK3QqDJ3znufnInZw5C4CM3coVbftYddxdzUt7yU5mkj0rYqB+DNo12fht2ugXhPUqcFzW/BoEh3xBWitFHs3sWljPzIr03B8HxOXJkM/6HnxNsG1S59ki3PFbb3Z3lcFUX1Kivb0dPX0IaZGgcBioDpcOw/HmMTCrTFYCx7C2JNoYgPqtoPubh7rBh5CTJFRMwzkZm+iWm34ltv1Ovnh1K63T548t7NmWOv61/THB4eGsHbtIDKZfiiKyjx00F6YYcAXsXDzIhLdj6L7kREU52sI/BY2bFyDbDYD1+lgNjeLM2ensfWJRTLiffXNz6+Qs8fepRNX/iDFUgVlrQ7CCYgnUuhiM8EUxBWCqOQiKlNkenuRXf8sKloOK5IShjc8DIHnoWka5oolmHUKNSZDVeMwai3n+InzI6ScP+SGxBcsqwmtUoVpNOB6lAVJIQo8OI5jpBx4QYIksSkKWJXtQW8mjUargcqtm6x6D0bDh645GBjoQ6Omm+3KxJcT1298RLTCQVdJxIQIYXEQiW0msDse2m1G5DQR4UJWkQJFkhmZAEUWEYQUhXwOzWYTyUQMP10oQpJlbBxeg+qNC5PN8tX3vOqVc2/sgUX04kFPUeM8CAuUJECIgAjhELLH913YloG2XQb1O0yByJQFrFIdXCQCUVIwV2ogEpEgcjCbhfMnKtNX39/56a3qXy2IFKf2X44m06t5JZPkxRhBGLL7vfibUbCV0hA0bDGCKiNcDHIGMrOKBgTzNZfZanm9an3cnBvf19J/+/6t3exy3THI5dOj/aIaXcdLyW2CHH1OTa/cKsdTIsf8D4IAgRvAD1ymymDTQaGQYzlwGL9ch1GZt/ukqQP10szeNz+uFJjJt0u7i+DOj+nT+yRbaA/xEX4knl39TDTZNUAEOcV0qBFSYzE5yDPv8/kFj3O0G7Xfv/sw94t9fPQc/KW68pKtYmzsgKCYrc2cGh0UFHW7EvOHOYl7rJSfco8fOXPY16/t333MuX6/dr+sdj12ajQqiDFVXZ1M1Qu/0sPfflHe8zWs+4Hfs9kt5/By9ixLwXKA/nYG/wR0yVv0b4H+vwj+BByiDCpt1NN/AAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $ADIE_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $ADIE_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $ADIE_Image.Image = $ResizedImage
+        $ADIE_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $ADIE_Image.Location = New-Object System.Drawing.Point(5, 60)
+        $Wet_FloorBox.Controls.Add($ADIE_Image)
+        $ADIE_Image.BringToFront()
+        
+        #Add ADIE Label to Wet-Floor Box
+        $ADIE = New-Object System.Windows.Forms.Label
+        $ADIE.Text = "AD Intune:"
+        $ADIE.AutoSize = $true
+        $ADIE.Location = New-Object System.Drawing.Point(20, 60)
+        $Wet_FloorBox.Controls.Add($ADIE)
+        $ADIE.BringToFront()
+        
+        #Add ADIE Checkbox to Wet-Floor Box
+        $ADIE_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $ADIE_Checkbox.Text = ""
+        $ADIE_Checkbox.AutoSize = $true
+        $ADIE_Checkbox.Location = New-Object System.Drawing.Point(100, 60)
+        #Checkbox Status
+        if ($ADIE_Checkbox_Cust -match 'False') {
+            $ADIE_Checkbox.Checked = $False
+        }
+        else {
+            $ADIE_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($ADIE_Checkbox)
+        $ADIE_Checkbox.BringToFront()
+        
+        #Add Command_WF Image to Wet-Floor Box
+        $Command_WF_Image = New-Object System.Windows.Forms.Label
+        $Command_WF_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\cmd.exe")
+        $ResizedImage = $Command_WF_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Command_WF_Image.Image = $ResizedImage
+        $Command_WF_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Command_WF_Image.Location = New-Object System.Drawing.Point(5, 75)
+        $Wet_FloorBox.Controls.Add($Command_WF_Image)
+        $Command_WF_Image.BringToFront()
+        
+        #Add Command_WF Label to Wet-Floor Box
+        $Command_WF = New-Object System.Windows.Forms.Label
+        $Command_WF.Text = "Command:"
+        $Command_WF.AutoSize = $true
+        $Command_WF.Location = New-Object System.Drawing.Point(20, 75)
+        $Wet_FloorBox.Controls.Add($Command_WF)
+        $Command_WF.BringToFront()
+        
+        #Add Command_WF Checkbox to Wet-Floor Box
+        $Command_WF_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Command_WF_Checkbox.Text = ""
+        $Command_WF_Checkbox.AutoSize = $true
+        $Command_WF_Checkbox.Location = New-Object System.Drawing.Point(100, 75)
+        #Checkbox Status
+        if ($Command_WF_Checkbox_Cust -match 'False') {
+            $Command_WF_Checkbox.Checked = $False
+        }
+        else {
+            $Command_WF_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($Command_WF_Checkbox)
+        $Command_WF_Checkbox.BringToFront()
+        
+        #Add Comp_Mgmt_WF Image to Wet-Floor Box
+        $Comp_Mgmt_WF_Image = New-Object System.Windows.Forms.Label
+        $Comp_Mgmt_WF_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\compmgmt.msc")
+        $ResizedImage = $Comp_Mgmt_WF_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Comp_Mgmt_WF_Image.Image = $ResizedImage
+        $Comp_Mgmt_WF_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Comp_Mgmt_WF_Image.Location = New-Object System.Drawing.Point(5, 90)
+        $Wet_FloorBox.Controls.Add($Comp_Mgmt_WF_Image)
+        $Comp_Mgmt_WF_Image.BringToFront()
+        
+        #Add Comp_Mgmt_WF Label to Wet-Floor Box
+        $Comp_Mgmt_WF = New-Object System.Windows.Forms.Label
+        $Comp_Mgmt_WF.Text = "Comp Mgmt:"
+        $Comp_Mgmt_WF.AutoSize = $true
+        $Comp_Mgmt_WF.Location = New-Object System.Drawing.Point(20, 90)
+        $Wet_FloorBox.Controls.Add($Comp_Mgmt_WF)
+        $Comp_Mgmt_WF.BringToFront()
+        
+        #Add Comp_Mgmt_WF Checkbox to Wet-Floor Box
+        $Comp_Mgmt_WF_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Comp_Mgmt_WF_Checkbox.Text = ""
+        $Comp_Mgmt_WF_Checkbox.AutoSize = $true
+        $Comp_Mgmt_WF_Checkbox.Location = New-Object System.Drawing.Point(100, 90)
+        #Checkbox Status
+        if ($Comp_Mgmt_WF_Checkbox_Cust -match 'False') {
+            $Comp_Mgmt_WF_Checkbox.Checked = $False
+        }
+        else {
+            $Comp_Mgmt_WF_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($Comp_Mgmt_WF_Checkbox)
+        $Comp_Mgmt_WF_Checkbox.BringToFront()
+        
+        #Add Exc_AAD_Conn_WF Image to Wet-Floor Box
+        $Exc_AAD_Conn_WF_Image = New-Object System.Windows.Forms.Label
+        $Exc_AAD_Conn_WF_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
+        $ResizedImage = $Exc_AAD_Conn_WF_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Exc_AAD_Conn_WF_Image.Image = $ResizedImage
+        $Exc_AAD_Conn_WF_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Exc_AAD_Conn_WF_Image.Location = New-Object System.Drawing.Point(5, 105)
+        $Wet_FloorBox.Controls.Add($Exc_AAD_Conn_WF_Image)
+        $Exc_AAD_Conn_WF_Image.BringToFront()
+        
+        #Add Exc_AAD_Conn_WF Label to Wet-Floor Box
+        $Exc_AAD_Conn_WF = New-Object System.Windows.Forms.Label
+        $Exc_AAD_Conn_WF.Text = "Exch + AAD:"
+        $Exc_AAD_Conn_WF.AutoSize = $true
+        $Exc_AAD_Conn_WF.Location = New-Object System.Drawing.Point(20, 105)
+        $Wet_FloorBox.Controls.Add($Exc_AAD_Conn_WF)
+        $Exc_AAD_Conn_WF.BringToFront()
+        
+        #Add Exc_AAD_Conn_WF Checkbox to Wet-Floor Box
+        $Exc_AAD_Conn_WF_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Exc_AAD_Conn_WF_Checkbox.Text = ""
+        $Exc_AAD_Conn_WF_Checkbox.AutoSize = $true
+        $Exc_AAD_Conn_WF_Checkbox.Location = New-Object System.Drawing.Point(100, 105)
+        #Checkbox Status
+        if ($Exc_AAD_Conn_WF_Checkbox_Cust -match 'False') {
+            $Exc_AAD_Conn_WF_Checkbox.Checked = $False
+        }
+        else {
+            $Exc_AAD_Conn_WF_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($Exc_AAD_Conn_WF_Checkbox)
+        $Exc_AAD_Conn_WF_Checkbox.BringToFront()
+        
+        #Add Group_Policy_WF Image to Wet-Floor Box
+        $Group_Policy_WF_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAE4UlEQVRIS42VS2wbVRSG/3k448RJWs+MYxIndlxKiASqwGlRChVdIiFgwxJYsEBIiFUFEmLVJQi1XSEQIDZsqkitlLosQNCqFGhCaagIbZpHH0lM6vd7bM+bM2M7OH0lY13d8cyd851z/nvOZdBxTU1NcYcmn3qeMZIfsowxYYMRAaa1ojkzDEuDge38LKv1zt6cNYNDo7GheLnyl1458En7a3fBtWu/i6LP+7kkd7/OcaynE96+t9u2XFjnCgaWzSCZzMJW51EpJ5IW5zm0Zcn8zE/BUHT01G5x9wsPMr7ds2K5gZX5s6gVZ5FIVyo8evZvAdz49ccheU/0rBgQn93O2H3vKZxbdxKY+fmbq9XsbxfXs74rtURwagtgjgDhx6NxURZjhmEilSrCsmxYptWcKT82zc6vfUliH0Sp19Vlcfk2Ls/88dFbb7/3afv9AwGS7I9ZJKCq6nBybrcS3547ve/q4uEMR5DF5VsE+PPRgJE94bgcEAlgtwDkb8vhnQGu7ATgpxQZlKIypcaCaVJ6aHZADphi2gxCFHshUYqaETgpmtsOMEIR7Ip1GtmR4C7gDgGubgcYJkB/TG3oWFrKwDBNGIYTRTuS/1PmgCMRvzucelxcXm0B3n+4yCPRQRdAydiR45uLnAhW1gjwN0WwLcAXc3bQ0lLB9d5oee9E4XSHTrEjkX5Ewv1NDVzAtUcBpodGoqNxWe7eooEDqVHKTBKYYxnwHINcrgCWZV2YIHggyyKWbq7j8uzCdhEMxGVJaBZaugGFIkmkS0gW6mB5LwTORiG5hkuzc4gMh+HhDShKAa+9/CJ6+noxd3n50YBwVI5LkifmVK3aMHHm/G3sP3AQBu3MuqYhsbaGhYUFhCIjCPj74eEs3FhcwV+zM5icnECh2Jg2+b5jJoN1NbWauL+So1JcErlWJVs4fW4V+yYmyRALgaeU0BeapqNYqSCXL6BSUZBMJZG/exe80AOW4y3D0KtURyny6bv7AaN+ArCUIgupjIYzF1bgEwdQyGZQq9UwNj5OKlvo7fW554HzrFSqIJ3KwKSonf+FfN4tSmlXX/oeAIk8GoxLfmyKfPKHf7F33wFU00l8P30Gh195FblMFvlcDpVSGY1qGbzXB4YEZ+kwyqRSpBWPgWAAHsYubwKOHj3KHn5u79D4WHA6IKkxx0vnOnlOwciTE7h+dQ5KPounDx6CSl5yPLVnyn0ll0S3GARPRjfWN6DUFDwxPgaPR0Apm24Clpd/Ccii+KahaSHo+Te6vfpj7QZ36nwB8vCYG7ppmdBVlZqgCk3XyPsaWLWKOivA09WFEqXGaduhcBi6oaOazzUBq7cvvDsY3H2cdPQyTsXYjpTN69vT8zD5fvdkdgG0k3Rdd4XW6L5cKILz8K4e1XIFg6FBGiFnrV3KpBTX0D+Xjr3j9xWO02Hivbc/5Cos0iUeqSLPZCseKA0PYzEeRjfBkA2YVC+6ocGkB/V6zTU+NDwErdFQVm+uNE+0Lz77YEDyb3xMm1CiADqO9SaOAmIsm4NmdzFVtYdTdB9fVfv6VYMN6IYdoBbit2xLaNQb/DClRx4I3M1nMl+t31n72gU4AovU2AVB2LKrHtbtumo1JmeW+EKBF+qW4VMN7NUN9RnTNF8aCg1LPb3CkfSKcvHEiSP1/wDbXdYF8bisrQAAAABJRU5ErkJggg=='
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Group_Policy_WF_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Group_Policy_WF_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Group_Policy_WF_Image.Image = $ResizedImage
+        $Group_Policy_WF_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Group_Policy_WF_Image.Location = New-Object System.Drawing.Point(5, 120)
+        $Wet_FloorBox.Controls.Add($Group_Policy_WF_Image)
+        $Group_Policy_WF_Image.BringToFront()
+        
+        #Add Group_Policy_WF Label to Wet-Floor Box
+        $Group_Policy_WF = New-Object System.Windows.Forms.Label
+        $Group_Policy_WF.Text = "Group Pol:"
+        $Group_Policy_WF.AutoSize = $true
+        $Group_Policy_WF.Location = New-Object System.Drawing.Point(20, 120)
+        $Wet_FloorBox.Controls.Add($Group_Policy_WF)
+        $Group_Policy_WF.BringToFront()
+        
+        #Add Group_Policy_WF Checkbox to Wet-Floor Box
+        $Group_Policy_WF_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Group_Policy_WF_Checkbox.Text = ""
+        $Group_Policy_WF_Checkbox.AutoSize = $true
+        $Group_Policy_WF_Checkbox.Location = New-Object System.Drawing.Point(100, 120)
+        #Checkbox Status
+        if ($Group_Policy_WF_Checkbox_Cust -match 'False') {
+            $Group_Policy_WF_Checkbox.Checked = $False
+        }
+        else {
+            $Group_Policy_WF_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($Group_Policy_WF_Checkbox)
+        $Group_Policy_WF_Checkbox.BringToFront()
+        
+        #Add gpupdate_WF Image to Wet-Floor Box
+        $gpupdate_WF_Image = New-Object System.Windows.Forms.Label
+        $gpupdate_WF_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\cmd.exe")
+        $ResizedImage = $gpupdate_WF_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $gpupdate_WF_Image.Image = $ResizedImage
+        $gpupdate_WF_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $gpupdate_WF_Image.Location = New-Object System.Drawing.Point(5, 135)
+        $Wet_FloorBox.Controls.Add($gpupdate_WF_Image)
+        $gpupdate_WF_Image.BringToFront()
+        
+        #Add gpupdate_WF Label to Wet-Floor Box
+        $gpupdate_WF = New-Object System.Windows.Forms.Label
+        $gpupdate_WF.Text = "GPUpdate:"
+        $gpupdate_WF.AutoSize = $true
+        $gpupdate_WF.Location = New-Object System.Drawing.Point(20, 135)
+        $Wet_FloorBox.Controls.Add($gpupdate_WF)
+        $gpupdate_WF.BringToFront()
+        
+        #Add gpupdate_WF Checkbox to Wet-Floor Box
+        $gpupdate_WF_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $gpupdate_WF_Checkbox.Text = ""
+        $gpupdate_WF_Checkbox.AutoSize = $true
+        $gpupdate_WF_Checkbox.Location = New-Object System.Drawing.Point(100, 135)
+        #Checkbox Status
+        if ($gpupdate_WF_Checkbox_Cust -match 'False') {
+            $gpupdate_WF_Checkbox.Checked = $False
+        }
+        else {
+            $gpupdate_WF_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($gpupdate_WF_Checkbox)
+        $gpupdate_WF_Checkbox.BringToFront()
+        
+        #Add HyperV_Mgr_WF Image to Wet-Floor Box
+        $HyperV_Mgr_WF_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADsElEQVRIS7WWaUhUURTH/++90cosAhOyLxkUZH4oUCIq1DSdNoqKSJM2s6yIyIwWbS+qL20QUaEV7djillYUki1YiFGQlablFzO1qHRa1HnzOue9d+eNadMQdOHOneXe/++c/z3nMRL+85B80R9W9X5drQsHeG+ojIr68MFjfDnHe/4ICH7VuKjFqZ3xJhRukz5UhYWEeNvTBRD6sjGnXtVSfIpO4130oqrAVwcQM7LHYPUv066UaPYpCZj9rtknbaguQ7T1G/CzHXA6gaSoPwNSLxdq9ml22GQJNkmCvyTDXtvUFeZiURJs/W6JchYavfBM/gsgO68IaGpAUUkBFIIoFE+lKiGzshZoY9EOsoMi1egHIaqvBHbRuiDGewYJUxOgUAZ96MDUjJ1A9XPsLbmBzOInRibCc3fUprAOoLkozjeAsKmCgu2vyFh3gwCeVvAHjpiFRfQMWBLvHZBd+Qp4+xoF507o98AAf1lGpg4wfRaW8MqiPPk9V1LqZN8zmLn9IMGqsSv7GLbdfmoCTDERvQC4SJyrKm2a74DyDg29yR49g8Jyywrhtx45TY587OhupZ0yyK//qeDgNncnc5kGBg3E4fOXET9iKCJWrrIA+Y+6+x0Z7r1fPrcCLV+AOWPJbBp6H1AVyVRFDztceH73PkqLizF+VBgeBYeZGZieU/RX502EP9Wxn6RgiuiXL9R4H78C7dR4XBRsXXK0BRBlyoBeZI3bomtlxmbhOfmdmxSHp1U12J+VhX1F+djMpSwqzfNuFsZagEkJcUjcsg9yfQ02XDxnAXJLTXETQoAJdeVYv2snWqjpSp+9wKWGH2ZFmVny3XBTptg9LKJHxYN2Vb/YgTKwKXM3UEelO3f5bwAVDxJj8SkgAMsOZSPU1omKIRHWHiHuJAhVlnUHHgB/vYLomcRVdOGWYRGXor6qkKufISdrLer6DYBEnu++Q6WsC5vT2Wk8AFfPsgBKbKzuPYt2AZwtdgsbECeeLJ2BS6qMQJsNezZuB8bFG4JsC68CkD7PABxudJStvZAXtWbxnO6A0wVG+hwdZ0Ajb/lszFqRji3HjqAXdfLWa/e6incSBHQmY74B8BxBx69rnxzfsCMtEZF+MqafuG6Ic2PxoENX2tq18k4X+toUBCgKNp+/6RE52SNGTwBPWODRXM1BF4/o4X0RGUnPbGOsaHZoASTuBnCWwiIPcXcne2/Lnn/d+KbpVk7ZY3tW0nSkn7xq2EcR/77bp38V/xKAOPMLKdEgN0nrvccAAAAASUVORK5CYII='
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $HyperV_Mgr_WF_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $HyperV_Mgr_WF_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $HyperV_Mgr_WF_Image.Image = $ResizedImage
+        $HyperV_Mgr_WF_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $HyperV_Mgr_WF_Image.Location = New-Object System.Drawing.Point(5, 150)
+        $Wet_FloorBox.Controls.Add($HyperV_Mgr_WF_Image)
+        $HyperV_Mgr_WF_Image.BringToFront()
+        
+        #Add HyperV_Mgr_WF Label to Wet-Floor Box
+        $HyperV_Mgr_WF = New-Object System.Windows.Forms.Label
+        $HyperV_Mgr_WF.Text = "HyperV Mgr:"
+        $HyperV_Mgr_WF.AutoSize = $true
+        $HyperV_Mgr_WF.Location = New-Object System.Drawing.Point(20, 150)
+        $Wet_FloorBox.Controls.Add($HyperV_Mgr_WF)
+        $HyperV_Mgr_WF.BringToFront()
+        
+        #Add HyperV_Mgr_WF Checkbox to Wet-Floor Box
+        $HyperV_Mgr_WF_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $HyperV_Mgr_WF_Checkbox.Text = ""
+        $HyperV_Mgr_WF_Checkbox.AutoSize = $true
+        $HyperV_Mgr_WF_Checkbox.Location = New-Object System.Drawing.Point(100, 150)
+        #Checkbox Status
+        if ($HyperV_Mgr_WF_Checkbox_Cust -match 'False') {
+            $HyperV_Mgr_WF_Checkbox.Checked = $False
+        }
+        else {
+            $HyperV_Mgr_WF_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($HyperV_Mgr_WF_Checkbox)
+        $HyperV_Mgr_WF_Checkbox.BringToFront()
+        
+        #Add MMC_WF Image to Wet-Floor Box
+        $MMC_WF_Image = New-Object System.Windows.Forms.Label
+        $MMC_WF_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\windows\system32\mmc.exe")
+        $ResizedImage = $MMC_WF_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $MMC_WF_Image.Image = $ResizedImage
+        $MMC_WF_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $MMC_WF_Image.Location = New-Object System.Drawing.Point(5, 165)
+        $Wet_FloorBox.Controls.Add($MMC_WF_Image)
+        $MMC_WF_Image.BringToFront()
+        
+        #Add MMC_WF Label to Wet-Floor Box
+        $MMC_WF = New-Object System.Windows.Forms.Label
+        $MMC_WF.Text = "MMC:"
+        $MMC_WF.AutoSize = $true
+        $MMC_WF.Location = New-Object System.Drawing.Point(20, 165)
+        $Wet_FloorBox.Controls.Add($MMC_WF)
+        $MMC_WF.BringToFront()
+        
+        #Add MMC_WF Checkbox to Wet-Floor Box
+        $MMC_WF_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $MMC_WF_Checkbox.Text = ""
+        $MMC_WF_Checkbox.AutoSize = $true
+        $MMC_WF_Checkbox.Location = New-Object System.Drawing.Point(100, 165)
+        #Checkbox Status
+        if ($MMC_WF_Checkbox_Cust -match 'False') {
+            $MMC_WF_Checkbox.Checked = $False
+        }
+        else {
+            $MMC_WF_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($MMC_WF_Checkbox)
+        $MMC_WF_Checkbox.BringToFront()
+        
+        #Add Powershell_WF Image to Wet-Floor Box
+        $Powershell_WF_Image = New-Object System.Windows.Forms.Label
+        $Powershell_WF_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
+        $ResizedImage = $Powershell_WF_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Powershell_WF_Image.Image = $ResizedImage
+        $Powershell_WF_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Powershell_WF_Image.Location = New-Object System.Drawing.Point(5, 180)
+        $Wet_FloorBox.Controls.Add($Powershell_WF_Image)
+        $Powershell_WF_Image.BringToFront()
+        
+        #Add Powershell_WF Label to Wet-Floor Box
+        $Powershell_WF = New-Object System.Windows.Forms.Label
+        $Powershell_WF.Text = "Powershell:"
+        $Powershell_WF.AutoSize = $true
+        $Powershell_WF.Location = New-Object System.Drawing.Point(20, 180)
+        $Wet_FloorBox.Controls.Add($Powershell_WF)
+        $Powershell_WF.BringToFront()
+        
+        #Add Powershell_WF Checkbox to Wet-Floor Box
+        $Powershell_WF_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Powershell_WF_Checkbox.Text = ""
+        $Powershell_WF_Checkbox.AutoSize = $true
+        $Powershell_WF_Checkbox.Location = New-Object System.Drawing.Point(100, 180)
+        #Checkbox Status
+        if ($Powershell_WF_Checkbox_Cust -match 'False') {
+            $Powershell_WF_Checkbox.Checked = $False
+        }
+        else {
+            $Powershell_WF_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($Powershell_WF_Checkbox)
+        $Powershell_WF_Checkbox.BringToFront()
+        
+        #Add Powershell_ISE_WF Image to Wet-Floor Box
+        $Powershell_ISE_WF_Image = New-Object System.Windows.Forms.Label
+        $Powershell_ISE_WF_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe")
+        $ResizedImage = $Powershell_ISE_WF_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Powershell_ISE_WF_Image.Image = $ResizedImage
+        $Powershell_ISE_WF_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Powershell_ISE_WF_Image.Location = New-Object System.Drawing.Point(5, 195)
+        $Wet_FloorBox.Controls.Add($Powershell_ISE_WF_Image)
+        $Powershell_ISE_WF_Image.BringToFront()
+        
+        #Add Powershell_ISE_WF Label to Wet-Floor Box
+        $Powershell_ISE_WF = New-Object System.Windows.Forms.Label
+        $Powershell_ISE_WF.Text = "Pwsh ISE:"
+        $Powershell_ISE_WF.AutoSize = $true
+        $Powershell_ISE_WF.Location = New-Object System.Drawing.Point(20, 195)
+        $Wet_FloorBox.Controls.Add($Powershell_ISE_WF)
+        $Powershell_ISE_WF.BringToFront()
+        
+        #Add Powershell_ISE_WF Checkbox to Wet-Floor Box
+        $Powershell_ISE_WF_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Powershell_ISE_WF_Checkbox.Text = ""
+        $Powershell_ISE_WF_Checkbox.AutoSize = $true
+        $Powershell_ISE_WF_Checkbox.Location = New-Object System.Drawing.Point(100, 195)
+        #Checkbox Status
+        if ($Powershell_ISE_WF_Checkbox_Cust -match 'False') {
+            $Powershell_ISE_WF_Checkbox.Checked = $False
+        }
+        else {
+            $Powershell_ISE_WF_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($Powershell_ISE_WF_Checkbox)
+        $Powershell_ISE_WF_Checkbox.BringToFront()
+        
+        #Add Registry_WF Image to Wet-Floor Box
+        $Registry_WF_Image = New-Object System.Windows.Forms.Label
+        $Registry_WF_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\regedit.exe")
+        $ResizedImage = $Registry_WF_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Registry_WF_Image.Image = $ResizedImage
+        $Registry_WF_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Registry_WF_Image.Location = New-Object System.Drawing.Point(5, 210)
+        $Wet_FloorBox.Controls.Add($Registry_WF_Image)
+        $Registry_WF_Image.BringToFront()
+        
+        #Add Registry_WF Label to Wet-Floor Box
+        $Registry_WF = New-Object System.Windows.Forms.Label
+        $Registry_WF.Text = "Registry:"
+        $Registry_WF.AutoSize = $true
+        $Registry_WF.Location = New-Object System.Drawing.Point(20, 210)
+        $Wet_FloorBox.Controls.Add($Registry_WF)
+        $Registry_WF.BringToFront()
+        
+        #Add Registry_WF Checkbox to Wet-Floor Box
+        $Registry_WF_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Registry_WF_Checkbox.Text = ""
+        $Registry_WF_Checkbox.AutoSize = $true
+        $Registry_WF_Checkbox.Location = New-Object System.Drawing.Point(100, 210)
+        #Checkbox Status
+        if ($Registry_WF_Checkbox_Cust -match 'False') {
+            $Registry_WF_Checkbox.Checked = $False
+        }
+        else {
+            $Registry_WF_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($Registry_WF_Checkbox)
+        $Registry_WF_Checkbox.BringToFront()
+        
+        #Add Sys_Prop_WF Image to Wet-Floor Box
+        $Sys_Prop_WF_Image = New-Object System.Windows.Forms.Label
+        $Sys_Prop_WF_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\sysdm.cpl")
+        $ResizedImage = $Sys_Prop_WF_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Sys_Prop_WF_Image.Image = $ResizedImage
+        $Sys_Prop_WF_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Sys_Prop_WF_Image.Location = New-Object System.Drawing.Point(5, 225)
+        $Wet_FloorBox.Controls.Add($Sys_Prop_WF_Image)
+        $Sys_Prop_WF_Image.BringToFront()
+        
+        #Add Sys_Prop_WF Label to Wet-Floor Box
+        $Sys_Prop_WF = New-Object System.Windows.Forms.Label
+        $Sys_Prop_WF.Text = "System Prop:"
+        $Sys_Prop_WF.AutoSize = $true
+        $Sys_Prop_WF.Location = New-Object System.Drawing.Point(20, 225)
+        $Wet_FloorBox.Controls.Add($Sys_Prop_WF)
+        $Sys_Prop_WF.BringToFront()
+        
+        #Add Sys_Prop_WF Checkbox to Wet-Floor Box
+        $Sys_Prop_WF_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Sys_Prop_WF_Checkbox.Text = ""
+        $Sys_Prop_WF_Checkbox.AutoSize = $true
+        $Sys_Prop_WF_Checkbox.Location = New-Object System.Drawing.Point(100, 225)
+        #Checkbox Status
+        if ($Sys_Prop_WF_Checkbox_Cust -match 'False') {
+            $Sys_Prop_WF_Checkbox.Checked = $False
+        }
+        else {
+            $Sys_Prop_WF_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($Sys_Prop_WF_Checkbox)
+        $Sys_Prop_WF_Checkbox.BringToFront()
+        
+        #Add Task_Mgr_WF Image to Wet-Floor Box
+        $Task_Mgr_WF_Image = New-Object System.Windows.Forms.Label
+        $Task_Mgr_WF_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\Taskmgr.exe")
+        $ResizedImage = $Task_Mgr_WF_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Task_Mgr_WF_Image.Image = $ResizedImage
+        $Task_Mgr_WF_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Task_Mgr_WF_Image.Location = New-Object System.Drawing.Point(5, 240)
+        $Wet_FloorBox.Controls.Add($Task_Mgr_WF_Image)
+        $Task_Mgr_WF_Image.BringToFront()
+        
+        #Add Task_Mgr_WF Label to Wet-Floor Box
+        $Task_Mgr_WF = New-Object System.Windows.Forms.Label
+        $Task_Mgr_WF.Text = "Task Manager:"
+        $Task_Mgr_WF.AutoSize = $true
+        $Task_Mgr_WF.Location = New-Object System.Drawing.Point(20, 240)
+        $Wet_FloorBox.Controls.Add($Task_Mgr_WF)
+        $Task_Mgr_WF.BringToFront()
+        
+        #Add Task_Mgr_WF Checkbox to Wet-Floor Box
+        $Task_Mgr_WF_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Task_Mgr_WF_Checkbox.Text = ""
+        $Task_Mgr_WF_Checkbox.AutoSize = $true
+        $Task_Mgr_WF_Checkbox.Location = New-Object System.Drawing.Point(100, 240)
+        #Checkbox Status
+        if ($Task_Mgr_WF_Checkbox_Cust -match 'False') {
+            $Task_Mgr_WF_Checkbox.Checked = $False
+        }
+        else {
+            $Task_Mgr_WF_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($Task_Mgr_WF_Checkbox)
+        $Task_Mgr_WF_Checkbox.BringToFront()
+        
+        #Add Task_Sched_WF Image to Wet-Floor Box
+        $Task_Sched_WF_Image = New-Object System.Windows.Forms.Label
+        $Task_Sched_WF_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\taskschd.msc")
+        $ResizedImage = $Task_Sched_WF_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Task_Sched_WF_Image.Image = $ResizedImage
+        $Task_Sched_WF_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Task_Sched_WF_Image.Location = New-Object System.Drawing.Point(5, 255)
+        $Wet_FloorBox.Controls.Add($Task_Sched_WF_Image)
+        $Task_Sched_WF_Image.BringToFront()
+        
+        #Add Task_Sched_WF Label to Wet-Floor Box
+        $Task_Sched_WF = New-Object System.Windows.Forms.Label
+        $Task_Sched_WF.Text = "Task Sched:"
+        $Task_Sched_WF.AutoSize = $true
+        $Task_Sched_WF.Location = New-Object System.Drawing.Point(20, 255)
+        $Wet_FloorBox.Controls.Add($Task_Sched_WF)
+        $Task_Sched_WF.BringToFront()
+        
+        #Add Task_Sched_WF Checkbox to Wet-Floor Box
+        $Task_Sched_WF_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Task_Sched_WF_Checkbox.Text = ""
+        $Task_Sched_WF_Checkbox.AutoSize = $true
+        $Task_Sched_WF_Checkbox.Location = New-Object System.Drawing.Point(100, 255)
+        #Checkbox Status
+        if ($Task_Sched_WF_Checkbox_Cust -match 'False') {
+            $Task_Sched_WF_Checkbox.Checked = $False
+        }
+        else {
+            $Task_Sched_WF_Checkbox.Checked = $True
+        }
+        $Wet_FloorBox.Controls.Add($Task_Sched_WF_Checkbox)
+        $Task_Sched_WF_Checkbox.BringToFront()
+        
+        #Add Select All Label to Wet-Floor Box
+        $Select_All = New-Object System.Windows.Forms.Label
+        $Select_All.Text = "Select All:"
+        $Select_All.AutoSize = $true
+        $Select_All.Location = New-Object System.Drawing.Point(20, 20)
+        $Wet_FloorBox.Controls.Add($Select_All)
+        $Select_All.BringToFront()
+        
+        #Add Select All Checkbox to Wet-Floor Box
+        $Select_All_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Select_All_Checkbox.Text = ""
+        $Select_All_Checkbox.AutoSize = $true
+        $Select_All_Checkbox.Location = New-Object System.Drawing.Point(80, 20)
+        if ($Active_Directory_WF_Checkbox_Cust -match "$True" -and $ADIE_Checkbox_Cust -match "$True" -and $Command_WF_Checkbox_Cust -match "$True" -and $Comp_Mgmt_WF_Checkbox_Cust -match "$True" -and $Exc_AAD_Conn_WF_Checkbox_Cust -match "$True" -and $Group_Policy_WF_Checkbox_Cust -match "$True" -and $gpupdate_WF_Checkbox_Cust -match "$True" -and $HyperV_Mgr_WF_Checkbox_Cust -match "$True" -and $MMC_WF_Checkbox_Cust -match "$True" -and $Powershell_WF_Checkbox_Cust -match "$True" -and $Powershell_ISE_WF_Checkbox_Cust -match "$True" -and $Registry_WF_Checkbox_Cust -match "$True" -and $Sys_Prop_WF_Checkbox_Cust -match "$True" -and $Task_Mgr_WF_Checkbox_Cust -match "$True" -and $Task_Sched_WF_Checkbox_Cust -match "$True") {
+            $Select_All_Checkbox.Checked = $True
+        }
+        else {
+            $Select_All_Checkbox.Checked = $False
+        }
+        $Select_All_Checkbox.Add_CheckedChanged({
+                foreach ($checkbox in $Wet_Floor_checkboxes) {
+                    $checkbox.Checked = $this.Checked
+                }
+            })
+        $Wet_FloorBox.Controls.Add($Select_All_Checkbox)
+        $Select_All_Checkbox.BringToFront()
+        
+        #Array of all checkboxes
+        $Wet_Floor_checkboxes = @($Active_Directory_WF_Checkbox, $ADIE_Checkbox, $Command_WF_Checkbox, $Comp_Mgmt_WF_Checkbox, $Exc_AAD_Conn_WF_Checkbox, $Group_Policy_WF_Checkbox, $gpupdate_WF_Checkbox, $HyperV_Mgr_WF_Checkbox, $MMC_WF_Checkbox, $Powershell_WF_Checkbox, $Powershell_ISE_WF_Checkbox, $Registry_WF_Checkbox, $Sys_Prop_WF_Checkbox, $Task_Mgr_WF_Checkbox, $Task_Sched_WF_Checkbox)
+        
+        # Add Groupbox to Applications Tab
+        $Wet_Floor_Custom_Box = New-Object System.Windows.Forms.GroupBox
+        $Wet_Floor_Custom_Box.Text = "Custom Elevated Applications"
+        $Wet_Floor_Custom_Box.Location = New-Object System.Drawing.Point(128, 5)
+        $Wet_Floor_Custom_Box.Size = New-Object System.Drawing.Size(435, 285)
+        $Wet_FloorTab.Controls.Add($Wet_Floor_Custom_Box)
+        
+        # Create a label
+        $Custom_WF_1_Label = New-Object System.Windows.Forms.Label
+        $Custom_WF_1_Label.Location = New-Object System.Drawing.Point(9, 20)
+        $Custom_WF_1_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_WF_1_Label.Text = "Custom Elevated Application #1:"
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_1_Label)
+        
+        # Create a text box
+        $Custom_WF_1_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_WF_1_Textbox.Location = New-Object System.Drawing.Point(10, 36)
+        $Custom_WF_1_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_WF_1_Cust) {
+            $Custom_WF_1_Textbox.Text = $Custom_WF_1_Cust
+        }
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_1_Textbox)
+        
+        # Create a button to select file
+        $Custom_WF_1_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_WF_1_SelectFile.Location = New-Object System.Drawing.Point(355, 35)
+        $Custom_WF_1_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_WF_1_SelectFile.Text = "Browse"
+        $Custom_WF_1_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "Executable files (*.exe)|*.exe|All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_WF_1_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_1_SelectFile)
+        
+        # Create a label
+        $Custom_WF_2_Label = New-Object System.Windows.Forms.Label
+        $Custom_WF_2_Label.Location = New-Object System.Drawing.Point(9, 64)
+        $Custom_WF_2_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_WF_2_Label.Text = "Custom Elevated Application #2:"
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_2_Label)
+        
+        # Create a text box
+        $Custom_WF_2_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_WF_2_Textbox.Location = New-Object System.Drawing.Point(10, 80)
+        $Custom_WF_2_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_WF_2_Cust) {
+            $Custom_WF_2_Textbox.Text = $Custom_WF_2_Cust
+        }
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_2_Textbox)
+        
+        # Create a button to select file
+        $Custom_WF_2_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_WF_2_SelectFile.Location = New-Object System.Drawing.Point(355, 79)
+        $Custom_WF_2_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_WF_2_SelectFile.Text = "Browse"
+        $Custom_WF_2_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "Executable files (*.exe)|*.exe|All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_WF_2_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_2_SelectFile)
+        
+        # Create a label
+        $Custom_WF_3_Label = New-Object System.Windows.Forms.Label
+        $Custom_WF_3_Label.Location = New-Object System.Drawing.Point(9, 108)
+        $Custom_WF_3_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_WF_3_Label.Text = "Custom Elevated Application #3:"
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_3_Label)
+        
+        # Create a text box
+        $Custom_WF_3_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_WF_3_Textbox.Location = New-Object System.Drawing.Point(10, 124)
+        $Custom_WF_3_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_WF_3_Cust) {
+            $Custom_WF_3_Textbox.Text = $Custom_WF_3_Cust
+        }
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_3_Textbox)
+        
+        # Create a button to select file
+        $Custom_WF_3_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_WF_3_SelectFile.Location = New-Object System.Drawing.Point(355, 123)
+        $Custom_WF_3_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_WF_3_SelectFile.Text = "Browse"
+        $Custom_WF_3_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "Executable files (*.exe)|*.exe|All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_WF_3_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_3_SelectFile)
+        
+        # Create a label
+        $Custom_WF_4_Label = New-Object System.Windows.Forms.Label
+        $Custom_WF_4_Label.Location = New-Object System.Drawing.Point(9, 152)
+        $Custom_WF_4_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_WF_4_Label.Text = "Custom Elevated Application #4:"
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_4_Label)
+        
+        # Create a text box
+        $Custom_WF_4_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_WF_4_Textbox.Location = New-Object System.Drawing.Point(10, 168)
+        $Custom_WF_4_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_WF_4_Cust) {
+            $Custom_WF_4_Textbox.Text = $Custom_WF_4_Cust
+        }
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_4_Textbox)
+        
+        # Create a button to select file
+        $Custom_WF_4_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_WF_4_SelectFile.Location = New-Object System.Drawing.Point(355, 167)
+        $Custom_WF_4_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_WF_4_SelectFile.Text = "Browse"
+        $Custom_WF_4_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "Executable files (*.exe)|*.exe|All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_WF_4_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_4_SelectFile)
+        
+        # Create a label
+        $Custom_WF_5_Label = New-Object System.Windows.Forms.Label
+        $Custom_WF_5_Label.Location = New-Object System.Drawing.Point(9, 196)
+        $Custom_WF_5_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_WF_5_Label.Text = "Custom Elevated Application #5:"
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_5_Label)
+        
+        # Create a text box
+        $Custom_WF_5_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_WF_5_Textbox.Location = New-Object System.Drawing.Point(10, 212)
+        $Custom_WF_5_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_WF_5_Cust) {
+            $Custom_WF_5_Textbox.Text = $Custom_WF_5_Cust
+        }
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_5_Textbox)
+        
+        # Create a button to select file
+        $Custom_WF_5_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_WF_5_SelectFile.Location = New-Object System.Drawing.Point(355, 211)
+        $Custom_WF_5_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_WF_5_SelectFile.Text = "Browse"
+        $Custom_WF_5_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "Executable files (*.exe)|*.exe|All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_WF_5_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_5_SelectFile)
+        
+        # Create a label
+        $Custom_WF_6_Label = New-Object System.Windows.Forms.Label
+        $Custom_WF_6_Label.Location = New-Object System.Drawing.Point(9, 240)
+        $Custom_WF_6_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_WF_6_Label.Text = "Custom Elevated Application #6:"
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_6_Label)
+        
+        # Create a text box
+        $Custom_WF_6_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_WF_6_Textbox.Location = New-Object System.Drawing.Point(10, 256)
+        $Custom_WF_6_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_WF_6_Cust) {
+            $Custom_WF_6_Textbox.Text = $Custom_WF_6_Cust
+        }
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_6_Textbox)
+        
+        # Create a button to select file
+        $Custom_WF_6_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_WF_6_SelectFile.Location = New-Object System.Drawing.Point(355, 255)
+        $Custom_WF_6_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_WF_6_SelectFile.Text = "Browse"
+        $Custom_WF_6_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "Executable files (*.exe)|*.exe|All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_WF_6_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Wet_Floor_Custom_Box.Controls.Add($Custom_WF_6_SelectFile)
+        
+        #############################################################################################################################
+        
+        $BookmarksTab = New-Object System.Windows.Forms.TabPage
+        $BookmarksTab.Text = "Bookmarks"
+        $tabControl.Controls.Add($BookmarksTab)
+        
+        # Add Groupbox to Bookmarks Tab
+        $BookmarksBox = New-Object System.Windows.Forms.GroupBox
+        $BookmarksBox.Text = "Show/Hide"
+        $BookmarksBox.Size = New-Object System.Drawing.Size(117, 285)
+        $BookmarksBox.Location = New-Object System.Drawing.Point(5, 5)
+        $BookmarksTab.Controls.Add($BookmarksBox)
+        
+        # Create Separator
+        $separator = New-Object System.Windows.Forms.Label
+        $separator.BorderStyle = "FixedSingle"
+        $separator.Size = New-Object System.Drawing.Size(100, 1)
+        $separator.Location = New-Object System.Drawing.Point(8, 37)
+        $BookmarksBox.Controls.Add($separator)
+        $separator.BringToFront()
+        
+        #Add T1_BWITLINKS Image to Bookmarks Box
+        $T1_BWITLINKS_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACIElEQVRIS+2Uy2sTURTGv8lMTJpO06c1ccQURawWkT4QEVciXfQPKNatC125E8RFQSlScNedC7fFnW5cVKUr02JFEVrRQilUIn3l0aRp0s7TL0kRp0lzTcFdLhzmMnfO/e79ne+MhMdRB/9xSHUBEd3aEMkewLJFe7rWaxIItPiQS+uA8+++qEmg73QTvsSygH1UAYm3q5I7eL4Nb5dSxHRUAYWMj8lA3qgodOvycbz8lgDMCnWQebpC7q7pynUj4jfhFj9Mj4TN1G4ZirtXwnj+dQPQLVch1QYFWpsfi+u5MvHyGnDzc6FGtDJpbiXjSnhw/RSefVoD9njKwuCButobEG72YTa2zfdu4dInlX4VFOmOBKEFFEz/SMLZZ/70ZgSPor+IsCTQwdsOnW3G6+8JZHL7ogdMfKiLZDId6T0Bi75/tRAnWhsTQ2dwf/onJJ5U6wzg4UAI4x9iiG3tHdobVW0a8Mm4008R2nJyPo7hnna8W05D9Su4zfmLz+tYiuerNp6wD3x01sWTKkavabiqqUgSz9jHVUwtJpDM0m2CIeFJ1PGQufevUDgvBjfPE83wpQ5M3Ij82er9Shr33izDZglNrlu2DYO3LLjX5FMvztkrDAljM46X/m1lBBlNXg+CRKN6ZTRyvrqjF8UHQip7sNRgazsGFjbzuEAHZQ0LOcPGNq2bYWR1G6nik47ieyEiEQLRel1ARKheAyEh/AZnufSR4+xwTAAAAABJRU5ErkJggg=='
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $T1_BWITLINKS_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $T1_BWITLINKS_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $T1_BWITLINKS_Image.Image = $ResizedImage
+        $T1_BWITLINKS_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $T1_BWITLINKS_Image.Location = New-Object System.Drawing.Point(5, 45)
+        $BookmarksBox.Controls.Add($T1_BWITLINKS_Image)
+        $T1_BWITLINKS_Image.BringToFront()
+        
+        #Add T1_BWITLINKS Label to Bookmarks Box
+        $T1_BWITLINKS = New-Object System.Windows.Forms.Label
+        $T1_BWITLINKS.Text = "T1 BWITLinks:"
+        $T1_BWITLINKS.AutoSize = $true
+        $T1_BWITLINKS.Location = New-Object System.Drawing.Point(20, 45)
+        $BookmarksBox.Controls.Add($T1_BWITLINKS)
+        $T1_BWITLINKS.BringToFront()
+        
+        #Add T1_BWITLINKS Checkbox to Bookmarks Box
+        $T1_BWITLINKS_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $T1_BWITLINKS_Checkbox.Text = ""
+        $T1_BWITLINKS_Checkbox.AutoSize = $true
+        $T1_BWITLINKS_Checkbox.Location = New-Object System.Drawing.Point(100, 45)
+        #Checkbox Status
+        if ($T1_BWITLINKS_Checkbox_Cust -match 'False') {
+            $T1_BWITLINKS_Checkbox.Checked = $False
+        }
+        else {
+            $T1_BWITLINKS_Checkbox.Checked = $True
+        }
+        $BookmarksBox.Controls.Add($T1_BWITLINKS_Checkbox)
+        $T1_BWITLINKS_Checkbox.BringToFront()
+        
+        #Add T2_BWITLINKS to Bookmarks Box
+        $T2_BWITLINKS_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACIElEQVRIS+2Uy2sTURTGv8lMTJpO06c1ccQURawWkT4QEVciXfQPKNatC125E8RFQSlScNedC7fFnW5cVKUr02JFEVrRQilUIn3l0aRp0s7TL0kRp0lzTcFdLhzmMnfO/e79ne+MhMdRB/9xSHUBEd3aEMkewLJFe7rWaxIItPiQS+uA8+++qEmg73QTvsSygH1UAYm3q5I7eL4Nb5dSxHRUAYWMj8lA3qgodOvycbz8lgDMCnWQebpC7q7pynUj4jfhFj9Mj4TN1G4ZirtXwnj+dQPQLVch1QYFWpsfi+u5MvHyGnDzc6FGtDJpbiXjSnhw/RSefVoD9njKwuCButobEG72YTa2zfdu4dInlX4VFOmOBKEFFEz/SMLZZ/70ZgSPor+IsCTQwdsOnW3G6+8JZHL7ogdMfKiLZDId6T0Bi75/tRAnWhsTQ2dwf/onJJ5U6wzg4UAI4x9iiG3tHdobVW0a8Mm4008R2nJyPo7hnna8W05D9Su4zfmLz+tYiuerNp6wD3x01sWTKkavabiqqUgSz9jHVUwtJpDM0m2CIeFJ1PGQufevUDgvBjfPE83wpQ5M3Ij82er9Shr33izDZglNrlu2DYO3LLjX5FMvztkrDAljM46X/m1lBBlNXg+CRKN6ZTRyvrqjF8UHQip7sNRgazsGFjbzuEAHZQ0LOcPGNq2bYWR1G6nik47ieyEiEQLRel1ARKheAyEh/AZnufSR4+xwTAAAAABJRU5ErkJggg=='
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $T2_BWITLINKS_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $T2_BWITLINKS_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $T2_BWITLINKS_Image.Image = $ResizedImage
+        $T2_BWITLINKS_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $T2_BWITLINKS_Image.Location = New-Object System.Drawing.Point(5, 60)
+        $BookmarksBox.Controls.Add($T2_BWITLINKS_Image)
+        $T2_BWITLINKS_Image.BringToFront()
+        
+        #Add T2_BWITLINKS Label to Bookmarks Box
+        $T2_BWITLINKS = New-Object System.Windows.Forms.Label
+        $T2_BWITLINKS.Text = "T2 BWITLinks:"
+        $T2_BWITLINKS.AutoSize = $true
+        $T2_BWITLINKS.Location = New-Object System.Drawing.Point(20, 60)
+        $BookmarksBox.Controls.Add($T2_BWITLINKS)
+        $T2_BWITLINKS.BringToFront()
+        
+        #Add T2_BWITLINKS Checkbox to Bookmarks Box
+        $T2_BWITLINKS_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $T2_BWITLINKS_Checkbox.Text = ""
+        $T2_BWITLINKS_Checkbox.AutoSize = $true
+        $T2_BWITLINKS_Checkbox.Location = New-Object System.Drawing.Point(100, 60)
+        #Checkbox Status
+        if ($T2_BWITLINKS_Checkbox_Cust -match 'False') {
+            $T2_BWITLINKS_Checkbox.Checked = $False
+        }
+        else {
+            $T2_BWITLINKS_Checkbox.Checked = $True
+        }
+        $BookmarksBox.Controls.Add($T2_BWITLINKS_Checkbox)
+        $T2_BWITLINKS_Checkbox.BringToFront()
+        
+        #Add T3_BWITLINKS Image to Bookmarks Box
+        $T3_BWITLINKS_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACIElEQVRIS+2Uy2sTURTGv8lMTJpO06c1ccQURawWkT4QEVciXfQPKNatC125E8RFQSlScNedC7fFnW5cVKUr02JFEVrRQilUIn3l0aRp0s7TL0kRp0lzTcFdLhzmMnfO/e79ne+MhMdRB/9xSHUBEd3aEMkewLJFe7rWaxIItPiQS+uA8+++qEmg73QTvsSygH1UAYm3q5I7eL4Nb5dSxHRUAYWMj8lA3qgodOvycbz8lgDMCnWQebpC7q7pynUj4jfhFj9Mj4TN1G4ZirtXwnj+dQPQLVch1QYFWpsfi+u5MvHyGnDzc6FGtDJpbiXjSnhw/RSefVoD9njKwuCButobEG72YTa2zfdu4dInlX4VFOmOBKEFFEz/SMLZZ/70ZgSPor+IsCTQwdsOnW3G6+8JZHL7ogdMfKiLZDId6T0Bi75/tRAnWhsTQ2dwf/onJJ5U6wzg4UAI4x9iiG3tHdobVW0a8Mm4008R2nJyPo7hnna8W05D9Su4zfmLz+tYiuerNp6wD3x01sWTKkavabiqqUgSz9jHVUwtJpDM0m2CIeFJ1PGQufevUDgvBjfPE83wpQ5M3Ij82er9Shr33izDZglNrlu2DYO3LLjX5FMvztkrDAljM46X/m1lBBlNXg+CRKN6ZTRyvrqjF8UHQip7sNRgazsGFjbzuEAHZQ0LOcPGNq2bYWR1G6nik47ieyEiEQLRel1ARKheAyEh/AZnufSR4+xwTAAAAABJRU5ErkJggg=='
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $T3_BWITLINKS_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $T3_BWITLINKS_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $T3_BWITLINKS_Image.Image = $ResizedImage
+        $T3_BWITLINKS_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $T3_BWITLINKS_Image.Location = New-Object System.Drawing.Point(5, 75)
+        $BookmarksBox.Controls.Add($T3_BWITLINKS_Image)
+        $T3_BWITLINKS_Image.BringToFront()
+        
+        #Add T3_BWITLINKS Label to Bookmarks Box
+        $T3_BWITLINKS = New-Object System.Windows.Forms.Label
+        $T3_BWITLINKS.Text = "T3 BWITLinks:"
+        $T3_BWITLINKS.AutoSize = $true
+        $T3_BWITLINKS.Location = New-Object System.Drawing.Point(20, 75)
+        $BookmarksBox.Controls.Add($T3_BWITLINKS)
+        $T3_BWITLINKS.BringToFront()
+        
+        #Add T3_BWITLINKS Checkbox to Bookmarks Box
+        $T3_BWITLINKS_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $T3_BWITLINKS_Checkbox.Text = ""
+        $T3_BWITLINKS_Checkbox.AutoSize = $true
+        $T3_BWITLINKS_Checkbox.Location = New-Object System.Drawing.Point(100, 75)
+        #Checkbox Status
+        if ($T3_BWITLINKS_Checkbox_Cust -match 'False') {
+            $T3_BWITLINKS_Checkbox.Checked = $False
+        }
+        else {
+            $T3_BWITLINKS_Checkbox.Checked = $True
+        }
+        $BookmarksBox.Controls.Add($T3_BWITLINKS_Checkbox)
+        $T3_BWITLINKS_Checkbox.BringToFront()
+        
+        #Add Select All Label to Bookmarks Box
+        $Select_All = New-Object System.Windows.Forms.Label
+        $Select_All.Text = "Select All:"
+        $Select_All.AutoSize = $true
+        $Select_All.Location = New-Object System.Drawing.Point(20, 20)
+        $BookmarksBox.Controls.Add($Select_All)
+        $Select_All.BringToFront()
+        
+        #Add Select All Checkbox to Bookmarks Box
+        $Select_All_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Select_All_Checkbox.Text = ""
+        $Select_All_Checkbox.AutoSize = $true
+        $Select_All_Checkbox.Location = New-Object System.Drawing.Point(80, 20)
+        if ($T1_BWITLINKS_Checkbox_Cust -match "$True" -and $T2_BWITLINKS_Checkbox_Cust -match "$True" -and $T3_BWITLINKS_Checkbox_Cust -match "$True") {
+            $Select_All_Checkbox.Checked = $True
+        }
+        else {
+            $Select_All_Checkbox.Checked = $False
+        }
+        $Select_All_Checkbox.Add_CheckedChanged({
+                foreach ($checkbox in $Bookmark_checkboxes) {
+                    $checkbox.Checked = $this.Checked
+                }
+            })
+        $BookmarksBox.Controls.Add($Select_All_Checkbox)
+        $Select_All_Checkbox.BringToFront()
+        
+        # Array of all checkboxes
+        $Bookmark_checkboxes = @($T1_BWITLINKS_Checkbox, $T2_BWITLINKS_Checkbox, $T3_BWITLINKS_Checkbox)
+        
+        # Add Groupbox to Bookmarks Tab
+        $Bookmarks_Custom_Box = New-Object System.Windows.Forms.GroupBox
+        $Bookmarks_Custom_Box.Text = "Custom Bookmarks"
+        $Bookmarks_Custom_Box.Location = New-Object System.Drawing.Point(128, 5)
+        $Bookmarks_Custom_Box.Size = New-Object System.Drawing.Size(435, 285)
+        $BookmarksTab.Controls.Add($Bookmarks_Custom_Box)
+        
+        #Add Question Image to Bookmarks Box
+        $Custom_Bookmark_Help_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAxklEQVRIS8WW0Q2AIAxEZTz/HcKRHMJ/x9NAgkGE3h0Y9JfS1zsK1U3ENy/rWQs79s2hFGaAlTxPbMGKECU5A3tBegARmKt6QL4AlEA3BAFKnrN7KIh1qEznBQgTaLUp2i9B0mSpOghBvjKXEOVwKGA4pNYAqFBJSUsbeye6IEhBtLoZwgJkJX6Dt0wBBAi6jGhWoHVflAxRldwQVg17y/OXmHogS883cy6xqLHzJFbLVMgcdhrzz4xPK1BUyX8ruR1oXiD7LvmhkjZLp5jjAAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Custom_Bookmark_Help_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Custom_Bookmark_Help_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Custom_Bookmark_Help_Image.Image = $ResizedImage
+        $Custom_Bookmark_Help_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Custom_Bookmark_Help_Image.Location = New-Object System.Drawing.Point(415, 11)
+        
+        # Create a ToolTip object
+        $toolTip = New-Object System.Windows.Forms.ToolTip
+        $Custom_Bookmark_Help_Image.add_MouseHover({
+                $toolTip.SetToolTip($Custom_Bookmark_Help_Image, "Please use `"https://www.`" in your format.")
+            })
+        $Bookmarks_Custom_Box.Controls.Add($Custom_Bookmark_Help_Image)
+        $Custom_Bookmark_Help_Image.BringToFront()
+        
+        # Create a label
+        $Custom_Bookmark_1_Label = New-Object System.Windows.Forms.Label
+        $Custom_Bookmark_1_Label.Location = New-Object System.Drawing.Point(9, 20)
+        $Custom_Bookmark_1_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Bookmark_1_Label.Text = "Custom Bookmark #1:"
+        $Bookmarks_Custom_Box.Controls.Add($Custom_Bookmark_1_Label)
+        
+        # Create a text box
+        $Custom_Bookmark_1_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Bookmark_1_Textbox.Location = New-Object System.Drawing.Point(10, 36)
+        $Custom_Bookmark_1_Textbox.Size = New-Object System.Drawing.Size(415, 20)
+        $Custom_Bookmark_1_Textbox.Text = ""
+        if ($Custom_Bookmark_1_Cust) {
+            $Custom_Bookmark_1_Textbox.Text = $Custom_Bookmark_1_Cust
+        }
+        $Bookmarks_Custom_Box.Controls.Add($Custom_Bookmark_1_Textbox)
+        
+        # Create a label
+        $Custom_Bookmark_2_Label = New-Object System.Windows.Forms.Label
+        $Custom_Bookmark_2_Label.Location = New-Object System.Drawing.Point(9, 64)
+        $Custom_Bookmark_2_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Bookmark_2_Label.Text = "Custom Bookmark #2:"
+        $Bookmarks_Custom_Box.Controls.Add($Custom_Bookmark_2_Label)
+        
+        # Create a text box
+        $Custom_Bookmark_2_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Bookmark_2_Textbox.Location = New-Object System.Drawing.Point(10, 80)
+        $Custom_Bookmark_2_Textbox.Size = New-Object System.Drawing.Size(415, 20)
+        $Custom_Bookmark_2_Textbox.Text = ""
+        if ($Custom_Bookmark_2_Cust) {
+            $Custom_Bookmark_2_Textbox.Text = $Custom_Bookmark_2_Cust
+        }
+        $Bookmarks_Custom_Box.Controls.Add($Custom_Bookmark_2_Textbox)
+        
+        # Create a label
+        $Custom_Bookmark_3_Label = New-Object System.Windows.Forms.Label
+        $Custom_Bookmark_3_Label.Location = New-Object System.Drawing.Point(9, 108)
+        $Custom_Bookmark_3_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Bookmark_3_Label.Text = "Custom Bookmark #3:"
+        $Bookmarks_Custom_Box.Controls.Add($Custom_Bookmark_3_Label)
+        
+        # Create a text box
+        $Custom_Bookmark_3_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Bookmark_3_Textbox.Location = New-Object System.Drawing.Point(10, 124)
+        $Custom_Bookmark_3_Textbox.Size = New-Object System.Drawing.Size(415, 20)
+        $Custom_Bookmark_3_Textbox.Text = ""
+        if ($Custom_Bookmark_3_Cust) {
+            $Custom_Bookmark_3_Textbox.Text = $Custom_Bookmark_3_Cust
+        }
+        $Bookmarks_Custom_Box.Controls.Add($Custom_Bookmark_3_Textbox)
+        
+        # Create a label
+        $Custom_Bookmark_4_Label = New-Object System.Windows.Forms.Label
+        $Custom_Bookmark_4_Label.Location = New-Object System.Drawing.Point(9, 152)
+        $Custom_Bookmark_4_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Bookmark_4_Label.Text = "Custom Bookmark #4:"
+        $Bookmarks_Custom_Box.Controls.Add($Custom_Bookmark_4_Label)
+        
+        # Create a text box
+        $Custom_Bookmark_4_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Bookmark_4_Textbox.Location = New-Object System.Drawing.Point(10, 168)
+        $Custom_Bookmark_4_Textbox.Size = New-Object System.Drawing.Size(415, 20)
+        $Custom_Bookmark_4_Textbox.Text = ""
+        if ($Custom_Bookmark_4_Cust) {
+            $Custom_Bookmark_4_Textbox.Text = $Custom_Bookmark_4_Cust
+        }
+        $Bookmarks_Custom_Box.Controls.Add($Custom_Bookmark_4_Textbox)
+        
+        # Create a label
+        $Custom_Bookmark_5_Label = New-Object System.Windows.Forms.Label
+        $Custom_Bookmark_5_Label.Location = New-Object System.Drawing.Point(9, 196)
+        $Custom_Bookmark_5_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Bookmark_5_Label.Text = "Custom Bookmark #5:"
+        $Bookmarks_Custom_Box.Controls.Add($Custom_Bookmark_5_Label)
+        
+        # Create a text box
+        $Custom_Bookmark_5_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Bookmark_5_Textbox.Location = New-Object System.Drawing.Point(10, 212)
+        $Custom_Bookmark_5_Textbox.Size = New-Object System.Drawing.Size(415, 20)
+        $Custom_Bookmark_5_Textbox.Text = ""
+        if ($Custom_Bookmark_5_Cust) {
+            $Custom_Bookmark_5_Textbox.Text = $Custom_Bookmark_5_Cust
+        }
+        $Bookmarks_Custom_Box.Controls.Add($Custom_Bookmark_5_Textbox)
+        
+        # Create a label
+        $Custom_Bookmark_6_Label = New-Object System.Windows.Forms.Label
+        $Custom_Bookmark_6_Label.Location = New-Object System.Drawing.Point(9, 240)
+        $Custom_Bookmark_6_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Bookmark_6_Label.Text = "Custom Bookmark #6:"
+        $Bookmarks_Custom_Box.Controls.Add($Custom_Bookmark_6_Label)
+        
+        # Create a text box
+        $Custom_Bookmark_6_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Bookmark_6_Textbox.Location = New-Object System.Drawing.Point(10, 256)
+        $Custom_Bookmark_6_Textbox.Size = New-Object System.Drawing.Size(415, 20)
+        $Custom_Bookmark_6_Textbox.Text = ""
+        if ($Custom_Bookmark_6_Cust) {
+            $Custom_Bookmark_6_Textbox.Text = $Custom_Bookmark_6_Cust
+        }
+        $Bookmarks_Custom_Box.Controls.Add($Custom_Bookmark_6_Textbox)
+        
+        #############################################################################################################################
+        
+        $InstallsTab = New-Object System.Windows.Forms.TabPage
+        $InstallsTab.Text = "Installs"
+        $tabControl.Controls.Add($InstallsTab)
+        
+        # Add Groupbox to Installs Tab
+        $InstallsBox = New-Object System.Windows.Forms.GroupBox
+        $InstallsBox.Text = "Show/Hide"
+        $InstallsBox.Size = New-Object System.Drawing.Size(117, 285)
+        $InstallsBox.Location = New-Object System.Drawing.Point(5, 5)
+        $InstallsTab.Controls.Add($InstallsBox)
+        
+        # Create Separator
+        $separator = New-Object System.Windows.Forms.Label
+        $separator.BorderStyle = "FixedSingle"
+        $separator.Size = New-Object System.Drawing.Size(100, 1)
+        $separator.Location = New-Object System.Drawing.Point(8, 37)
+        $InstallsBox.Controls.Add($separator)
+        $separator.BringToFront()
+        
+        #Add 7-Zip Image to Installs Box
+        $7Zip_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAzklEQVRIS8WVUQ6EIAxEy8mAkwEng5uxVB1CiK6yaVcSPhSc1xktGlIeRlmf/gaISk4iHFQlgOmAGCOFEEQ4KSVivTZeAAz0Szd3br86wKJzjnjOg8VFAFcipqUqAhgrZyc5ZyqlkPe+Axg2DoAfRYQHZ3G+PwrxNYN5/gSodW+Rsdo5Iqxh75KDOwBHxtVzhPgoxAB4J4gRsS4Bjo5EZ24aiAjRYI+1dnOxBDjrthmAPY9essRh9M5ZJFH5iUZvRfUfjpKB1qBqyoewOuADIvfhGTXOkGgAAAAASUVORK5CYII='
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Click_Paste_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Click_Paste_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $7Zip_Image.Image = $ResizedImage
+        $7Zip_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $7Zip_Image.Location = New-Object System.Drawing.Point(8, 45)
+        $InstallsBox.Controls.Add($7Zip_Image)
+        $7Zip_Image.BringToFront()
+        
+        #Add 7-Zip Label to Installs Box
+        $7Zip = New-Object System.Windows.Forms.Label
+        $7Zip.Text = "7-Zip:"
+        $7Zip.AutoSize = $true
+        $7Zip.Location = New-Object System.Drawing.Point(20, 45)
+        $InstallsBox.Controls.Add($7Zip)
+        $7Zip.BringToFront()
+        
+        #Add 7-Zip Checkbox to Installs Box
+        $7Zip_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $7Zip_Checkbox.Text = ""
+        $7Zip_Checkbox.AutoSize = $true
+        $7Zip_Checkbox.Location = New-Object System.Drawing.Point(100, 45)
+        #Checkbox Status
+        if ($7Zip_Checkbox_Cust -match 'False') {
+            $7Zip_Checkbox.Checked = $False
+        }
+        else {
+            $7Zip_Checkbox.Checked = $True
+        }
+        $InstallsBox.Controls.Add($7Zip_Checkbox)
+        $7Zip_Checkbox.BringToFront()
+        
+        #Add Active Directory Image to Installs Box
+        $Act_Dir_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAER0lEQVRIS91UXWwUVRg9d+d/d/aHdsuWbQWFtpQfSTTypIlINGokNib6ZGJMfMBEw6v6Vl+MEoyBBBMeBI0aBAIPYID4oBASo6TFYmgBS7u73YXdme7ObHd3dnb+7nhLYgIPhRolMd7JzZ3J3HvOd865+Qge8CAPGB//DYKjR1/jsiknY2jG01a5qMBzNISuKVBqd1pUCsHHvcBOi5y8whHUTTTCFVdF6YEdH8yZ91QQhvuk0vXm+kqpsYOX0i+3veDxwJnmQ1ezArfWJtR0aWAL8DtSy5RUXeeqphP/sR2Ie0c/G7u4aP+SBNrs51vmdf2dhdr8812ZLdn+ge2CEkuzIwYonUNIrwHhVXQas9ALK1BpbA4rerkpK3QqDJ3znufnInZw5C4CM3coVbftYddxdzUt7yU5mkj0rYqB+DNo12fht2ugXhPUqcFzW/BoEh3xBWitFHs3sWljPzIr03B8HxOXJkM/6HnxNsG1S59ki3PFbb3Z3lcFUX1Kivb0dPX0IaZGgcBioDpcOw/HmMTCrTFYCx7C2JNoYgPqtoPubh7rBh5CTJFRMwzkZm+iWm34ltv1Ovnh1K63T548t7NmWOv61/THB4eGsHbtIDKZfiiKyjx00F6YYcAXsXDzIhLdj6L7kREU52sI/BY2bFyDbDYD1+lgNjeLM2ensfWJRTLiffXNz6+Qs8fepRNX/iDFUgVlrQ7CCYgnUuhiM8EUxBWCqOQiKlNkenuRXf8sKloOK5IShjc8DIHnoWka5oolmHUKNSZDVeMwai3n+InzI6ScP+SGxBcsqwmtUoVpNOB6lAVJIQo8OI5jpBx4QYIksSkKWJXtQW8mjUargcqtm6x6D0bDh645GBjoQ6Omm+3KxJcT1298RLTCQVdJxIQIYXEQiW0msDse2m1G5DQR4UJWkQJFkhmZAEUWEYQUhXwOzWYTyUQMP10oQpJlbBxeg+qNC5PN8tX3vOqVc2/sgUX04kFPUeM8CAuUJECIgAjhELLH913YloG2XQb1O0yByJQFrFIdXCQCUVIwV2ogEpEgcjCbhfMnKtNX39/56a3qXy2IFKf2X44m06t5JZPkxRhBGLL7vfibUbCV0hA0bDGCKiNcDHIGMrOKBgTzNZfZanm9an3cnBvf19J/+/6t3exy3THI5dOj/aIaXcdLyW2CHH1OTa/cKsdTIsf8D4IAgRvAD1ymymDTQaGQYzlwGL9ch1GZt/ukqQP10szeNz+uFJjJt0u7i+DOj+nT+yRbaA/xEX4knl39TDTZNUAEOcV0qBFSYzE5yDPv8/kFj3O0G7Xfv/sw94t9fPQc/KW68pKtYmzsgKCYrc2cGh0UFHW7EvOHOYl7rJSfco8fOXPY16/t333MuX6/dr+sdj12ajQqiDFVXZ1M1Qu/0sPfflHe8zWs+4Hfs9kt5/By9ixLwXKA/nYG/wR0yVv0b4H+vwj+BByiDCpt1NN/AAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Act_Dir_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Act_Dir_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Act_Dir_Image.Image = $ResizedImage
+        $Act_Dir_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Act_Dir_Image.Location = New-Object System.Drawing.Point(5, 60)
+        $InstallsBox.Controls.Add($Act_Dir_Image)
+        $Act_Dir_Image.BringToFront()
+        
+        #Add Active Directory Label to Installs Box
+        $Act_Dir = New-Object System.Windows.Forms.Label
+        $Act_Dir.Text = "Active Dir:"
+        $Act_Dir.AutoSize = $true
+        $Act_Dir.Location = New-Object System.Drawing.Point(20, 60)
+        $InstallsBox.Controls.Add($Act_Dir)
+        $Act_Dir.BringToFront()
+        
+        #Add Active Directory Checkbox to Installs Box
+        $Act_Dir_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Act_Dir_Checkbox.Text = ""
+        $Act_Dir_Checkbox.AutoSize = $true
+        $Act_Dir_Checkbox.Location = New-Object System.Drawing.Point(100, 60)
+        #Checkbox Status
+        if ($Act_Dir_Checkbox_Cust -match 'False') {
+            $Act_Dir_Checkbox.Checked = $False
+        }
+        else {
+            $Act_Dir_Checkbox.Checked = $True
+        }
+        $InstallsBox.Controls.Add($Act_Dir_Checkbox)
+        $Act_Dir_Checkbox.BringToFront()
+        
+        #Add Brave Image to Installs Box
+        $Brave_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACFElEQVRIS5WWvS8EQRjGn7kIhSg0xFelEVHoTkWESkNwGoVGhcpHQqJQKBRo8AeohUKikCiUFCof10gkvgqN+Aribsc7e7drdu6dNTvJ5HZ3Zt7fPM/7zu4JxDTZVbOFr9QEPA+QecAr9jzd+9fqVwJ5r19c5/dtoYRtQHbWn+AH6UKgfyBqPCdXxY03x8WLQGR3s4T0Az7T7qqpF3frAFGKPPlNvQI0XdwhjO1fyAxuIdEU7oIm4alR2ZAM8qkWRtqleESbkMMUnms72uPtNWBspnTW8jSwuP73vIF3v6DEBOmAuMrgxgwQKRGlEB1wuAGcHwOzu3bU+AAwNQ+0d7CKfEhEBacgU7SAKhZ7moX6jh8Yx7Xx/yHB/gYJZkK44MH8CGQEk1Rym6FWWz6SQHSVKQy5JV5ZVtsCbGZLfTfVOCU+CKMrUhBbTnQIU8J8del1ZFrXS7A3mqD6lZFs2xkJSjjRWUkT6JQ/v2CsUrHDI+p0IOOUqGiJIWpRYNfnOzBaBbzSs1QlcP8BvNC1Qz4iSljL4vLD7FyfrhIe3Edf9S4vS/MFE5PwZBDdOh1iAfgW2ZTEWqbOicrJEVVWKxmgcmJpOqAkJz5kCWW4oA+v2QJIcE5skDqUi7Poevs33syPA8RUwOaEUx+enxiILbgzxLcwgwPk0OfnRLcrhRVxjwV7dgojVrtYVT30f6AIEVn3tb9bgCfeuItiYwAAAABJRU5ErkJggg=='
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Brave_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Brave_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Brave_Image.Image = $ResizedImage
+        $Brave_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Brave_Image.Location = New-Object System.Drawing.Point(5, 75)
+        $InstallsBox.Controls.Add($Brave_Image)
+        $Brave_Image.BringToFront()
+        
+        #Add Brave Label to Installs Box
+        $Brave = New-Object System.Windows.Forms.Label
+        $Brave.Text = "Brave:"
+        $Brave.AutoSize = $true
+        $Brave.Location = New-Object System.Drawing.Point(20, 75)
+        $InstallsBox.Controls.Add($Brave)
+        $Brave.BringToFront()
+        
+        #Add Brave Checkbox to Installs Box
+        $Brave_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Brave_Checkbox.Text = ""
+        $Brave_Checkbox.AutoSize = $true
+        $Brave_Checkbox.Location = New-Object System.Drawing.Point(100, 75)
+        #Checkbox Status
+        if ($Brave_Checkbox_Cust -match 'False') {
+            $Brave_Checkbox.Checked = $False
+        }
+        else {
+            $Brave_Checkbox.Checked = $True
+        }
+        $InstallsBox.Controls.Add($Brave_Checkbox)
+        $Brave_Checkbox.BringToFront()
+        
+        #Add Click_Paste Image to Installs Box
+        $ClickPaste_Inst_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAC00lEQVRIS7WWOYyOQRjHbVxxFo5CtygkJIhQIBoKsptdRwiCUDkqGiQiEkIidASJIwq3wpVdjaMh7jgLFLKrRrGuYMn6/b7MfBlv5vv2U+wkv8z7zjwz/3fmmXmet65X5dKHrpEwCebDdBgDA+A7tME9uAov4QP8zk1Xl2m0bTQsguVBpHeVj/lD3zM4D5egHbpS+5zITAx2gXX/KpMXu37ScBd2hBWW+4sik+m5BcOSGb7wfA3OQmvS3sjzCmiGwUn7J55ng1tYKlHEekaYLAp85N393g9vg326DY6RcbAliA0Pdgopfh+6oogOPRa+QLt3sBvOQGfylUWR2NWXh1WwHfSn5SashTZFPEWbwqT6wBVszgg4cGIiWN6O0BaF9vHuivTRNjigyChogSnB+AT1hsIKkrmrPvaj9yisDlZPqJsUmRdEPKY6eRpEH9Q6eWo3npdHMAi8N42KHIH1wUofrKwys3chlmUV7JzzAiwJ/YdseA7eaovH8noVkUqOLw7xZHkyLU8V+QxDMhMrHJ3rCpYGu6/UMbT4xXFFHooXmXk6FPGIesKKJScSj7z2jqtFpNNBHTC0B0VKK+kJnxi1r6Q+OcyL98JifPJ0/RNFk1XWerouMmZxGFc6XXPBwOc90anekzeZ7au1aQKG3pOB4D1piDfeKDs1zHKSeh2kMatWAW/8cTCOWR5Dc4xdG3nZA8YuI6hR9VRGqLvYtYYxe8FI/gOMXQfTKGzMmRO+wNRqFD4Nv5JlVLqMrsB45aT1wf4GtVG4Pc0n5nC3Lc0JBk6j6mtQIJdPjFVbwWiR5qIm3h86ppgZ3Y7biZAf9Q0MNa4qhgrbF4AnsQF0ciymCjPjq9iQy/FmyJ0wC/4nx+uDO2COf5CIltNvsa2ehoXg34p5Pxd24hiPqX8r5+AyvIdu/1biYCceAW6hUVWfjQW3xv8uU7Q53C10a9ym7H/XX2JcoXmg/8/OAAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $ClickPaste_Inst_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $ClickPaste_Inst_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $ClickPaste_Inst_Image.Image = $ResizedImage
+        $ClickPaste_Inst_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $ClickPaste_Inst_Image.Location = New-Object System.Drawing.Point(5, 90)
+        $InstallsBox.Controls.Add($ClickPaste_Inst_Image)
+        $ClickPaste_Inst_Image.BringToFront()
+        
+        #Add ClickPaste_Inst Label to Installs Box
+        $ClickPaste_Inst = New-Object System.Windows.Forms.Label
+        $ClickPaste_Inst.Text = "Click Paste:"
+        $ClickPaste_Inst.AutoSize = $true
+        $ClickPaste_Inst.Location = New-Object System.Drawing.Point(20, 90)
+        $InstallsBox.Controls.Add($ClickPaste_Inst)
+        $ClickPaste_Inst.BringToFront()
+        
+        #Add ClickPaste_Inst Checkbox to Installs Box
+        $ClickPaste_Inst_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $ClickPaste_Inst_Checkbox.Text = ""
+        $ClickPaste_Inst_Checkbox.AutoSize = $true
+        $ClickPaste_Inst_Checkbox.Location = New-Object System.Drawing.Point(100, 90)
+        #Checkbox Status
+        if ($ClickPaste_Inst_Checkbox_Cust -match 'False') {
+            $ClickPaste_Inst_Checkbox.Checked = $False
+        }
+        else {
+            $ClickPaste_Inst_Checkbox.Checked = $True
+        }
+        $InstallsBox.Controls.Add($ClickPaste_Inst_Checkbox)
+        $ClickPaste_Inst_Checkbox.BringToFront()
+        
+        #Add Firefox Image to Installs Box
+        $Firefox_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEpElEQVRIS7WVW2wUVRjH/3PZmZ2d7YVdLGDb0Iam2ASQAOI96VMT8QEkQZvAA1FRG9poQCPGS9YYAlHkAcQQhKSltKUhwUdNjMoL8RLRIJgaQKEppLS03RZ22dvsHP9nZrtQWkjEuJsvMztzzv/33c63Cv7nj3K/+uL6ywKugFJ+6J4a9wUQYy8KBFTAIWDWId5A3M3Rfw+IxVTR8ncehu7L5vNQHui4q86ML8TxJ68oa09WzuSVuPA8vae4FQAUbnddQhjJg50zak17KD5fJkRpYEzd8FNUHFm1uWKH3XHtj2OJSZg4vUbAJCAcBFRulwoEIO9Cmd89TW/KAxFbKmBzcakGXI4KzFKVFV3zjVOnDuQkoLGxUf9+u5Xz0hOk2WYBIiORIJyDadQr1e1F3eLN+bZHS+vC2QmECJAmIbYBJxX69Os9+7aaqgGdKZE6OeHgZjaFtUc/BB8CGtdqBOYV5DU1zqq0mgsOd0unigDx2gqBELdb0iSEr8JskLCBdC6Cbw98AYNp0BwXQrhIOWkkbk6g+ehOQiguATpBDvfYTFdtl6d9C7BxZQGQB5ZZQBmLeH6CILmB9yzqsX1fwnDy0Ng5+UwKq3vf9Ys87BQAEiLrQ0DdbYDly18J/FJ/JosgxStpiwwKyjxTWJrsGGlBA52t+6E7DkQqCXdiDBt6PvKPwRC9l90lARGgdlXAunSpPe1FMLZs9eZZ80c+8wBBeiTtCQpGDAgjgO17O6AZIQRhwMgJ6Jk0tGQCYnwUmw5+4DfYAAsuxeu594aBG0LbWfpY5zse4KLauqOm6fdtsAoAk4vMPH6tXIrO716CKC+HFrRhsNChjAY7yVokrgPxEby+530GQJm/SuB115IsMGohDvXjSFPX2x4gUvdM6WhVesLznMJeJIaLlrNbkLXDcMvKoYZsmKoJK+sDrPE0lPgYtm1nJzmM9lIZ8EiK+5mqwTB6+9yFzbHec36R163TxMC444l7JkG0p3JY37MFwrLg2iEYWhAhAkJJ9gMBejyJ2Fu72J6smc4UVbLY8nwMlkI5sjCAEzGn2EVDeFVUrLzoA+i9b3lcazLxxuFN/ljQAwjkVdh01CJk1xqKC3o/j0UO0nOKi4QFxbGhbPVPdRHwm97yyZKGy2+qJnNIYeiFKAK86gLrhzYXR1M5l+yr3QuUcHuE4hbFQxKgQVyZjWRQ/aZkR3fTFID8cZVRzHl4kD3NyaAXIBIQoIgEarxKU6Xxt5xFQZrNs8K2zgzMhsGDqbZ3qozYG+FTZlHJQ89Fz/0ZHZm7eJRCzKdKkBQsivvR+ACa3C3NUpDon4NgiYHKEWfu8Nmeoclwp02/Z6tfWHRwoORMGjdRs5jJVhmJKmHSY2mTgEn3BOKn51HcxHtlicd39/X+WMzlnRFMvojUra3qu1Ax4CDDbxpV9VkEZOsqBBTMySm4djYqjx50Wk3D1ZrxvuP9t4tPS9GUlxzNP5xs2L0gp7S5yHGKyjnqf1Tvq9MMDGpub9vT0Q0n2JJ3it8bMLmaf5F2+88Vpq5Fv+qvbpWPm6sG9w+LzFBy48phxGK3yDMQptVgJi/+y7N/AK8msCgh9PN5AAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Firefox_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Firefox_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Firefox_Image.Image = $ResizedImage
+        $Firefox_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Firefox_Image.Location = New-Object System.Drawing.Point(5, 105)
+        $InstallsBox.Controls.Add($Firefox_Image)
+        $Firefox_Image.BringToFront()
+        
+        #Add Firefox Label to Installs Box
+        $Firefox = New-Object System.Windows.Forms.Label
+        $Firefox.Text = "Firefox:"
+        $Firefox.AutoSize = $true
+        $Firefox.Location = New-Object System.Drawing.Point(20, 105)
+        $InstallsBox.Controls.Add($Firefox)
+        $Firefox.BringToFront()
+        
+        #Add Firefox Checkbox to Installs Box
+        $Firefox_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Firefox_Checkbox.Text = ""
+        $Firefox_Checkbox.AutoSize = $true
+        $Firefox_Checkbox.Location = New-Object System.Drawing.Point(100, 105)
+        #Checkbox Status
+        if ($Firefox_Checkbox_Cust -match 'False') {
+            $Firefox_Checkbox.Checked = $False
+        }
+        else {
+            $Firefox_Checkbox.Checked = $True
+        }
+        $InstallsBox.Controls.Add($Firefox_Checkbox)
+        $Firefox_Checkbox.BringToFront()
+        
+        #Add Chrome Image to Installs Box
+        $Chrome_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAEhUlEQVRIS72VW2hcVRSG/3OfSTKTtJ02xYS2aVRqES1CBQuK0kSkUqG3mE7UJ4tioWhFHxRRFB+ktI8qEvFCHjTEuy8tIbFWEwoJ9QaCbQ2VBloNaVKbmTPntv3XSU4zmUxaQXAxizOcvff61nUfDf+DaP+SIftSVIdqUENqiepS1fVsXA+Snn7m0YJuW9Co0E3ai4AgROQFUJ4HVfLQ8HZvDReKS8GWguiTj20PNdumcROaSYChQ9c1KPE7iqACQnyfIAJLPkDgir5jEiW9WCjVINbEjjYPYtwyoRv03tShEQKN2wlRinZCgvwAERUSlUBLAVYdPWETQeq8VEKMi21bAjEeA2gchgFFgKYnkJgCFfEpAIEFPtPHMjGNAmz8fkTyKnWLZQHkvefuU9uGrwAWoxbDBGgmtxCgaQKZLbOSnEnKQsJCAc0CVTCfqdXDo1dtl0OyXce7pl999kfUWg4955IhSqD8F0KyO4ZQQzrLnyKwUgip57vLCyLJD3YpcVYkAZUfrB/4Dh5tfTB6CY/fmSNfoTiyhtEqBhqwdlH8NJ0in0LWYdwSxW4lvln5b7o8qavIKwd/oPNaHJFIpv9bvN5/AQ7rJGViGeAyPS8/0AzjbJpRL44ESiNExU2QQJYRMplAxPBLT4+yNCZyA0N4/stxpC0dlmlIeaQc8ElyWewju9bBOZdelK65SJZz4VICWcN0nUvSJScOPjUEx7TxW3c/+n6eQpqNYMqs8ISUIxAI9YWtTdhQFFsLRUUGzI3hWr79I4G05ge6zmgySmVy4MkTeHH/Z6ih+5ZASIhHRSAy+FGIK+ysY213VIFYhPg3cuFsAmnZ25//Xdq1PGX2pIu1xmsYHJthk3ENBPEUm5ai2FwR9m3OoXN5S0UYGqIwDevWwnoujCWQxoeP5i8YNg3NdVhy6vCGI2h/91emjt2isyZESZlDRuGxhQefuA0Nfy5Ml4pMBF4WqU2Tq7n1YgJJd3y9t2CkCKmIRmCHbj6Me94aYcPIQIoXMichTh64C8smViyOIqiB5zagdvN4fHEmEG13X2dk1NFbRiOXeeV980brITzy0SkMnZ9Ce2sO3Xs2Yd/x/fji9r55CNtWRTb8Uj1KM1k03H0m9qjcVtOezzvP62mCLLlKZu/DalIqRAiKET7Z+PFigJeBX8wgu2WsmYvjsqHcjP5QT0foMBo9RSUo7ray2ySxWCqENKTwaQwR7/U4gsCrg+/WwZ2pxar2X65e+5W+Zrb3dFx2ahjNXH30uRrFMcuMcEh8RtHb0stWFuMWy+Mg8GsRuCm4hVo03v9Tlrv/TpyqlpDctvd3/5WqYScxIvmcaNK+kl3OScgLrKf5Kxo3Yw0JCH3WwXUISKPpwVMruXOiPM1LZB31W9/ZOZUixLFnr3udH0eNRfIDhQ9vGI5TFAZGDPBKFryiiXW7RhtofLqyjktBZJ/ktOXeN3ectm0OoYD4pnvl6Xjio1AghHo6WjtGbpKhk/Gp1ijXgiT7BSbfhhw1Q02GXnIuaRHPqxq/Vk2qtu1/efkPmizDKdT29VcAAAAASUVORK5CYII='
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Chrome_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Chrome_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Chrome_Image.Image = $ResizedImage
+        $Chrome_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Chrome_Image.Location = New-Object System.Drawing.Point(5, 120)
+        $InstallsBox.Controls.Add($Chrome_Image)
+        $Chrome_Image.BringToFront()
+        
+        #Add Chrome Label to Installs Box
+        $Chrome = New-Object System.Windows.Forms.Label
+        $Chrome.Text = "Chrome:"
+        $Chrome.AutoSize = $true
+        $Chrome.Location = New-Object System.Drawing.Point(20, 120)
+        $InstallsBox.Controls.Add($Chrome)
+        $Chrome.BringToFront()
+        
+        #Add Chrome Checkbox to Installs Box
+        $Chrome_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Chrome_Checkbox.Text = ""
+        $Chrome_Checkbox.AutoSize = $true
+        $Chrome_Checkbox.Location = New-Object System.Drawing.Point(100, 120)
+        #Checkbox Status
+        if ($Chrome_Checkbox_Cust -match 'False') {
+            $Chrome_Checkbox.Checked = $False
+        }
+        else {
+            $Chrome_Checkbox.Checked = $True
+        }
+        $InstallsBox.Controls.Add($Chrome_Checkbox)
+        $Chrome_Checkbox.BringToFront()
+        
+        #Add Grp_Pol Image to Installs Box
+        $Grp_Pol_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAE4UlEQVRIS42VS2wbVRSG/3k448RJWs+MYxIndlxKiASqwGlRChVdIiFgwxJYsEBIiFUFEmLVJQi1XSEQIDZsqkitlLosQNCqFGhCaagIbZpHH0lM6vd7bM+bM2M7OH0lY13d8cyd851z/nvOZdBxTU1NcYcmn3qeMZIfsowxYYMRAaa1ojkzDEuDge38LKv1zt6cNYNDo7GheLnyl1458En7a3fBtWu/i6LP+7kkd7/OcaynE96+t9u2XFjnCgaWzSCZzMJW51EpJ5IW5zm0Zcn8zE/BUHT01G5x9wsPMr7ds2K5gZX5s6gVZ5FIVyo8evZvAdz49ccheU/0rBgQn93O2H3vKZxbdxKY+fmbq9XsbxfXs74rtURwagtgjgDhx6NxURZjhmEilSrCsmxYptWcKT82zc6vfUliH0Sp19Vlcfk2Ls/88dFbb7/3afv9AwGS7I9ZJKCq6nBybrcS3547ve/q4uEMR5DF5VsE+PPRgJE94bgcEAlgtwDkb8vhnQGu7ATgpxQZlKIypcaCaVJ6aHZADphi2gxCFHshUYqaETgpmtsOMEIR7Ip1GtmR4C7gDgGubgcYJkB/TG3oWFrKwDBNGIYTRTuS/1PmgCMRvzucelxcXm0B3n+4yCPRQRdAydiR45uLnAhW1gjwN0WwLcAXc3bQ0lLB9d5oee9E4XSHTrEjkX5Ewv1NDVzAtUcBpodGoqNxWe7eooEDqVHKTBKYYxnwHINcrgCWZV2YIHggyyKWbq7j8uzCdhEMxGVJaBZaugGFIkmkS0gW6mB5LwTORiG5hkuzc4gMh+HhDShKAa+9/CJ6+noxd3n50YBwVI5LkifmVK3aMHHm/G3sP3AQBu3MuqYhsbaGhYUFhCIjCPj74eEs3FhcwV+zM5icnECh2Jg2+b5jJoN1NbWauL+So1JcErlWJVs4fW4V+yYmyRALgaeU0BeapqNYqSCXL6BSUZBMJZG/exe80AOW4y3D0KtURyny6bv7AaN+ArCUIgupjIYzF1bgEwdQyGZQq9UwNj5OKlvo7fW554HzrFSqIJ3KwKSonf+FfN4tSmlXX/oeAIk8GoxLfmyKfPKHf7F33wFU00l8P30Gh195FblMFvlcDpVSGY1qGbzXB4YEZ+kwyqRSpBWPgWAAHsYubwKOHj3KHn5u79D4WHA6IKkxx0vnOnlOwciTE7h+dQ5KPounDx6CSl5yPLVnyn0ll0S3GARPRjfWN6DUFDwxPgaPR0Apm24Clpd/Ccii+KahaSHo+Te6vfpj7QZ36nwB8vCYG7ppmdBVlZqgCk3XyPsaWLWKOivA09WFEqXGaduhcBi6oaOazzUBq7cvvDsY3H2cdPQyTsXYjpTN69vT8zD5fvdkdgG0k3Rdd4XW6L5cKILz8K4e1XIFg6FBGiFnrV3KpBTX0D+Xjr3j9xWO02Hivbc/5Cos0iUeqSLPZCseKA0PYzEeRjfBkA2YVC+6ocGkB/V6zTU+NDwErdFQVm+uNE+0Lz77YEDyb3xMm1CiADqO9SaOAmIsm4NmdzFVtYdTdB9fVfv6VYMN6IYdoBbit2xLaNQb/DClRx4I3M1nMl+t31n72gU4AovU2AVB2LKrHtbtumo1JmeW+EKBF+qW4VMN7NUN9RnTNF8aCg1LPb3CkfSKcvHEiSP1/wDbXdYF8bisrQAAAABJRU5ErkJggg=='
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Grp_Pol_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Grp_Pol_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Grp_Pol_Image.Image = $ResizedImage
+        $Grp_Pol_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Grp_Pol_Image.Location = New-Object System.Drawing.Point(5, 135)
+        $InstallsBox.Controls.Add($Grp_Pol_Image)
+        $Grp_Pol_Image.BringToFront()
+        
+        #Add Grp_Pol Label to Installs Box
+        $Grp_Pol = New-Object System.Windows.Forms.Label
+        $Grp_Pol.Text = "Group Policy:"
+        $Grp_Pol.AutoSize = $true
+        $Grp_Pol.Location = New-Object System.Drawing.Point(20, 135)
+        $InstallsBox.Controls.Add($Grp_Pol)
+        $Grp_Pol.BringToFront()
+        
+        #Add Grp_Pol Checkbox to Installs Box
+        $Grp_Pol_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Grp_Pol_Checkbox.Text = ""
+        $Grp_Pol_Checkbox.AutoSize = $true
+        $Grp_Pol_Checkbox.Location = New-Object System.Drawing.Point(100, 135)
+        #Checkbox Status
+        if ($Grp_Pol_Checkbox_Cust -match 'False') {
+            $Grp_Pol_Checkbox.Checked = $False
+        }
+        else {
+            $Grp_Pol_Checkbox.Checked = $True
+        }
+        $InstallsBox.Controls.Add($Grp_Pol_Checkbox)
+        $Grp_Pol_Checkbox.BringToFront()
+        
+        #Add PuTTy Image to Installs Box
+        $PuTTy_Inst_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACW0lEQVRIS62UzWoTURTH//fmo2hWgqvaWlBCH6CKm0BKu1XBhY8gxRdwoTaJEwTTFxCsgitfoOlmIDPT1BhQ7NJFFS0qiBtX0eKkc6/nTEicTCaZtJ2zCCE59/zO51/gmFYoFHTrdWviq1wuh87vjug7Db5My7JtW8f5kg8MwzgZREBo13WRzqQjObbTxI5jQWt9OsiseIh5VKAiMDWrCcdxkoe8072qroojJA4BBH7iOT6pGrLyC5bQTRbyAxv4qy5ic/MPXq59pfYoCCGTgwhxBh11Hhl1DnOpa1gQTwfT2bBasJ3G6WaSlil96M1D6izS8iMUVRA0Hnp/8FWjStUJ9qHPKSyfz+sP+5qmAMzIz/Rw8qlYtuXD2IxHhv9uovm3oS+TT3TgrGDoEf0vh+JUKpXxEA4a9Hb1JcpEEGIYoml1Z+Q+OOsoG1sJXWooXe55L0NJ23OoFpESXZxNHeBBad0f8DjjNlFifqeG2sWQBVEeefcNVfgV0aAz8iCuw/7/fUAkZE6WcIFko+coKQsPb7xFykkhK76jVL7vDzMYJI46UkkQ8gsvsHLnHq4sZVG+ewuvGrdpa3aTg7AmcYt4e1iX2J5Yu6SyJONJVfJf+NzB8BOErGNWjg6fK6mZb7HTNE9eCd9H8FInrSb7LS8XceP6TdS361MctL/HQjesBlZXVuMWhQTQRrFYBF/03vs9bNW34iEMUNoLn8xEWF8IjwlRA0ELR+eAvE19C7bUNM1n7XZ7La58kuHxs2DZYLkOGv8mpcRjkvKu8mJbNbj4sCjGZRaWjTj/f65KYyxtPszLAAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $PuTTy_Inst_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $PuTTy_Inst_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $PuTTy_Inst_Image.Image = $ResizedImage
+        $PuTTy_Inst_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $PuTTy_Inst_Image.Location = New-Object System.Drawing.Point(5, 150)
+        $InstallsBox.Controls.Add($PuTTy_Inst_Image)
+        $PuTTy_Inst_Image.BringToFront()
+        
+        #Add PuTTy_Inst Label to Installs Box
+        $PuTTy_Inst = New-Object System.Windows.Forms.Label
+        $PuTTy_Inst.Text = "PuTTy:"
+        $PuTTy_Inst.AutoSize = $true
+        $PuTTy_Inst.Location = New-Object System.Drawing.Point(20, 150)
+        $InstallsBox.Controls.Add($PuTTy_Inst)
+        $PuTTy_Inst.BringToFront()
+        
+        #Add PuTTy_Inst Checkbox to Installs Box
+        $PuTTy_Inst_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $PuTTy_Inst_Checkbox.Text = ""
+        $PuTTy_Inst_Checkbox.AutoSize = $true
+        $PuTTy_Inst_Checkbox.Location = New-Object System.Drawing.Point(100, 150)
+        #Checkbox Status
+        if ($PuTTy_Inst_Checkbox_Cust -match 'False') {
+            $PuTTy_Inst_Checkbox.Checked = $False
+        }
+        else {
+            $PuTTy_Inst_Checkbox.Checked = $True
+        }
+        $InstallsBox.Controls.Add($PuTTy_Inst_Checkbox)
+        $PuTTy_Inst_Checkbox.BringToFront()
+        
+        #Add Powershell Image to Installs Box
+        $Powershell_Inst_Image = New-Object System.Windows.Forms.Label
+        $Powershell_Inst_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
+        $ResizedImage = $Powershell_Inst_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Powershell_Inst_Image.Image = $ResizedImage
+        $Powershell_Inst_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Powershell_Inst_Image.Location = New-Object System.Drawing.Point(5, 165)
+        $InstallsBox.Controls.Add($Powershell_Inst_Image)
+        $Powershell_Inst_Image.BringToFront()
+        
+        #Add Powershell Label to Installs Box
+        $Powershell_Inst = New-Object System.Windows.Forms.Label
+        $Powershell_Inst.Text = "Powershell:"
+        $Powershell_Inst.AutoSize = $true
+        $Powershell_Inst.Location = New-Object System.Drawing.Point(20, 165)
+        $InstallsBox.Controls.Add($Powershell_Inst)
+        $Powershell_Inst.BringToFront()
+        
+        #Add Powershell Checkbox to Installs Box
+        $Powershell_Inst_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Powershell_Inst_Checkbox.Text = ""
+        $Powershell_Inst_Checkbox.AutoSize = $true
+        $Powershell_Inst_Checkbox.Location = New-Object System.Drawing.Point(100, 165)
+        #Checkbox Status
+        if ($Powershell_Inst_Checkbox_Cust -match 'False') {
+            $Powershell_Inst_Checkbox.Checked = $False
+        }
+        else {
+            $Powershell_Inst_Checkbox.Checked = $True
+        }
+        $InstallsBox.Controls.Add($Powershell_Inst_Checkbox)
+        $Powershell_Inst_Checkbox.BringToFront()
+        
+        #Add RSAT Tools Image to Installs Box
+        $RSAT_Tools_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAh0lEQVRIS2P84afzn4FIwPj/n05dNjcDIxPDFSK1MDCOWkAoqEaDiFAIjaYigiFEhyD66aulTdgdEBVsf37dyctlYOBiElQhVg8jw4LnRFvAICZx5z+DFwMD0xsSLFj4iujCjuH/X53/En5AxzMSX9gxjFpAILYZR4OIUH4YDSJCIcRA8yACAEAenUVOCa2cAAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $RSAT_Tools_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $RSAT_Tools_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $RSAT_Tools_Image.Image = $ResizedImage
+        $RSAT_Tools_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $RSAT_Tools_Image.Location = New-Object System.Drawing.Point(5, 180)
+        $InstallsBox.Controls.Add($RSAT_Tools_Image)
+        $RSAT_Tools_Image.BringToFront()
+        
+        #Add RSAT Tools Label to Installs Box
+        $RSAT_Tools = New-Object System.Windows.Forms.Label
+        $RSAT_Tools.Text = "RSAT Tools:"
+        $RSAT_Tools.AutoSize = $true
+        $RSAT_Tools.Location = New-Object System.Drawing.Point(20, 180)
+        $InstallsBox.Controls.Add($RSAT_Tools)
+        $RSAT_Tools.BringToFront()
+        
+        #Add RSAT Tools Checkbox to Installs Box
+        $RSAT_Tools_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $RSAT_Tools_Checkbox.Text = ""
+        $RSAT_Tools_Checkbox.AutoSize = $true
+        $RSAT_Tools_Checkbox.Location = New-Object System.Drawing.Point(100, 180)
+        #Checkbox Status
+        if ($RSAT_Tools_Checkbox_Cust -match 'False') {
+            $RSAT_Tools_Checkbox.Checked = $False
+        }
+        else {
+            $RSAT_Tools_Checkbox.Checked = $True
+        }
+        $InstallsBox.Controls.Add($RSAT_Tools_Checkbox)
+        $RSAT_Tools_Checkbox.BringToFront()
+        
+        #Add VLC Image to Installs Box
+        $VLC_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEAElEQVRIS61VXWyTVRh+Ttu168qqW9kYbEOZGLO6bCzKdDOamG5E5xCVxURjJBiFJXqhxmiiMfECRWW7kjuNURLNQrgQiAIhxgunExiwLjoYk26xg5Yh/V3HSr99r89pFTMRWsGvOV+Tc97nfd6f5z2fwn94BtarwxkD6sHdsrpQmCrUsP8BdfTh+6TZfhOwc48a2/Cj1BeCLZjg6HOQuhLAsQT42Q+07EJB2IKMdKTjL0MWG4CdBGcngNs//R8Jnt20aflja9dNJmdSeLJ7PX45eQqff7aj4aO+raP5ylRQBm+9s0VWNTWK19uAaDyGmtrlOLB/v9q88Zm8+LwGOsJvDn4nlZUVUlNTg+HhEVRWVWJyYlI90fVQXnxeA03w/aEhqV62VA4fGcKa9naEz08jFk2otrub8uLzGuxog3lPM9RiRn+kugctq5th2dOD0GgQP4wBz/907WbnJdj3COSOFUBZOWBJAtZSplQETAcB/2ng8W9vkGDgKUhtBbDIBbFfovNiEjmBRBhqlHL1fX0DBNtbHHtb69NdFZxep0ECBzNw5TKYjUONB4CBgCPwxkj6tqvJ9ZolevGV18yeWK8qc3OC5yCORYyeJMKVTkIFJoHja7+UzRuetlwXwXsfbjMbG5tUKjULuDxyf7IfiUQMmfbtyCTDKhgMIpMxpPvRzusjeH9bn/g61sBeZIPVZod/+Dh8Ph9CoTCKHA7MJBOYmppC97quq1biioPI65DoNNDv7UXdijpcmruI6tpa/Ho6AI/Hg4aGBhTTeSQS4SxEEZiYxNipk+gcehdVZYB358KmX0nwKswzZ4ETXK43D+gIlcvlgjFvSgezGRwcRL23HiKizvwWRCwWkUxfN9xs/EpehN5dWFCuBQTRtyHpOOT8BSAUByqoefedjWq64xO4St0y4vfj3tZWxBNxGBlDle17AfFjQzIVoQhIsIz2N3sgt34M619NX0AQ30KCC5BDI0Ap5VhO1ZS4oJzUPlKUqZ0y5dIyFQWVngPOnYOESBBJAXfVAUtugSrf+neZFhDMfAAxKUf+cOIYh4sRFZdAFVOWmsBGx3rBBswDKsPBYxskyglf1ZIjtrkZ0Ev/QpDotYzbHeZKM0Ots4rzBAnLlIpS89yzMWm9b6ETxbAUSSgsODiEJj9E1srcPrhn2mxh50ZjqS7T5QyML9g3fRXQ2EKjzO88ZAksdGShc6Wz0AAixORK0xEzNbQ9Sa1VfxLQXnEwLZ0535cJZDcLQyAfgXZGIBJ0witBW2m/unUaIHSssfpPOdkO3lVZ7WQPuU9Ci+8fBAc7IaXFEKuVABpny5ALIZs5X4Tm/GjHXEoz0DZHx3d234SavQjV9lUO/ge+vG0orsMCrwAAAABJRU5ErkJggg=='
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $VLC_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $VLC_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $VLC_Image.Image = $ResizedImage
+        $VLC_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $VLC_Image.Location = New-Object System.Drawing.Point(5, 195)
+        $InstallsBox.Controls.Add($VLC_Image)
+        $VLC_Image.BringToFront()
+        
+        #Add VLC Label to Installs Box
+        $VLC = New-Object System.Windows.Forms.Label
+        $VLC.Text = "VLC:"
+        $VLC.AutoSize = $true
+        $VLC.Location = New-Object System.Drawing.Point(20, 195)
+        $InstallsBox.Controls.Add($VLC)
+        $VLC.BringToFront()
+        
+        #Add VLC Checkbox to Installs Box
+        $VLC_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $VLC_Checkbox.Text = ""
+        $VLC_Checkbox.AutoSize = $true
+        $VLC_Checkbox.Location = New-Object System.Drawing.Point(100, 195)
+        #Checkbox Status
+        if ($VLC_Checkbox_Cust -match 'False') {
+            $VLC_Checkbox.Checked = $False
+        }
+        else {
+            $VLC_Checkbox.Checked = $True
+        }
+        $InstallsBox.Controls.Add($VLC_Checkbox)
+        $VLC_Checkbox.BringToFront()
+        
+        #Add VSC Image to Installs Box
+        $VSC_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACTklEQVRIS2NkoBTU7S9m+Pm7R93WiuGmDw8junEYAiTZV7fvPsO/fwoM3/8wqDlYw7Xe8uWFm0u+BTV7/oNNBJE/gBbYIyyA2XTLj5eRPAuqd0MMh1nwE2iBnQ1Wz5NuQeUuhOEwI3/8ZlC1t6OCBRVYDP8PtA/oA/wWTLgKddX/awwFOtpYnVK+E9Pl4CCCWWCPwwf9MMOR5Au1UYOubAd2w2FaujwYVdZ+xqqGkaHvCnbNRToQS0q2/WfAlRb+/jJi6PM/D1KmsuYTDgtAsj04LPn0iYHh/WsGBlZmBgYmJtQg6PFC8aXKanwWgLR2X8YdDPfvMDCwAS1hBmIQ6PXGSH3KqwhZANLYdfk3kGTBGlt3bjIwcLOlM/T7zcImr7ySGAuy1v9iEJdmZeDgQGQikFtBfgPRf3+nMVQZz8ZqwQpCFhRs+g9Ocr//AcOcnYFBQhqrR8CClfoYQaS0HJ8F+RtRs/4foCU/fgKThiZuS6pQLVFa9hFHKsrbAJSAOQgaFiCfTA6ACLZewB35fxmMGOoMwMlUaSkuC3JBFqABmOEw4WY8loB01xkwKi5BsgDJRIgrc9ZDhBgZrwBdros1XJrO4ygqgKp//mNQ1FRBJAYMC3CHNKpMIxZLwPXBXwZFLVWIBWCHQmmkwCfWCgaGhnOoPoFaoKCphtUM0usDkDF1SJaALAAW19S1AGRJ7VmIT8AW/GVQ0IL6AMl/D5IEyKwyYYFRc+4eMHMqgiyQRwqih8kCVKj0YZZUnSlm+PW3R15DneFhCsJgmDQAWb/NTyvD9EMAAAAASUVORK5CYII='
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $VSC_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $VSC_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $VSC_Image.Image = $ResizedImage
+        $VSC_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $VSC_Image.Location = New-Object System.Drawing.Point(5, 210)
+        $InstallsBox.Controls.Add($VSC_Image)
+        $VSC_Image.BringToFront()
+        
+        #Add VSC Label to Installs Box
+        $VSC = New-Object System.Windows.Forms.Label
+        $VSC.Text = "VSCode:"
+        $VSC.AutoSize = $true
+        $VSC.Location = New-Object System.Drawing.Point(20, 210)
+        $InstallsBox.Controls.Add($VSC)
+        $VSC.BringToFront()
+        
+        #Add VSC Checkbox to Installs Box
+        $VSC_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $VSC_Checkbox.Text = ""
+        $VSC_Checkbox.AutoSize = $true
+        $VSC_Checkbox.Location = New-Object System.Drawing.Point(100, 210)
+        #Checkbox Status
+        if ($VSC_Checkbox_Cust -match 'False') {
+            $VSC_Checkbox.Checked = $False
+        }
+        else {
+            $VSC_Checkbox.Checked = $True
+        }
+        $InstallsBox.Controls.Add($VSC_Checkbox)
+        $VSC_Checkbox.BringToFront()
+        
+        #Add Windows Sandbox Image to Installs Box
+        $Win_Sand_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADG0lEQVRIS9VUzYtOURh/nvPO+CgbZEc21hbY+IjJKJFENmShFKWmZiWxtPFfKImahrKYhWEWlIWUUkYj2dlIWDDe+957zzmP3++ce9+Y780Ut9733nvueX5fz3Ovyiofusr48u8QbDh3P4a61FhV4qtawuORFYlbdtP682PmxEyDl+hL9WUloQ7GJRG1MDnilop5UYJ1Fx5FtVo1RNPoVS1ahANfegt1DcyYa82ZWdT4dHRBrHmLgxcnzEWP+iAaanHQKrFSF0lQaahK8TWeG8BVYSSdcJv+ZC5Rn6Bz6QmUAhRAGmucoT6ReEtOQBqZPX+eDjJ4QocMHIojryE6mxpN0aleeQ5/Xp0FQSWAvbiIbaHCmU5KqMd93cPlL/CBoAaKG0B1Bw8ALE4iCJNaZcfIwp/Dw8tTUBixBSshK3UGIgAlJ3UhVhWy6dRpgTkKT8eXO7dFOmsbIoBKh6x4jtZxH1xgBFSHPwIdAT67NYFnuAA48xbfVVcVtvH4MRRECRicEGICZyoQKs6pfL13F0Rr4AOOQIKGKZTI1htXDaGoHv7A+LIqFr64+QBxdHXzkYNCJcSM+EMrUJcJ6ILgrtOQ4f772BjwB2Xb9WvikWxA4snH0PuEz1lhj3LPcLydnAGggiAJEraBFWm35uvkgulrlC27dgqHixOMOUjCCKWHSICbPBF9RcZikr56+AYnZsucc+9YwNiQsWwf2k1go2q85EpwknCbc+AemkFUfxIQBFh9M7zA0svx19DKUWBplB3De5LiBNwqB1GNaDAnyeMAB40OMO4obgQyqmwmE9EJU8ACAYtCBF+LDBwAWGLQSNCQMc4UD/YPkiAnLnLgXW42pKObzXqjvh2AEtaLnljRBShE8X1LwBRIYHSS6rm/ezZ3c96ngkTtsOSXMg8Az1VPdLabSBIoJ8WzHfwA8POHfT/OtGOShS/6sds/3ThqRpjOeiSYBUHZqKVqkPD4djKFOe9YlKDduY9ETYOoHA6sB4LUSJB/PvG34rkMyxK0BXunLaLB+hMEjOrT0aWB27oVEyxkfyVr/z/BbznHFVQo2fguAAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Win_Sand_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Win_Sand_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Win_Sand_Image.Image = $ResizedImage
+        $Win_Sand_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Win_Sand_Image.Location = New-Object System.Drawing.Point(5, 225)
+        $InstallsBox.Controls.Add($Win_Sand_Image)
+        $Win_Sand_Image.BringToFront()
+        
+        #Add Windows Sandbox Label to Installs Box
+        $Win_Sand = New-Object System.Windows.Forms.Label
+        $Win_Sand.Text = "Sandbox:"
+        $Win_Sand.AutoSize = $true
+        $Win_Sand.Location = New-Object System.Drawing.Point(20, 225)
+        $InstallsBox.Controls.Add($Win_Sand)
+        $Win_Sand.BringToFront()
+        
+        #Add Windows Sandbox Checkbox to Installs Box
+        $Win_Sand_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Win_Sand_Checkbox.Text = ""
+        $Win_Sand_Checkbox.AutoSize = $true
+        $Win_Sand_Checkbox.Location = New-Object System.Drawing.Point(100, 225)
+        #Checkbox Status
+        if ($Win_Sand_Checkbox_Cust -match 'False') {
+            $Win_Sand_Checkbox.Checked = $False
+        }
+        else {
+            $Win_Sand_Checkbox.Checked = $True
+        }
+        $InstallsBox.Controls.Add($Win_Sand_Checkbox)
+        $Win_Sand_Checkbox.BringToFront()
+        
+        #Add WinDirStat Image to Installs Box
+        $WinDirStat_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = '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'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $WinDirStat_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $WinDirStat_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $WinDirStat_Image.Image = $ResizedImage
+        $WinDirStat_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $WinDirStat_Image.Location = New-Object System.Drawing.Point(5, 240)
+        $InstallsBox.Controls.Add($WinDirStat_Image)
+        $WinDirStat_Image.BringToFront()
+        
+        #Add WinDirStat Label to Installs Box
+        $WinDirStat = New-Object System.Windows.Forms.Label
+        $WinDirStat.Text = "WinDirStat:"
+        $WinDirStat.AutoSize = $true
+        $WinDirStat.Location = New-Object System.Drawing.Point(20, 240)
+        $InstallsBox.Controls.Add($WinDirStat)
+        $WinDirStat.BringToFront()
+        
+        #Add WinDirStat Checkbox to Installs Box
+        $WinDirStat_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $WinDirStat_Checkbox.Text = ""
+        $WinDirStat_Checkbox.AutoSize = $true
+        $WinDirStat_Checkbox.Location = New-Object System.Drawing.Point(100, 240)
+        #Checkbox Status
+        if ($WinDirStat_Checkbox_Cust -match 'False') {
+            $WinDirStat_Checkbox.Checked = $False
+        }
+        else {
+            $WinDirStat_Checkbox.Checked = $True
+        }
+        $InstallsBox.Controls.Add($WinDirStat_Checkbox)
+        $WinDirStat_Checkbox.BringToFront()
+        
+        #Add Select All Label to Installs Box
+        $Select_All = New-Object System.Windows.Forms.Label
+        $Select_All.Text = "Select All:"
+        $Select_All.AutoSize = $true
+        $Select_All.Location = New-Object System.Drawing.Point(20, 20)
+        $InstallsBox.Controls.Add($Select_All)
+        $Select_All.BringToFront()
+        
+        #Add Select All Checkbox to Installs Box
+        $Select_All_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Select_All_Checkbox.Text = ""
+        $Select_All_Checkbox.AutoSize = $true
+        $Select_All_Checkbox.Location = New-Object System.Drawing.Point(80, 20)
+        if ($7Zip_Checkbox_Cust -match "$True" -and $Act_Dir_Checkbox_Cust -match "$True" -and $Brave_Checkbox_Cust -match "$True" -and $ClickPaste_Inst_Checkbox_Cust -match "$True" -and $Firefox_Checkbox_Cust -match "$True" -and $Chrome_Checkbox_Cust -match "$True" -and $Grp_Pol_Checkbox_Cust -match "$True" -and $PuTTy_Inst_Checkbox_Cust -match "$True" -and $Powershell_Inst_Checkbox_Cust -match "$True" -and $RSAT_Tools_Checkbox_Cust -match "$True" -and $VLC_Checkbox_Cust -match "$True" -and $VSC_Checkbox_Cust -match "$True" -and $Win_Sand_Checkbox_Cust -match "$True" -and $WinDirStat_Checkbox_Cust) {
+            $Select_All_Checkbox.Checked = $True
+        }
+        else {
+            $Select_All_Checkbox.Checked = $False
+        }
+        $Select_All_Checkbox.Add_CheckedChanged({
+                foreach ($checkbox in $Installs_checkboxes) {
+                    $checkbox.Checked = $this.Checked
+                }
+            })
+        $InstallsBox.Controls.Add($Select_All_Checkbox)
+        $Select_All_Checkbox.BringToFront()
+        
+        # Array of all checkboxes
+        $Installs_checkboxes = @($7Zip_Checkbox, $Act_Dir_Checkbox, $Brave_Checkbox, $ClickPaste_Inst_Checkbox, $Firefox_Checkbox, $Chrome_Checkbox, $Grp_Pol_Checkbox, $PuTTy_Inst_Checkbox, $Powershell_Inst_Checkbox, $RSAT_Tools_Checkbox, $VLC_Checkbox, $VSC_Checkbox, $Win_Sand_Checkbox, $WinDirStat_Checkbox)
+        
+        # Add Groupbox to Install Tab
+        $Install_Custom_Box = New-Object System.Windows.Forms.GroupBox
+        $Install_Custom_Box.Text = "Custom Installs"
+        $Install_Custom_Box.Location = New-Object System.Drawing.Point(128, 5)
+        $Install_Custom_Box.Size = New-Object System.Drawing.Size(435, 285)
+        $InstallsTab.Controls.Add($Install_Custom_Box)
+        
+        #Add Question Image to Install Box
+        $Custom_Installs_Help_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAxklEQVRIS8WW0Q2AIAxEZTz/HcKRHMJ/x9NAgkGE3h0Y9JfS1zsK1U3ENy/rWQs79s2hFGaAlTxPbMGKECU5A3tBegARmKt6QL4AlEA3BAFKnrN7KIh1qEznBQgTaLUp2i9B0mSpOghBvjKXEOVwKGA4pNYAqFBJSUsbeye6IEhBtLoZwgJkJX6Dt0wBBAi6jGhWoHVflAxRldwQVg17y/OXmHogS883cy6xqLHzJFbLVMgcdhrzz4xPK1BUyX8ruR1oXiD7LvmhkjZLp5jjAAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Custom_Installs_Help_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Custom_Installs_Help_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Custom_Installs_Help_Image.Image = $ResizedImage
+        $Custom_Installs_Help_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Custom_Installs_Help_Image.Location = New-Object System.Drawing.Point(415, 11)
+        
+        # Create a ToolTip object
+        $toolTip = New-Object System.Windows.Forms.ToolTip
+        $Custom_Installs_Help_Image.add_MouseHover({
+                $toolTip.SetToolTip($Custom_Installs_Help_Image, "Only use the winget --id in the fields.")
+            })
+        $Install_Custom_Box.Controls.Add($Custom_Installs_Help_Image)
+        $Custom_Installs_Help_Image.BringToFront()
+        
+        # Create a label
+        $Custom_Install_1_Label = New-Object System.Windows.Forms.Label
+        $Custom_Install_1_Label.Location = New-Object System.Drawing.Point(9, 20)
+        $Custom_Install_1_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Install_1_Label.Text = "Custom Install #1:"
+        $Install_Custom_Box.Controls.Add($Custom_Install_1_Label)
+        
+        # Create a text box
+        $Custom_Install_1_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Install_1_Textbox.Location = New-Object System.Drawing.Point(10, 36)
+        $Custom_Install_1_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_Install_1_Cust) {
+            $Custom_Install_1_Textbox.Text = $Custom_Install_1_Cust
+        }
+        $Install_Custom_Box.Controls.Add($Custom_Install_1_Textbox)
+        
+        # Create a button to select file
+        $Custom_Install_1_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_Install_1_SelectFile.Location = New-Object System.Drawing.Point(355, 35)
+        $Custom_Install_1_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_Install_1_SelectFile.Text = "Install"
+        $Custom_Install_1_SelectFile.Add_Click({
+                if ($Custom_Install_1_Cust) {
+                    $startParams = @{
+                        FilePath     = 'powershell.exe'
+                        ArgumentList = '-NoExit', '-Command', 'winget.exe', 'Install', "--id=$Custom_Install_1_Cust", '-h', '-e', '--accept-package-agreements', '--accept-source-agreements'
+                        PassThru     = $true
+                    }
+                    Start-Process -Wait @startParams
+                }
+            })
+        $Install_Custom_Box.Controls.Add($Custom_Install_1_SelectFile)
+        
+        # Create a label
+        $Custom_Install_2_Label = New-Object System.Windows.Forms.Label
+        $Custom_Install_2_Label.Location = New-Object System.Drawing.Point(9, 64)
+        $Custom_Install_2_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Install_2_Label.Text = "Custom Install #2:"
+        $Install_Custom_Box.Controls.Add($Custom_Install_2_Label)
+        
+        # Create a text box
+        $Custom_Install_2_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Install_2_Textbox.Location = New-Object System.Drawing.Point(10, 80)
+        $Custom_Install_2_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_Install_2_Cust) {
+            $Custom_Install_2_Textbox.Text = $Custom_Install_2_Cust
+        }
+        $Install_Custom_Box.Controls.Add($Custom_Install_2_Textbox)
+        
+        # Create a button to select file
+        $Custom_Install_2_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_Install_2_SelectFile.Location = New-Object System.Drawing.Point(355, 79)
+        $Custom_Install_2_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_Install_2_SelectFile.Text = "Install"
+        $Custom_Install_2_SelectFile.Add_Click({
+                if ($Custom_Install_2_Cust) {
+                    $startParams = @{
+                        FilePath     = 'powershell.exe'
+                        ArgumentList = '-NoExit', '-Command', 'winget.exe', 'Install', "--id=$Custom_Install_2_Cust", '-h', '-e', '--accept-package-agreements', '--accept-source-agreements'
+                        PassThru     = $true
+                    }
+                    Start-Process -Wait @startParams
+                }
+            })
+        $Install_Custom_Box.Controls.Add($Custom_Install_2_SelectFile)
+        
+        # Create a label
+        $Custom_Install_3_Label = New-Object System.Windows.Forms.Label
+        $Custom_Install_3_Label.Location = New-Object System.Drawing.Point(9, 108)
+        $Custom_Install_3_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Install_3_Label.Text = "Custom Install #3:"
+        $Install_Custom_Box.Controls.Add($Custom_Install_3_Label)
+        
+        # Create a text box
+        $Custom_Install_3_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Install_3_Textbox.Location = New-Object System.Drawing.Point(10, 124)
+        $Custom_Install_3_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_Install_3_Cust) {
+            $Custom_Install_3_Textbox.Text = $Custom_Install_3_Cust
+        }
+        $Install_Custom_Box.Controls.Add($Custom_Install_3_Textbox)
+        
+        # Create a button to select file
+        $Custom_Install_3_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_Install_3_SelectFile.Location = New-Object System.Drawing.Point(355, 123)
+        $Custom_Install_3_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_Install_3_SelectFile.Text = "Install"
+        $Custom_Install_3_SelectFile.Add_Click({
+                if ($Custom_Install_3_Cust) {
+                    $startParams = @{
+                        FilePath     = 'powershell.exe'
+                        ArgumentList = '-NoExit', '-Command', 'winget.exe', 'Install', "--id=$Custom_Install_3_Cust", '-h', '-e', '--accept-package-agreements', '--accept-source-agreements'
+                        PassThru     = $true
+                    }
+                    Start-Process -Wait @startParams
+                }
+            })
+        $Install_Custom_Box.Controls.Add($Custom_Install_3_SelectFile)
+        
+        # Create a label
+        $Custom_Install_4_Label = New-Object System.Windows.Forms.Label
+        $Custom_Install_4_Label.Location = New-Object System.Drawing.Point(9, 152)
+        $Custom_Install_4_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Install_4_Label.Text = "Custom Install #4:"
+        $Install_Custom_Box.Controls.Add($Custom_Install_4_Label)
+        
+        # Create a text box
+        $Custom_Install_4_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Install_4_Textbox.Location = New-Object System.Drawing.Point(10, 168)
+        $Custom_Install_4_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_Install_4_Cust) {
+            $Custom_Install_4_Textbox.Text = $Custom_Install_4_Cust
+        }
+        $Install_Custom_Box.Controls.Add($Custom_Install_4_Textbox)
+        
+        # Create a button to select file
+        $Custom_Install_4_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_Install_4_SelectFile.Location = New-Object System.Drawing.Point(355, 167)
+        $Custom_Install_4_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_Install_4_SelectFile.Text = "Install"
+        $Custom_Install_4_SelectFile.Add_Click({
+                if ($Custom_Install_4_Cust) {
+                    $startParams = @{
+                        FilePath     = 'powershell.exe'
+                        ArgumentList = '-NoExit', '-Command', 'winget.exe', 'Install', "--id=$Custom_Install_4_Cust", '-h', '-e', '--accept-package-agreements', '--accept-source-agreements'
+                        PassThru     = $true
+                    }
+                    Start-Process -Wait @startParams
+                }
+            })
+        $Install_Custom_Box.Controls.Add($Custom_Install_4_SelectFile)
+        
+        # Create a label
+        $Custom_Install_5_Label = New-Object System.Windows.Forms.Label
+        $Custom_Install_5_Label.Location = New-Object System.Drawing.Point(9, 196)
+        $Custom_Install_5_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Install_5_Label.Text = "Custom Install #5:"
+        $Install_Custom_Box.Controls.Add($Custom_Install_5_Label)
+        
+        # Create a text box
+        $Custom_Install_5_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Install_5_Textbox.Location = New-Object System.Drawing.Point(10, 212)
+        $Custom_Install_5_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_Install_5_Cust) {
+            $Custom_Install_5_Textbox.Text = $Custom_Install_5_Cust
+        }
+        $Install_Custom_Box.Controls.Add($Custom_Install_5_Textbox)
+        
+        # Create a button to select file
+        $Custom_Install_5_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_Install_5_SelectFile.Location = New-Object System.Drawing.Point(355, 211)
+        $Custom_Install_5_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_Install_5_SelectFile.Text = "Install"
+        $Custom_Install_5_SelectFile.Add_Click({
+                if ($Custom_Install_5_Cust) {
+                    $startParams = @{
+                        FilePath     = 'powershell.exe'
+                        ArgumentList = '-NoExit', '-Command', 'winget.exe', 'Install', "--id=$Custom_Install_5_Cust", '-h', '-e', '--accept-package-agreements', '--accept-source-agreements'
+                        PassThru     = $true
+                    }
+                    Start-Process -Wait @startParams
+                }
+            })
+        $Install_Custom_Box.Controls.Add($Custom_Install_5_SelectFile)
+        
+        # Create a label
+        $Custom_Install_6_Label = New-Object System.Windows.Forms.Label
+        $Custom_Install_6_Label.Location = New-Object System.Drawing.Point(9, 240)
+        $Custom_Install_6_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Install_6_Label.Text = "Custom Install #6:"
+        $Install_Custom_Box.Controls.Add($Custom_Install_6_Label)
+        
+        # Create a text box
+        $Custom_Install_6_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Install_6_Textbox.Location = New-Object System.Drawing.Point(10, 256)
+        $Custom_Install_6_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_Install_6_Cust) {
+            $Custom_Install_6_Textbox.Text = $Custom_Install_6_Cust
+        }
+        $Install_Custom_Box.Controls.Add($Custom_Install_6_Textbox)
+        
+        # Create a button to select file
+        $Custom_Install_6_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_Install_6_SelectFile.Location = New-Object System.Drawing.Point(355, 255)
+        $Custom_Install_6_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_Install_6_SelectFile.Text = "Install"
+        $Custom_Install_6_SelectFile.Add_Click({
+                if ($Custom_Install_6_Cust) {
+                    $startParams = @{
+                        FilePath     = 'powershell.exe'
+                        ArgumentList = '-NoExit', '-Command', 'winget.exe', 'Install', "--id=$Custom_Install_6_Cust", '-h', '-e', '--accept-package-agreements', '--accept-source-agreements'
+                        PassThru     = $true
+                    }
+                    Start-Process -Wait @startParams
+                }
+            })
+        $Install_Custom_Box.Controls.Add($Custom_Install_6_SelectFile)
+        
+        #############################################################################################################################
+        
+        $ScriptsTab = New-Object System.Windows.Forms.TabPage
+        $ScriptsTab.Text = "Scripts"
+        $tabControl.Controls.Add($ScriptsTab)
+        
+        # Add Groupbox to Scripts Tab
+        $Scripts_Box = New-Object System.Windows.Forms.GroupBox
+        $Scripts_Box.Text = "Show/Hide"
+        $Scripts_Box.Size = New-Object System.Drawing.Size(117, 285)
+        $Scripts_Box.Location = New-Object System.Drawing.Point(5, 5)
+        $ScriptsTab.Controls.Add($Scripts_Box)
+        
+        # Create Separator
+        $separator = New-Object System.Windows.Forms.Label
+        $separator.BorderStyle = "FixedSingle"
+        $separator.Size = New-Object System.Drawing.Size(100, 1)
+        $separator.Location = New-Object System.Drawing.Point(8, 37)
+        $Scripts_Box.Controls.Add($separator)
+        $separator.BringToFront()
+        
+        #Add Serial Number Image to Scripts Box
+        $SerialNum_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABA0lEQVRIS+2W0QnCQAyGLfqgM4iraNfQLuIK3UOco7qKOIOCaP1TkiPk7lppOQX1oCS0Tb5Lmkuajd6wMjAKXLuErIIgdUJA41ogJFOt2kKOIC2Zdoacs36FnLJ+hxyzfoGcsX6CXLBeQeasexBKnUTVV5/Ax037sZH0dUybFts/xKVCpyWm/2i6YodTV2Done9Jl1cQH+ld9sRLzmkzD24Voc5d4tmWT722aaLqaivaQEZCbDzQfepZ9OFpuR7YBpHcikEIooHiVEfdGckrEF3CAuks4QOsVqb4aXbQDLFLT1Q79Cq8nLOB900CvgbfcpDBntocUJhrXPuElE3KHwi37ydiqY24MXbfkgAAAABJRU5ErkJggg=='
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $SerialNum_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $SerialNum_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $SerialNum_Image.Image = $ResizedImage
+        $SerialNum_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $SerialNum_Image.Location = New-Object System.Drawing.Point(5, 45)
+        $Scripts_Box.Controls.Add($SerialNum_Image)
+        $SerialNum_Image.BringToFront()
+        
+        #Add Serial Number Label to Scripts Box
+        $SerialNum = New-Object System.Windows.Forms.Label
+        $SerialNum.Text = "Serial Number:"
+        $SerialNum.AutoSize = $true
+        $SerialNum.Location = New-Object System.Drawing.Point(20, 45)
+        $Scripts_Box.Controls.Add($SerialNum)
+        $SerialNum.BringToFront()
+        
+        #Add Serial Number Checkbox to Scripts Box
+        $SerialNum_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $SerialNum_Checkbox.Text = ""
+        $SerialNum_Checkbox.AutoSize = $true
+        $SerialNum_Checkbox.Location = New-Object System.Drawing.Point(100, 45)
+        #Checkbox Status
+        if ($SerialNum_Checkbox_Cust -match 'False') {
+            $SerialNum_Checkbox.Checked = $False
+        }
+        else {
+            $SerialNum_Checkbox.Checked = $True
+        }
+        $Scripts_Box.Controls.Add($SerialNum_Checkbox)
+        $SerialNum_Checkbox.BringToFront()
+        
+        #Add Speed Test Image to Scripts Box
+        $SpeedTest_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABC0lEQVRIS92UOw7CMAyGW0CCCYkNcQUGxBk4TW/EhdjZmZhYYQOJ129UV47rBCWBCoFk0aTx//mVlkUHv7IDRvEzkDGyPYmMKbCHWE/wfAxVJJTJDY49w1lD+MgdD30L5oNQpFfYIALC51uaFoRLISO+ADYygGfsDet9ed7R1RBZa/KNGQyvrxTJAXCSpgZDtji1UBOUeoUkiHSXDFlhsYftYAfYLJVQ+0/xP4fReG8YIpudoe+4NprWzMc0WwdEwi1NvZECkD0wBykH8m4am/exEB01rSvY2mikA4lptK80QY3cTELi3nLFfkp8EKdf+p58A1JakFxQa+r0XKfck1DJXnqfFPUOwf9Anm20NxRL3bTtAAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $SpeedTest_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $SpeedTest_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $SpeedTest_Image.Image = $ResizedImage
+        $SpeedTest_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $SpeedTest_Image.Location = New-Object System.Drawing.Point(5, 60)
+        $Scripts_Box.Controls.Add($SpeedTest_Image)
+        $SpeedTest_Image.BringToFront()
+        
+        #Add Speed Test Label to Scripts Box
+        $SpeedTest = New-Object System.Windows.Forms.Label
+        $SpeedTest.Text = "Speed Test:"
+        $SpeedTest.AutoSize = $true
+        $SpeedTest.Location = New-Object System.Drawing.Point(20, 60)
+        $Scripts_Box.Controls.Add($SpeedTest)
+        $SpeedTest.BringToFront()
+        
+        #Add Speed Test Checkbox to Scripts Box
+        $SpeedTest_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $SpeedTest_Checkbox.Text = ""
+        $SpeedTest_Checkbox.AutoSize = $true
+        $SpeedTest_Checkbox.Location = New-Object System.Drawing.Point(100, 60)
+        #Checkbox Status
+        if ($SpeedTest_Checkbox_Cust -match 'False') {
+            $SpeedTest_Checkbox.Checked = $False
+        }
+        else {
+            $SpeedTest_Checkbox.Checked = $True
+        }
+        $Scripts_Box.Controls.Add($SpeedTest_Checkbox)
+        $SpeedTest_Checkbox.BringToFront()
+        
+        #Add Ping Google Image to Scripts Box
+        $PingGoogle_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEF0lEQVRIS4VWWUhVQRieOV7TIsuMFsESt9IumhvVQ7iVRGa0QMvNniKMnnoKohXb6K2I0oQCMTOLCIwie4gCF9KWq6Kp5bVegrKyRU2re2f6/3/OnHtuV2sunjPnzJzv/75/Gzn7z/hYkO2SnNdKiRslM+CCU/jjkjPX/IfP6v4FwSdbHCzIFoDE4QdIUgq46b34DEucgy39Pvrxiwmxgl6+ycsLn8qHxwiMWMOAXQippgBrLmhV2vDotOHwpPv9P+2kAwy8z8vYDsyuExCxBpIARjKItU0FsVcqyF/wDaoJYdw1v9Ftuc0ygMzDxLcxgoKN+o5fc7jYwS1hfxnVoscjRi0lloF3OenSACBkYfMMOcNQQMQQPyBZ8EYrtFyiYwMbFjR3EjZdsuo2i/qLA1wDYQBJt6klNC6Rzau+FZAPsnubFKMeM9KSGwaQA4u4yTCBQpa7DXqReX2T2N/wga/sH1GxNSWgf2NMJsvLvlm+wz2tx2bSXtGWQSlFUjHjzODh3LGig/PMuk0l0itrIMFl/QUPLPuJLmzpZCPjkuWf+R7AXj88OjCDTQ/nzPdkKWWWP2MUiDDEXp5+dYMqIYQGiXcqBojplPgkFn3tNss69tUCt6eonj8vi2Syc6MUP/p1QpEhZRB+adXrBaBbxuvLPZSisa3dPOOoAlcfqKHn+gN87z4eybwtySoDbCmGuDy1qpgyUOUlTclVcW0vWfqRL37X2BHJkpnIMG0/MYv5WhYT6xAr2GZhOqvWCW5GX1OsLx9g8WAgzW5gwiiol51gwNucYHOlnoKbnFeKzBhgGFQNINmuXfdY6uGhINf87TJ87joZxbxNcSY/VZJm7XOecnmtP28w2VANyNwyPJeX7atizkND/+DOWPepKCbdhdI30kcdxaBOCL6HO9YFd14qcvkMURuEAht6djfwYUjTZccnNtJ2NIpFQJp6G2MoulBVUlBNwBxIgp2dFLrFlWvQORAj1buUVhXE3j0P6DH54Ge6a7l9p2fTs2iKpgaBaHoVDWHAHTmDqpIXVRSq9NHFgtZVoyHARVFx7O7WygCRxTdL2euht6w7pZ3YInNSQC1WsXTkflIGcCSWr4YDyj9U5NUzdEHJhb9WNJcepxtZkNP1l+QaMOLIG/I3O1zMqiwN/frb80tvtNcM1SUAwRlpAUUYXvY0pSNAFfUhUOIYmxPOi9TBYyfN4s8Xuhj3+QOODRXdpmhad8yyV0ueU9bYOqM6qLl0OfJHgg8cy1Xn14b55Ng4xQR9qXIaDwowo+J0I6GXZU7DzqsaHPZ5AS50zBidwrPZb7usAAX2hdhzuRiBwCZpbuhPa1MzrEzsk3AJyR+HfziCx6QG9NbYszkloKPG7PjMk9ZqpTIA73Cs+kVn+GTjD1HmBQro0ZHdAAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $PingGoogle_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $PingGoogle_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $PingGoogle_Image.Image = $ResizedImage
+        $PingGoogle_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $PingGoogle_Image.Location = New-Object System.Drawing.Point(5, 75)
+        $Scripts_Box.Controls.Add($PingGoogle_Image)
+        $PingGoogle_Image.BringToFront()
+        
+        #Add Ping Google Label to Scripts Box
+        $PingGoogle = New-Object System.Windows.Forms.Label
+        $PingGoogle.Text = "Ping Google:"
+        $PingGoogle.AutoSize = $true
+        $PingGoogle.Location = New-Object System.Drawing.Point(20, 75)
+        $Scripts_Box.Controls.Add($PingGoogle)
+        $PingGoogle.BringToFront()
+        
+        #Add Ping Google Checkbox to Scripts Box
+        $PingGoogle_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $PingGoogle_Checkbox.Text = ""
+        $PingGoogle_Checkbox.AutoSize = $true
+        $PingGoogle_Checkbox.Location = New-Object System.Drawing.Point(100, 75)
+        #Checkbox Status
+        if ($PingGoogle_Checkbox_Cust -match 'False') {
+            $PingGoogle_Checkbox.Checked = $False
+        }
+        else {
+            $PingGoogle_Checkbox.Checked = $True
+        }
+        $Scripts_Box.Controls.Add($PingGoogle_Checkbox)
+        $PingGoogle_Checkbox.BringToFront()
+        
+        # Add Groupbox to Scripts Tab
+        $Scripts_Custom_Box = New-Object System.Windows.Forms.GroupBox
+        $Scripts_Custom_Box.Text = "Custom Scripts"
+        $Scripts_Custom_Box.Location = New-Object System.Drawing.Point(128, 5)
+        $Scripts_Custom_Box.Size = New-Object System.Drawing.Size(435, 285)
+        $ScriptsTab.Controls.Add($Scripts_Custom_Box)
+        
+        #Add Question Image to Scripts Box
+        $Custom_Scripts_Help_Image = New-Object System.Windows.Forms.Label
+        $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAxklEQVRIS8WW0Q2AIAxEZTz/HcKRHMJ/x9NAgkGE3h0Y9JfS1zsK1U3ENy/rWQs79s2hFGaAlTxPbMGKECU5A3tBegARmKt6QL4AlEA3BAFKnrN7KIh1qEznBQgTaLUp2i9B0mSpOghBvjKXEOVwKGA4pNYAqFBJSUsbeye6IEhBtLoZwgJkJX6Dt0wBBAi6jGhWoHVflAxRldwQVg17y/OXmHogS883cy6xqLHzJFbLVMgcdhrzz4xPK1BUyX8ruR1oXiD7LvmhkjZLp5jjAAAAAElFTkSuQmCC'
+        $IconBytes = [Convert]::FromBase64String($IconBase64)
+        $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+        $Custom_Scripts_Help_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+        $ResizedImage = $Custom_Scripts_Help_Picture.ToBitmap().GetThumbnailImage(13, 13, $null, [System.IntPtr]::Zero)
+        $Custom_Scripts_Help_Image.Image = $ResizedImage
+        $Custom_Scripts_Help_Image.Size = New-Object System.Drawing.Size(13, 13)
+        $Custom_Scripts_Help_Image.Location = New-Object System.Drawing.Point(415, 11)
+        
+        # Create a ToolTip object
+        $toolTip = New-Object System.Windows.Forms.ToolTip
+        $Custom_Scripts_Help_Image.add_MouseHover({
+                $toolTip.SetToolTip($Custom_Scripts_Help_Image, "Powershell script files only.")
+            })
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_Help_Image)
+        $Custom_Scripts_Help_Image.BringToFront()
+        
+        # Create a label
+        $Custom_Scripts_1_Label = New-Object System.Windows.Forms.Label
+        $Custom_Scripts_1_Label.Location = New-Object System.Drawing.Point(9, 20)
+        $Custom_Scripts_1_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Scripts_1_Label.Text = "Custom Script #1:"
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_1_Label)
+        
+        # Create a text box
+        $Custom_Scripts_1_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Scripts_1_Textbox.Location = New-Object System.Drawing.Point(10, 36)
+        $Custom_Scripts_1_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_Scripts_1_Cust) {
+            $Custom_Scripts_1_Textbox.Text = $Custom_Scripts_1_Cust
+        }
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_1_Textbox)
+        
+        # Create a button to select file
+        $Custom_Scripts_1_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_Scripts_1_SelectFile.Location = New-Object System.Drawing.Point(355, 35)
+        $Custom_Scripts_1_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_Scripts_1_SelectFile.Text = "Browse"
+        $Custom_Scripts_1_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "PowerShell scripts (*.ps1)|*.ps1|All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_Scripts_1_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_1_SelectFile)
+        
+        # Create a label
+        $Custom_Scripts_2_Label = New-Object System.Windows.Forms.Label
+        $Custom_Scripts_2_Label.Location = New-Object System.Drawing.Point(9, 64)
+        $Custom_Scripts_2_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Scripts_2_Label.Text = "Custom Script #2:"
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_2_Label)
+        
+        # Create a text box
+        $Custom_Scripts_2_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Scripts_2_Textbox.Location = New-Object System.Drawing.Point(10, 80)
+        $Custom_Scripts_2_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_Scripts_2_Cust) {
+            $Custom_Scripts_2_Textbox.Text = $Custom_Scripts_2_Cust
+        }
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_2_Textbox)
+        
+        $Custom_Scripts_2_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_Scripts_2_SelectFile.Location = New-Object System.Drawing.Point(355, 79)
+        $Custom_Scripts_2_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_Scripts_2_SelectFile.Text = "Browse"
+        $Custom_Scripts_2_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "PowerShell scripts (*.ps1)|*.ps1|All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_Scripts_2_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_2_SelectFile)
+        
+        # Create a label
+        $Custom_Scripts_3_Label = New-Object System.Windows.Forms.Label
+        $Custom_Scripts_3_Label.Location = New-Object System.Drawing.Point(9, 108)
+        $Custom_Scripts_3_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Scripts_3_Label.Text = "Custom Script #3:"
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_3_Label)
+        
+        # Create a text box
+        $Custom_Scripts_3_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Scripts_3_Textbox.Location = New-Object System.Drawing.Point(10, 124)
+        $Custom_Scripts_3_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_Scripts_3_Cust) {
+            $Custom_Scripts_3_Textbox.Text = $Custom_Scripts_3_Cust
+        }
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_3_Textbox)
+        
+        $Custom_Scripts_3_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_Scripts_3_SelectFile.Location = New-Object System.Drawing.Point(355, 123)
+        $Custom_Scripts_3_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_Scripts_3_SelectFile.Text = "Browse"
+        $Custom_Scripts_3_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "PowerShell scripts (*.ps1)|*.ps1|All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_Scripts_3_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_3_SelectFile)
+        
+        # Create a label
+        $Custom_Scripts_4_Label = New-Object System.Windows.Forms.Label
+        $Custom_Scripts_4_Label.Location = New-Object System.Drawing.Point(9, 152)
+        $Custom_Scripts_4_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Scripts_4_Label.Text = "Custom Script #4:"
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_4_Label)
+        
+        # Create a text box
+        $Custom_Scripts_4_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Scripts_4_Textbox.Location = New-Object System.Drawing.Point(10, 168)
+        $Custom_Scripts_4_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_Scripts_4_Cust) {
+            $Custom_Scripts_4_Textbox.Text = $Custom_Scripts_4_Cust
+        }
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_4_Textbox)
+        
+        $Custom_Scripts_4_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_Scripts_4_SelectFile.Location = New-Object System.Drawing.Point(355, 167)
+        $Custom_Scripts_4_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_Scripts_4_SelectFile.Text = "Browse"
+        $Custom_Scripts_4_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "PowerShell scripts (*.ps1)|*.ps1|All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_Scripts_4_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_4_SelectFile)
+        
+        # Create a label
+        $Custom_Scripts_5_Label = New-Object System.Windows.Forms.Label
+        $Custom_Scripts_5_Label.Location = New-Object System.Drawing.Point(9, 196)
+        $Custom_Scripts_5_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Scripts_5_Label.Text = "Custom Script #5:"
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_5_Label)
+        
+        # Create a text box
+        $Custom_Scripts_5_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Scripts_5_Textbox.Location = New-Object System.Drawing.Point(10, 212)
+        $Custom_Scripts_5_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_Scripts_5_Cust) {
+            $Custom_Scripts_5_Textbox.Text = $Custom_Scripts_5_Cust
+        }
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_5_Textbox)
+        
+        $Custom_Scripts_5_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_Scripts_5_SelectFile.Location = New-Object System.Drawing.Point(355, 211)
+        $Custom_Scripts_5_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_Scripts_5_SelectFile.Text = "Browse"
+        $Custom_Scripts_5_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "PowerShell scripts (*.ps1)|*.ps1|All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_Scripts_5_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_5_SelectFile)
+        
+        # Create a label
+        $Custom_Scripts_6_Label = New-Object System.Windows.Forms.Label
+        $Custom_Scripts_6_Label.Location = New-Object System.Drawing.Point(9, 240)
+        $Custom_Scripts_6_Label.Size = New-Object System.Drawing.Size(280, 15)
+        $Custom_Scripts_6_Label.Text = "Custom Script #6:"
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_6_Label)
+        
+        # Create a text box
+        $Custom_Scripts_6_Textbox = New-Object System.Windows.Forms.TextBox
+        $Custom_Scripts_6_Textbox.Location = New-Object System.Drawing.Point(10, 256)
+        $Custom_Scripts_6_Textbox.Size = New-Object System.Drawing.Size(338, 20)
+        if ($Custom_Scripts_6_Cust) {
+            $Custom_Scripts_6_Textbox.Text = $Custom_Scripts_6_Cust
+        }
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_6_Textbox)
+        
+        $Custom_Scripts_6_SelectFile = New-Object System.Windows.Forms.Button
+        $Custom_Scripts_6_SelectFile.Location = New-Object System.Drawing.Point(355, 255)
+        $Custom_Scripts_6_SelectFile.Size = New-Object System.Drawing.Size(70, 20)
+        $Custom_Scripts_6_SelectFile.Text = "Browse"
+        $Custom_Scripts_6_SelectFile.Add_Click({
+                $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+                $openFileDialog.Filter = "PowerShell scripts (*.ps1)|*.ps1|All files (*.*)|*.*"
+                $openFileDialog.Title = "Select a file"
+                $openFileDialog.InitialDirectory = "C:\"
+                $result = $openFileDialog.ShowDialog()
+                if ($result -eq 'OK') {
+                    $selectedFilePath = $openFileDialog.FileName
+                    $Custom_Scripts_6_Textbox.Text = $selectedFilePath
+                }
+            })
+        $Scripts_Custom_Box.Controls.Add($Custom_Scripts_6_SelectFile)
+        
+        #Add Select All Label to Scripts Box
+        $Select_All = New-Object System.Windows.Forms.Label
+        $Select_All.Text = "Select All:"
+        $Select_All.AutoSize = $true
+        $Select_All.Location = New-Object System.Drawing.Point(20, 20)
+        $Scripts_Box.Controls.Add($Select_All)
+        $Select_All.BringToFront()
+        
+        #Add Select All Checkbox to Scripts Box
+        $Select_All_Checkbox = New-Object System.Windows.Forms.CheckBox
+        $Select_All_Checkbox.Text = ""
+        $Select_All_Checkbox.AutoSize = $true
+        $Select_All_Checkbox.Location = New-Object System.Drawing.Point(80, 20)
+        if ($SerialNum_Checkbox_Cust -match "$True" -and $SpeedTest_Checkbox_Cust -match "$True" -and $PingGoogle_Checkbox_Cust -match "$True") {
+            $Select_All_Checkbox.Checked = $True
+        }
+        else {
+            $Select_All_Checkbox.Checked = $False
+        }
+        $Select_All_Checkbox.Add_CheckedChanged({
+                foreach ($checkbox in $Scripts_checkboxes) {
+                    $checkbox.Checked = $this.Checked
+                }
+            })
+        $Scripts_Box.Controls.Add($Select_All_Checkbox)
+        $Select_All_Checkbox.BringToFront()
+        
+        # Array of all checkboxes
+        $Scripts_checkboxes = @($SerialNum_Checkbox, $SpeedTest_Checkbox, $PingGoogle_Checkbox)
+        
+        #############################################################################################################################
+        
+        #Create Save Button
+        $SaveButton = New-Object System.Windows.Forms.Button
+        $SaveButton.Text = "Save and Close"
+        $SaveButton.Size = New-Object System.Drawing.Size(150, 36)
+        $SaveButton.Location = New-Object System.Drawing.Point(220, 327)
+        $SaveButton.add_Click({
+                ##########################    APPLICATIONS    ##########################
+                $ClickPaste_AppValue = if ($ClickPaste_App_Checkbox.Checked) { "True" } else { "False" }
+                $commandValue = if ($Command_Checkbox.Checked) { "True" } else { "False" }
+                $compmgmtValue = if ($Comp_Mgmt_Checkbox.Checked) { "True" } else { "False" }
+                $gpupdateValue = if ($GPUPDATE_Checkbox.Checked) { "True" } else { "False" }
+                $MMCValue = if ($MMC_Checkbox.Checked) { "True" } else { "False" }
+                $Net_ConnValue = if ($Net_Conn_Checkbox.Checked) { "True" } else { "False" }
+                $passwordValue = if ($Password_Gen_Checkbox.Checked) { "True" } else { "False" }
+                $Powershell_AppValue = if ($Powershell_App_Checkbox.Checked) { "True" } else { "False" }
+                $powershelliseValue = if ($Powershell_ISE_Checkbox.Checked) { "True" } else { "False" }
+                $PuTTy_AppValue = if ($PuTTy_App_Checkbox.Checked) { "True" } else { "False" }
+                $registryValue = if ($Registry_Checkbox.Checked) { "True" } else { "False" }
+                $sandboxValue = if ($Sandbox_Checkbox.Checked) { "True" } else { "False" }
+                $customapp1Value = $Custom_App_1_Textbox.Text
+                $customapp2Value = $Custom_App_2_Textbox.Text
+                $customapp3Value = $Custom_App_3_Textbox.Text
+                $customapp4Value = $Custom_App_4_Textbox.Text
+                $customapp5Value = $Custom_App_5_Textbox.Text
+                $customapp6Value = $Custom_App_6_Textbox.Text
+        
+                "[     APPLICATIONS     ]" | Out-File -FilePath $configFilePath
+        
+                "[Click Paste]" | Out-File -FilePath $configFilePath -Append
+                "ClickPaste_App_Checkbox_Cust = $ClickPaste_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[CMD]" | Out-File -FilePath $configFilePath -Append
+                "Command_Checkbox_Cust = $commandValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Computer Management]" | Out-File -FilePath $configFilePath -Append
+                "Comp_Mgmt_Checkbox_Cust = $compmgmtValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[GPUPDATE]" | Out-File -FilePath $configFilePath -Append
+                "GPUPDATE_Checkbox_Cust = $gpupdateValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[MMC]" | Out-File -FilePath $configFilePath -Append
+                "MMC_Checkbox_Cust = $MMCValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Network Connections]" | Out-File -FilePath $configFilePath -Append
+                "Net_Conn_Checkbox_Cust = $Net_ConnValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Password Generator]" | Out-File -FilePath $configFilePath -Append
+                "Password_Gen_Checkbox_Cust = $passwordValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Powershell]" | Out-File -FilePath $configFilePath -Append
+                "Powershell_App_Checkbox_Cust = $Powershell_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Powershell ISE]" | Out-File -FilePath $configFilePath -Append
+                "Powershell_ISE_Checkbox_Cust = $powershelliseValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[PuTTy]" | Out-File -FilePath $configFilePath -Append
+                "PuTTy_App_Checkbox_Cust = $PuTTy_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Registry]" | Out-File -FilePath $configFilePath -Append
+                "Registry_Checkbox_Cust = $registryValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Windows Sandbox]" | Out-File -FilePath $configFilePath -Append
+                "Sandbox_Checkbox_Cust = $sandboxValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom App #1]" | Out-File -FilePath $configFilePath -Append
+                "Custom_App_1_Cust = $customapp1Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom App #2]" | Out-File -FilePath $configFilePath -Append
+                "Custom_App_2_Cust = $customapp2Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom App #3]" | Out-File -FilePath $configFilePath -Append
+                "Custom_App_3_Cust = $customapp3Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom App #4]" | Out-File -FilePath $configFilePath -Append
+                "Custom_App_4_Cust = $customapp4Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom App #5]" | Out-File -FilePath $configFilePath -Append
+                "Custom_App_5_Cust = $customapp5Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom App #6]" | Out-File -FilePath $configFilePath -Append
+                "Custom_App_6_Cust = $customapp6Value" | Out-File -FilePath $configFilePath -Append
+        
+                ##########################   WETFLOOR    ##########################
+        
+                $Active_Directory_WF_AppValue = if ($Active_Directory_WF_Checkbox.Checked) { "True" } else { "False" }
+                $ADIE_AppValue = if ($ADIE_Checkbox.Checked) { "True" } else { "False" }
+                $Command_WF_AppValue = if ($Command_WF_Checkbox.Checked) { "True" } else { "False" }
+                $Comp_Mgmt_WF_AppValue = if ($Comp_Mgmt_WF_Checkbox.Checked) { "True" } else { "False" }
+                $Exc_AAD_Conn_WF_AppValue = if ($Exc_AAD_Conn_WF_Checkbox.Checked) { "True" } else { "False" }
+                $Group_Policy_WF_AppValue = if ($Group_Policy_WF_Checkbox.Checked) { "True" } else { "False" }
+                $gpupdate_WF_AppValue = if ($gpupdate_WF_Checkbox.Checked) { "True" } else { "False" }
+                $HyperV_Mgr_WF_AppValue = if ($HyperV_Mgr_WF_Checkbox.Checked) { "True" } else { "False" }
+                $MMC_WF_AppValue = if ($MMC_WF_Checkbox.Checked) { "True" } else { "False" }
+                $Powershell_WF_AppValue = if ($Powershell_WF_Checkbox.Checked) { "True" } else { "False" }
+                $Powershell_ISE_WF_AppValue = if ($Powershell_ISE_WF_Checkbox.Checked) { "True" } else { "False" }
+                $Registry_WF_AppValue = if ($Registry_WF_Checkbox.Checked) { "True" } else { "False" }
+                $Sys_Prop_WF_AppValue = if ($Sys_Prop_WF_Checkbox.Checked) { "True" } else { "False" }
+                $Task_Mgr_WF_AppValue = if ($Task_Mgr_WF_Checkbox.Checked) { "True" } else { "False" }
+                $Task_Sched_WF_AppValue = if ($Task_Sched_WF_Checkbox.Checked) { "True" } else { "False" }
+                $customwf1Value = $Custom_WF_1_Textbox.Text
+                $customwf2Value = $Custom_WF_2_Textbox.Text
+                $customwf3Value = $Custom_WF_3_Textbox.Text
+                $customwf4Value = $Custom_WF_4_Textbox.Text
+                $customwf5Value = $Custom_WF_5_Textbox.Text
+                $customwf6Value = $Custom_WF_6_Textbox.Text
+        
+                "[     WET-FLOOR     ]" | Out-File -FilePath $configFilePath -Append
+        
+                "[Active Directory]" | Out-File -FilePath $configFilePath -Append
+                "Active_Directory_WF_Checkbox_Cust = $Active_Directory_WF_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Active Directory Intune Edition]" | Out-File -FilePath $configFilePath -Append
+                "ADIE_Checkbox_Cust = $ADIE_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Command Prompt]" | Out-File -FilePath $configFilePath -Append
+                "Command_WF_Checkbox_Cust = $Command_WF_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Computer Management]" | Out-File -FilePath $configFilePath -Append
+                "Comp_Mgmt_WF_Checkbox_Cust = $Comp_Mgmt_WF_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Exchange and AAD]" | Out-File -FilePath $configFilePath -Append
+                "Exc_AAD_Conn_WF_Checkbox_Cust = $Exc_AAD_Conn_WF_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Group Policy]" | Out-File -FilePath $configFilePath -Append
+                "Group_Policy_WF_Checkbox_Cust = $Group_Policy_WF_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[GPUpdate]" | Out-File -FilePath $configFilePath -Append
+                "gpupdate_WF_Checkbox_Cust = $gpupdate_WF_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Hyper-V Manager]" | Out-File -FilePath $configFilePath -Append
+                "HyperV_Mgr_WF_Checkbox_Cust = $HyperV_Mgr_WF_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[MMC]" | Out-File -FilePath $configFilePath -Append
+                "MMC_WF_Checkbox_Cust = $MMC_WF_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Powershell]" | Out-File -FilePath $configFilePath -Append
+                "Powershell_WF_Checkbox_Cust = $Powershell_WF_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Powershell ISE]" | Out-File -FilePath $configFilePath -Append
+                "Powershell_ISE_WF_Checkbox_Cust = $Powershell_ISE_WF_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Registry]" | Out-File -FilePath $configFilePath -Append
+                "Registry_WF_Checkbox_Cust = $Registry_WF_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[System Properties]" | Out-File -FilePath $configFilePath -Append
+                "Sys_Prop_WF_Checkbox_Cust = $Sys_Prop_WF_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Task Manager]" | Out-File -FilePath $configFilePath -Append
+                "Task_Mgr_WF_Checkbox_Cust = $Task_Mgr_WF_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Task Scheduler]" | Out-File -FilePath $configFilePath -Append
+                "Task_Sched_WF_Checkbox_Cust = $Task_Sched_WF_AppValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Wet Floor App #1]" | Out-File -FilePath $configFilePath -Append
+                "Custom_WF_1_Cust = $customwf1Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Wet Floor App #2]" | Out-File -FilePath $configFilePath -Append
+                "Custom_WF_2_Cust = $customwf2Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Wet Floor App #3]" | Out-File -FilePath $configFilePath -Append
+                "Custom_WF_3_Cust = $customwf3Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Wet Floor App #4]" | Out-File -FilePath $configFilePath -Append
+                "Custom_WF_4_Cust = $customwf4Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Wet Floor App #5]" | Out-File -FilePath $configFilePath -Append
+                "Custom_WF_5_Cust = $customwf5Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Wet Floor App #6]" | Out-File -FilePath $configFilePath -Append
+                "Custom_WF_6_Cust = $customwf6Value" | Out-File -FilePath $configFilePath -Append
+        
+                ##########################    BOOKMARKS    ########################## 
+        
+                $t1bwitlinksValue = if ($T1_BWITLINKS_Checkbox.Checked) { "True" } else { "False" }
+                $t2bwitlinksValue = if ($T2_BWITLINKS_Checkbox.Checked) { "True" } else { "False" }
+                $t3bwitlinksValue = if ($T3_BWITLINKS_Checkbox.Checked) { "True" } else { "False" }
+                $custombookmark1Value = $Custom_Bookmark_1_Textbox.Text
+                $custombookmark2Value = $Custom_Bookmark_2_Textbox.Text
+                $custombookmark3Value = $Custom_Bookmark_3_Textbox.Text
+                $custombookmark4Value = $Custom_Bookmark_4_Textbox.Text
+                $custombookmark5Value = $Custom_Bookmark_5_Textbox.Text
+                $custombookmark6Value = $Custom_Bookmark_6_Textbox.Text
+        
+                "[     BOOKMARKS     ]" | Out-File -FilePath $configFilePath -Append
+        
+                "[T1 BWITLinks]" | Out-File -FilePath $configFilePath -Append
+                "T1_BWITLINKS_Checkbox_Cust = $t1bwitlinksValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[T2 BWITLinks]" | Out-File -FilePath $configFilePath -Append
+                "T2_BWITLINKS_Checkbox_Cust = $t2bwitlinksValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[T3 BWITLinks]" | Out-File -FilePath $configFilePath -Append
+                "T3_BWITLINKS_Checkbox_Cust = $t3bwitlinksValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Bookmark #1]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Bookmark_1_Cust = $custombookmark1Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Bookmark #2]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Bookmark_2_Cust = $custombookmark2Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Bookmark #3]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Bookmark_3_Cust = $custombookmark3Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Bookmark #4]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Bookmark_4_Cust = $custombookmark4Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Bookmark #5]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Bookmark_5_Cust = $custombookmark5Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Bookmark #6]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Bookmark_6_Cust = $custombookmark6Value" | Out-File -FilePath $configFilePath -Append
+        
+                ##########################    INSTALLS   ##########################
+        
+                $7Zip_InstValue = if ($7Zip_Checkbox.Checked) { "True" } else { "False" }
+                $Act_Dir_InstValue = if ($Act_Dir_Checkbox.Checked) { "True" } else { "False" }
+                $Brave_InstValue = if ($Brave_Checkbox.Checked) { "True" } else { "False" }
+                $ClickPaste_InstValue = if ($ClickPaste_Inst_Checkbox.Checked) { "True" } else { "False" }
+                $Firefox_InstValue = if ($Firefox_Checkbox.Checked) { "True" } else { "False" }
+                $Chrome_InstValue = if ($Chrome_Checkbox.Checked) { "True" } else { "False" }
+                $GrpPol_InstValue = if ($Grp_Pol_Checkbox.Checked) { "True" } else { "False" }
+                $PuTTy_InstValue = if ($PuTTy_Inst_Checkbox.Checked) { "True" } else { "False" }
+                $Powershell_InstValue = if ($Powershell_Inst_Checkbox.Checked) { "True" } else { "False" }
+                $RSATTools_InstValue = if ($RSAT_Tools_Checkbox.Checked) { "True" } else { "False" }
+                $VLC_InstValue = if ($VLC_Checkbox.Checked) { "True" } else { "False" }
+                $VSCode_InstValue = if ($VSC_Checkbox.Checked) { "True" } else { "False" }
+                $WinSand_InstValue = if ($Win_Sand_Checkbox.Checked) { "True" } else { "False" }
+                $WinDirStat_InstValue = if ($WinDirStat_Checkbox.Checked) { "True" } else { "False" }
+                $custominst1Value = $Custom_Install_1_Textbox.Text
+                $custominst2Value = $Custom_Install_2_Textbox.Text
+                $custominst3Value = $Custom_Install_3_Textbox.Text
+                $custominst4Value = $Custom_Install_4_Textbox.Text
+                $custominst5Value = $Custom_Install_5_Textbox.Text
+                $custominst6Value = $Custom_Install_6_Textbox.Text
+        
+                "[     INSTALLS     ]" | Out-File -FilePath $configFilePath -Append
+        
+                "[7Zip]" | Out-File -FilePath $configFilePath -Append
+                "7Zip_Checkbox_Cust = $7Zip_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[CMD]" | Out-File -FilePath $configFilePath -Append
+                "Act_Dir_Checkbox_Cust = $Act_Dir_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Brave]" | Out-File -FilePath $configFilePath -Append
+                "Brave_Checkbox_Cust = $Brave_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Click Paste]" | Out-File -FilePath $configFilePath -Append
+                "ClickPaste_Inst_Checkbox_Cust = $ClickPaste_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Firefox]" | Out-File -FilePath $configFilePath -Append
+                "Firefox_Checkbox_Cust = $Firefox_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Chrome]" | Out-File -FilePath $configFilePath -Append
+                "Chrome_Checkbox_Cust = $Chrome_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Group Policy]" | Out-File -FilePath $configFilePath -Append
+                "Grp_Pol_Checkbox_Cust = $GrpPol_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[PuTTy]" | Out-File -FilePath $configFilePath -Append
+                "PuTTy_Inst_Checkbox_Cust = $PuTTy_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Powershell]" | Out-File -FilePath $configFilePath -Append
+                "Powershell_Inst_Checkbox_Cust = $powershell_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[RSAT Tools]" | Out-File -FilePath $configFilePath -Append
+                "RSAT_Tools_Checkbox_Cust = $RSATTools_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[VLC]" | Out-File -FilePath $configFilePath -Append
+                "VLC_Checkbox_Cust = $VLC_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Visual Studio Code]" | Out-File -FilePath $configFilePath -Append
+                "VSC_Checkbox_Cust = $VSCode_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Windows Sandbox]" | Out-File -FilePath $configFilePath -Append
+                "Win_Sand_Checkbox_Cust = $WinSand_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[WinDirStat]" | Out-File -FilePath $configFilePath -Append
+                "WinDirStat_Checkbox_Cust = $WinDirStat_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Installs #1]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Install_1_Cust = $custominst1Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Installs #2]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Install_2_Cust = $custominst2Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Installs #3]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Install_3_Cust = $custominst3Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Installs #4]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Install_4_Cust = $custominst4Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Installs #5]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Install_5_Cust = $custominst5Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Installs #6]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Install_6_Cust = $custominst6Value" | Out-File -FilePath $configFilePath -Append
+        
+                ##########################    SCRIPTS   ##########################
+                $SerialNum_InstValue = if ($SerialNum_Checkbox.Checked) { "True" } else { "False" }
+                $SpeedTest_InstValue = if ($SpeedTest_Checkbox.Checked) { "True" } else { "False" }
+                $PingGoogle_InstValue = if ($PingGoogle_Checkbox.Checked) { "True" } else { "False" }
+                $customscripts1Value = $Custom_Scripts_1_Textbox.Text
+                $customscripts2Value = $Custom_Scripts_2_Textbox.Text
+                $customscripts3Value = $Custom_Scripts_3_Textbox.Text
+                $customscripts4Value = $Custom_Scripts_4_Textbox.Text
+                $customscripts5Value = $Custom_Scripts_5_Textbox.Text
+                $customscripts6Value = $Custom_Scripts_6_Textbox.Text
+        
+                "[     SCRIPTS    ]" | Out-File -FilePath $configFilePath -Append
+        
+                "[Serial Number]" | Out-File -FilePath $configFilePath -Append
+                "SerialNum_Checkbox_Cust = $SerialNum_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Speed Test]" | Out-File -FilePath $configFilePath -Append
+                "SpeedTest_Checkbox_Cust = $SpeedTest_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Ping Google]" | Out-File -FilePath $configFilePath -Append
+                "PingGoogle_Checkbox_Cust = $PingGoogle_InstValue" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Scripts #1]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Scripts_1_Cust = $customscripts1Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Scripts #2]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Scripts_2_Cust = $customscripts2Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Scripts #3]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Scripts_3_Cust = $customscripts3Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Scripts #4]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Scripts_4_Cust = $customscripts4Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Scripts #5]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Scripts_5_Cust = $customscripts5Value" | Out-File -FilePath $configFilePath -Append
+        
+                "[Custom Scripts #6]" | Out-File -FilePath $configFilePath -Append
+                "Custom_Scripts_6_Cust = $customscripts6Value" | Out-File -FilePath $configFilePath -Append
+        
+                $form.Dispose()
+            })
+        $form.Controls.Add($SaveButton)
+        
+        # Show the form
+        $form.ShowDialog() | Out-Null
+            
+        $form.Dispose()
+
+        $Systray_Tool_Icon.Visible = $false
+        $window.Close()
+    })
+
+###############################################################################################################################################################
+#                                                                 End Configurator                                                                            #
+###############################################################################################################################################################
+
 #Exit
 $Menu_Exit = $contextmenu.Items.Add("Exit")
 $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAApklEQVRIS2NkQAPGxsb/0cVI4Z89e5YRWT0Kh1LDYQYjW4LVAnRXEOsDmANHLcAZYlQPIpCB6PGFLkZRJMNc/PHjR447d+78xOY1qlgANfg30Dds6JYQZQEp+YOojIasiBTDycpo5FgAsgjmSIJBNCgtILmoIMUXJEcyvoIOzWLykykuS+iS0WhaVOCqDUmO5NEKBx4CpKR3fMGGMw5Amii1BD1VAQBT08IZ4lLZJwAAAABJRU5ErkJggg=='
@@ -115,33 +3607,17 @@ $Menu1_Elevated_Apps.Image = $Menu1_Elevated_Apps_Picture
 $Application_Menu.DropDownItems.Add($Menu1_Elevated_Apps)
 
 $Menu1_Elevated_Apps.add_Click({
-        $WFexe = "$PWD\Wet-Floor.ps1"
-        $startParams = @{
-            FilePath     = 'powershell'
-            ArgumentList = '-nologo', '-ExecutionPolicy Bypass', '-noprofile', "-file $WFexe"
-            PassThru     = $true
-        }
-        Start-Process @startParams -Verb Runas
-        $Path = "HKCU:\Control Panel\NotifyIconSettings"
-        If (Test-Path -Path $Path) {
-            $subkeys = Get-ChildItem -Path $Path | Where-Object { $_.PSPath -ne 'Microsoft.PowerShell.Core\Registry::HKEY_CURRENT_USER\Control Panel\NotifyIconSettings' }
-            foreach ($subkey in $subkeys) {
-                $subkeyPath = $subkey.PSPath
-                if (Test-Path $subkeyPath) {
-                    $key = Get-Item -LiteralPath $subkeyPath
-                    if ($key.GetValue("ExecutablePath")) {
-                        $executablePath = $key.GetValue("ExecutablePath")
-                        if ($executablePath -like "*Wet-Floor.exe") {
-                            Set-ItemProperty -Path $subkeyPath -Name "IsPromoted" -Value 1 -Type DWord
-                        }
-                    }
-                }
-            }
-        }
+        $WF = "C:\ProgramData\Combat-Hounds\Wet-Floor.exe"
     })
     
 #Separator
 $Separator2 = New-Object System.Windows.Forms.ToolStripSeparator
+if ($ClickPaste_App_Checkbox_Cust -match "$False" -and $Command_Checkbox_Cust -match "$False" -and $Comp_Mgmt_Checkbox_Cust -match "$False" -and $GPUPDATE_Checkbox_Cust -match "$False" -and $MMC_Checkbox_Cust -match "$False" -and $Net_Conn_Checkbox_Cust -match "$False" -and $Password_Gen_Checkbox_Cust -match "$False" -and $Powershell_App_Checkbox_Cust -match "$False" -and $Powershell_ISE_Checkbox_Cust -match "$False" -and $PuTTy_App_Checkbox_Cust -match "$False" -and $Registry_Checkbox_Cust -match "$False" -and $Sandbox_Checkbox_Cust -match "$False") {
+    $Separator2.Visible = $False
+}
+else {
+    $Separator2.Visible = $True
+}
 $Application_Menu.DropDownItems.Add($Separator2)
 
 #Click Paste
@@ -152,6 +3628,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu1_Click_Paste_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu1_Click_Paste.Image = $Menu1_Click_Paste_Picture
+if ($ClickPaste_App_Checkbox_Cust -match 'False') {
+    $Menu1_Click_Paste.Visible = $False
+}
+else {
+    $Menu1_Click_Paste.Visible = $True
+}
 $Application_Menu.DropDownItems.Add($Menu1_Click_Paste)
 
 $Menu1_Click_Paste.add_Click({
@@ -173,6 +3655,13 @@ $Menu1_CMD = New-Object System.Windows.Forms.ToolStripMenuItem
 $Menu1_CMD.Text = "Command Prompt"
 $Menu1_CMD_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\cmd.exe")
 $Menu1_CMD.Image = $Menu1_CMD_Picture
+$Menu1_Click_Paste.Image = $Menu1_Click_Paste_Picture
+if ($Command_Checkbox_Cust -match 'False') {
+    $Menu1_CMD.Visible = $False
+}
+else {
+    $Menu1_CMD.Visible = $True
+}
 $Application_Menu.DropDownItems.Add($Menu1_CMD)
 
 $Menu1_CMD.add_Click({ 
@@ -184,6 +3673,12 @@ $Menu1_Comp_Mgmt = New-Object System.Windows.Forms.ToolStripMenuItem
 $Menu1_Comp_Mgmt.Text = "Computer Management"
 $Menu1_Comp_Mgmt_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\compmgmt.msc")
 $Menu1_Comp_Mgmt.Image = $Menu1_Comp_Mgmt_Picture
+if ($Comp_Mgmt_Checkbox_Cust -match 'False') {
+    $Menu1_Comp_Mgmt.Visible = $False
+}
+else {
+    $Menu1_Comp_Mgmt.Visible = $True
+}
 $Application_Menu.DropDownItems.Add($Menu1_Comp_Mgmt)
 
 $Menu1_Comp_Mgmt.add_Click({ 
@@ -195,6 +3690,12 @@ $Menu1_gpupdate = New-Object System.Windows.Forms.ToolStripMenuItem
 $Menu1_gpupdate.Text = "Group Policy Update"
 $Menu1_gpupdate_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\cmd.exe")
 $Menu1_gpupdate.Image = $Menu1_gpupdate_Picture
+if ($GPUPDATE_Checkbox_Cust -match 'False') {
+    $Menu1_gpupdate.Visible = $False
+}
+else {
+    $Menu1_gpupdate.Visible = $True
+}
 $Application_Menu.DropDownItems.Add($Menu1_gpupdate)
 
 $Menu1_gpupdate.add_Click({
@@ -212,6 +3713,13 @@ $Menu1_MMC = New-Object System.Windows.Forms.ToolStripMenuItem
 $Menu1_MMC.Text = "MMC"
 $Menu1_MMC_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\windows\system32\mmc.exe")
 $Menu1_MMC.Image = $Menu1_MMC_Picture
+if ($MMC_Checkbox_Cust -match 'False') {
+    $Menu1_MMC.Visible = $False
+}
+else {
+    $Menu1_MMC.Visible = $True
+}
+$Application_Menu.DropDownItems.Add($Menu1_gpupdate)
 $Application_Menu.DropDownItems.Add($Menu1_MMC)
 
 $Menu1_MMC.add_Click({
@@ -226,6 +3734,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu1_Net_Con_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu1_Net_Con.Image = $Menu1_Net_Con_Picture
+if ($Net_Conn_Checkbox_Cust -match 'False') {
+    $Menu1_Net_Con.Visible = $False
+}
+else {
+    $Menu1_Net_Con.Visible = $True
+}
 $Application_Menu.DropDownItems.Add($Menu1_Net_Con)
 
 $Menu1_Net_Con.add_Click({ 
@@ -240,6 +3754,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu1_Pass_Gen_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu1_Pass_Gen.Image = $Menu1_Pass_Gen_Picture
+if ($Password_Gen_Checkbox_Cust -match 'False') {
+    $Menu1_Pass_Gen.Visible = $False
+}
+else {
+    $Menu1_Pass_Gen.Visible = $True
+}
 $Application_Menu.DropDownItems.Add($Menu1_Pass_Gen)
 
 $Menu1_Pass_Gen.add_Click({
@@ -264,23 +3784,23 @@ $Menu1_Pass_Gen.add_Click({
         $lblpassphrase = New-Object System.Windows.Forms.Label
         $lblpassphrase.Text = "Passphrase:"
         $lblpassphrase.AutoSize = $true
-        $lblpassphrase.Location = New-Object System.Drawing.Point(6, 18)
+        $lblpassphrase.Location = New-Object System.Drawing.Point(10, 18)
 
         # Create textbox for passphrase
         $txtpassphrase = New-Object System.Windows.Forms.TextBox
         $txtpassphrase.Width = 90
-        $txtpassphrase.Location = New-Object System.Drawing.Point(81, 15)
+        $txtpassphrase.Location = New-Object System.Drawing.Point(85, 15)
 
         # Create label for password length
         $lblPasswordLength = New-Object System.Windows.Forms.Label
         $lblPasswordLength.Text = "Length:"
         $lblPasswordLength.AutoSize = $true
-        $lblPasswordLength.Location = New-Object System.Drawing.Point(174, 18)
+        $lblPasswordLength.Location = New-Object System.Drawing.Point(180, 18)
 
         # Create textbox for password length
         $txtPasswordLength = New-Object System.Windows.Forms.TextBox
         $txtPasswordLength.Width = 45
-        $txtPasswordLength.Location = New-Object System.Drawing.Point(226, 15)
+        $txtPasswordLength.Location = New-Object System.Drawing.Point(230, 15)
         $txtPasswordLength.Add_KeyDown({
                 if ($_.KeyCode -eq 'Enter') {
                     $btnGenerate.PerformClick()
@@ -290,12 +3810,12 @@ $Menu1_Pass_Gen.add_Click({
         # Create the checkbox
         $checkBox = New-Object System.Windows.Forms.CheckBox
         $checkBox.Text = "1-Click"
-        $checkBox.Location = New-Object System.Drawing.Point(284, 14)
+        $checkBox.Location = New-Object System.Drawing.Point(290, 14)
 
         # Create a label to display the slider Days value
         $lblDays = New-Object System.Windows.Forms.Label
         $lblDays.Text = "Days: 7"
-        $lblDays.Location = New-Object System.Drawing.Point(24, 55)
+        $lblDays.Location = New-Object System.Drawing.Point(30, 55)
         $lblDays.Width = 80
 
         # Create the Day slider
@@ -303,7 +3823,7 @@ $Menu1_Pass_Gen.add_Click({
         $sliderDays.Minimum = 0
         $sliderDays.Maximum = 10
         $sliderDays.Value = 7
-        $sliderDays.Location = New-Object System.Drawing.Point(94, 45)
+        $sliderDays.Location = New-Object System.Drawing.Point(100, 45)
         $sliderDays.Width = 255
 
         # Add an event handler for the Day ValueChanged event
@@ -314,7 +3834,7 @@ $Menu1_Pass_Gen.add_Click({
         # Create a label to display the slider Views value
         $lblViews = New-Object System.Windows.Forms.Label
         $lblViews.Text = "Views: 5"
-        $lblViews.Location = New-Object System.Drawing.Point(24, 95)
+        $lblViews.Location = New-Object System.Drawing.Point(30, 95)
         $lblViews.Width = 80
 
         # Create the View slider
@@ -322,7 +3842,7 @@ $Menu1_Pass_Gen.add_Click({
         $sliderViews.Minimum = 0
         $sliderViews.Maximum = 10
         $sliderViews.Value = 5
-        $sliderViews.Location = New-Object System.Drawing.Point(94, 85)
+        $sliderViews.Location = New-Object System.Drawing.Point(100, 85)
         $sliderViews.Width = 255
 
         # Add an event handler for the View ValueChanged event
@@ -335,8 +3855,9 @@ $Menu1_Pass_Gen.add_Click({
         $btnGenerate.Text = "Generate Password"
         $btnGenerate.Width = 150
         $btnGenerate.Height = 36
-        $btnGenerate.Location = New-Object System.Drawing.Point(99, 135)
+        $btnGenerate.Location = New-Object System.Drawing.Point(105, 135)
         $btnGenerate.Add_Click({
+                $outputTextBox.text = ""
                 if ($checkBox.Checked) {
                     $1click = "/r"
                 }
@@ -391,7 +3912,7 @@ $Menu1_Pass_Gen.add_Click({
         $outputTextBox.Multiline = $true
         $outputTextBox.Width = 340
         $outputTextBox.Height = 49
-        $outputTextBox.Location = New-Object System.Drawing.Point(6, 179)
+        $outputTextBox.Location = New-Object System.Drawing.Point(10, 179)
         $outputTextBox.ReadOnly = $true
         $outputTextBox.TabStop = $false
         $outputTextBox.BackColor = [System.Drawing.Color]::White
@@ -400,14 +3921,14 @@ $Menu1_Pass_Gen.add_Click({
         $PWPushnotif = New-Object System.Windows.Forms.Label
         $PWPushnotif.Text = "PWPush URL:"
         $PWPushnotif.AutoSize = $true
-        $PWPushnotif.Location = New-Object System.Drawing.Point(6, 237)
+        $PWPushnotif.Location = New-Object System.Drawing.Point(10, 237)
 
         # Create textbox for pwpushurl
         $pwpushTextBox = New-Object System.Windows.Forms.TextBox
         $pwpushTextBox.Multiline = $true
         $pwpushTextBox.Width = 340
         $pwpushTextBox.Height = 20
-        $pwpushTextBox.Location = New-Object System.Drawing.Point(6, 255)
+        $pwpushTextBox.Location = New-Object System.Drawing.Point(10, 255)
         $pwpushTextBox.ReadOnly = $true
         $pwpushTextBox.TabStop = $false
         $pwpushTextBox.BackColor = [System.Drawing.Color]::White
@@ -417,7 +3938,7 @@ $Menu1_Pass_Gen.add_Click({
         $passClip.Text = "Password to Clipboard"
         $passClip.Width = 110
         $passClip.Height = 36
-        $passClip.Location = New-Object System.Drawing.Point(44, 289)
+        $passClip.Location = New-Object System.Drawing.Point(50, 289)
         $passClip.Add_Click({
                 Set-Clipboard $outputTextBox.Text
             })
@@ -427,7 +3948,7 @@ $Menu1_Pass_Gen.add_Click({
         $pwpushClip.Text = "PWPush URL to Clipboard"
         $pwpushClip.Width = 110
         $pwpushClip.Height = 36
-        $pwpushClip.Location = New-Object System.Drawing.Point(199, 289)
+        $pwpushClip.Location = New-Object System.Drawing.Point(205, 289)
         $pwpushClip.Add_Click({
                 Set-Clipboard $pwpushTextBox.Text
             })
@@ -551,10 +4072,45 @@ $Menu1_Pass_Gen.add_Click({
         $form.Add_FormClosed({
                 $timer.Dispose()
             })
+        # Show the form
         $form.Add_Shown({ 
                 $form.Activate() 
             })
         $form.ShowDialog()
+    })
+
+#Powershell
+$Menu1_Powershell = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_Powershell.Text = "Powershell"
+$Menu1_Powershell_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
+$Menu1_Powershell.Image = $Menu1_Powershell_Picture
+if ($Powershell_App_Checkbox_Cust -match 'False') {
+    $Menu1_Powershell.Visible = $False
+}
+else {
+    $Menu1_Powershell.Visible = $True
+}
+$Application_Menu.DropDownItems.Add($Menu1_Powershell)
+
+$Menu1_Powershell.add_Click({ 
+        Start-Process powershell.exe
+    })
+
+#Powershell ISE
+$Menu1_Powershell_ISE = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu1_Powershell_ISE.Text = "Powershell ISE"
+$Menu1_Powershell_ISE_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe")
+$Menu1_Powershell_ISE.Image = $Menu1_Powershell_ISE_Picture
+if ($Powershell_ISE_Checkbox_Cust -match 'False') {
+    $Menu1_Powershell_ISE.Visible = $False
+}
+else {
+    $Menu1_Powershell_ISE.Visible = $True
+}
+$Application_Menu.DropDownItems.Add($Menu1_Powershell_ISE)
+
+$Menu1_Powershell_ISE.add_Click({
+        Start-Process "C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe"
     })
 
 #PuTTy
@@ -565,6 +4121,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu1_PuTTy_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu1_PuTTy.Image = $Menu1_PuTTy_Picture
+if ($PuTTy_App_Checkbox_Cust -match 'False') {
+    $Menu1_PuTTy.Visible = $False
+}
+else {
+    $Menu1_PuTTy.Visible = $True
+}
 $Application_Menu.DropDownItems.Add($Menu1_PuTTy)
 
 $Menu1_PuTTy.add_Click({
@@ -589,33 +4151,17 @@ $Menu1_PuTTy.add_Click({
         } 
     })
 
-#Powershell
-$Menu1_Powershell = New-Object System.Windows.Forms.ToolStripMenuItem
-$Menu1_Powershell.Text = "Powershell"
-$Menu1_Powershell_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
-$Menu1_Powershell.Image = $Menu1_Powershell_Picture
-$Application_Menu.DropDownItems.Add($Menu1_Powershell)
-
-$Menu1_Powershell.add_Click({ 
-        Start-Process powershell.exe
-    })
-
-#Powershell ISE
-$Menu1_Powershell_ISE = New-Object System.Windows.Forms.ToolStripMenuItem
-$Menu1_Powershell_ISE.Text = "Powershell ISE"
-$Menu1_Powershell_ISE_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe")
-$Menu1_Powershell_ISE.Image = $Menu1_Powershell_ISE_Picture
-$Application_Menu.DropDownItems.Add($Menu1_Powershell_ISE)
-
-$Menu1_Powershell_ISE.add_Click({
-        Start-Process "C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe"
-    })
-
 #Regedit
 $Menu1_Regedit = New-Object System.Windows.Forms.ToolStripMenuItem
 $Menu1_Regedit.Text = "Registry"
 $Menu1_Regedit_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\regedt32.exe")
 $Menu1_Regedit.Image = $Menu1_Regedit_Picture
+if ($Registry_Checkbox_Cust -match 'False') {
+    $Menu1_Regedit.Visible = $False
+}
+else {
+    $Menu1_Regedit.Visible = $True
+}
 $Application_Menu.DropDownItems.Add($Menu1_Regedit)
 
 $Menu1_Regedit.add_Click({ 
@@ -630,6 +4176,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu1_Sandbox_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu1_Sandbox.Image = $Menu1_Sandbox_Picture
+if ($Sandbox_Checkbox_Cust -match 'False') {
+    $Menu1_Sandbox.Visible = $False
+}
+else {
+    $Menu1_Sandbox.Visible = $True
+}
 $Application_Menu.DropDownItems.Add($Menu1_Sandbox)
 
 $Menu1_Sandbox.add_Click({
@@ -650,6 +4202,172 @@ $Menu1_Sandbox.add_Click({
         }
     })
 
+#Separator
+$Separator5 = New-Object System.Windows.Forms.ToolStripSeparator
+if ($Custom_App_1_Cust -or $Custom_App_2_Cust -or $Custom_App_3_Cust -or $Custom_App_4_Cust -or $Custom_App_5_Cust -or $Custom_App_6_Cust) {
+    $Separator5.Visible = $True
+}
+else {
+    $Separator5.Visible = $False
+}
+$Application_Menu.DropDownItems.Add($Separator5)
+
+#Custom App 1
+$Menu1_Custom_App_1 = New-Object System.Windows.Forms.ToolStripMenuItem
+if ($Custom_App_1_Cust) {
+    $extension = [System.IO.Path]::GetExtension($Custom_App_1_Cust)
+    if ($extension -eq ".exe") {
+        $FileDescription = (get-item $Custom_App_1_Cust).VersionInfo.FileDescription
+    }
+    else {
+        $FileDescription = (get-item $Custom_App_1_Cust).Name
+    }
+}
+$Menu1_Custom_App_1.Text = $FileDescription
+$Menu1_Custom_App_1_Picture = if ($Custom_App_1_Cust) { [System.Drawing.Icon]::ExtractAssociatedIcon($Custom_App_1_Cust) }
+$Menu1_Custom_App_1.Image = $Menu1_Custom_App_1_Picture
+if ($Custom_App_1_Cust) {
+    $Menu1_Custom_App_1.Visible = $True
+}
+else {
+    $Menu1_Custom_App_1.Visible = $False
+}
+$Application_Menu.DropDownItems.Add($Menu1_Custom_App_1)
+
+$Menu1_Custom_App_1.add_Click({ 
+        Start-Process $Custom_App_1_Cust
+    })
+        
+#Custom App 2
+$Menu1_Custom_App_2 = New-Object System.Windows.Forms.ToolStripMenuItem
+if ($Custom_App_2_Cust) {
+    $extension = [System.IO.Path]::GetExtension($Custom_App_2_Cust)
+    if ($extension -eq ".exe") {
+        $FileDescription = (get-item $Custom_App_2_Cust).VersionInfo.FileDescription
+    }
+    else {
+        $FileDescription = (get-item $Custom_App_2_Cust).Name
+    }
+}
+$Menu1_Custom_App_2.Text = $FileDescription
+$Menu1_Custom_App_2_Picture = if ($Custom_App_2_Cust) { [System.Drawing.Icon]::ExtractAssociatedIcon($Custom_App_2_Cust) }
+$Menu1_Custom_App_2.Image = $Menu1_Custom_App_2_Picture
+if ($Custom_App_2_Cust) {
+    $Menu1_Custom_App_2.Visible = $True
+}
+else {
+    $Menu1_Custom_App_2.Visible = $False
+}
+$Application_Menu.DropDownItems.Add($Menu1_Custom_App_2)
+
+$Menu1_Custom_App_2.add_Click({ 
+        Start-Process $Custom_App_2_Cust
+    })
+
+#Custom App 3
+$Menu1_Custom_App_3 = New-Object System.Windows.Forms.ToolStripMenuItem
+if ($Custom_App_3_Cust) {
+    $extension = [System.IO.Path]::GetExtension($Custom_App_3_Cust)
+    if ($extension -eq ".exe") {
+        $FileDescription = (get-item $Custom_App_3_Cust).VersionInfo.FileDescription
+    }
+    else {
+        $FileDescription = (get-item $Custom_App_3_Cust).Name
+    }
+}
+$Menu1_Custom_App_3.Text = $FileDescription
+$Menu1_Custom_App_3_Picture = if ($Custom_App_3_Cust) { [System.Drawing.Icon]::ExtractAssociatedIcon($Custom_App_3_Cust) }
+$Menu1_Custom_App_3.Image = $Menu1_Custom_App_3_Picture
+if ($Custom_App_3_Cust) {
+    $Menu1_Custom_App_3.Visible = $True
+}
+else {
+    $Menu1_Custom_App_3.Visible = $False
+}
+$Application_Menu.DropDownItems.Add($Menu1_Custom_App_3)
+
+$Menu1_Custom_App_3.add_Click({ 
+        Start-Process $Custom_App_3_Cust
+    })
+
+#Custom App 4
+$Menu1_Custom_App_4 = New-Object System.Windows.Forms.ToolStripMenuItem
+if ($Custom_App_4_Cust) {
+    $extension = [System.IO.Path]::GetExtension($Custom_App_4_Cust)
+    if ($extension -eq ".exe") {
+        $FileDescription = (get-item $Custom_App_4_Cust).VersionInfo.FileDescription
+    }
+    else {
+        $FileDescription = (get-item $Custom_App_4_Cust).Name
+    }
+}
+$Menu1_Custom_App_4.Text = $FileDescription
+$Menu1_Custom_App_4_Picture = if ($Custom_App_4_Cust) { [System.Drawing.Icon]::ExtractAssociatedIcon($Custom_App_4_Cust) }
+$Menu1_Custom_App_4.Image = $Menu1_Custom_App_4_Picture
+if ($Custom_App_4_Cust) {
+    $Menu1_Custom_App_4.Visible = $True
+}
+else {
+    $Menu1_Custom_App_4.Visible = $False
+}
+$Application_Menu.DropDownItems.Add($Menu1_Custom_App_4)
+
+$Menu1_Custom_App_4.add_Click({ 
+        Start-Process $Custom_App_4_Cust
+    })
+
+#Custom App 5
+$Menu1_Custom_App_5 = New-Object System.Windows.Forms.ToolStripMenuItem
+if ($Custom_App_5_Cust) {
+    $extension = [System.IO.Path]::GetExtension($Custom_App_5_Cust)
+    if ($extension -eq ".exe") {
+        $FileDescription = (get-item $Custom_App_5_Cust).VersionInfo.FileDescription
+    }
+    else {
+        $FileDescription = (get-item $Custom_App_5_Cust).Name
+    }
+}
+$Menu1_Custom_App_5.Text = $FileDescription
+$Menu1_Custom_App_5_Picture = if ($Custom_App_5_Cust) { [System.Drawing.Icon]::ExtractAssociatedIcon($Custom_App_5_Cust) }
+$Menu1_Custom_App_5.Image = $Menu1_Custom_App_5_Picture
+if ($Custom_App_5_Cust) {
+    $Menu1_Custom_App_5.Visible = $True
+}
+else {
+    $Menu1_Custom_App_5.Visible = $False
+}
+$Application_Menu.DropDownItems.Add($Menu1_Custom_App_5)
+
+$Menu1_Custom_App_5.add_Click({ 
+        Start-Process $Custom_App_5_Cust
+    })
+
+#Custom App 6
+$Menu1_Custom_App_6 = New-Object System.Windows.Forms.ToolStripMenuItem
+if ($Custom_App_6_Cust) {
+    $extension = [System.IO.Path]::GetExtension($Custom_App_6_Cust)
+    if ($extension -eq ".exe") {
+        $FileDescription = (get-item $Custom_App_6_Cust).VersionInfo.FileDescription
+    }
+    else {
+        $FileDescription = (get-item $Custom_App_6_Cust).Name
+    }
+}
+$Menu1_Custom_App_6.Text = $FileDescription
+$Menu1_Custom_App_6_Picture = if ($Custom_App_6_Cust) { [System.Drawing.Icon]::ExtractAssociatedIcon($Custom_App_6_Cust) }
+$Menu1_Custom_App_6.Image = $Menu1_Custom_App_6_Picture
+if ($Custom_App_6_Cust) {
+    $Menu1_Custom_App_6.Visible = $True
+}
+else {
+    $Menu1_Custom_App_6.Visible = $False
+}
+$Application_Menu.DropDownItems.Add($Menu1_Custom_App_6)
+
+$Menu1_Custom_App_6.add_Click({ 
+        Start-Process $Custom_App_6_Cust
+    })
+
 #7-Zip Install
 $Menu2_7_Zip = New-Object System.Windows.Forms.ToolStripMenuItem
 $Menu2_7_Zip.Text = "7-Zip"
@@ -658,6 +4376,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu2_7_Zip_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu2_7_Zip.Image = $Menu2_7_Zip_Picture
+if ($7Zip_Checkbox_Cust -match 'False') {
+    $Menu2_7_Zip.Visible = $False
+}
+else {
+    $Menu2_7_Zip.Visible = $True
+}
 $Install_Menu.DropDownItems.Add($Menu2_7_Zip)
 
 $Menu2_7_Zip.add_Click({
@@ -678,6 +4402,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu2_Act_Dir_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu2_Act_Dir.Image = $Menu2_Act_Dir_Picture
+if ($Act_Dir_Checkbox_Cust -match 'False') {
+    $Menu2_Act_Dir.Visible = $False
+}
+else {
+    $Menu2_Act_Dir.Visible = $True
+}
 $Install_Menu.DropDownItems.Add($Menu2_Act_Dir)
 
 $Menu2_Act_Dir.add_Click({ 
@@ -696,6 +4426,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu2_Google_Chrome_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu2_Google_Chrome.Image = $Menu2_Google_Chrome_Picture
+if ($Brave_Checkbox_Cust -match 'False') {
+    $Menu2_Google_Chrome.Visible = $False
+}
+else {
+    $Menu2_Google_Chrome.Visible = $True
+}
 $Install_Menu.DropDownItems.Add($Menu2_Google_Chrome)
 
 $Menu2_Google_Chrome.add_Click({
@@ -716,6 +4452,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu2_Click_Paste_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu2_Click_Paste.Image = $Menu2_Click_Paste_Picture
+if ($ClickPaste_Inst_Checkbox_Cust -match 'False') {
+    $Menu2_Click_Paste.Visible = $False
+}
+else {
+    $Menu2_Click_Paste.Visible = $True
+}
 $Install_Menu.DropDownItems.Add($Menu2_Click_Paste)
 
 $Menu2_Click_Paste.add_Click({
@@ -745,6 +4487,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu2_Firefox_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu2_Firefox.Image = $Menu2_Firefox_Picture
+if ($Firefox_Checkbox_Cust -match 'False') {
+    $Menu2_Firefox.Visible = $False
+}
+else {
+    $Menu2_Firefox.Visible = $True
+}
 $Install_Menu.DropDownItems.Add($Menu2_Firefox)
 
 $Menu2_Firefox.add_Click({
@@ -759,12 +4507,18 @@ $Menu2_Firefox.add_Click({
 
 #Google Chrome Install
 $Menu2_Google_Chrome = New-Object System.Windows.Forms.ToolStripMenuItem
-$Menu2_Google_Chrome.Text = "Google Chrome"
+$Menu2_Google_Chrome.Text = "Chrome"
 $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAEhUlEQVRIS72VW2hcVRSG/3OfSTKTtJ02xYS2aVRqES1CBQuK0kSkUqG3mE7UJ4tioWhFHxRRFB+ktI8qEvFCHjTEuy8tIbFWEwoJ9QaCbQ2VBloNaVKbmTPntv3XSU4zmUxaQXAxizOcvff61nUfDf+DaP+SIftSVIdqUENqiepS1fVsXA+Snn7m0YJuW9Co0E3ai4AgROQFUJ4HVfLQ8HZvDReKS8GWguiTj20PNdumcROaSYChQ9c1KPE7iqACQnyfIAJLPkDgir5jEiW9WCjVINbEjjYPYtwyoRv03tShEQKN2wlRinZCgvwAERUSlUBLAVYdPWETQeq8VEKMi21bAjEeA2gchgFFgKYnkJgCFfEpAIEFPtPHMjGNAmz8fkTyKnWLZQHkvefuU9uGrwAWoxbDBGgmtxCgaQKZLbOSnEnKQsJCAc0CVTCfqdXDo1dtl0OyXce7pl999kfUWg4955IhSqD8F0KyO4ZQQzrLnyKwUgip57vLCyLJD3YpcVYkAZUfrB/4Dh5tfTB6CY/fmSNfoTiyhtEqBhqwdlH8NJ0in0LWYdwSxW4lvln5b7o8qavIKwd/oPNaHJFIpv9bvN5/AQ7rJGViGeAyPS8/0AzjbJpRL44ESiNExU2QQJYRMplAxPBLT4+yNCZyA0N4/stxpC0dlmlIeaQc8ElyWewju9bBOZdelK65SJZz4VICWcN0nUvSJScOPjUEx7TxW3c/+n6eQpqNYMqs8ISUIxAI9YWtTdhQFFsLRUUGzI3hWr79I4G05ge6zmgySmVy4MkTeHH/Z6ih+5ZASIhHRSAy+FGIK+ysY213VIFYhPg3cuFsAmnZ25//Xdq1PGX2pIu1xmsYHJthk3ENBPEUm5ai2FwR9m3OoXN5S0UYGqIwDevWwnoujCWQxoeP5i8YNg3NdVhy6vCGI2h/91emjt2isyZESZlDRuGxhQefuA0Nfy5Ml4pMBF4WqU2Tq7n1YgJJd3y9t2CkCKmIRmCHbj6Me94aYcPIQIoXMichTh64C8smViyOIqiB5zagdvN4fHEmEG13X2dk1NFbRiOXeeV980brITzy0SkMnZ9Ce2sO3Xs2Yd/x/fji9r55CNtWRTb8Uj1KM1k03H0m9qjcVtOezzvP62mCLLlKZu/DalIqRAiKET7Z+PFigJeBX8wgu2WsmYvjsqHcjP5QT0foMBo9RSUo7ray2ySxWCqENKTwaQwR7/U4gsCrg+/WwZ2pxar2X65e+5W+Zrb3dFx2ahjNXH30uRrFMcuMcEh8RtHb0stWFuMWy+Mg8GsRuCm4hVo03v9Tlrv/TpyqlpDctvd3/5WqYScxIvmcaNK+kl3OScgLrKf5Kxo3Yw0JCH3WwXUISKPpwVMruXOiPM1LZB31W9/ZOZUixLFnr3udH0eNRfIDhQ9vGI5TFAZGDPBKFryiiXW7RhtofLqyjktBZJ/ktOXeN3ectm0OoYD4pnvl6Xjio1AghHo6WjtGbpKhk/Gp1ijXgiT7BSbfhhw1Q02GXnIuaRHPqxq/Vk2qtu1/efkPmizDKdT29VcAAAAASUVORK5CYII='
 $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu2_Google_Chrome_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu2_Google_Chrome.Image = $Menu2_Google_Chrome_Picture
+if ($Chrome_Checkbox_Cust -match 'False') {
+    $Menu2_Google_Chrome.Visible = $False
+}
+else {
+    $Menu2_Google_Chrome.Visible = $True
+}
 $Install_Menu.DropDownItems.Add($Menu2_Google_Chrome)
 
 $Menu2_Google_Chrome.add_Click({
@@ -785,6 +4539,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu2_Group_Policy_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu2_Group_Policy.Image = $Menu2_Group_Policy_Picture
+if ($Grp_Pol_Checkbox_Cust -match 'False') {
+    $Menu2_Group_Policy.Visible = $False
+}
+else {
+    $Menu2_Group_Policy.Visible = $True
+}
 $Install_Menu.DropDownItems.Add($Menu2_Group_Policy)
 
 $Menu2_Group_Policy.add_Click({ 
@@ -803,6 +4563,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu2_PuTTy_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu2_PuTTy.Image = $Menu2_PuTTy_Picture
+if ($PuTTy_Inst_Checkbox_Cust -match 'False') {
+    $Menu2_PuTTy.Visible = $False
+}
+else {
+    $Menu2_PuTTy.Visible = $True
+}
 $Install_Menu.DropDownItems.Add($Menu2_PuTTy)
 
 $Menu2_PuTTy.add_Click({
@@ -821,6 +4587,12 @@ $Menu2_Powershell = New-Object System.Windows.Forms.ToolStripMenuItem
 $Menu2_Powershell.Text = "Powershell"
 $Menu2_Powershell_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
 $Menu2_Powershell.Image = $Menu2_Powershell_Picture
+if ($Powershell_Inst_Checkbox_Cust -match 'False') {
+    $Menu2_Powershell.Visible = $False
+}
+else {
+    $Menu2_Powershell.Visible = $True
+}
 $Install_Menu.DropDownItems.Add($Menu2_Powershell)
 
 $Menu2_Powershell.add_Click({
@@ -841,6 +4613,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu2_RSAT_Tools_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu2_RSAT_Tools.Image = $Menu2_RSAT_Tools_Picture
+if ($RSAT_Tools_Checkbox_Cust -match 'False') {
+    $Menu2_RSAT_Tools.Visible = $False
+}
+else {
+    $Menu2_RSAT_Tools.Visible = $True
+}
 $Install_Menu.DropDownItems.Add($Menu2_RSAT_Tools)
 
 $Menu2_RSAT_Tools.add_Click({ 
@@ -859,6 +4637,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu2_VLC_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu2_VLC.Image = $Menu2_VLC_Picture
+if ($VLC_Checkbox_Cust -match 'False') {
+    $Menu2_VLC.Visible = $False
+}
+else {
+    $Menu2_VLC.Visible = $True
+}
 $Install_Menu.DropDownItems.Add($Menu2_VLC)
 
 $Menu2_VLC.add_Click({
@@ -878,9 +4662,15 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu2_VS_Code_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu2_VS_Code.Image = $Menu2_VS_Code_Picture
+if ($VSC_Checkbox_Cust -match 'False') {
+    $Menu2_VS_Code.Visible = $False
+}
+else {
+    $Menu2_VS_Code.Visible = $True
+}
 $Install_Menu.DropDownItems.Add($Menu2_VS_Code)
 
-$Menu2_SubMenu1.add_Click({
+$Menu2_VS_Code.add_Click({
         WingetCheck
         $startParams = @{
             FilePath     = 'powershell.exe'
@@ -898,6 +4688,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu2_Sandbox_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu2_Sandbox.Image = $Menu2_Sandbox_Picture
+if ($Win_Sand_Checkbox_Cust -match 'False') {
+    $Menu2_Sandbox.Visible = $False
+}
+else {
+    $Menu2_Sandbox.Visible = $True
+}
 $Install_Menu.DropDownItems.Add($Menu2_Sandbox)
 
 $Menu2_Sandbox.add_Click({ 
@@ -917,6 +4713,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu2_WinDirStat_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu2_WinDirStat.Image = $Menu2_WinDirStat_Picture
+if ($WinDirStat_Checkbox_Cust -match 'False') {
+    $Menu2_WinDirStat.Visible = $False
+}
+else {
+    $Menu2_WinDirStat.Visible = $True
+}
 $Install_Menu.DropDownItems.Add($Menu2_WinDirStat)
 
 $Menu2_WinDirStat.add_Click({ 
@@ -927,6 +4729,172 @@ $Menu2_WinDirStat.add_Click({
         }
         Start-Process @startParams
     })
+
+#Separator
+$Separator6 = New-Object System.Windows.Forms.ToolStripSeparator
+if ($Custom_Install_1_Cust -or $Custom_Install_2_Cust -or $Custom_Install_3_Cust -or $Custom_Install_4_Cust -or $Custom_Install_5_Cust -or $Custom_Install_6_Cust) {
+    $Separator6.Visible = $True
+}
+else {
+    $Separator6.Visible = $False
+}
+$Install_Menu.DropDownItems.Add($Separator6)
+    
+#Custom App 1
+$Menu2_Custom_Install_1 = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_Custom_Install_1.Text = $Custom_Install_1_Cust
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_Custom_Install_1_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_Custom_Install_1.Image = $Menu2_Custom_Install_1_Picture
+if ($Custom_Install_1_Cust) {
+    $Menu2_Custom_Install_1.Visible = $True
+}
+else {
+    $Menu2_Custom_Install_1.Visible = $False
+}
+$Install_Menu.DropDownItems.Add($Menu2_Custom_Install_1)
+    
+$Menu2_Custom_Install_1.add_Click({ 
+        $startParams = @{
+            FilePath     = 'powershell.exe'
+            ArgumentList = '-NoExit', '-Command', 'winget.exe', 'Install', "--id=$Custom_Install_1_Cust", '-h', '-e', '--accept-package-agreements', '--accept-source-agreements'
+            PassThru     = $true
+        }
+        Start-Process -Wait @startParams
+    })
+
+#Custom App 2
+$Menu2_Custom_Install_2 = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_Custom_Install_2.Text = $Custom_Install_2_Cust
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_Custom_Install_2_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_Custom_Install_2.Image = $Menu2_Custom_Install_2_Picture
+if ($Custom_Install_2_Cust) {
+    $Menu2_Custom_Install_2.Visible = $True
+}
+else {
+    $Menu2_Custom_Install_2.Visible = $False
+}
+$Install_Menu.DropDownItems.Add($Menu2_Custom_Install_2)
+
+$Menu2_Custom_Install_2.add_Click({ 
+        $startParams = @{
+            FilePath     = 'powershell.exe'
+            ArgumentList = '-NoExit', '-Command', 'winget.exe', 'Install', "--id=$Custom_Install_2_Cust", '-h', '-e', '--accept-package-agreements', '--accept-source-agreements'
+            PassThru     = $true
+        }
+        Start-Process -Wait @startParams
+    })
+
+#Custom App 3
+$Menu2_Custom_Install_3 = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_Custom_Install_3.Text = $Custom_Install_3_Cust
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_Custom_Install_3_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_Custom_Install_3.Image = $Menu2_Custom_Install_3_Picture
+if ($Custom_Install_3_Cust) {
+    $Menu2_Custom_Install_3.Visible = $True
+}
+else {
+    $Menu2_Custom_Install_3.Visible = $False
+}
+$Install_Menu.DropDownItems.Add($Menu2_Custom_Install_3)
+
+$Menu2_Custom_Install_3.add_Click({ 
+        $startParams = @{
+            FilePath     = 'powershell.exe'
+            ArgumentList = '-NoExit', '-Command', 'winget.exe', 'Install', "--id=$Custom_Install_3_Cust", '-h', '-e', '--accept-package-agreements', '--accept-source-agreements'
+            PassThru     = $true
+        }
+        Start-Process -Wait @startParams
+    })
+
+#Custom App 4
+$Menu2_Custom_Install_4 = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_Custom_Install_4.Text = $Custom_Install_4_Cust
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_Custom_Install_4_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_Custom_Install_4.Image = $Menu2_Custom_Install_4_Picture
+if ($Custom_Install_4_Cust) {
+    $Menu2_Custom_Install_4.Visible = $True
+}
+else {
+    $Menu2_Custom_Install_4.Visible = $False
+}
+$Install_Menu.DropDownItems.Add($Menu2_Custom_Install_4)
+
+$Menu2_Custom_Install_4.add_Click({ 
+        $startParams = @{
+            FilePath     = 'powershell.exe'
+            ArgumentList = '-NoExit', '-Command', 'winget.exe', 'Install', "--id=$Custom_Install_4_Cust", '-h', '-e', '--accept-package-agreements', '--accept-source-agreements'
+            PassThru     = $true
+        }
+        Start-Process -Wait @startParams
+    })
+
+#Custom App 5
+$Menu2_Custom_Install_5 = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_Custom_Install_5.Text = $Custom_Install_5_Cust
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_Custom_Install_5_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_Custom_Install_5.Image = $Menu2_Custom_Install_5_Picture
+if ($Custom_Install_5_Cust) {
+    $Menu2_Custom_Install_5.Visible = $True
+}
+else {
+    $Menu2_Custom_Install_5.Visible = $False
+}
+$Install_Menu.DropDownItems.Add($Menu2_Custom_Install_5)
+
+$Menu2_Custom_Install_5.add_Click({ 
+        $startParams = @{
+            FilePath     = 'powershell.exe'
+            ArgumentList = '-NoExit', '-Command', 'winget.exe', 'Install', "--id=$Custom_Install_5_Cust", '-h', '-e', '--accept-package-agreements', '--accept-source-agreements'
+            PassThru     = $true
+        }
+        Start-Process -Wait @startParams
+    })
+
+#Custom App 6
+$Menu2_Custom_Install_6 = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu2_Custom_Install_6.Text = $Custom_Install_6_Cust
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=='
+$IconBytes = [Convert]::FromBase64String($IconBase64)
+$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+$Menu2_Custom_Install_6_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu2_Custom_Install_6.Image = $Menu2_Custom_Install_6_Picture
+if ($Custom_Install_6_Cust) {
+    $Menu2_Custom_Install_6.Visible = $True
+}
+else {
+    $Menu2_Custom_Install_6.Visible = $False
+}
+$Install_Menu.DropDownItems.Add($Menu2_Custom_Install_6)
+
+$Menu2_Custom_Install_6.add_Click({ 
+        $startParams = @{
+            FilePath     = 'powershell.exe'
+            ArgumentList = '-NoExit', '-Command', 'winget.exe', 'Install', "--id=$Custom_Install_6_Cust", '-h', '-e', '--accept-package-agreements', '--accept-source-agreements'
+            PassThru     = $true
+        }
+        Start-Process -Wait @startParams
+    })
+
+if ($7Zip_Checkbox_Cust -match $false -and $Act_Dir_Checkbox_Cust -match $false -and $Brave_Checkbox_Cust -match $false -and $ClickPaste_Inst_Checkbox_Cust -match $false -and $Firefox_Checkbox_Cust -match $false -and $Chrome_Checkbox_Cust -match $false -and $Grp_Pol_Checkbox_Cust -match $false -and $PuTTy_Inst_Checkbox_Cust -match $false -and $Powershell_Inst_Checkbox_Cust -match $false -and $RSAT_Tools_Checkbox_Cust -match $false -and $VLC_Checkbox_Cust -match $false -and $VSC_Checkbox_Cust -match $false -and $Win_Sand_Checkbox_Cust -match $false -and $WinDirStat_Checkbox_Cust -match $false) {
+    if (!($Custom_Install_1_Cust -and $Custom_Install_2_Cust -and $Custom_Install_3_Cust -and $Custom_Install_4_Cust -and $Custom_Install_5_Cust -and $Custom_Bookmark_6_Cust)) {
+        $Install_Menu.Visible = $False
+    }
+}
 
 #All of the Below
 $Menu3_All_Below = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -963,6 +4931,8 @@ $Separator3 = New-Object System.Windows.Forms.ToolStripSeparator
 $Customize_Menu.DropDownItems.Add($Separator3)
         
 #Dark Mode
+#$AppsLightTheme = (Get-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'AppsUseLightTheme').AppsUseLightTheme
+#$SysLightTheme = (Get-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'SystemUsesLightTheme').SystemUsesLightTheme
 $Menu3_Dark_Mode = New-Object System.Windows.Forms.ToolStripMenuItem
 $Menu3_Dark_Mode.Text = "Dark Mode"
 $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAx0lEQVRIS2NkoDFgpLH5DIPKAg+gb7cDMUmOIkbxf6Rg/AJk85ISrPgsQDYYZiYxDkKxH5cGqhgOsmlALMDmenyOwRsl2HxAUwtcgM7ZjcNJJEcwNm/jcj3VUhEhCwjFxWOgAhnkxIPubXeg5A4iMhK+uEsC6p+Pz8vE+AKfG1AsJyUVEeExsBKCFoAUkesLDAeTkpOJ8QHRFpDjC6yOJSbzEAouvGYQYwEsaMKBjBVQTiyQXkJWmBGjiRQ1pPiAFHPhamluAQCIgBcZ9HL6dgAAAABJRU5ErkJggg=='
@@ -979,23 +4949,8 @@ $Menu3_Dark_Mode.add_Click({
         Stop-Process -Id $explorer.id -Force
     })
 
-#Recycle Bin
-$Menu3_Recycle_Bin = New-Object System.Windows.Forms.ToolStripMenuItem
-$Menu3_Recycle_Bin.Text = "Hide Recycle Bin"
-$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADKklEQVRIS7WWaUhUURTH/2/REltGcWkhyRolCBJMrcgs+tS3iEIFLXOhLMWKJIqIKIggUElNcynUMkL80oe+thEGhiFSFKk5buM2mc1o6rzldt/VeTPqjGOJ73G597135/z+595z7hkOK3xxK2wf/wRofPP1uyiKET6iANrTpvfK/h1BojuxXgHljU3DkqwG8zwPnhdmGx0LzvHm0HVwhe6NDNTtLgooePKKcJxm2GGQh+AK0caCE8xxHDaF+DPvEnaGMNteAdok9+qdhgWHd9Qr7QoKWIUjMWHeAYNWmdS/eAdN2QLIPPXO7zwiw4MRZzQsDaASAlUlaHjZ5HWptmwMRMB6fyh0/pIAwxNypiyTag3gANEhAzqfCTVI380KoQHBlmlJANPPaaL9wM9XgGUcMPip1BCgKATarYF04xTwvkNEbNj00gC9o3ZilxVoANsfO779GMGB6DAGqHrLIz1e1j2Z74FDvcco6h+zM+V22rS+f8iKQYsVCbu3MkBOLY/7qf8JGLBKJKsasI1JqMgmDPLpcw+LpEOx2xggu5pDaboyx4MbDT64eXyaCVrUg2MPFFKYKOnqNUDrl26aMRwO7zEyQGYZQcVZQo0R+npmH/IeCyhMkxYHDPyWSEYlQckpRQcMWWzoMY+grtmIugsCA5wuVlCdw6HdTBAeOgM4X8GhOGtmzzx6cLREIUXJDvUUIqloaetk6ms+ROBZvsgAqQUyai7ySCtS8SiPRhUFnCkFys7N7JlbgJmqT3+oojTNqb7bPIqBQQuidxmRW86j4ZovAyTdtaP+ioiUezJqL/MMkEFhlRTmEeAIy/wqCbdOcjD1/UKfeYCpj4mKxIZAv9lNBU7cnsLz675IukNBV8UFiebWgy7LFAvNvkErJibtMPX20ZOQQ27iPq6tx0YMa6h6lsGeM1lbUl/Ch0YZ1w47aoN+mn5sHyXjNKEmJiV0dplYWOYlx7PvzR1jxNUDT0fFtF2Zs/4LEq3w6Wst7pjySykHdbgG0CaHGFa79WB8UtaLmevyeK0H80tgS5e1VVHUqAWlkYMSt93wfyVzuX8KvNbk5QL+AtJNGDeevFuvAAAAAElFTkSuQmCC'
-$IconBytes = [Convert]::FromBase64String($IconBase64)
-$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-$Menu3_Recycle_Bin_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-$Menu3_Recycle_Bin.Image = $Menu3_Recycle_Bin_Picture
-$Customize_Menu.DropDownItems.Add($Menu3_Recycle_Bin)
-
-$Menu3_Recycle_Bin.add_Click({
-        New-Item -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Name '{645FF040-5081-101B-9F08-00AA002F954E}' -Value 1 -Force
-        $explorer = Get-Process -Name explorer
-        Stop-Process -Id $explorer.id -Force
-    })
-
 #Old Context Menu
+#$Oldcontext = Get-ItemProperty -Path 'HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32' -ErrorAction SilentlyContinue
 $Menu3_Old_Context = New-Object System.Windows.Forms.ToolStripMenuItem
 $Menu3_Old_Context.Text = "Old Context Menu"
 $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABaElEQVRIS2NkQAW+QO4mNDFyuYwgjWACCfx/0WNBroEMr7/9BOvVrTsPNxvZgv8g0QG3YNrB5wxZ9pJYfUnIByBNBINIvPg4AyMjI1afErLgI9ACPlxBJFFyAsPV6GoJWYAzDkCGP3r0CG7B8+fPweyEhASGR/duMtxtNQPzCVmANYjQDYfZArMkOzubYUsEC/kWfPZfzMDOzo41UmGWmJubg+OEkA8wggiX69F9QZYFS0++YihefQ9s1o1rVxg0tHQIZsDLTYZ4MxpKHPwH+keyFDPl4LOFJAsIOheLApLjgFRLSLYAW+Ya1EGEkdFAPrBV5WdYna7JAGLDigZcbJKDaPe19ww1Gx8ynKw0AFsAK85B7OfAjAUq65EtI2QBRmEHssBVSxBsMMggQW4WhuuNJhiWwSwmZAHWsoiUlETIAoyiYs6RF3jNT7GRYHj07ifDLqBPQcDfCOLbAasyaR5EIAuo3mwBAOJO/xnJgk8pAAAAAElFTkSuQmCC'
@@ -1012,6 +4967,7 @@ $Menu3_Old_Context.add_Click({
     })
 
 #Remove Search Bar
+#$Searchbar = (Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search' -Name 'SearchboxTaskbarMode').SearchboxTaskbarMode
 $Menu3_Search_Bar = New-Object System.Windows.Forms.ToolStripMenuItem
 $Menu3_Search_Bar.Text = "Remove Search Bar"
 $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABpUlEQVRIS2NkoDFgxGb+/1wVdsbJd36SavcHC4b/AicYUMzEagE+g/2La/4jy2/sbcFrBtEWoBuMxRF/gZaxoIsTZQGy4UJ8fAzd2elwc5Lbu1HMhPno3btPPkJCfFsIWoBs+NzKUpyhh2wRcrCBLXj9+j8vI+OnTyIi/CgWEms4zFaYJRgWwCwRFWX8jOxEmAUwlwtXaDK87biO4gtksT9//zKkd/WB5WGW4AyigOLazf8Z/vuAFCMHDbKBIDYIIFuK7gucFqC7HtnZMIPRDQfxqWoBenCRZUFlXBSDirQ03APIwYItTnD64IMlw3mB4wyGhCIZPVjQLSE6iEAG4YsHbBkCZjgjI8OVDT0tuiA1eDNaaOgq5l9yl/6gpyR8hiMnUbwW/E+RAhdqAfxJKOZhy824cjFRFmCzBJsP0F0OU4M1iD5aMFzj05GC5CIoYJzzjBFXicrIzGK+oavhFDaLMSwAVRowhfw6UmAmyHBcriYkDteIbDBME3rtRMgwvD5At4AahsMjGWj4VCAni1iXw1IYMUGHNYio5Xq8yZSc8MamBwCavr0ZdtOolgAAAABJRU5ErkJggg=='
@@ -1027,29 +4983,8 @@ $Menu3_Search_Bar.add_Click({
         Stop-Process -Id $explorer.id -Force
     })
 
-#Remove Shortcut Arrows
-$Menu3_Remove_Short = New-Object System.Windows.Forms.ToolStripMenuItem
-$Menu3_Remove_Short.Text = "Remove Shortcut Arrows"
-$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACB0lEQVRIS92WWy8DQRTHT7vKg8S1RVtFqyji8iDiY3lzC57Eg0R8AR9IRCjSC0rvrg3i2u7uHDNbXZ3VdrtIH8zjzP+c3/mfOdupCWqwTDVggAq5vH3ESkBRlEAQBEBEIITo1sZ0vU6rkp+DdFmbdIOrFUSTd+B22XhI8uoenZ0t1ebQ1UXit+Dt7eAhadou+186SWXA3a1pV/rmAe225rIVOrcTJc/EHAExKytn97MeVRO+uAafp4t3Ek9n0GVvqxoiSzQ5BZjNJpDE/CD8GlKK3rp1rm7n3mR4WRio7CSWymCPo7wTLaQAkCUE+dNJMSR4fgUj/Xa+XbHUHYW0604NExQAYpbA85wXLKshsDQI8Lr45SREIcNayGn0GunI6UIYAAmrHuGJAtiqWwkCkelHujaixgcilzDqdfBOIvEb9LhsFSFNG2fKOUv4PP9VtXkpkN8vgvhDSZgcdvEQag+H3J1lIcxBof/FvWcBfwJp2YzQbyE/plqAIchhOIljg85vThrXT9W9UoBy1nePojA97ubbdXySwtEBBxfzUwBLsnccg6mxPh7iDyVwfKhbhTAAu2ATlb0uDepOnVZQ0slBMIETPh7CLvp92TiAAXf8FzAz6eGdaCGGS9cE/HPIfiCOhP5cEPo2C4JZeZezOUlpQr1FgJyYfzOMrG93YiTYqLYmf4k+AL8GESnkVeQdAAAAAElFTkSuQmCC'
-$IconBytes = [Convert]::FromBase64String($IconBase64)
-$Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-$Menu3_Remove_Short_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-$Menu3_Remove_Short.Image = $Menu3_Remove_Short_Picture
-$Customize_Menu.DropDownItems.Add($Menu3_Remove_Short)
-
-$Menu3_Remove_Short.add_Click({
-        $Path = "HKLM:\\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons"
-        If (!(Test-Path($Path))) {
-            New-Item $Path -Force | New-ItemProperty -Name '29' -Value '%windir%\System32\shell32.dll,-50' -Type String -Force | Out-Null
-        }
-        else {
-            Get-Item $Path | New-ItemProperty -Name '29' -Value '%windir%\System32\shell32.dll,-50' -Type String -Force | Out-Null
-        }
-        $explorer = Get-Process -Name explorer
-        Stop-Process -Id $explorer.id -Force
-    })
-
 #Remove Teams Icon
+#$Teamsicon = (Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarMn' -ErrorAction SilentlyContinue).TaskbarMn 
 $Menu3_Remove_Teams_ICO = New-Object System.Windows.Forms.ToolStripMenuItem
 $Menu3_Remove_Teams_ICO.Text = "Remove Teams Icon"
 $IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAB7UlEQVRIS2NkoDFgpLH5DCPAAk/X8C8MDP+5QUFZnMDHcOP+b4atB7+DQ3b77lUEQwCvAk/XsP/bZoiBDfPKeAWPLkagrq3TxRh+/f7PEJD7Gq9FOC2AGQ4yWD+uioGZA+wJODg3qxrMBjkApAaXb7BagGy4UVor3oQGsgifJRgWeLqF/dw2XYwN5CpChsNshvkGmy8wLYCGe9XpbIYLc+vBZsAsurZqAoOqTzIDKxcvWBxmML6gwmoBSINhShODg/YisEEHryeCDSvsV4GE+wFnhpsbZ4L5/YV3wA5oMZqINS4wLLiwNe1/5YQPYE1KzNMYti15waAR2YRiweJZggxvrp9GsSBfsZ8hvvINRmRjWLByauL/BRu+gl0KcuHvX/8YppTfg/NBLoYBmA/ICiJYcIA0wwyFicH4AiKsDB/e/AbbN6fiG0NKBxdhHyAnUWRL0NMqyJKtDnpwYe8DlxiAJdvn7btW8SGrxZoP/t7O+e+T9QoeqeiGL+p8xLBIQwNdmAFkCXpSJZjRsPkC5nqwq6EA5Jszbz8zmPV1ophJVFEBi3CYYejBAxMn2gcwDaD4gKUQEA0qSTUUWRmePXgAjlDkOADJk2wBukVogf4TyGfPVZNhmHzrCViKqKICI+YoFCBYYVBo/jCokwFRz/MZ5GHtRwAAAABJRU5ErkJggg=='
@@ -1066,9 +5001,10 @@ $Menu3_Remove_Teams_ICO.add_Click({
     })
 
 #Show Hidden Extensions
+#$Hiddenext = (Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideFileExt').HideFileExt
 $Menu3_Hidden_Ext = New-Object System.Windows.Forms.ToolStripMenuItem
 $Menu3_Hidden_Ext.Text = "Show Hidden Extensions"
-$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABcElEQVRIS61WMW4CMRC8i+jhJ6nTR+EX1EmVDiGlgHSIMk16fhGUB6TNT6goEBLZOXlOe+u18VmxtDrO3t3ZnbF9tE08rs7cmKlWOw9ewsJGnrDcQBGI5ZO+UWwKYH38XjSzx70HwhgPpBwgU74uyoKUAUj16xSAdGW71iDvlt4kRTc0sIlSmnRC2YE2uw5Wi/tmu//1sKJKg+BlHViKHFpSDdpdle9AZbHCaoAfeXkIE2UikyIHQFfo/S4DSFBkhdQAn1LMS9hBAOmHPjSYxHsvsvGzFdOfblinyLxuWh53OhFgUEVY3MlzqUCtoB6Ae588SxK0XDNeJehDF+FdWDWJEaM1In3XWwCg6k1sKnYSO4vdiU1MQu/AdqAaIDokQXCAaH4RiDmc9lRishABcIGBtoNLcBjVAfkjb7Ua6LjBNrUJv2TiqRLlIHFzHeveprnvAYIzlx8ohfWjFgAn1vsolV3XtooRdBV18K9/W/4ALgh3E8kW9TUAAAAASUVORK5CYII='
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABqklEQVRIS2NkIBYEZv1n+Pqc4brlT5w6fnz/yvDz+3cGi8mnGGGK4AycukAGwwDVLUA2HGQJmgVcUloM355dg9tPmg8CcxIZGP7NQ/EZdS1AChocQUShDwhbgB5vsCACicMiGnckQ8P/f20owpxH9xlunF9DMBXBFIAswWsByHDG5tVwA//HmxBlAXHJFOgDmOsPP3rDYCsnwsBApA9ItgDkC7Bl1LZgf5wDg4O8KMlxgOkDaDHAsGs9Ik7QMxnQGvQ4ID6ZBmV9/9LBwgFyKo/aJNyWUJLR/r2s/c8Ue4UBxRfBaRoM/1iuU68scgv8/2+xDsO3jx8xfQJ0PQjgKk1BwfXu7mncpen//w0s/1/9/Q0yBGbB//wJ4gyMv18w3H/AcMPgPt6CnaAFwCD6AjSBmynjLYpB/5VUGBju3CVoAUgT4dIUS8oBaQRbAgJIFqGnIIosgFtCSwtAlvy+dZHhTgg/2DNU98Gff4wM/++cB1ogQLA0xV0WweLg/18GBkZmRCkKNBwE/uCwAOYb4iMZlOa5JSGGAg2HWUV1C5ANB1nG+P0Zyc0WAEJhnyglBESTAAAAAElFTkSuQmCC'
 $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu3_Hidden_Ext_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
@@ -1076,15 +5012,16 @@ $Menu3_Hidden_Ext.Image = $Menu3_Hidden_Ext_Picture
 $Customize_Menu.DropDownItems.Add($Menu3_Hidden_Ext)
 
 $Menu3_Hidden_Ext.add_Click({
-        Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Hidden' -Value 1 -Force
+        Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideFileExt' -Value 0 -Force
         $explorer = Get-Process -Name explorer
         Stop-Process -Id $explorer.id -Force
     })
 
 #Show Hidden Files
+#$Hiddenfiles = (Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Hidden').Hidden
 $Menu3_Hidden_Files = New-Object System.Windows.Forms.ToolStripMenuItem
 $Menu3_Hidden_Files.Text = "Show Hidden Files"
-$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABqklEQVRIS2NkIBYEZv1n+Pqc4brlT5w6fnz/yvDz+3cGi8mnGGGK4AycukAGwwDVLUA2HGQJmgVcUloM355dg9tPmg8CcxIZGP7NQ/EZdS1AChocQUShDwhbgB5vsCACicMiGnckQ8P/f20owpxH9xlunF9DMBXBFIAswWsByHDG5tVwA//HmxBlAXHJFOgDmOsPP3rDYCsnwsBApA9ItgDkC7Bl1LZgf5wDg4O8KMlxgOkDaDHAsGs9Ik7QMxnQGvQ4ID6ZBmV9/9LBwgFyKo/aJNyWUJLR/r2s/c8Ue4UBxRfBaRoM/1iuU68scgv8/2+xDsO3jx8xfQJ0PQjgKk1BwfXu7mncpen//w0s/1/9/Q0yBGbB//wJ4gyMv18w3H/AcMPgPt6CnaAFwCD6AjSBmynjLYpB/5VUGBju3CVoAUgT4dIUS8oBaQRbAgJIFqGnIIosgFtCSwtAlvy+dZHhTgg/2DNU98Gff4wM/++cB1ogQLA0xV0WweLg/18GBkZmRCkKNBwE/uCwAOYb4iMZlOa5JSGGAg2HWUV1C5ANB1nG+P0Zyc0WAEJhnyglBESTAAAAAElFTkSuQmCC'
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABcElEQVRIS61WMW4CMRC8i+jhJ6nTR+EX1EmVDiGlgHSIMk16fhGUB6TNT6goEBLZOXlOe+u18VmxtDrO3t3ZnbF9tE08rs7cmKlWOw9ewsJGnrDcQBGI5ZO+UWwKYH38XjSzx70HwhgPpBwgU74uyoKUAUj16xSAdGW71iDvlt4kRTc0sIlSmnRC2YE2uw5Wi/tmu//1sKJKg+BlHViKHFpSDdpdle9AZbHCaoAfeXkIE2UikyIHQFfo/S4DSFBkhdQAn1LMS9hBAOmHPjSYxHsvsvGzFdOfblinyLxuWh53OhFgUEVY3MlzqUCtoB6Ae588SxK0XDNeJehDF+FdWDWJEaM1In3XWwCg6k1sKnYSO4vdiU1MQu/AdqAaIDokQXCAaH4RiDmc9lRishABcIGBtoNLcBjVAfkjb7Ua6LjBNrUJv2TiqRLlIHFzHeveprnvAYIzlx8ohfWjFgAn1vsolV3XtooRdBV18K9/W/4ALgh3E8kW9TUAAAAASUVORK5CYII='
 $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu3_Hidden_Files_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
@@ -1092,10 +5029,15 @@ $Menu3_Hidden_Files.Image = $Menu3_Hidden_Files_Picture
 $Customize_Menu.DropDownItems.Add($Menu3_Hidden_Files)
 
 $Menu3_Hidden_Files.add_Click({
-        Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideFileExt' -Value 0 -Force
+        Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Hidden' -Value 1 -Force
         $explorer = Get-Process -Name explorer
         Stop-Process -Id $explorer.id -Force
     })
+
+#Hide Customize Menu if all are hidden.
+#if ($Menu3_Dark_Mode.Visible -match $false -and $Menu3_Old_Context.Visible -match $false -and $Menu3_Search_Bar.Visible -match $false -and $Menu3_Remove_Teams_ICO.Visible -match $false -and $Menu3_Hidden_Ext.Visible -match $false -and $Menu3_Hidden_Files.Visible -match $false) {
+#    $Customize_Menu.Visible = $false
+#}
 
 #Serial Number Script
 $Menu4_Serial = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -1105,6 +5047,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu4_Serial_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu4_Serial.Image = $Menu4_Serial_Picture
+if ($SerialNum_Checkbox_Cust -match $true) {
+    $Menu4_Serial.Visible = $True
+}
+else {
+    $Menu4_Serial.Visible = $False
+}
 $Scripts_Menu.DropDownItems.Add($Menu4_Serial)
 
 $Menu4_Serial.add_Click({
@@ -1125,6 +5073,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu4_Speed_Test_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu4_Speed_Test.Image = $Menu4_Speed_Test_Picture
+if ($SpeedTest_Checkbox_Cust -match $true) {
+    $Menu4_Speed_Test.Visible = $True
+}
+else {
+    $Menu4_Speed_Test.Visible = $False
+}
 $Scripts_Menu.DropDownItems.Add($Menu4_Speed_Test)
 
 $Menu4_Speed_Test.add_Click({
@@ -1152,7 +5106,7 @@ $Menu4_Speed_Test.add_Click({
         $container2.Text = "Speed Test:"
         $container2.Width = 380
         $container2.Height = 125
-        $container2.Location = New-Object System.Drawing.Point(6, 10)
+        $container2.Location = New-Object System.Drawing.Point(10, 10)
 
         # Controls inside container 1
         $label23 = New-Object System.Windows.Forms.Label
@@ -1303,7 +5257,7 @@ $Menu4_Speed_Test.add_Click({
         $container3.Text = "Speed Test URL:"
         $container3.Width = 380
         $container3.Height = 55
-        $container3.Location = New-Object System.Drawing.Point(6, 145)
+        $container3.Location = New-Object System.Drawing.Point(10, 145)
 
         # Controls inside container 3
         $textbox3 = New-Object System.Windows.Forms.TextBox
@@ -1332,7 +5286,7 @@ $Menu4_Speed_Test.add_Click({
         $container4.Text = "Progress:"
         $container4.Width = 380
         $container4.Height = 38
-        $container4.Location = New-Object System.Drawing.Point(6, 207)
+        $container4.Location = New-Object System.Drawing.Point(10, 207)
 
         $progressBar = New-Object Windows.Forms.ProgressBar
         $progressBar.Name = "ProgressBar"
@@ -1350,7 +5304,7 @@ $Menu4_Speed_Test.add_Click({
         $buttonOK.Text = "Run Test"
         $buttonOK.Width = 150
         $buttonOK.Height = 36
-        $buttonOK.Location = New-Object System.Drawing.Point(28, 252)
+        $buttonOK.Location = New-Object System.Drawing.Point(32, 258)
         $buttonOK.Add_Click({
                 $buttonOK.Enabled = $false
                 $form.Cursor = [System.Windows.Forms.Cursors]::WaitCursor
@@ -1361,7 +5315,7 @@ $Menu4_Speed_Test.add_Click({
         # Create button for open URL in browser
         $URLClip = New-Object System.Windows.Forms.Button
         $URLClip.Text = "Open URL in Browser"
-        $URLClip.Location = New-Object System.Drawing.Point(211, 252)
+        $URLClip.Location = New-Object System.Drawing.Point(217, 258)
         $URLClip.Width = 150
         $URLClip.Height = 36
         $URLClip.Enabled = $false
@@ -1511,6 +5465,12 @@ $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
 $Menu4_Ping_Google_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
 $Menu4_Ping_Google.Image = $Menu4_Ping_Google_Picture
+if ($PingGoogle_Checkbox_Cust -match $true) {
+    $Menu4_Ping_Google.Visible = $True
+}
+else {
+    $Menu4_Ping_Google.Visible = $False
+}
 $Scripts_Menu.DropDownItems.Add($Menu4_Ping_Google)
 
 $Menu4_Ping_Google.add_Click({
@@ -1523,50 +5483,450 @@ $Menu4_Ping_Google.add_Click({
         Start-Process @startParams
     })
 
-#Google Bookmark
-$Menu5_Google_Book = New-Object System.Windows.Forms.ToolStripMenuItem
-$Menu5_Google_Book.Text = "Google"
-$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACFElEQVRIS5WWvS8EQRjGn7kIhSg0xFelEVHoTkWESkNwGoVGhcpHQqJQKBRo8AeohUKikCiUFCof10gkvgqN+Aribsc7e7drdu6dNTvJ5HZ3Zt7fPM/7zu4JxDTZVbOFr9QEPA+QecAr9jzd+9fqVwJ5r19c5/dtoYRtQHbWn+AH6UKgfyBqPCdXxY03x8WLQGR3s4T0Az7T7qqpF3frAFGKPPlNvQI0XdwhjO1fyAxuIdEU7oIm4alR2ZAM8qkWRtqleESbkMMUnms72uPtNWBspnTW8jSwuP73vIF3v6DEBOmAuMrgxgwQKRGlEB1wuAGcHwOzu3bU+AAwNQ+0d7CKfEhEBacgU7SAKhZ7moX6jh8Yx7Xx/yHB/gYJZkK44MH8CGQEk1Rym6FWWz6SQHSVKQy5JV5ZVtsCbGZLfTfVOCU+CKMrUhBbTnQIU8J8del1ZFrXS7A3mqD6lZFs2xkJSjjRWUkT6JQ/v2CsUrHDI+p0IOOUqGiJIWpRYNfnOzBaBbzSs1QlcP8BvNC1Qz4iSljL4vLD7FyfrhIe3Edf9S4vS/MFE5PwZBDdOh1iAfgW2ZTEWqbOicrJEVVWKxmgcmJpOqAkJz5kCWW4oA+v2QJIcE5skDqUi7Poevs33syPA8RUwOaEUx+enxiILbgzxLcwgwPk0OfnRLcrhRVxjwV7dgojVrtYVT30f6AIEVn3tb9bgCfeuItiYwAAAABJRU5ErkJggg=='
+#Separator
+$Separator8 = New-Object System.Windows.Forms.ToolStripSeparator
+if ($Custom_Scripts_1_Cust -or $Custom_Scripts_2_Cust -or $Custom_Scripts_3_Cust -or $Custom_Scripts_4_Cust -or $Custom_Scripts_5_Cust) {
+    $Separator8.Visible = $True
+}
+else {
+    $Separator8.Visible = $False
+}
+$Scripts_Menu.DropDownItems.Add($Separator8)
+
+#Custom Script 1
+if ($Custom_Scripts_1_Cust) {
+    $Menu1_Custom_Scripts_1 = New-Object System.Windows.Forms.ToolStripMenuItem
+    $Menu1_Custom_Scripts_1.Text = (get-item $Custom_Scripts_1_Cust).Name
+    $Menu1_Custom_Scripts_1_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
+    $Menu1_Custom_Scripts_1.Image = $Menu1_Custom_Scripts_1_Picture
+    if ($Custom_Scripts_1_Cust) {
+        $Menu1_Custom_Scripts_1.Visible = $True
+    }
+    else {
+        $Menu1_Custom_Scripts_1.Visible = $False
+    }
+    $Scripts_Menu.DropDownItems.Add($Menu1_Custom_Scripts_1)
+
+    $Menu1_Custom_Scripts_1.add_Click({ 
+            Start-Process powershell.exe -ArgumentList "-NoExit -NoProfile -ExecutionPolicy Bypass -Command `"$Custom_Scripts_1_Cust`""
+        })
+}
+    
+#Custom Script 2
+if ($Custom_Scripts_2_Cust) {
+    $Menu1_Custom_Scripts_2 = New-Object System.Windows.Forms.ToolStripMenuItem
+    $Menu1_Custom_Scripts_2.Text = (get-item $Custom_Scripts_2_Cust).Name
+    $Menu1_Custom_Scripts_2_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
+    $Menu1_Custom_Scripts_2.Image = $Menu1_Custom_Scripts_2_Picture
+    if ($Custom_Scripts_2_Cust) {
+        $Menu1_Custom_Scripts_2.Visible = $True
+    }
+    else {
+        $Menu1_Custom_Scripts_2.Visible = $False
+    }
+    $Scripts_Menu.DropDownItems.Add($Menu1_Custom_Scripts_2)
+
+    $Menu1_Custom_Scripts_2.add_Click({ 
+            Start-Process powershell.exe -ArgumentList "-NoExit -NoProfile -ExecutionPolicy Bypass -Command `"$Custom_Scripts_2_Cust`""
+        })
+}
+
+#Custom Script 3
+if ($Custom_Scripts_3_Cust) {
+    $Menu1_Custom_Scripts_3 = New-Object System.Windows.Forms.ToolStripMenuItem
+    $Menu1_Custom_Scripts_3.Text = (get-item $Custom_Scripts_3_Cust).Name
+    $Menu1_Custom_Scripts_3_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
+    $Menu1_Custom_Scripts_3.Image = $Menu1_Custom_Scripts_3_Picture
+    if ($Custom_Scripts_3_Cust) {
+        $Menu1_Custom_Scripts_3.Visible = $True
+    }
+    else {
+        $Menu1_Custom_Scripts_3.Visible = $False
+    }
+    $Scripts_Menu.DropDownItems.Add($Menu1_Custom_Scripts_3)
+
+    $Menu1_Custom_Scripts_3.add_Click({ 
+            Start-Process powershell.exe -ArgumentList "-NoExit -NoProfile -ExecutionPolicy Bypass -Command `"$Custom_Scripts_3_Cust`""
+        })
+}
+
+#Custom Script 4
+if ($Custom_Scripts_4_Cust) {
+    $Menu1_Custom_Scripts_4 = New-Object System.Windows.Forms.ToolStripMenuItem
+    $Menu1_Custom_Scripts_4.Text = (get-item $Custom_Scripts_4_Cust).Name
+    $Menu1_Custom_Scripts_4_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
+    $Menu1_Custom_Scripts_4.Image = $Menu1_Custom_Scripts_4_Picture
+    if ($Custom_Scripts_4_Cust) {
+        $Menu1_Custom_Scripts_4.Visible = $True
+    }
+    else {
+        $Menu1_Custom_Scripts_4.Visible = $False
+    }
+    $Scripts_Menu.DropDownItems.Add($Menu1_Custom_Scripts_4)
+
+    $Menu1_Custom_Scripts_4.add_Click({ 
+            Start-Process powershell.exe -ArgumentList "-NoExit -NoProfile -ExecutionPolicy Bypass -Command `"$Custom_Scripts_4_Cust`""
+        })
+}
+
+#Custom Script 5
+if ($Custom_Scripts_5_Cust) {
+    $Menu1_Custom_Scripts_5 = New-Object System.Windows.Forms.ToolStripMenuItem
+    $Menu1_Custom_Scripts_5.Text = (get-item $Custom_Scripts_5_Cust).Name
+    $Menu1_Custom_Scripts_5_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
+    $Menu1_Custom_Scripts_5.Image = $Menu1_Custom_Scripts_5_Picture
+    if ($Custom_Scripts_5_Cust) {
+        $Menu1_Custom_Scripts_5.Visible = $True
+    }
+    else {
+        $Menu1_Custom_Scripts_5.Visible = $False
+    }
+    $Scripts_Menu.DropDownItems.Add($Menu1_Custom_Scripts_5)
+    
+    $Menu1_Custom_Scripts_5.add_Click({ 
+            Start-Process powershell.exe -ArgumentList "-NoExit -NoProfile -ExecutionPolicy Bypass -Command `"$Custom_Scripts_5_Cust`""
+        })
+}
+
+#Custom Script 6
+if ($Custom_Scripts_6_Cust) {
+    $Menu1_Custom_Scripts_6 = New-Object System.Windows.Forms.ToolStripMenuItem
+    $Menu1_Custom_Scripts_6.Text = (get-item $Custom_Scripts_6_Cust).Name
+    $Menu1_Custom_Scripts_6_Picture = [System.Drawing.Icon]::ExtractAssociatedIcon("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe")
+    $Menu1_Custom_Scripts_6.Image = $Menu1_Custom_Scripts_6_Picture
+    if ($Custom_Scripts_6_Cust) {
+        $Menu1_Custom_Scripts_6.Visible = $True
+    }
+    else {
+        $Menu1_Custom_Scripts_6.Visible = $False
+    }
+    $Scripts_Menu.DropDownItems.Add($Menu1_Custom_Scripts_6)
+
+    $Menu1_Custom_Scripts_6.add_Click({ 
+            Start-Process powershell.exe -ArgumentList "-NoExit -NoProfile -ExecutionPolicy Bypass -Command `"$Custom_Scripts_6_Cust`""
+        })
+}
+
+if ($SerialNum_Checkbox_Cust -match $false -and $SpeedTest_Checkbox_Cust -match $false -and $PingGoogle_Checkbox_Cust -match $false) {
+    if (!($Custom_Scripts_1_Cust -and $Custom_Scripts_2_Cust -and $Custom_Scripts_3_Cust -and $Custom_Scripts_4_Cust -and $Custom_Scripts_5_Cust -and $Custom_Bookmark_6_Cust)) {
+        $Scripts_Menu.Visible = $False
+    }
+}
+
+#T1 IT Links
+$Menu5_T1_IT_Links = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu5_T1_IT_Links.Text = "T1 BWITLinks"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACIElEQVRIS+2Uy2sTURTGv8lMTJpO06c1ccQURawWkT4QEVciXfQPKNatC125E8RFQSlScNedC7fFnW5cVKUr02JFEVrRQilUIn3l0aRp0s7TL0kRp0lzTcFdLhzmMnfO/e79ne+MhMdRB/9xSHUBEd3aEMkewLJFe7rWaxIItPiQS+uA8+++qEmg73QTvsSygH1UAYm3q5I7eL4Nb5dSxHRUAYWMj8lA3qgodOvycbz8lgDMCnWQebpC7q7pynUj4jfhFj9Mj4TN1G4ZirtXwnj+dQPQLVch1QYFWpsfi+u5MvHyGnDzc6FGtDJpbiXjSnhw/RSefVoD9njKwuCButobEG72YTa2zfdu4dInlX4VFOmOBKEFFEz/SMLZZ/70ZgSPor+IsCTQwdsOnW3G6+8JZHL7ogdMfKiLZDId6T0Bi75/tRAnWhsTQ2dwf/onJJ5U6wzg4UAI4x9iiG3tHdobVW0a8Mm4008R2nJyPo7hnna8W05D9Su4zfmLz+tYiuerNp6wD3x01sWTKkavabiqqUgSz9jHVUwtJpDM0m2CIeFJ1PGQufevUDgvBjfPE83wpQ5M3Ij82er9Shr33izDZglNrlu2DYO3LLjX5FMvztkrDAljM46X/m1lBBlNXg+CRKN6ZTRyvrqjF8UHQip7sNRgazsGFjbzuEAHZQ0LOcPGNq2bYWR1G6nik47ieyEiEQLRel1ARKheAyEh/AZnufSR4+xwTAAAAABJRU5ErkJggg=='
 $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-$Menu5_Google_Book_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-$Menu5_Google_Book.Image = $Menu5_Google_Book_Picture
-$Bookmarks_Menu.DropDownItems.Add($Menu5_Google_Book)
+$Menu5_T1_IT_Links_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu5_T1_IT_Links.Image = $Menu5_T1_IT_Links_Picture
+if ($T1_BWITLINKS_Checkbox_Cust -match $True) {
+    $Menu5_T1_IT_Links.Visible = $True
+}
+else {
+    $Menu5_T1_IT_Links.Visible = $False
+}
+$Bookmarks_Menu.DropDownItems.Add($Menu5_T1_IT_Links)
 
-$Menu5_Google_Book.add_Click({
-        Start-Process https://www.google.com
+$Menu5_T1_IT_Links.add_Click({
+        Start-Process http://bwitlinks/t1support/
     })
 
-#Yahoo Bookmark
-$Menu5_Yahoo_Book = New-Object System.Windows.Forms.ToolStripMenuItem
-$Menu5_Yahoo_Book.Text = "Yahoo"
-$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAASCAYAAACuLnWgAAAA9ElEQVQ4T62UsRHCMAxF5cJHwxBU1CzDCmniVeicgoINGIAtOEoKCmaggyLEuRMnFMlWMC5lS09f37YDZbUQe2mrg+C0HC0+SdCKCwXuA3DF41L+F2QG4FObK8tCfgEgiYJ4nbQ3KqkBpHwzJPat6mdwXdFrBIlKeJDCeHGpETwzC5JatoB4AwnSwN57eD25V07zQwJhzDI+6pUK4YqwOyvADCmNjt6GNC7J9HQmq6QGQq918Z2gD4ftCc7Hm3qVuRIzZLH0sHs0Y+GcF+wxrofj1wmk9tWXfua/fpDUeFEJDtv6jw3dXSKEDTXJDCnBcqPRIG83gogP+MSPYwAAAABJRU5ErkJggg=='
+#T2 IT Links
+$Menu5_T2_IT_Links = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu5_T2_IT_Links.Text = "T2 BWITLinks"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACIElEQVRIS+2Uy2sTURTGv8lMTJpO06c1ccQURawWkT4QEVciXfQPKNatC125E8RFQSlScNedC7fFnW5cVKUr02JFEVrRQilUIn3l0aRp0s7TL0kRp0lzTcFdLhzmMnfO/e79ne+MhMdRB/9xSHUBEd3aEMkewLJFe7rWaxIItPiQS+uA8+++qEmg73QTvsSygH1UAYm3q5I7eL4Nb5dSxHRUAYWMj8lA3qgodOvycbz8lgDMCnWQebpC7q7pynUj4jfhFj9Mj4TN1G4ZirtXwnj+dQPQLVch1QYFWpsfi+u5MvHyGnDzc6FGtDJpbiXjSnhw/RSefVoD9njKwuCButobEG72YTa2zfdu4dInlX4VFOmOBKEFFEz/SMLZZ/70ZgSPor+IsCTQwdsOnW3G6+8JZHL7ogdMfKiLZDId6T0Bi75/tRAnWhsTQ2dwf/onJJ5U6wzg4UAI4x9iiG3tHdobVW0a8Mm4008R2nJyPo7hnna8W05D9Su4zfmLz+tYiuerNp6wD3x01sWTKkavabiqqUgSz9jHVUwtJpDM0m2CIeFJ1PGQufevUDgvBjfPE83wpQ5M3Ij82er9Shr33izDZglNrlu2DYO3LLjX5FMvztkrDAljM46X/m1lBBlNXg+CRKN6ZTRyvrqjF8UHQip7sNRgazsGFjbzuEAHZQ0LOcPGNq2bYWR1G6nik47ieyEiEQLRel1ARKheAyEh/AZnufSR4+xwTAAAAABJRU5ErkJggg=='
 $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-$Menu5_Yahoo_Book_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-$Menu5_Yahoo_Book.Image = $Menu5_Yahoo_Book_Picture
-$Bookmarks_Menu.DropDownItems.Add($Menu5_Yahoo_Book)
+$Menu5_T2_IT_Links_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu5_T2_IT_Links.Image = $Menu5_T2_IT_Links_Picture
+if ($T2_BWITLINKS_Checkbox_Cust -match $True) {
+    $Menu5_T2_IT_Links.Visible = $True
+}
+else {
+    $Menu5_T2_IT_Links.Visible = $False
+}
+$Bookmarks_Menu.DropDownItems.Add($Menu5_T2_IT_Links)
 
-$Menu5_Yahoo_Book.add_Click({
-        Start-Process https://www.yahoo.com
+$Menu5_T2_IT_Links.add_Click({
+        Start-Process http://bwitlinks/t2support/
     })
 
-#HackerNews Bookmark
-$Menu5_Hacker_Book = New-Object System.Windows.Forms.ToolStripMenuItem
-$Menu5_Hacker_Book.Text = "Hacker News"
-$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAC7UlEQVRIS72W6W7TQBDHZ52kdlJBRUEcFSB4CR6g5Gi/8pVPFffZ5qDwCKXpBeU+v/EGbdO08BI8AIhDUBAgUI+NE8fMeL32OlnzpagbRRvvMb//zM6Ow2AHGtsBBuggxn8At1UbKoS1y8cjk50wWuziV/Y6MQxnXfwY0+9ILC2PeGK2S8e4i8MMrdBC2uA1hoOuqsfb27FdxTMwZt5buKDRBXGKR7lUIiaFqm6PwvFOr+RzYvZDDGTsCJd6okq7Qeq88DraEnMf9ZDW6GH0xA9kEH31DIQEhjF1Kab+Gt0ZJe98ioFcH+BSoVTnm/VlhmcRVS/9COeTdz/rIc1rh3wIAB9dADY9DGYyzOitsSVIzw0D9farcej79taDt1wDWsUFsHBOttT8lxjI1YMKZBHaU0OQSQkIaeRjNYQMAS/WgLLQnB0CA51othk45SWw8DmA3Puqh9hXDnARb2HQrRYg7UFEjjWKy54hjv3WRA7St1bwuQAtglRqYM0U/JUMeu6v6SGNy/vRE5EppBZY9+W3ZvLAS3VITefBKS0Ca+JVmD8F7fIymDgnT8V88D0GcmmfFy66H7xUA+d2ToSL7iKO2ZU6mFM5aFRWIIl9AtU0yivQmsxDarwOPTjGMOsIZD6MgfCLe/1wocFyHSFZSOPByxS1K6toKIuwVUhWs+I8HAzlzdfeGpqTnliPfug94Rf6vXCRLzaqdSYIIo6SRps33kBPdRBs7I3JQUj6d2Vt4AT0n56AVPVkcPDW458xkPN78Mb7WpTyJMtL2MsLq97ysAjRL+vJLz1k61wfeiKCIwulasbFtGNULP/RZFlKP/2th2ye3R3ck8BOUJU1Jd5XopYV+Tvz7E8M5MwuD+KFzDfebToshWoxDV8NwtPM83U9ZGOkV3iik6aESKSpEBIpv54wsTnzYkMLSayPZFqdjCC15PuLTGjCpO6jpb0vNykvHTmuHqOJD/TdbqM3ovdW1EG2a1y7f0f+Ev0F9iw9KTS2BA4AAAAASUVORK5CYII='
+#T3 IT Links
+$Menu5_T3_IT_Links = New-Object System.Windows.Forms.ToolStripMenuItem
+$Menu5_T3_IT_Links.Text = "T3 BWITLinks"
+$IconBase64 = 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACIElEQVRIS+2Uy2sTURTGv8lMTJpO06c1ccQURawWkT4QEVciXfQPKNatC125E8RFQSlScNedC7fFnW5cVKUr02JFEVrRQilUIn3l0aRp0s7TL0kRp0lzTcFdLhzmMnfO/e79ne+MhMdRB/9xSHUBEd3aEMkewLJFe7rWaxIItPiQS+uA8+++qEmg73QTvsSygH1UAYm3q5I7eL4Nb5dSxHRUAYWMj8lA3qgodOvycbz8lgDMCnWQebpC7q7pynUj4jfhFj9Mj4TN1G4ZirtXwnj+dQPQLVch1QYFWpsfi+u5MvHyGnDzc6FGtDJpbiXjSnhw/RSefVoD9njKwuCButobEG72YTa2zfdu4dInlX4VFOmOBKEFFEz/SMLZZ/70ZgSPor+IsCTQwdsOnW3G6+8JZHL7ogdMfKiLZDId6T0Bi75/tRAnWhsTQ2dwf/onJJ5U6wzg4UAI4x9iiG3tHdobVW0a8Mm4008R2nJyPo7hnna8W05D9Su4zfmLz+tYiuerNp6wD3x01sWTKkavabiqqUgSz9jHVUwtJpDM0m2CIeFJ1PGQufevUDgvBjfPE83wpQ5M3Ij82er9Shr33izDZglNrlu2DYO3LLjX5FMvztkrDAljM46X/m1lBBlNXg+CRKN6ZTRyvrqjF8UHQip7sNRgazsGFjbzuEAHZQ0LOcPGNq2bYWR1G6nik47ieyEiEQLRel1ARKheAyEh/AZnufSR4+xwTAAAAABJRU5ErkJggg=='
 $IconBytes = [Convert]::FromBase64String($IconBase64)
 $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
-$Menu5_Hacker_Book_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
-$Menu5_Hacker_Book.Image = $Menu5_Hacker_Book_Picture
-$Bookmarks_Menu.DropDownItems.Add($Menu5_Hacker_Book)
+$Menu5_T3_IT_Links_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+$Menu5_T3_IT_Links.Image = $Menu5_T3_IT_Links_Picture
+if ($T3_BWITLINKS_Checkbox_Cust -match $True) {
+    $Menu5_T3_IT_Links.Visible = $True
+}
+else {
+    $Menu5_T3_IT_Links.Visible = $False
+}
+$Bookmarks_Menu.DropDownItems.Add($Menu5_T3_IT_Links)
 
-$Menu5_Hacker_Book.add_Click({
-        Start-Process https://news.ycombinator.com/
+$Menu5_T3_IT_Links.add_Click({
+        Start-Process http://bwitlinks/t3support/
     })
 
+#Separator
+$Separator7 = New-Object System.Windows.Forms.ToolStripSeparator
+if ($Custom_Bookmark_1_Cust -or $Custom_Bookmark_2_Cust -or $Custom_Bookmark_3_Cust -or $Custom_Bookmark_4_Cust -or $Custom_Bookmark_5_Cust -or $Custom_Bookmark_6_Cust) {
+    $Separator7.Visible = $True
+}
+else {
+    $Separator7.Visible = $False
+}
+$Bookmarks_Menu.DropDownItems.Add($Separator7)
+
+#Custom Bookmark 1
+if ($Custom_Bookmark_1_Cust) {
+    $Menu5_Custom_Bookmark_1 = New-Object System.Windows.Forms.ToolStripMenuItem
+    #Format Url for Text Label
+    $urlWithoutHttp1 = $Custom_Bookmark_1_Cust -replace "(https?://)?(www\.)?", ""
+    $urlWithoutExtension1 = $urlWithoutHttp1 -replace '\.(.*)', ''
+    $formattedurl1 = $urlWithoutExtension1.Substring(0, 1).ToUpper() + $urlWithoutExtension1.Substring(1)
+    $Menu5_Custom_Bookmark_1.Text = $formattedurl1
+    #Download Favicon Image
+    $ProgressPreference = 'SilentlyContinue'
+    $Filename1 = "$formattedurl.png"
+    $WebClient1 = New-Object System.Net.WebClient 
+    $URL1 = "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=$Custom_Bookmark_1_Cust&size=16"
+    $File1 = "$env:TEMP\$Filename1" 
+    $WebClient1.DownloadFile($URL1, $File1)
+    #Sets icon to standard paw image 
+    $base64String = 'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=='
+    #Sets to favicon if file is downloaded
+    if (Test-Path $File1) {
+        $imageBytes = [System.IO.File]::ReadAllBytes($File1)
+        $base64String = [System.Convert]::ToBase64String($imageBytes)
+    }
+    $IconBytes = [Convert]::FromBase64String($base64String)
+    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+    $Menu5_Custom_Bookmark_1_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+    $Menu5_Custom_Bookmark_1.Image = $Menu5_Custom_Bookmark_1_Picture
+    if ($Custom_Bookmark_1_Cust) {
+        $Menu5_Custom_Bookmark_1.Visible = $True
+    }
+    else {
+        $Menu5_Custom_Bookmark_1.Visible = $False
+    }
+    $Bookmarks_Menu.DropDownItems.Add($Menu5_Custom_Bookmark_1)
+
+    $Menu5_Custom_Bookmark_1.add_Click({ 
+            Start-Process $Custom_Bookmark_1_Cust
+        })
+}
+    
+#Custom Bookmark 2
+if ($Custom_Bookmark_2_Cust) {
+    $Menu5_Custom_Bookmark_2 = New-Object System.Windows.Forms.ToolStripMenuItem
+    #Format Url for Text Label
+    $urlWithoutHttp2 = $Custom_Bookmark_2_Cust -replace "(https?://)?(www\.)?", ""
+    $urlWithoutExtension2 = $urlWithoutHttp2 -replace '\.(.*)', ''
+    $formattedurl2 = $urlWithoutExtension2.Substring(0, 1).ToUpper() + $urlWithoutExtension2.Substring(1)
+    $Menu5_Custom_Bookmark_2.Text = $formattedurl2
+    #Download Favicon Image
+    $ProgressPreference = 'SilentlyContinue'
+    $Filename2 = "$formattedurl.png"
+    $WebClient2 = New-Object System.Net.WebClient 
+    $URL2 = "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=$Custom_Bookmark_2_Cust&size=16"
+    $File2 = "$env:TEMP\$Filename2" 
+    $WebClient2.DownloadFile($URL2, $File2)
+    #Sets icon to standard paw image 
+    $base64String = 'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=='
+    #Sets to favicon if file is downloaded
+    if (Test-Path $File2) {
+        $imageBytes = [System.IO.File]::ReadAllBytes($File2)
+        $base64String = [System.Convert]::ToBase64String($imageBytes)
+    }
+    $IconBytes = [Convert]::FromBase64String($base64String)
+    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+    $Menu5_Custom_Bookmark_2_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+    $Menu5_Custom_Bookmark_2.Image = $Menu5_Custom_Bookmark_2_Picture
+    if ($Custom_Bookmark_2_Cust) {
+        $Menu5_Custom_Bookmark_2.Visible = $True
+    }
+    else {
+        $Menu5_Custom_Bookmark_2.Visible = $False
+    }
+    $Bookmarks_Menu.DropDownItems.Add($Menu5_Custom_Bookmark_2)
+
+    $Menu5_Custom_Bookmark_2.add_Click({ 
+            Start-Process $Custom_Bookmark_2_Cust
+        })
+}
+    
+#Custom Bookmark 3
+if ($Custom_Bookmark_3_Cust) {
+    $Menu5_Custom_Bookmark_3 = New-Object System.Windows.Forms.ToolStripMenuItem
+    #Format Url for Text Label
+    $urlWithoutHttp3 = $Custom_Bookmark_3_Cust -replace "(https?://)?(www\.)?", ""
+    $urlWithoutExtension3 = $urlWithoutHttp3 -replace '\.(.*)', ''
+    $formattedurl3 = $urlWithoutExtension3.Substring(0, 1).ToUpper() + $urlWithoutExtension3.Substring(1)
+    $Menu5_Custom_Bookmark_3.Text = $formattedurl3
+    #Download Favicon Image
+    $ProgressPreference = 'SilentlyContinue'
+    $Filename3 = "$formattedurl.png"
+    $WebClient3 = New-Object System.Net.WebClient 
+    $URL3 = "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=$Custom_Bookmark_3_Cust&size=16"
+    $File3 = "$env:TEMP\$Filename3" 
+    $WebClient3.DownloadFile($URL3, $File3)
+    #Sets icon to standard paw image 
+    $base64String = 'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=='
+    #Sets to favicon if file is downloaded
+    if (Test-Path $File3) {
+        $imageBytes = [System.IO.File]::ReadAllBytes($File3)
+        $base64String = [System.Convert]::ToBase64String($imageBytes)
+    }
+    $IconBytes = [Convert]::FromBase64String($base64String)
+    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+    $Menu5_Custom_Bookmark_3_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+    $Menu5_Custom_Bookmark_3.Image = $Menu5_Custom_Bookmark_3_Picture
+    if ($Custom_Bookmark_3_Cust) {
+        $Menu5_Custom_Bookmark_3.Visible = $True
+    }
+    else {
+        $Menu5_Custom_Bookmark_3.Visible = $False
+    }
+    $Bookmarks_Menu.DropDownItems.Add($Menu5_Custom_Bookmark_3)
+
+    $Menu5_Custom_Bookmark_3.add_Click({ 
+            Start-Process $Custom_Bookmark_3_Cust
+        })
+}
+
+#Custom Bookmark 3
+if ($Custom_Bookmark_4_Cust) {
+    $Menu5_Custom_Bookmark_4 = New-Object System.Windows.Forms.ToolStripMenuItem
+    #Format Url for Text Label
+    $urlWithoutHttp4 = $Custom_Bookmark_4_Cust -replace "(https?://)?(www\.)?", ""
+    $urlWithoutExtension4 = $urlWithoutHttp4 -replace '\.(.*)', ''
+    $formattedurl4 = $urlWithoutExtension4.Substring(0, 1).ToUpper() + $urlWithoutExtension4.Substring(1)
+    $Menu5_Custom_Bookmark_4.Text = $formattedurl4
+    #Download Favicon Image
+    $ProgressPreference = 'SilentlyContinue'
+    $Filename4 = "$formattedurl.png"
+    $WebClient4 = New-Object System.Net.WebClient 
+    $URL4 = "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=$Custom_Bookmark_4_Cust&size=16"
+    $File4 = "$env:TEMP\$Filename4" 
+    $WebClient4.DownloadFile($URL4, $File4)
+    #Sets icon to standard paw image 
+    $base64String = 'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=='
+    #Sets to favicon if file is downloaded
+    if (Test-Path $File4) {
+        $imageBytes = [System.IO.File]::ReadAllBytes($File4)
+        $base64String = [System.Convert]::ToBase64String($imageBytes)
+    }
+    $IconBytes = [Convert]::FromBase64String($base64String)
+    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+    $Menu5_Custom_Bookmark_4_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+    $Menu5_Custom_Bookmark_4.Image = $Menu5_Custom_Bookmark_4_Picture
+    if ($Custom_Bookmark_4_Cust) {
+        $Menu5_Custom_Bookmark_4.Visible = $True
+    }
+    else {
+        $Menu5_Custom_Bookmark_4.Visible = $False
+    }
+    $Bookmarks_Menu.DropDownItems.Add($Menu5_Custom_Bookmark_4)
+
+    $Menu5_Custom_Bookmark_4.add_Click({ 
+            Start-Process $Custom_Bookmark_4_Cust
+        })
+}
+    
+#Custom Bookmark 5
+if ($Custom_Bookmark_5_Cust) {
+    $Menu5_Custom_Bookmark_5 = New-Object System.Windows.Forms.ToolStripMenuItem
+    #Format Url for Text Label
+    $urlWithoutHttp5 = $Custom_Bookmark_5_Cust -replace "(https?://)?(www\.)?", ""
+    $urlWithoutExtension5 = $urlWithoutHttp5 -replace '\.(.*)', ''
+    $formattedurl5 = $urlWithoutExtension5.Substring(0, 1).ToUpper() + $urlWithoutExtension5.Substring(1)
+    $Menu5_Custom_Bookmark_5.Text = $formattedurl5
+    #Download Favicon Image
+    $ProgressPreference = 'SilentlyContinue'
+    $Filename5 = "$formattedurl.png"
+    $WebClient5 = New-Object System.Net.WebClient
+    $URL5 = "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=$Custom_Bookmark_5_Cust&size=16"
+    $File5 = "$env:TEMP\$Filename5" 
+    $WebClient5.DownloadFile($URL5, $File5)
+    #Convert Image to Base64 to display
+    #Sets icon to standard paw image 
+    $base64String = 'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=='
+    #Sets to favicon if file is downloaded
+    if (Test-Path $File5) {
+        $imageBytes = [System.IO.File]::ReadAllBytes($File5)
+        $base64String = [System.Convert]::ToBase64String($imageBytes)
+    }
+    $IconBytes = [Convert]::FromBase64String($base64String)
+    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+    $Menu5_Custom_Bookmark_5_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+    $Menu5_Custom_Bookmark_5.Image = $Menu5_Custom_Bookmark_5_Picture
+    if ($Custom_Bookmark_5_Cust) {
+        $Menu5_Custom_Bookmark_5.Visible = $True
+    }
+    else {
+        $Menu5_Custom_Bookmark_5.Visible = $False
+    }
+    $Bookmarks_Menu.DropDownItems.Add($Menu5_Custom_Bookmark_5)
+
+    $Menu5_Custom_Bookmark_5.add_Click({ 
+            Start-Process $Custom_Bookmark_5_Cust
+        })
+}
+
+#Custom Bookmark 6
+if ($Custom_Bookmark_6_Cust) {
+    $Menu5_Custom_Bookmark_6 = New-Object System.Windows.Forms.ToolStripMenuItem
+    #Format Url for Text Label
+    $urlWithoutHttp6 = $Custom_Bookmark_6_Cust -replace "(https?://)?(www\.)?", ""
+    $urlWithoutExtension6 = $urlWithoutHttp6 -replace '\.(.*)', ''
+    $formattedurl6 = $urlWithoutExtension6.Substring(0, 1).ToUpper() + $urlWithoutExtension6.Substring(1)
+    $Menu5_Custom_Bookmark_6.Text = $formattedurl6
+    #Download Favicon Image
+    $ProgressPreference = 'SilentlyContinue'
+    $Filename6 = "$formattedurl.png"
+    $WebClient6 = New-Object System.Net.WebClient
+    $URL6 = "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=$Custom_Bookmark_6_Cust&size=16"
+    $File6 = "$env:TEMP\$Filename6" 
+    $WebClient6.DownloadFile($URL6, $File6)
+    #Convert Image to Base64 to display
+    #Sets icon to standard paw image 
+    $base64String = 'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEG0lEQVRoQ9WZTWgTQRTH5yVpI21B8AOttKBSQRRqYgTRg+i19GqhNC14KnjWU0EEsQfBowe92UTBeBTrTQ8eRAptEKQHLQpGK0Kh4EfZtpvx7SYbdzfzPVutc0qyM+/9fzNv3rydANmiRks5CuNVCJtn/WbrPuLA1lgw3hPqfQ4D0LuFLtLl/oz/buszcYBAfBvAzGA3gdSPpuBfCNdtK973kYSRSJjMDmRh6L1DKQEA4q9EvCHkTQSYSsJ34gBJiNKxkRgALRcuE+reSTrGZTCJAITjPnAYz0CtDV7OfcfA6vG/L1XTcJ3UZSJFz60BWOJ5ELSc+4ri98UF8WBVwKwAROJZoaQDqyLeOgslCYA5ax6KCwVV4a1V1h3QiuVS7ht+3iuMz9BJTB8WjhLXXVTtr6rLOIRksx8PIVrOfyGU9oqFpaZhfF7rfFAGoDP5UwToXLDhtAGa5YVsZnU3tDpArL7BjFLHjCIcH6mF/iUAq77B4qwDi7N11ZhGG7ew79V/sgK8MlgYRlgHQbGaCguWhh1jjBRY1kH03CvYiBdKjMaKZRmAyfuD0h6g5dN9hDqffJ3ZIxkYeey20mmlsJM47mqEIbuRhZG3beGF++YJ7pth3qSwAFgHYni8FIAzazV01m+yerxV4Im3AsAZc3DGOplCUx15GJurGkJ4q9nnjwV4iSfwOZYd+qhwgay7z0WpVbgCujFrAmM7hgtAKxfTxHm3KXOge/AIk0LbWQGLML5wTJiqeQ9pKb9MCN0vA8Dn9xBiUqEftwstD2KSSDWSRHtbR/tZ7sbnA+Q28FlGRZjtKtiEKj+EyrkPuIEPqgBgn2WEOKDYN9JNJr6x0ckrPBTPsuxbbeKwQZNVQPEO2mBnuZhanv1EAEzEe/qUZr8JsoUAsISZYkA3fDBJnEAE1XNkDQG6tENIYZbqaDgdNkwrZ3YRZ20l5qytn4LtPyZ29+6AoWdeuLU1aSkhcqRbsLWVCy/OZ0ht1ct2wmZ8EkdmNnbI6Ir3bdF6D0y88S94g0Yf5CdInd4XESQCIJsl1ZDggHslOTMaZAlCKYQUxc9jv7ysL/fGjvXKCXAbC70rwtWROVR9rpwSY+8Tcfu0dHKSZNKzMDrHKy0iQxJZAWXxTdeysFCdNK+fNYCu+IY4WMGzY4+OUF5fKwAz8YGU1BReYk3bQhgBoHDvesS7JrFrGTIMo9WnNka0AexmnSEVsv1QfF0zhdACQPEldFQ0dcaN49jfsTr2dQGYf9rpOEwaYtsAkE1yCC5VP+pOxvYBSMENGFu49t8CmB5ueitQOd5JnA5mXa47c/H+fwXAc6ryv4ABzGcEaNzUaTatFQhsYzrllr+a/v3uprPvjzVxGAKJplUgNbz+YF764sot4TXN4bA/G+GBnd/2jblAobJvMgAAAABJRU5ErkJggg=='
+    #Sets to favicon if file is downloaded
+    if (Test-Path $File6) {
+        $imageBytes = [System.IO.File]::ReadAllBytes($File6)
+        $base64String = [System.Convert]::ToBase64String($imageBytes)
+    }
+    $IconBytes = [Convert]::FromBase64String($base64String)
+    $Stream = [System.IO.MemoryStream]::new($IconBytes, 0, $IconBytes.Length)
+    $Menu5_Custom_Bookmark_6_Picture = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::new($Stream).GetHIcon()))
+    $Menu5_Custom_Bookmark_6.Image = $Menu5_Custom_Bookmark_6_Picture
+    if ($Custom_Bookmark_6_Cust) {
+        $Menu5_Custom_Bookmark_6.Visible = $True
+    }
+    else {
+        $Menu5_Custom_Bookmark_6.Visible = $False
+    }
+    $Bookmarks_Menu.DropDownItems.Add($Menu5_Custom_Bookmark_6)
+
+    $Menu5_Custom_Bookmark_6.add_Click({ 
+            Start-Process $Custom_Bookmark_6_Cust
+        })
+}
+
+#If no bookmarks hide menu
+if ($T1_BWITLINKS_Checkbox_Cust -match $false -and $T2_BWITLINKS_Checkbox_Cust -match $false -and $T2_BWITLINKS_Checkbox_Cust -match $false) {
+    if (!($Custom_Bookmark_1_Cust -and $Custom_Bookmark_2_Cust -and $Custom_Bookmark_3_Cust -and $Custom_Bookmark_4_Cust -and $Custom_Bookmark_5_Cust -and $Custom_Bookmark_6_Cust)) {
+        $Bookmarks_Menu.Visible = $False
+    }
+}
+    
 $Systray_Tool_Icon.ContextMenuStrip = $contextmenu
-
 $Systray_Tool_Icon.Add_Click({
         if ([System.Windows.Forms.Control]::ModifierKeys -eq [System.Windows.Forms.Keys]::Shift -and $_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
             #Toast
@@ -1574,6 +5934,28 @@ $Systray_Tool_Icon.Add_Click({
             $bodText = "Version: $Version`n`nAuthor: James.Orner"
             $bas64Image = "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAMAAABrrFhUAAADAFBMVEVHcEz9pQD/pAD8pgH+pQH9pgD9pgH+pQD+pgD/pQD/pAH8pwD9pwD/qAD7pwH/owD+oQD/pAL9ogD+pQL6qQD+pAD9pQL9owH/pgD/owP/ogH6pwH+pAP8owD/pwD8qAD+pQP+qAH9pQT+pAX/sRP/tRP8pQD/tA/6pQD+owH6owD8ogD8oQD7pQL9qAAVCAb4pAD7pgT9pAH8pQQTCQb/rQj/pAT9pAV/UyLqnRL9pwX/sxH5owD/ogX/sQ//tg3/sxf4ogH6oQD9pAf/sBb/oQj/swwYCAf/qgD/rwX/rgtLKBL9nwD/uBP/sQpLMBf/txj/qQMjDQf/qwj/tRcbDAgbBQWLWR9WMhQmDwn9ogT3qgB/WyZ/VB3/rAG2fB/4rRt8Ux35qQBSLxcXCwcgCgdJLBNFKhQgDwnzriGDUh3/pwL+rh//rQQUDAgXBAQ/KBT/sAV2TSHsoxhOLRWseib/rhmqdSLvnw7smxCAVRv/rBb7pQb4pwfqoyL/sh1NMxtSNBblpyXuphr/pwX6pAP9oAGFXSWNVhptTyG8eyH/rRBaMRP4pBa4gSjwnxb7pxSNXSHnnRuxeR/qnxN/ThhvSRv9qxTpmw64fyG/gSX4rBP+pgK1dBzgnCL9qwH5pwJxTSP6ngF8VSPnphncnBeEUiHnnhHtpSKBVSNZNBirbyDnmhXxpSLvqRn2owH/tiE/IhH0qiS/fh17TB6EVh7rmxh0VCiETBjmmSP0pRqzdSK4eB+lcyFGLhcAAADtrSP+pxJDKBSxfBl6ThaBTR/hlR7amiGxeSb/qAr/pAf/uhb2pwDwohz9owr/uxFTLRPzqRyyhCf9shHimxmlax+EViOwdRqIUx3Zkh/7oQTmoCT5qyb6qR/EgR//swYzGQ7/sA7cliB1Rxu5dxXqnSK0fSekeSZ8VxuIViQ4IxB4VR3zpBPwqRGIWh6TWR3bpCPJiiT/wCT/vB2QXihrSR32oSL6sSL9oAbkogxDIQ+6iSf9oQ5NOyYvDwlHcEw5SJYDAAABAHRSTlMA//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8AJ5UbsQAAIABJREFUeNrsm3tQU1cex8l9nXOSmxtCkksCSUwDCXKTKCRCcMMjXKiAgi+06wPWhSLSinYFq6L4qApd64j11VFpFUHttqti3e7a6aq1PtZpxXZ3ddXuy3V37ep0t7trnensTjuz6aBdvDeQ2zoDIfD7j5z8Mnw/93d+53d+59yoqIGxxfeu3zsj/rjgznfvPRkV+VZwrt52+bMW8UDd3dZp9csjXv/iPdmwmGs/+qZo5IrSESO7uO2ZyNb/5qb57U1U18gF14Qj1e+qkptYrvTWk+9EsP7nL6MYhJjZbeb6hYKhstW/NYJ4j+t7R+5Erv47dzvboAphCV79ztGCsXJ/Ch3vVXubui5+HKn6f9za+UWeAhoMWW5zgwiAr0ur1yOQ9UFnztLI1H+8VQ9VBkBqKFS5d6wQQEa28/0ECEkKGnnfbyJR//nPeAAQCJicbCwURUCGL8aoARAAiFldN2dE4Pp3OMYNuk1O5ikbCoQAbDH3hxFw7V1bEGn65z31nQf6ASB1SvEUsMUQ94d1VO7GiEsDf1zUidAD/VCnX1XVOwCA4aYVz0WW/op8XqvDHgAgYotEhVAPAASmsCMRoUFt069gJpz9egYYnTk7+gLAAE/mxIjaFuzzN8dbAxmeIAIiIVTzJWViALFfA2pU4Y1w3bwIAnDQz7/MECbOETCTDBqNrdXCr7xmc2o0btZud9uZLLm8McX/z0gCkJTbXqwtGmfz+5KKlKZicEC8G/a1FzvdU5RKsxnxnKfRpd46OnIA1N3NSdq47sRbBzs6dsxZ5R9396roK1P/9WF2SevOsQ0NDW9PTlMqlYVbIygC5tbdvl0380FGrFv+yVzxd06VfVK25pmqMQujqjNe2dxw6PS5qCFsC6tGV0UN27AN27AN27AN22Bf0aNqzl+vKFsTNSTX9al1L1zaucznXz259dCtExOGmvzFWy5MS9NPMQd2gE7MjNJqW34wlOTPXVqbv543yVJXxtO03m3ycPZFT80YOvqX/r2UdJhwCuqMhCZdzdoZyuNsPtrxztCQ/8buROT6us3d3QgCGPKal9VJ8J55vLy8ouLgwbqpg1X/c8fSOtvsQGgWTfKoz0POgnktP8rPTrL5E22Jyz7asmYw6q9YzWS6KUYm0K9QGNBI5th/+3Z+7Vc3QLOzmHc4uKb5UxJbD3w6fbDpf7Y1dpaCAUaBfkinQmRwLtrVp/O2D+0cazTmpTI07fXqeLcy+0DHINOf4/JgZCX9uFpAAFkYEG1sy++rHjib1J6XYNSwOE4AigQI4h7uscl/fWkQ6X/9slMOWALBNsEUILJAvEyFd41v6d35pK9dnUcpFCNoqE4nRjBWhBmts/jCi88OGv11R10y9oMEhFGVpCACjBoZC2mPqbbXEJhRG5ucrAWIQAgzqPWGx9MZJsEQZ8zMLd06SG6Q/fIScpEeD0QJGijKAVQ6iDfEuUp/3Ytz9R8ohmkkEWtlgZ5mcCulRwiyXsWovOLC04PitPCJw2YXDqjAok+AIEYAkgBu+fZevOcUpWgZrwp1nx+RMgqCAACCDTgi06glg+HaxMmNnMUN+jYZtin4nuDM76NdDLSg4G46zr8t7PVX+7pW6lAIANB0M/gcaEkrTtAYWC0Z3I9KyQl7Aj9ZkLKSCAkAV6ybGcS5oB7NsurjNJVkb478xJPhrb/D1m7FsVAAgIJfcjyI94QXkRenMUNvERAoJPijV8N5MzXvsOmLPBRSP8FyicEO/3cVpaTSI5AK7wUAkivsqrfDeTVsmch5rRiyECEIaDLH/TBI96he30ZijAKz9uavZmm3ctUTYau/4JJeprUgGAoAwrx7L4jvRG/YGKMAcQyD2F78SQVSqbnx4ZsIr5W6gYwAIFQAQJg1ars4C+5I+uoeIUH2kTsIlYroPHo9TPWf+twdSvp9AKTBZRNnwWtpjhCOpEaN4MiVh8+EJ4AtPgeQBgCquZzbQveq/cgYylOdDmhFys0XwlJ/zRWlDkgkoM70Z4hy4H/mhwKAyS3UYzQdHZ53CDeUOAmJAICGzxYtA8d7XJTsLXsigqUgFq3/XTgespxNM0nVH6gFlQfGCPzLbY7QcwcQlnSDms8uDz/9M+vT40mJ+gkSN/9D+BArchyhIoAlIZKrNTq7cuvcsAPw0opmrUQAhIb06n8mBPDpjUy2bz/Kw0KEocBWgkt8OuwA7CoySU4BBPSYxwqnwJX1qaEAUg/8Zet/EXaNkLVKmVEyAeBSCgGMGWtmpE4hhOPvhtsZW/URYPIA6QBEEVCz2cxAifoxpu29PWEGoKwkxm5/FADH/U4ZlBoBqRRaFmanZuVJzRQBHmEKdPgckiPIymKOiWGWBpcnORWPBOCqn5MaQYTVqLKX/jnMIiDfqTXKHwHA+cSRlFRvOUEpYl+cNKCCv/zy4b8zVju0aqkAEPCIXpqaU8p4pIYQxsYz/LTnB7L3tbt29cPtyQwbB0M3w+73tw1Wr/C1uap1ZplMaiENEyxMpm0AL5NPOlaamVvy9MOVPCdHUgNAzrLCFydHv6qUvAgAMs9Im0oHrjNUfXq+k23CLvU84Sv3OdSSMwCCssJDAgDblTKpdVCgJtbovaqgrfX+sDdOK12VFjx3cs9JWOFzqinpAIBybdW3BkBYcEI/Kzpx38Do/9O/SzlzZWMqn3juIQCcnJSqAGpixgveG/xGESCnAcrjSw4ODIDdN3OtarPVG116tsen+/JdOqkAIEx3+naIAUguBDGawBqDttb7wf6W3W410DRSuRs392htT20oTP4GAJoTfyoGQEkGwFjkpH39RwOh//XaNiYBY+JxFN+16dT/P59+aYRO8iMk5TF+wW25r1YB6Uk03qKCJmznmP7XP/0WakIKCEiSkHH+nlnwxAqGlryOR+/dXiPsCb/vkbwMUjglx2LNAwFgeaKT0N5v/vJJPefxX2pTNBIrORKPfu+C8JdfGd9ESY4giiLkOlE13Q925kiqDMzO6i55TWlzevYEG/QJEgHIPPxNUQJ7Kyf3ZclTALAUSlYe6v8A+PgGh+hUQ3fJ5zavmt4zhs1Gif+/zpObL2rrXrXxhNQIwKCFUuj0qxb2t/4JS0ZSKqRWdGd7t/LVnvX82QVuqU/Qw/k3iI4VLptikNRVAKrxttgFc/q/8TmeU2BxoDIogA0lDolTAMUWHhC1tWv26xOkniwhygC1znH9vhua9P0mA4XLIRMUQM0es1QBvG2L+Nd/nuaSvAoo4lBl8bSyfu/7+TOJ5NmMmjTxvMPh4N37H7rFvCUpEAIEIPs6HicJOYBusKla/Ovnp6VIzQG4Igu1/Y+7Kw9u4rrD7O7b3bdaaWXJWrGr08gHluRDki+MLGPLlsGOMSaGDLFjY1wgNoRgwjnhGIptaDEN1KF247RUAaYONIRyJ5CkZDIlAZykUJpOzBWnCZlSmJJJ0qbNTKcSTMDBK+86XdlM37/2avW+997v/b7f8cl+bv1IA3A4MU+J64JmtMzrTZhRkPDFd2u9pq3wxFEaQhebDSLd/1SD26eG8dlbBSTjFnilHiHcygfItLSlI647d769ulprn97+7sqfHXm6trZ2U/N3//5alotB4/Uw8kKiugY1xaRkCRULPzYjTyoAtE0BHKUjbwO/uRpkyt48tacx0iXxZlCnDvAcjUdKiaFQp8Tc9i4hdZA36pVSjwBhTDP1jbwNHPPQ0hsvXhtK2eTjKg/HozDSQuIMqmZ0xNjpwizmhNT0MtA0ML6UhBG3gWPGLG4eOggzqyuGwSklHyE4ijdAH8Hw/so9gk+/kuCXdgYUahoLxNS/MebBGyfKXFZ3hpqKtANCABAb6yIc3qcSpKZXUb2+fNFbwmxtdIVXDqwzIDUYGvmrZ1ux8sQIoax5O1QeqXQS0w72JW9HK2689NSoInC42F8zTgPIMLfH7yf4rMEEdMHWi5GM6E+9/nBznSglAAR0q1qEPmX5eIoSkGsd0UNw1VFEKRCaADhj/DbEQwFAEAQONdk4nfzE3ohccxumJ9LUPgjFSoWQoFDn1e/2VO7EzDHnRleB6sMqM6QgDlC1YkAqC4A7LSO0K/9E5Gd3jMvJ0BNA7DoEHr29S6Dr5gctSHUQK796flQBWHyltFCnCOQYSfVdYxiaPhUepM5VemgoX7uyT20K0mKhRdbm8AndpG/XOatrQrfM81EunsicPDk9MzM9Ujim+eTqwiKbkmEw4l5py+35U3F9XFPzUB99aJEWD2KisVWlf8VhIT/MUI0xSrJ6cLhJxtHY+eeOo7nbe3q2d3z4912C5ux6d9n+XtKA1TTAAQB4WEh41JeHTul2jt9I20T9QZha0S1E1itS4pTvBThTTFe0XIR5X81uSShrVYUH13raW9AxR7Bi8dnx2hQTTrIDdwDQuwth/TIReDeo9DwnFltEiBebhVzpPIaAPE9iqf1RoglbXvJWqJxO1mPK8XhYj6PQbOm/KFi1+qcVS3o9Bt+3COBhw922v6JpvmjUvalcrRTJDwB/wgShS7QkjwEUB6Ge0NZHpXZgZdfCvj4TgiuxcFQ2bNKDjH/h6s0fCfzvss1ddSqtGQnbPwJP8rBOS2vlFQn30zNljrVE6CEWCBZY4oACDtWnAj0TMz9W2eMUKG4kNaaNM+bIP/3Hr5Q4zLFsaFHv5j8gacvwjJ30uWAf6JZbq/JLLWhMud/lSuZU3lWnfi/lNcvO9ep8PqDhDSjE7+XTw34EqeAbajIMqRMvCa1vZ6XTwAOIY3hstjOCn/y/jGVNV12D6gAp/ZpsU2HJBkGKlP5o5+x1x/MnJRYUt696e5fUoq4jiTuLCCWt5CjT3aOgCAGAh6PhsQjuQQ4K7u9DpWYkdO3ioU0Sq+d2y506X3bZkjfYOEGaAQaDo3d3pF7gmY//7bFNmxb8ZTglbd35jlho1TFFcQMcKRKHIfeK1vu03G8FI2GT1ylybCGIQqcTx9v8BTJ3m6+/RJl5flDMM5bWKTWBgF21T0aBnI+6S7UBKs29hrxLKkNzgiEAKErvmH5cmEo1bre4bRwV4gmhf2bMi56TF4CLVX4FEXt/5gdkx2EZpmwNyFtyRcaXTb5V97Uv5DWAAQBASCMQASlTzkXolfjxHx2Mh4OIPmQocaWHapE1afJsVrKbH9cwqJ2NMsXblFYrrfQXfybj6x7pfn+/j8Lv9RATIQKsxNyFZMmrkbZaY1NZzM62tom3aSjmsciaN+w8u5/hMTjYR8dD21JJ0xnVvDYyx/s+p+D8WU6bhA1wCSnO7GgreXlBZDWRr16rn1rWijhCBwUQrOqojOLsi2dXpZjUGe7BVXAYjqIUIEGGMYk/2Cznnvv1hVIV9Js9iCc8ENap5dqfODT0K6ZN+OTdGxV2BMSZWFWHjAAcqfQDlAQIGTF1R1mV5Yu+kdXqPLJy69qzWQvDTrfFMkXVX7zv2nzxp9IPXOuyugi1Z0qufADM2/ELsZQXDhVn+ko+k9fwjpm265OlPbm527fnbj31o2NSL/ZZTVl+49pfdchnAz5IdIiQk9giCJEzhe/LH4ua++TcuenpwxPYbb7Sz6Wofy7bDnj4wkIxemoKMDXQkNNW/4Cooa9sKZ50UDbxpRcKXKKVGwa8JkNDpZR2PyDR+cZjR+QrovxlVnKOmA3gKNtaBuX9BU///0nFrf8nhuWI5StwKs5o1WhY+82R7Wn9z7FdtRMmTKj9654XGqP1ji8TXcAmVsGHuLGQR6TUOOtG8MdhGjtntxQkehOKi70hxrnq1JdRCYI8eUHF2MU7Qok72X8QrDoxQtN/eMGr+Uss4R9sSElxOhwpFkvito5o7L8eVapCckssq08u3jIi83/9Zv7pwjYQHuGgEwk8iJOdsu3TvbKbgOcpREFLBICNt/fq9h2I/vQf6vaqHYwR+y43RTzs9NXPyRwQ3lXph5JboYCJnZicFX11g1f+0V+YBOwm8r4AOgy6k5c0zZf1Xe9k2SEpGQEC8vEx7dFual1eaeir0fEBk5EYdAShY+JJOY3hzHUcgIRUAHAdq3kPmXjyejSnf707v5e26oxJ8cT9rbaAQtWGjWkn18voi+eqPJCR2g2F0xoqnskri6ZDeODzfD9jVcIMIwPRwf6IL6BIbrj0B/kAWGVJUjLS2+IBhTfk7KyMXvXOoxsW+ePiEBOPoprBy6LACRuWplVtkE1rKT3XkopL7Ya7U8cNAcKdipbY0787kDaaVFMgXHMguAlJBKHMVctHDYA7dfTt0dJ8e6Zfi9Gi/Zls3xebRhUAwlgcHU5wLcEZHx8uxhWxRQ2wZ/JoAgCTVBuioYW8stKvYs8oODFqoqwpz3p9NAGg1P6KKGQnZ63eCHW0huM0QOw2slu2jioA/Nfky81yz//AZaqaWZvBQRIVk2mKZ9Cf7B1FAEisyCm/6N2huv2U0c2jDCNmBWPj6Zi6WzIBoAoBAIdrAxhrju+GzBof75TlBSFNGAxGneiKEBzbcFwWTpB5VJWEo3C4CBBp0NEvr+rfD1ewxjW3r38JLcYUTrgSP5AJAD2ugMM+A0BhXihrqdbii6dToWR9AhQnUvtl6SzO7FHl4DwY7vy57IAdvSknL/3N6TwsTrIxopSAbJVlATL/pbLTmmEDAPU+jXOqjBofW1bT1mwbJ/kLMCaekmUB5u62sMywjSCJMwpo9s6R8QaENEZwNqkrweo0Ae1UWSjZW3VjG4ZtA0mgo+g8wVq27zc2t7swwgikttcrNDqNzzxelgWo9fr/y921BjdxXWHt7t3de3fXq+hhobeF5ZdWlrGkxKT4LWxwsDEoSgjFFIyMIVCb8DRtsQkQ2yQx5ZXpwLQ2dkmZQgm4gYFi0hkgM2kpAQotSRhDZkKTIQ/S0pQJpNM/XRmSTGNWWjnrIuX+9Fgrfd/ee+6555z7nbAubkeIYU18foViAg+bWvIZbjwFZesLMHrcJGQrIrp44ZS1zxGvJ4RwrpLva1GKgOqTej/wEGogW2yOsSDkzlZmBv442MqiuH1BL2TLpz6lDP4TN0uLAA3iWYeIJqE2UxEClmw5Y5WvEPWlDeScXHr5E28rQ8D6FTnd8U5BRJAKEaDqCXWGDXHug5A0Qadvq0Klc38I2ej4CaCUIuD9lho+PU4CUjXd0Np+SaFD8CkzfJAENL5iHOTi/X4n0SuU/ESZsOyu4FmIHiABqudLBrPifQXdzr68S8poH//y2UAd8SBngOrzMlu8rjDkrbtvzVaKf8HpIR+gEVQ9uT3oEp3h1MitB1lhcRqj0zztCqXJGy/N0ZrT4iYAUsrNANUbXQKdRxeDOos5VqmMBlcjaPAz2qqTCmUGlmfYUGX8vngasuYq5oo/ftzeGibNaguvjmX9TTxvxkmNBymWntuXIRRMhPGHpJAjt1Ax/fH9oY42Hjc7Y+scGf28wYw8KYdWKvXdj2YE/Pr4T6MsAtrsj5T6ETNesfvYSO+3WD8EQpMpTLj4d2Phnz9u8uRxsurZj5Tlhjk8TvxAR+qANvMFxU6jP5iUCy0WGo/1QyCnNkHetyZalczTLxw51nNwpzgO9Ry7vDHWUlleptUDJl4CHCQ0aP6tXFR2ya4UmzfMMrHS5CTvRCA1Q7ol2rp9c5/LyC6ttaek2I3tUwozyur/9vzL0TIIj//KrnPGPwMgRrQrGZOcecfm5NmYUmHAT6GOHZJJqcZ5B6c+Am3uwKDLef68IctWdDYfS7n25obFUYr8XpridsZtBIHRn1+iqNzih801kHPCKPJA4uSAoIATpkueARs21NK7XVaXy6GzcxzBckDjoDxj3EJ6xcHTkrvmyqYsmicjqgI6Wi4PEDLe/IyPlSRgxt6qWRwhoqQiQnbDVgKyeNVqAw+9wmOSDtCFRb2CDw41IRLf6N2XCuihP7i7m49ekNyDumw8QUKj6QyUr1dYzHZ2KSu5uv7v6lndfORdiwQMM0qMn8VNFgvIMUqqXDYs0g+Olyo0zRr801WpnWPy2iDPkg4dhPJDc7DYi7Yom5k6cePPu0FHN4KQpME3bQEoICHyh9nOOUelvvWTk6yg9knMYUiAwIR6qSh2w3FBdIUMfJrsajWSNQ3WKl6tt6ok4EAiAZAkhwUndcAICB5T/1TSAdi8zO3C8yTfGJ1WhKQuPJ9Y/q8AboTePo6RKdZG6l3mX1QrTYDqdEVgLKAJkQHqPrfHnBwMTP2Z5DbS9JAG6inJICbPO9xVa6W0wTa2+cyIEPdhucfSPBf6tUr5cb20v5WiRPNFDVN1yUufaHXXrpY8UV4Jjinoq5PsQsfwRCUldEka0NWZ5ZVOXna1Gq7xt+8ZBQJUqwrL/bb7hIhFx4MnvghKF6e9kSnAyrY0KZU5GhgQafX2T5VMKP+ndHclmSbbDRgvVMwbDQJUH2QW6YbEUIZqAr/WUUa6sBcdl6zJWHq7zmvGoBEBqVyykYMuv8d+Raqy6L3PmnO/Jj7m/Y0++5ZRukDx4V9NgzaDeCpgGA3F8xBylKMAQUBZAtOPSH5qW6GAxXBnh/YHYcp+yezgInuuJiKvQ5KkTtIlvaczkCo81qMapbHpUNcXQh6OA9E1UZsBYeENOpIdP2F3oXRt4pN7ZEpkYWOPS94OrL6Y0kohnQ6INkjSIbinM6AJlIxer/ZPru8I5s4ysHqeopEJQSOuNjmJmklRajP3ZcuNKkbroHXhXBtkNAUa0XuUjJDd0xmwnjkwaleIIlvaQEWvvsgHgCHdIDrGCOmKciZFKYlasl22ajhmH5CsLzzx8i03QjijAdIE3NMZcDWPbqv6xstHt2a0qwNF/W53Z2dNblbtndVR/v1GiVbu/kXZKj6XftBrIYGLdJsDUQiI6Axg9h+Nei+6hdt2bc0szC4tzS7Nnn71xWitgB8eqJKrFwwtQu0/opzI1obyRQYKdFHubkFIER3Bf6r+D2PdxsWX592Y99G82dGjOo1b7Kzs6jJfyp4oZ5iGvRNyCKTRRc0I2CZ01CdUR879a2ry5Mb1z1iznvhdlGcda+oXCRgq2bn/uQoXt+SOa4cTCf/Te43yU/uAOlsYNZBzZHo56XDCyGYIh5NAkmq6LrVG4WtT3zq3p4WylwCN88HofTNem9SRjlmtIgFguOIYNJpa+8ozf59I+FUfdGlpi+xWnGortiP6pa+eUBHHWAENnNbhMwsSE4Vln72XSPgXZGg1uOxOkhRuKsreFvWBzwwE3cZIiNBqHW4HAGWzNy1NqAnwl1otoyHlGgGW1BApf4yeMVl4u7m/G+NIcNcO/O8eMDj23QsJhb/xOS9AQHZ9A8f7QVWsxhmvHi4r93EQDscPhN5FKxMKv+qt0CwDhLJrbXHCkpq6NaYRP10x6Ka+uQsALNd2bcO6xMK/sMXs8lNQbo0RMqXq8ZprsUVh9zdNwTxZuq8cTAgwmxvLrpg7I7Hwq26WlWOiCZB7+5wmGUSfFxY1xHzwtLn1pcGADcvCxJGFZQkpzZl7n1qQYPBVr+9t80LRdZVd4CESQFrlNVGbdnOgbFnK3WF/pGzFO2+vUyXc2Hwtn4fQIT+hARg6DbMte0eej7m8Z8XO74lj57kX3/++KgHHbyp8FEFSBvm7AKJJAjNk1cudy/Mfjoxx81UJOcatbXch8XRKyS/zQ6K50Djdy+aqvgtjdfMsk8ZhoEj5yW2cS9OY0ieq17z+HcA/+82AlxoKYpKyCx0ZglOb9BZt6Hry42/4NLW4Th9RVKYJv+yrHn5oNunDBbktC5Id/8qLTDH75SGIkr8NwEipP7CFNic5/ur6PI/OGfddm69mQv9vH01qVbLqc8XuMGXGR0qAq8Pz6cxkXv8Hgu5KBKFxhPghZvJVXXkmedf/VSanDqhpAhvpDCCd5jGhVcmKf9PFXjcbZkku3QlGSAAgkKb81sfJiX9VC8pJc5oMhA6mj5AAoIMs8OTseCsJ4b96uMTt93OaAoQzOg6OdA0gTg99KaeWJx3+mQeac8+3sncPNmDE+O+WHWH4s+uTC/6M/U0/dEOvAaeVGTb+5LRkwt+wPfSQtpslcTVShgCYk3eoIXnwLz4+J9Dq9QAcUQrNAFo3xlifNKvgpem2Nn1dHY8YQx+pDH5gsnb03qlOCvjr14aKLB04zVHW4Tp/Ix2pxeG6HHQ7GRhYlYHc+jBuNhcXpBMkUmoJMBxPaIMDMxId/tKfl7lT/RRjDfMMgmlQA5TBT3JmM8Z5/lvdlcY2cURh7+7s7oy9XuOTXR9xcOyYeOPUsZu44MSJN4fSKCqBNEBoECL9AUWih1AJkJTQloSjUBKhFPUA2kIRFARVlDY9oBIqlypa0apSK9Qroeollb89fnXtOJEqVVVp2fHw/bQ0K79v3ryZeTPvm2feI9z+8Xcfyz0Wqm3l2VwhALhdHsA7nTwEkfRZou2/0h6L8LpCHXicZPdvVil97edBJkwsAw9+WXWdoZHODEA1fIVQ+8esbZASoM72Q1lNEcnA+BseEciMSWcCWFOTnAntJ8/+PXtFj7/iYxnoPAJYsQn5M+mTpNl/7bTZl0hq85TbqTMDyMNJrPLr62TZv3SfOYqc2XJGve3PPVkJ49GBcaIIONehAh4n4vA0SbnyNfVzn3BhJQBED39F0MZod0d5P4WVAB4OoneIsX91qM3oZ/ESwKO2vl5SCJgqaiqpgJjtLzOVbiQkQ9S1yewNBDA7AC/Mm1+xlYzswI3wGZPAYbYfJHhZ0a8i7pZwdn3Mw2IeATwVkOmGaOM1EkbAcQvFuoy4PcBlQYlIKwn3Zybq24BUXI2bADuCjqTvoW2FJ+DH1BCSXCUANwNG1lGs1K0rPAErw79BScQdBHm+2uWHRITBLakMRzsY3PaDEg6WUtJHhb8Yuy4V49wm7A4A7NAbYCKNuwgg4CpVy+MnQJKsDWIkdKTgBHwRjgWQW8S9F6CNgOI45fYJ5f1nHAtnXoIW7ATk9AGAkto+2+uMAAADwUlEQVRScAK6QypgEfZZYFofgAQP2HagDIgQ90owrw9QTkAMMExtpxyuAhAAoQCV+onCEzASrPF78ROQ0wcwL1hSeAIWDb9MyQj/RIgkX2LhBhJqZDYfTlqwE4BoYIWDrd8RYP/dl4oGGcmJmwF3Q5MpVjdKQkbkYn2mn8GdEbEXG5FJHdhBAgGG3a0rKNwOYOckOLdsmIzbk8+l1GLM+QCWkUWm7HY9XPB/0XmqZS7mGMCKtZU9tr4ThJwMjDbX4M4ImeCH+gnF3TLuOrTYhzsIOGoHOy4bSMHyjT4AnYDH5weAYfjzBJ0Q/xDMQLcsumTdF0BZnUCAeE8yup2c41ENL0wqEFRC3V3ACLI6gQgJSdtGosrp/hiD0UpG1H0yyMp3Qojo4poqwkpK9ww0JT1x3TcFHKsRgBC9Ao39TBYBhovnfYysuwdkEyEMBVxzJsmrJ+1NverRfQxkEyGcK5Fp7jWQh5PtV6P6XxKDML4wEyKzpvxm3+IIyAnls7P/d/ZWz/QiQevA7CNFAFL5/SOMa8sHimPY7I+5Y/a8LNRf5aGyAiTa7GenWITAmfTX3xJJgGH8k5brSQpCVrDb+az0+Gy2OCuBCyQemFiAEOIYThATASYa9alKRK2pqbzaw3njoijyObVmThvqgsCy3EzZPRTF/gaEYIATK6l4Hbl35pdvaI3bLLKRprVInYW1OAcrLcs0oo3IXdvQXykygVqbOmQrMhdVhVOhUPN6yexuU2JUbZOLCXhLvICvrrZajbTFONPeTXOi314MjbWx+X29BnLxyLn6KpWHdkEwMZzWnawpB5Z3BQIuziRYvWJPj2gbglXhcHDB5qdXjb55z4m3Dx4/tbc9XPdArNyb8PT0OExa93PQbjWCmfZO6HAEjBbZVtY6RriewJpn282+Minr/4CfdgPNHwShQoDAa6colTZL6yePrhrdsmvJ7AtDnYY13at3Hgp9g1C5r5Tx+6eFMk1C/gPGRCJRbbHYSjsOfP+ogXQcOZSWVLU0ENd6naezgxp5G0R/NBlRFLM5NXzqqedv/O1GtuvGwQ0Lgh3IrUaUuAIgp8WEXHtaixo+dcibfvHSHSEn0bnys4HUYsVmsyl5lA/5Slta0vfXb5oaWWT4J53Eta98vm+4PnTvPDMamjNUnm/vazF33Bc8+un7hjsEnat3Tg2k08HGYB6TjY2/X9557Mi/SmEs6r7wwdHXfglpH8ij8a2t+y9MrDXcSejqvrls2U/LZjAy0dV5SxQufXLHzdnWJ9Y+rO+//RMMBsELWrVfdAAAAABJRU5ErkJggg=="
             Toast
+        }
+        if ([System.Windows.Forms.Control]::ModifierKeys -eq ([System.Windows.Forms.Keys]::Control -bor [System.Windows.Forms.Keys]::Shift) -and $_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
+            $DadJoke = Invoke-RestMethod -Uri https://icanhazdadjoke.com/ -Headers @{accept = "text/plain" }
+            $Base64Image = "iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAMAAAAL34HQAAAC31BMVEUAAACfIgv4szP7178EAwP///3//v////8BAQH5sjT+3sP7sjP86dv5sjafIAcHBwb///6iIAj94MP31L4SERCiIgv+///92cH///z+//772b/yy7KdIwn20Lj7tDYMCwv3szbzya/xyK3/4MTzzbTvwaIaGhn93cD++/f417+aIAgtJiH2zrX207vxwqT759n42cQiHx79+PXv5c3wxaf83MMKBQL8+/X+/vnyxqr507sxKCQWFRUjHBf7sTb0z7c/OTPuvp/z5s+VIw31szf059bvxqv4tD305NL35M/35dSXIQj16NtOTUvzxnL18ejw5tOcIAn69vIcFBHyuE/83sb95dUmJCL948ftxq8UDQo0MjFDPTn53cjtv6H61L/17+LuwqUPCQXqw6r38+2aJA/0tEPsy7WXKRH03cf148ovLSvysjzy5sg+Ni++dl/6uEGdNB734M3yvFj118IoKSjv6Nr5vEr79ez+4MD9+PHruphcT0X84Mzx7ODhuqP21pn92b725MDOjXeYLRb517w6Lyj67ODvz7rhtJ3qvJy5a1Sbh3X1wGOtUjzw1L6eLRbSlYCkRi+sW0VoV0yoMRzy7eUtIBixm4f0yXvwvmG2X0n85c3bpY3uu5xuY1jHs6KSIglRQzn88ObIhW59bF3Uuqf34bb7wVPov6bawq9MRkK8qpajKBKOfG3kvateWlT10o7u2MbHfGjGrpjSnYb30YPgrZajm5JIOTGEc2OfPifXsZuqSzatj3r436u1oZDzzYXizLf32qPgy6Dm0r/xtUft056jk4HixbF5cmvOxbuDe3N7Y1LZqZTe18yoOyXUwJnn4dV3LAv60HWNhXq/nIXXzsKOdWLDbli2VD+XkIbAua/ApI2YMhu0rKKcfWmgTTX5yWZxa2TLqZC7hW+QVDjv2Kr207S3RC3qtE9UORaDQSBtUCTWoUSlezWvdVKWcC21hjcAIjOfs7/ZP6d+AAAgAElEQVR42sSYjU8TeRrHp2RapwE6bXbatDnMVONOmuLK1ZJOjQNylfJeaFlCD4qkYEFe9FgLraSnlShZcVlfAGHVPRQPXGWJd92XU9YXXNTjNoCSI2FxA6IJt8Hbv+Ke31TWylqooufDSxOmYT79Pt/n5TfY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"
+            If ($Base64Image) {
+                $ImageFile = "$env:TEMP\ToastLogo.png"
+                [byte[]]$Bytes = [convert]::FromBase64String($Base64Image)
+                [System.IO.File]::WriteAllBytes($ImageFile, $Bytes)
+            }
+            $headlineText = 'Random Dad Joke.'
+            $bodyText = $DadJoke
+                  
+            $ToastImageAndText02 = [Windows.UI.Notifications.ToastTemplateType, Windows.UI.Notifications, ContentType = WindowsRuntime]::ToastImageAndText02
+            $TemplateContent = [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime]::GetTemplateContent($ToastImageAndText02)
+            $TemplateContent.SelectSingleNode('//image[@id="1"]').SetAttribute('src', $ImageFile)
+            $TemplateContent.SelectSingleNode('//text[@id="1"]').InnerText = $headlineText
+            $TemplateContent.SelectSingleNode('//text[@id="2"]').InnerText = $bodyText
+            $AppId = 'C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe'
+            [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier($AppId).Show($TemplateContent)
+                  
+            Add-Type -AssemblyName System.speech
+                  ([System.Speech.Synthesis.SpeechSynthesizer]::New()).Speak($DadJoke)
         }
     })
 
@@ -1583,7 +5965,7 @@ function Toast {
     #Get-Service -Name WpnUserService* | Restart-Service -Force
     
     $winTitle = "Technology Notification"
-    $depAttention = "My Computer, Inc."
+    $depAttention = "Your PC, Inc."
     
     # TitleOnly ImageOnly ImageAndTitle
     $hdrFormat = "ImageOnly"
@@ -1591,8 +5973,8 @@ function Toast {
     
     # Register AppID
     $regPath = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings'
-    $app = 'C:\ProgramData\Combat-Hounds\Combat-Hounds.exe'
-    $appID = "{55466FFD-CCFD-412E-8C93-1E2803E643FD}\\Combat-Hounds\\Combat-Hounds.exe"
+    $app = 'C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe'
+    $appID = "C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe"
     
     # Load Namespaces
     $null = [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime]
@@ -1729,6 +6111,24 @@ function WingetCheck {
         $Path = "C:\Install\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
         Invoke-WebRequest -Uri $URL -OutFile $Path
         Add-AppxPackage "C:\Install\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"   
+    }
+}
+
+#Pin Wetfloor to systray
+$Path = "HKCU:\Control Panel\NotifyIconSettings"
+If (Test-Path -Path $Path) {
+    $subkeys = Get-ChildItem -Path $Path | Where-Object { $_.PSPath -ne 'Microsoft.PowerShell.Core\Registry::HKEY_CURRENT_USER\Control Panel\NotifyIconSettings' }
+    foreach ($subkey in $subkeys) {
+        $subkeyPath = $subkey.PSPath
+        if (Test-Path $subkeyPath) {
+            $key = Get-Item -LiteralPath $subkeyPath
+            if ($key.GetValue("ExecutablePath")) {
+                $executablePath = $key.GetValue("ExecutablePath")
+                if ($executablePath -like "*Combat-Hounds.exe") {
+                    Set-ItemProperty -Path $subkeyPath -Name "IsPromoted" -Value 1 -Type DWord
+                }
+            }
+        }
     }
 }
 
